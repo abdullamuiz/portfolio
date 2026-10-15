@@ -43,6 +43,7 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--ink);font:400 17px/1.6 Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;transition:background .4s var(--ease),color .4s var(--ease)}
 body.lb-open{overflow:hidden}
+html,body{overflow-x:clip}
 img,video{display:block;max-width:100%}
 img{height:auto}
 .hero-grid>*,.svc-grid>*,.feature-case>*,.studio>*{min-width:0}
@@ -116,8 +117,9 @@ p{max-width:62ch}
 .tile strong{color:var(--ink);font-weight:500}
 .t-story{grid-column:span 4;grid-row:span 2;display:flex;flex-direction:column;justify-content:space-between;gap:28px}
 .t-story .big{font-size:clamp(1.4rem,2.2vw,1.85rem);letter-spacing:-.02em;line-height:1.3;color:var(--ink);max-width:30ch}
-.t-portrait{grid-column:span 2;grid-row:span 2;padding:0}
-.t-portrait img{width:100%;height:100%;object-fit:cover}
+.t-portrait{grid-column:span 2;grid-row:span 2;padding:0;background:transparent;border:0;overflow:visible;display:grid;place-items:center}
+.t-portrait img{width:112%;max-width:none;height:auto;transform:rotate(-2.5deg);transition:transform .8s var(--ease);filter:drop-shadow(0 18px 24px rgba(10,30,32,.18))}
+.t-portrait:hover img{transform:rotate(0deg) scale(1.02)}
 .t-pillar{grid-column:span 2;display:flex;flex-direction:column;justify-content:space-between;gap:24px}
 .t-pillar i{font-size:1.7rem;color:var(--accent)}
 .t-pillar h3{font-size:1.15rem;margin-bottom:6px}
@@ -129,7 +131,7 @@ p{max-width:62ch}
 .t-image .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 24px;background:linear-gradient(transparent,rgba(5,15,16,.8));color:#fff}
 .t-image .cap h3{font-size:1.15rem;margin-bottom:4px}
 .t-image .cap p{color:rgba(255,255,255,.85);font-size:.92rem}
-@media (max-width:900px){.bento{grid-template-columns:1fr 1fr}.t-story{grid-column:span 2;grid-row:auto}.t-portrait{grid-column:span 2;grid-row:auto;aspect-ratio:4/3}.t-pillar,.t-image{grid-column:span 2}}
+@media (max-width:900px){.bento{grid-template-columns:1fr 1fr}.t-story{grid-column:span 2;grid-row:auto}.t-portrait{grid-column:span 2;grid-row:auto;padding:12px 0}.t-portrait img{width:86%}.t-pillar,.t-image{grid-column:span 2}}
 
 /* ================= WORK ================= */
 .feature-case{margin-top:56px;display:grid;grid-template-columns:1.35fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
@@ -347,6 +349,61 @@ footer a{text-decoration:none}
 footer a:hover{color:var(--ink)}
 .socials{display:flex;gap:18px}
 
+
+/* ================= SCRAPBOOK: paper and tape ================= */
+:root{--paper:#fbf9f4;--paper-ink:#1c2326;--paper-muted:#5a6061;--tape:rgba(228,216,190,.86);--torn:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%20preserveAspectRatio%3D%22none%22%3E%3Cpolygon%20points%3D%221.20%2C1.31%202.59%2C1.51%203.99%2C2.16%205.38%2C1.34%206.78%2C1.41%208.17%2C1.56%209.57%2C0.83%2010.96%2C1.42%2012.35%2C1.63%2013.75%2C1.93%2015.14%2C0.67%2016.54%2C1.05%2017.93%2C0.66%2019.33%2C1.96%2020.72%2C1.75%2022.11%2C0.58%2023.51%2C2.27%2024.90%2C2.24%2026.30%2C1.68%2027.69%2C1.61%2029.09%2C0.78%2030.48%2C0.53%2031.87%2C1.45%2033.27%2C0.61%2034.66%2C0.84%2036.06%2C0.94%2037.45%2C0.55%2038.85%2C1.34%2040.24%2C1.29%2041.63%2C2.02%2043.03%2C1.43%2044.42%2C1.65%2045.82%2C1.40%2047.21%2C1.69%2048.61%2C1.32%2050.00%2C1.00%2051.39%2C2.30%2052.79%2C2.29%2054.18%2C2.01%2055.58%2C1.77%2056.97%2C1.07%2058.37%2C0.91%2059.76%2C1.02%2061.15%2C0.63%2062.55%2C1.88%2063.94%2C1.22%2065.34%2C2.02%2066.73%2C1.20%2068.13%2C2.22%2069.52%2C2.03%2070.91%2C0.50%2072.31%2C0.88%2073.70%2C2.14%2075.10%2C1.35%2076.49%2C2.26%2077.89%2C1.22%2079.28%2C0.63%2080.67%2C1.63%2082.07%2C1.90%2083.46%2C0.99%2084.86%2C0.66%2086.25%2C1.10%2087.65%2C2.24%2089.04%2C1.86%2090.43%2C0.71%2091.83%2C0.94%2093.22%2C0.68%2094.62%2C0.61%2096.01%2C1.93%2097.41%2C0.82%2098.80%2C1.51%2098.64%2C1.20%2098.33%2C2.42%2098.98%2C3.64%2098.26%2C4.86%2098.87%2C6.08%2098.24%2C7.30%2098.60%2C8.52%2098.36%2C9.74%2098.42%2C10.96%2099.27%2C12.18%2099.06%2C13.40%2098.46%2C14.62%2099.16%2C15.84%2098.35%2C17.06%2098.57%2C18.28%2099.13%2C19.50%2098.87%2C20.72%2098.22%2C21.94%2099.29%2C23.16%2098.36%2C24.38%2098.41%2C25.60%2099.03%2C26.82%2098.49%2C28.04%2098.46%2C29.26%2098.19%2C30.48%2098.21%2C31.70%2098.80%2C32.92%2098.39%2C34.14%2098.82%2C35.36%2098.55%2C36.58%2098.64%2C37.80%2099.25%2C39.02%2098.68%2C40.24%2098.79%2C41.46%2099.14%2C42.68%2098.32%2C43.90%2098.28%2C45.12%2099.19%2C46.34%2099.08%2C47.56%2098.40%2C48.78%2098.33%2C50.00%2098.99%2C51.22%2099.23%2C52.44%2098.34%2C53.66%2099.24%2C54.88%2099.16%2C56.10%2098.82%2C57.32%2098.61%2C58.54%2098.22%2C59.76%2098.15%2C60.98%2099.26%2C62.20%2098.39%2C63.42%2098.95%2C64.64%2098.41%2C65.86%2099.09%2C67.08%2098.82%2C68.30%2098.45%2C69.52%2098.31%2C70.74%2098.96%2C71.96%2098.18%2C73.18%2098.37%2C74.40%2098.77%2C75.62%2099.12%2C76.84%2098.84%2C78.06%2098.44%2C79.28%2099.20%2C80.50%2098.34%2C81.72%2098.12%2C82.94%2098.42%2C84.16%2098.63%2C85.38%2098.17%2C86.60%2098.31%2C87.82%2098.54%2C89.04%2098.79%2C90.26%2098.26%2C91.48%2098.53%2C92.70%2099.17%2C93.92%2099.28%2C95.14%2098.89%2C96.36%2098.93%2C97.58%2098.80%2C98.80%2098.80%2C98.67%2097.41%2C98.27%2096.01%2C99.26%2094.62%2C99.33%2093.22%2C99.11%2091.83%2C98.36%2090.43%2C97.90%2089.04%2C98.83%2087.65%2C98.15%2086.25%2C99.28%2084.86%2C98.38%2083.46%2C98.82%2082.07%2C99.31%2080.67%2C97.84%2079.28%2C97.91%2077.89%2C98.86%2076.49%2C98.10%2075.10%2C97.52%2073.70%2C98.01%2072.31%2C99.34%2070.91%2C98.73%2069.52%2C98.49%2068.13%2C98.90%2066.73%2C97.96%2065.34%2C98.46%2063.94%2C98.70%2062.55%2C97.56%2061.15%2C99.00%2059.76%2C97.67%2058.37%2C99.18%2056.97%2C98.38%2055.58%2C98.66%2054.18%2C98.97%2052.79%2C98.28%2051.39%2C98.96%2050.00%2C99.26%2048.61%2C99.49%2047.21%2C98.78%2045.82%2C97.66%2044.42%2C98.72%2043.03%2C98.67%2041.63%2C98.26%2040.24%2C98.75%2038.85%2C98.65%2037.45%2C99.23%2036.06%2C99.08%2034.66%2C98.33%2033.27%2C99.24%2031.87%2C99.30%2030.48%2C98.87%2029.09%2C98.20%2027.69%2C99.33%2026.30%2C99.09%2024.90%2C98.91%2023.51%2C98.97%2022.11%2C99.30%2020.72%2C98.97%2019.33%2C98.59%2017.93%2C97.65%2016.54%2C99.50%2015.14%2C98.14%2013.75%2C98.96%2012.35%2C98.46%2010.96%2C98.77%209.57%2C97.54%208.17%2C99.43%206.78%2C98.90%205.38%2C99.32%203.99%2C97.54%202.59%2C97.57%201.20%2C97.78%201.87%2C98.80%201.88%2C97.58%201.78%2C96.36%200.96%2C95.14%201.56%2C93.92%201.47%2C92.70%201.68%2C91.48%201.57%2C90.26%200.95%2C89.04%201.48%2C87.82%201.26%2C86.60%201.83%2C85.38%201.66%2C84.16%201.76%2C82.94%201.38%2C81.72%201.15%2C80.50%201.79%2C79.28%201.45%2C78.06%201.24%2C76.84%200.86%2C75.62%201.57%2C74.40%201.82%2C73.18%200.80%2C71.96%201.79%2C70.74%201.65%2C69.52%201.17%2C68.30%201.61%2C67.08%201.44%2C65.86%201.32%2C64.64%201.54%2C63.42%201.11%2C62.20%201.03%2C60.98%200.91%2C59.76%201.56%2C58.54%201.27%2C57.32%200.71%2C56.10%200.91%2C54.88%201.27%2C53.66%200.94%2C52.44%201.52%2C51.22%201.85%2C50.00%201.67%2C48.78%201.49%2C47.56%201.46%2C46.34%201.24%2C45.12%201.46%2C43.90%200.76%2C42.68%200.87%2C41.46%200.98%2C40.24%201.70%2C39.02%200.73%2C37.80%201.25%2C36.58%200.86%2C35.36%200.72%2C34.14%201.65%2C32.92%201.07%2C31.70%201.38%2C30.48%201.55%2C29.26%200.75%2C28.04%201.75%2C26.82%200.74%2C25.60%200.79%2C24.38%201.24%2C23.16%201.88%2C21.94%201.71%2C20.72%201.08%2C19.50%201.29%2C18.28%201.45%2C17.06%201.20%2C15.84%200.96%2C14.62%201.03%2C13.40%201.24%2C12.18%200.90%2C10.96%201.03%2C9.74%201.84%2C8.52%201.55%2C7.30%201.72%2C6.08%201.70%2C4.86%201.30%2C3.64%200.86%2C2.42%201.08%2C1.20%22%20fill%3D%22%23000%22/%3E%3C/svg%3E");--noise:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22220%22%20height%3D%22220%22%3E%3Cfilter%20id%3D%22n%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22/%3E%3CfeColorMatrix%20values%3D%220%200%200%200%200.35%20%200%200%200%200%200.32%20%200%200%200%200%200.27%20%200%200%200%20.09%200%22/%3E%3C/filter%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url%28%23n%29%22/%3E%3C/svg%3E")}
+.tape,.taped::before,.taped-corners::before,.taped-corners::after{content:"";position:absolute;z-index:4;width:118px;height:30px;background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,0) 60%),var(--noise),var(--tape);clip-path:polygon(0% 12%, 3% 0%, 6% 14%, 9% 2%, 12% 0%, 88% 0%, 91% 10%, 94% 0%, 97% 14%, 100% 4%, 100% 88%, 97% 100%, 94% 86%, 91% 100%, 88% 92%, 12% 100%, 9% 88%, 6% 100%, 3% 90%, 0% 100%);box-shadow:0 1px 1px rgba(0,0,0,.06);pointer-events:none}
+.taped{position:relative}
+.taped::before{top:-15px;left:50%;transform:translateX(-50%) rotate(-3deg)}
+.taped-corners::before{top:-6px;left:22px;transform:rotate(-38deg)}
+.taped-corners::after{top:-6px;right:-30px;transform:rotate(36deg)}
+.paper-wrap{position:relative;filter:drop-shadow(0 14px 18px rgba(10,30,32,.16)) drop-shadow(0 2px 3px rgba(10,30,32,.10))}
+.paper{background:var(--noise),var(--paper);color:var(--paper-ink);-webkit-mask:var(--torn) center/100% 100% no-repeat;mask:var(--torn) center/100% 100% no-repeat;border:0!important;border-radius:0!important}
+.paper .muted,.paper span,.paper p{color:var(--paper-muted)}
+
+/* Section labels as masking tape */
+.label{display:inline-block;background:var(--noise),var(--tape);color:#3a3326;padding:8px 18px 7px;transform:rotate(-2deg);clip-path:polygon(0% 12%, 3% 0%, 6% 14%, 9% 2%, 12% 0%, 88% 0%, 91% 10%, 94% 0%, 97% 14%, 100% 4%, 100% 88%, 97% 100%, 94% 86%, 91% 100%, 88% 92%, 12% 100%, 9% 88%, 6% 100%, 3% 90%, 0% 100%);letter-spacing:.1em}
+
+/* Hero: taped photo + polaroid */
+.hero-media{padding:14px 0 56px 56px}
+.hero-media .main-wrap{position:relative}
+.hero-media .main{border-radius:4px}
+.polaroid{position:absolute;left:0;bottom:0;width:46%;background:var(--noise),var(--paper);padding:10px 10px 38px;transform:rotate(-4deg);box-shadow:0 18px 30px -12px rgba(10,30,32,.35);transition:transform .6s var(--ease)}
+.polaroid:hover{transform:rotate(0deg) scale(1.03)}
+.polaroid img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.polaroid figcaption{position:absolute;left:0;right:0;bottom:9px;text-align:center;font:500 .8rem "Geist Mono",monospace;color:#5a6061}
+
+/* Static photos: scattered prints */
+.row .tile-m{border-radius:3px;border:7px solid var(--paper);box-shadow:0 10px 22px -12px rgba(10,30,32,.35)}
+.row .tile-m:nth-child(4n+1){rotate:-1.6deg}
+.row .tile-m:nth-child(4n+2){rotate:1.2deg}
+.row .tile-m:nth-child(4n+3){rotate:-.6deg}
+.row .tile-m:nth-child(4n){rotate:1.8deg}
+.row .tile-m:hover{rotate:0deg}
+.row{padding:18px 0}
+
+/* Certificates: taped notes */
+.plaque{overflow:visible;margin-top:10px}
+.plaques .plaque:nth-child(odd){rotate:-1deg}
+.plaques .plaque:nth-child(even){rotate:1deg}
+.plaques .plaque:hover{rotate:0deg}
+
+/* Testimonial note */
+.quote-note{grid-row:span 2}
+.quote-note .quote{height:100%;padding:52px 44px 44px}
+.quote-note .quote blockquote{font-size:clamp(1.4rem,2.4vw,2rem);line-height:1.3;letter-spacing:-.02em;color:var(--paper-ink)}
+.quote-note .who b{color:var(--paper-ink)}
+@media (max-width:900px){.quote-note{grid-row:auto}}
+
+/* Contact: cut-out on torn paper */
+.contact-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:end}
+.contact-figure{position:relative;padding-top:110px;max-width:420px;justify-self:end;width:100%}
+.contact-figure .paper{position:absolute;left:0;right:0;bottom:0;height:68%}
+.contact-figure img{position:relative;z-index:2;width:88%;margin:0 auto;display:block}
+.contact-figure .note{position:absolute;z-index:3;left:-8px;bottom:26px;background:var(--noise),var(--tape);color:#3a3326;font:500 .8rem "Geist Mono",monospace;padding:8px 14px;transform:rotate(-4deg);clip-path:polygon(0% 12%, 3% 0%, 6% 14%, 9% 2%, 12% 0%, 88% 0%, 91% 10%, 94% 0%, 97% 14%, 100% 4%, 100% 88%, 97% 100%, 94% 86%, 91% 100%, 88% 92%, 12% 100%, 9% 88%, 6% 100%, 3% 90%, 0% 100%)}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}.contact-figure{justify-self:center;max-width:300px;padding-top:70px}}
+@media (prefers-reduced-motion: reduce){.row .tile-m,.plaques .plaque{rotate:0deg}}
+
 /* ================= MOTION ================= */
 .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .js .reveal.in{opacity:1;transform:none}
@@ -406,9 +463,8 @@ footer a:hover{color:var(--ink)}
     </div>
     <div class="hero-media reveal d2">
       <!-- REPLACE: images/hero-resort.jpg (portrait 4:5) -->
-      <img class="main" src="https://picsum.photos/seed/muiz-hero-resort/880/1100?grayscale" width="880" height="1100" alt="Overwater villas at a Maldives resort photographed by Muiz">
-      <!-- REPLACE: images/muiz-with-camera.jpg (square) -->
-      <img class="inset" src="images/muiz-square.jpg" width="500" height="500" alt="Abdulla Muiz Fuad">
+      <div class="main-wrap taped-corners"><img class="main" src="https://picsum.photos/seed/muiz-hero-resort/880/1100?grayscale" width="880" height="1100" alt="Overwater villas at a Maldives resort photographed by Muiz"></div>
+      <figure class="polaroid taped"><img src="images/muiz-square.jpg" width="500" height="500" alt="Abdulla Muiz Fuad"><figcaption>Muiz, Malé</figcaption></figure>
     </div>
   </div>
 </section>
@@ -438,7 +494,7 @@ footer a:hover{color:var(--ink)}
       </div>
       <div class="tile t-portrait reveal d1">
         <!-- REPLACE: images/muiz-portrait.jpg -->
-        <img src="images/muiz-portrait.jpg" width="600" height="800" alt="Portrait of Abdulla Muiz Fuad" loading="lazy" style="object-position:center 20%">
+        <img src="images/muiz-paper.webp" width="1000" height="1315" alt="Portrait of Abdulla Muiz Fuad, printed and taped like a photo" loading="lazy">
       </div>
       <div class="tile t-pillar t-accent reveal">
         <i class="ph ph-magnifying-glass"></i>
@@ -703,7 +759,7 @@ footer a:hover{color:var(--ink)}
   <div class="wrap">
     <h2 class="reveal">Education and research.</h2>
     <div class="plaques">
-      <button class="plaque reveal" type="button" data-cert="0">
+      <button class="plaque taped reveal" type="button" data-cert="0">
         <span class="plaque-inner">
           <span class="inst">Asia Pacific University</span>
           <span class="award">MSc Global Marketing Management</span>
@@ -711,7 +767,7 @@ footer a:hover{color:var(--ink)}
           <span class="foot"><span>2018</span><img class="thumb" data-thumb="msc" alt=""></span>
         </span>
       </button>
-      <button class="plaque reveal d1" type="button" data-cert="1">
+      <button class="plaque taped reveal d1" type="button" data-cert="1">
         <span class="plaque-inner">
           <span class="inst">Asia Pacific University</span>
           <span class="award">BA (Hons) Tourism Management</span>
@@ -719,7 +775,7 @@ footer a:hover{color:var(--ink)}
           <span class="foot"><span>2017</span><img class="thumb" data-thumb="ba" alt=""></span>
         </span>
       </button>
-      <button class="plaque reveal d2" type="button" data-cert="2">
+      <button class="plaque taped reveal d2" type="button" data-cert="2">
         <span class="plaque-inner">
           <span class="inst">Confederation of Tourism and Hospitality, UK</span>
           <span class="award">Level 4 Diploma in Tourism Management</span>
@@ -727,7 +783,7 @@ footer a:hover{color:var(--ink)}
           <span class="foot"><span>2014</span><img class="thumb" data-thumb="cth" alt=""></span>
         </span>
       </button>
-      <button class="plaque reveal d3" type="button" data-cert="3">
+      <button class="plaque taped reveal d3" type="button" data-cert="3">
         <span class="plaque-inner">
           <span class="inst">Association of Business Executives, UK</span>
           <span class="award">Level 4 Diploma in Human Resource Management</span>
@@ -768,10 +824,12 @@ footer a:hover{color:var(--ink)}
   <div class="wrap">
     <h2 class="reveal">What colleagues and clients say.</h2>
     <div class="quotes">
-      <figure class="quote quote-lg reveal">
-        <blockquote class="todo">“ADD a short quote from a resort colleague or GM. Two or three lines.”</blockquote>
-        <figcaption class="who"><b class="todo">Name</b><span>Role, Property</span></figcaption>
-      </figure>
+      <div class="paper-wrap quote-note taped reveal">
+        <figure class="quote paper">
+          <blockquote class="todo">“ADD a short quote from a resort colleague or GM. Two or three lines.”</blockquote>
+          <figcaption class="who"><b class="todo">Name</b><span>Role, Property</span></figcaption>
+        </figure>
+      </div>
       <figure class="quote reveal d1">
         <blockquote class="todo">“ADD a quote from Business Centre Corporation.”</blockquote>
         <figcaption class="who"><b class="todo">Name</b><span>Role, Company</span></figcaption>
@@ -786,7 +844,8 @@ footer a:hover{color:var(--ink)}
 
 <!-- ================= CONTACT ================= -->
 <section class="contact" id="contact">
-  <div class="wrap">
+  <div class="wrap contact-grid">
+   <div>
     <span class="label">Contact</span>
     <h2 class="reveal">Tell me about <em>your property.</em></h2>
     <div class="contact-row reveal d1">
@@ -794,6 +853,12 @@ footer a:hover{color:var(--ink)}
       <a href="https://wa.me/9609902996" class="btn btn-line" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo"></i> WhatsApp</a>
       <button class="copy-mail" id="copyMail" type="button"><i class="ph ph-copy"></i><span>abdullamuizfuad@gmail.com</span></button>
     </div>
+   </div>
+   <div class="contact-figure reveal d2">
+     <div class="paper-wrap" style="position:absolute;inset:auto 0 0 0;height:68%"><div class="paper" style="position:absolute;inset:0;height:100%"></div></div>
+     <img src="images/muiz-cutout.webp" width="900" height="1426" alt="Abdulla Muiz Fuad" loading="lazy">
+     <span class="note">Based in Malé. Happy to travel.</span>
+   </div>
   </div>
 </section>
 
