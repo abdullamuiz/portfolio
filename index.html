@@ -436,6 +436,29 @@ footer a:hover{color:var(--ink)}
 .camp.taped::before{top:-10px}
 @media (prefers-reduced-motion: reduce){.camp .print{rotate:0deg!important}}
 
+
+/* ================= HERO v2: wide image + paper card ================= */
+.hero-v2{padding:24px 0 120px}
+.hero-stage{position:relative}
+.hero-img{position:relative}
+.hero-img img{display:block;width:100%;height:min(82vh,800px);min-height:540px;object-fit:cover;object-position:50% 48%;border-radius:6px;box-shadow:var(--shadow)}
+.hero-card{position:absolute;left:-14px;bottom:-72px;width:min(620px,54%);z-index:5;rotate:-1.2deg}
+.hero-card .paper{padding:54px 58px 58px}
+.hero-v2 .hero-card h1{font-size:clamp(2.2rem,3.8vw,3.6rem);line-height:1.06;color:var(--paper-ink);max-width:14ch;padding-bottom:4px}
+.hero-v2 .hero-card h1 em{color:#0b6b70}
+.hero-v2 .hero-card p{color:var(--paper-muted);font-size:1.08rem;margin:20px 0 30px;max-width:40ch}
+.hero-card .btn-primary{background:#0b6b70;color:#fff;border-color:#0b6b70}
+.hero-card .btn-line{color:var(--paper-ink);border-color:rgba(28,35,38,.28);background:transparent}
+.hero-stage .polaroid{left:auto;right:5%;bottom:-84px;width:min(250px,21%);z-index:6}
+@media (max-width:900px){
+  .hero-v2{padding:12px 0 72px}
+  .hero-img img{height:60vh;min-height:360px;object-position:52% 50%}
+  .hero-card{position:relative;left:auto;bottom:auto;width:auto;margin:-96px 6px 0;rotate:-.8deg}
+  .hero-card .paper{padding:44px 30px 48px}
+  .hero-stage .polaroid{top:-16px;right:-2px;bottom:auto;width:36%;max-width:170px;padding:7px 7px 30px}
+  .hero-stage .polaroid figcaption{font-size:.58rem;bottom:9px;white-space:nowrap}
+}
+
 /* ================= MOTION ================= */
 .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .js .reveal.in{opacity:1;transform:none}
@@ -484,20 +507,21 @@ footer a:hover{color:var(--ink)}
 <main id="top">
 
 <!-- ================= HERO ================= -->
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <h1 class="reveal">Your strategist in <em>digital visibility and content creation.</em></h1>
-      <p class="reveal d1">Ten years marketing Maldivian resorts. Fifteen years behind the camera. One senior partner for your plan, content and results.</p>
-      <div class="cta-row reveal d2">
-        <a href="#work" class="btn btn-primary">View work <i class="ph ph-arrow-down-right"></i></a>
-        <a href="#contact" class="btn btn-line">Book a call</a>
+<section class="hero hero-v2">
+  <div class="wrap">
+    <div class="hero-stage">
+      <div class="hero-img taped-corners reveal"><img src="images/hero-wide.jpg" width="2400" height="1500" alt="Drone aerial of a Maldives island marina, shot by Muiz" fetchpriority="high"></div>
+      <div class="hero-card paper-wrap reveal d1">
+        <div class="paper">
+          <h1>Your strategist in <em>digital visibility and content creation.</em></h1>
+          <p>Ten years marketing Maldivian resorts. Fifteen years behind the camera. One senior partner for your plan, content and results.</p>
+          <div class="cta-row">
+            <a href="#work" class="btn btn-primary">View work <i class="ph ph-arrow-down-right"></i></a>
+            <a href="#contact" class="btn btn-line">Book a call</a>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="hero-media reveal d2">
-      <!-- REPLACE: images/hero-resort.jpg (portrait 4:5) -->
-      <div class="main-wrap taped-corners"><img class="main" src="images/hero.jpg" width="1080" height="1350" alt="Aerial of a guest on a paddleboard gliding over a stingray in a Maldives lagoon"></div>
-      <figure class="polaroid taped"><img src="images/muiz-drone.jpg?v=2" width="1000" height="1000" alt="Muiz on a Maldives beach with his drone and controller"><figcaption>On location, Maldives</figcaption></figure>
+      <figure class="polaroid taped reveal d2"><img src="images/muiz-drone.jpg?v=2" width="1000" height="1000" alt="Muiz on a Maldives beach with his drone and controller"><figcaption>On location, Maldives</figcaption></figure>
     </div>
   </div>
 </section>
@@ -534,7 +558,7 @@ footer a:hover{color:var(--ink)}
         <div><h3>Visibility first</h3><p>Found on Instagram, Google, TripAdvisor and OTAs before guests compare prices.</p></div>
       </div>
       <div class="tile t-image reveal d1">
-        <img src="images/on-location.jpg" width="1600" height="1000" alt="Drone aerial of a Maldives island marina, shot on location" loading="lazy">
+        <img src="images/on-location.jpg?v=2" width="1600" height="1000" alt="Aerial of overwater villas and a beach in the Maldives, shot on location" loading="lazy">
         <div class="cap"><h3>Real over synthetic</h3><p>Genuine photography of real places and people.</p></div>
       </div>
       <div class="tile t-pillar reveal d2">
