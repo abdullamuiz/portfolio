@@ -459,6 +459,9 @@ footer a:hover{color:var(--ink)}
   .hero-stage .polaroid figcaption{font-size:.58rem;bottom:9px;white-space:nowrap}
 }
 
+.contact-figure .contact-print{width:100%;rotate:2deg}
+.contact-figure:has(.contact-print){padding-top:0}
+.contact-figure:has(.contact-print) .note{bottom:12%;left:-14px}
 /* ================= MOTION ================= */
 .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .js .reveal.in{opacity:1;transform:none}
@@ -974,8 +977,7 @@ footer a:hover{color:var(--ink)}
     </div>
    </div>
    <div class="contact-figure reveal d2">
-     <div class="paper-wrap" style="position:absolute;inset:auto 0 0 0;height:56%"><div class="paper" style="position:absolute;inset:0;height:100%"></div></div>
-     <img src="images/muiz-headshot-cutout.webp" width="900" height="1023" alt="Abdulla Muiz Fuad" loading="lazy">
+     <img class="contact-print" src="images/muiz-contact-paper.webp" width="900" height="1194" alt="Abdulla Muiz Fuad, smiling, printed and taped like a photo" loading="lazy">
      <span class="note">Based in Malé. Happy to travel.</span>
    </div>
   </div>
