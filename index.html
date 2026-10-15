@@ -463,7 +463,7 @@ footer a:hover{color:var(--ink)}
     </div>
     <div class="hero-media reveal d2">
       <!-- REPLACE: images/hero-resort.jpg (portrait 4:5) -->
-      <div class="main-wrap taped-corners"><img class="main" src="https://picsum.photos/seed/muiz-hero-resort/880/1100?grayscale" width="880" height="1100" alt="Overwater villas at a Maldives resort photographed by Muiz"></div>
+      <div class="main-wrap taped-corners"><img class="main" src="images/hero.jpg" width="1080" height="1350" alt="Aerial of a guest on a paddleboard gliding over a stingray in a Maldives lagoon"></div>
       <figure class="polaroid taped"><img src="images/muiz-drone.jpg" width="800" height="800" alt="Muiz on a Maldives beach with his drone and controller"><figcaption>On location, Maldives</figcaption></figure>
     </div>
   </div>
@@ -522,7 +522,7 @@ footer a:hover{color:var(--ink)}
     <article class="feature-case reveal">
       <figure>
         <!-- REPLACE: images/reethi-beach.jpg -->
-        <img src="https://picsum.photos/seed/reethi-beach-villa/1100/900?grayscale" width="1100" height="900" alt="Reethi Beach Resort, Baa Atoll" loading="lazy">
+        <img src="images/case-reethi.jpg" width="1200" height="900" alt="Reethi Beach Resort, Baa Atoll" loading="lazy">
       </figure>
       <div class="case-body">
         <div class="chips"><span class="chip">Resort</span><span class="chip">Influencers</span><span class="chip">SEO and web</span></div>
@@ -543,7 +543,7 @@ footer a:hover{color:var(--ink)}
 
     <div class="case-grid">
       <article class="case-card reveal">
-        <figure><img src="https://picsum.photos/seed/miss-germany-reethi/800/600?grayscale" width="800" height="600" alt="Miss Germany 2022 content shoot in the Maldives" loading="lazy"></figure>
+        <figure><img src="images/case-missgermany.jpg" width="1080" height="810" alt="Miss Germany 2022 content shoot in the Maldives" loading="lazy"></figure>
         <div class="inner">
           <div class="chips"><span class="chip">Influencer</span><span class="chip">German market</span></div>
           <h3>Miss Germany 2022 in the Maldives</h3>
@@ -909,38 +909,38 @@ var CERT_IMG={
    ============================================================= */
 function ph(seed,w,h){ return 'https://picsum.photos/seed/'+seed+'/'+w+'/'+h+'?grayscale'; }
 var CONTENT = [
-  // Reels (9:16)
-  {type:'reel', cat:'resort', src:'', poster:ph('reel-villa-arrival',540,960), alt:'Villa arrival'},
-  {type:'reel', cat:'resort', src:'', poster:ph('reel-sandbank-drone',540,960), alt:'Sandbank by drone'},
-  {type:'reel', cat:'fnb', src:'', poster:ph('reel-chef-plating',540,960), alt:'Chef plating dinner'},
-  {type:'reel', cat:'resort', src:'', poster:ph('reel-sunset-jetty',540,960), alt:'Sunset on the jetty'},
-  {type:'reel', cat:'lifestyle', src:'', poster:ph('reel-snorkel-reef',540,960), alt:'House reef snorkel'},
-  {type:'reel', cat:'fnb', src:'', poster:ph('reel-cocktail-bar',540,960), alt:'Cocktail at the bar'},
-  {type:'reel', cat:'resort', src:'', poster:ph('reel-spa-ritual',540,960), alt:'Spa ritual'},
-  {type:'reel', cat:'resort', src:'', poster:ph('reel-water-villa-tour',540,960), alt:'Water villa tour'},
-  {type:'reel', cat:'fnb', src:'', poster:ph('reel-beach-dinner',540,960), alt:'Private beach dinner'},
-  {type:'reel', cat:'lifestyle', src:'', poster:ph('reel-guest-story',540,960), alt:'Guest story'},
-  {type:'reel', cat:'resort', src:'', poster:ph('reel-aerial-island',540,960), alt:'Island aerial'},
-  {type:'reel', cat:'fnb', src:'', poster:ph('reel-coldbrew-pour',540,960), alt:'Cold brew pour'},
+  // Reels (9:16) - highlight loops made from your full reels
+  {type:'reel', cat:'resort', src:'video/reels/reel-01.mp4', poster:'images/reels/reel-01.jpg', alt:'Aerial lagoon swing'},
+  {type:'reel', cat:'resort', src:'video/reels/reel-02.mp4', poster:'images/reels/reel-02.jpg', alt:'Paddleboard over a stingray'},
+  {type:'reel', cat:'resort', src:'video/reels/reel-03.mp4', poster:'images/reels/reel-03.jpg', alt:'Jetty and villa aerials'},
+  {type:'reel', cat:'resort', src:'video/reels/reel-04.mp4', poster:'images/reels/reel-04.jpg', alt:'Sandbank from above'},
+  {type:'reel', cat:'resort', src:'video/reels/reel-05.mp4', poster:'images/reels/reel-05.jpg', alt:'HolidayCheck Special Award 2022'},
+  {type:'reel', cat:'resort', src:'video/reels/reel-06.mp4', poster:'images/reels/reel-06.jpg', alt:'Water villa moment'},
+  {type:'reel', cat:'resort', src:'video/reels/reel-07.mp4', poster:'images/reels/reel-07.jpg', alt:'Guesthouse room tour'},
+  {type:'reel', cat:'lifestyle', src:'video/reels/reel-08.mp4', poster:'images/reels/reel-08.jpg', alt:'Beach birthday set-up'},
+  {type:'reel', cat:'lifestyle', src:'video/reels/reel-09.mp4', poster:'images/reels/reel-09.jpg', alt:'Garden drone reveal'},
+  {type:'reel', cat:'lifestyle', src:'video/reels/reel-10.mp4', poster:'images/reels/reel-10.jpg', alt:'Coral planting, underwater'},
+  {type:'reel', cat:'fnb', src:'video/reels/reel-11.mp4', poster:'images/reels/reel-11.jpg', alt:'Sunset heart dinner'},
+  {type:'reel', cat:'fnb', src:'video/reels/reel-12.mp4', poster:'images/reels/reel-12.jpg', alt:'Chocolate product shoot'},
   // Photos (4:5)
-  {type:'photo', cat:'resort', poster:ph('photo-overwater-villas',864,1080), alt:'Overwater villas'},
-  {type:'photo', cat:'fnb', poster:ph('photo-plated-tuna',864,1080), alt:'Plated tuna'},
-  {type:'photo', cat:'resort', poster:ph('photo-pool-deck',864,1080), alt:'Villa pool deck'},
-  {type:'photo', cat:'lifestyle', poster:ph('photo-guest-hammock',864,1080), alt:'Guest in hammock'},
-  {type:'photo', cat:'resort', poster:ph('photo-lagoon-aerial',864,1080), alt:'Lagoon from above'},
-  {type:'photo', cat:'fnb', poster:ph('photo-breakfast-tray',864,1080), alt:'Floating breakfast'},
-  {type:'photo', cat:'resort', poster:ph('photo-beach-villa-interior',864,1080), alt:'Beach villa interior'},
-  {type:'photo', cat:'resort', poster:ph('photo-jetty-dusk',864,1080), alt:'Jetty at dusk'},
-  {type:'photo', cat:'fnb', poster:ph('photo-sunset-drinks',864,1080), alt:'Sunset drinks'},
-  {type:'photo', cat:'resort', poster:ph('photo-spa-room',864,1080), alt:'Spa treatment room'},
-  {type:'photo', cat:'lifestyle', poster:ph('photo-dhoni-cruise',864,1080), alt:'Dhoni cruise'},
-  {type:'photo', cat:'fnb', poster:ph('photo-dessert-detail',864,1080), alt:'Dessert detail'},
-  {type:'photo', cat:'resort', poster:ph('photo-sandbank-picnic',864,1080), alt:'Sandbank picnic'},
-  {type:'photo', cat:'resort', poster:ph('photo-reef-turtle',864,1080), alt:'Turtle on the house reef'},
-  {type:'photo', cat:'fnb', poster:ph('photo-coldbrew-bottles',864,1080), alt:'Cold brew bottles'},
-  {type:'photo', cat:'resort', poster:ph('photo-arrival-pavilion',864,1080), alt:'Arrival pavilion'},
-  {type:'photo', cat:'fnb', poster:ph('photo-restaurant-terrace',864,1080), alt:'Restaurant terrace'},
-  {type:'photo', cat:'resort', poster:ph('photo-sunrise-villa',864,1080), alt:'Sunrise from the villa'}
+  {type:'photo', cat:'resort', poster:'images/photos/photo-01.jpg', alt:'Stingray and woven hat'},
+  {type:'photo', cat:'fnb', poster:'images/photos/photo-02.jpg', alt:'Pad thai with spices'},
+  {type:'photo', cat:'resort', poster:'images/photos/photo-03.jpg', alt:'Water villas at sunset'},
+  {type:'photo', cat:'fnb', poster:'images/photos/photo-04.jpg', alt:'Pumpkin dish by the lagoon'},
+  {type:'photo', cat:'lifestyle', poster:'images/photos/photo-05.jpg', alt:'Floating breakfast'},
+  {type:'photo', cat:'fnb', poster:'images/photos/photo-06.jpg', alt:'Candlelit sharing platter'},
+  {type:'photo', cat:'lifestyle', poster:'images/photos/photo-07.jpg', alt:'Stingray feeding'},
+  {type:'photo', cat:'fnb', poster:'images/photos/photo-08.jpg', alt:'Fresh produce and spices'},
+  {type:'photo', cat:'resort', poster:'images/photos/photo-09.jpg', alt:'Heart dinner at night'},
+  {type:'photo', cat:'fnb', poster:'images/photos/photo-10.jpg', alt:'Dessert with a sea view'},
+  {type:'photo', cat:'lifestyle', poster:'images/photos/photo-11.jpg', alt:'Windsurfing the lagoon'},
+  {type:'photo', cat:'fnb', poster:'images/photos/photo-12.jpg', alt:'Fruit basket in the garden'},
+  {type:'photo', cat:'lifestyle', poster:'images/photos/photo-13.jpg', alt:'Beach wedding'},
+  {type:'photo', cat:'fnb', poster:'images/photos/photo-14.jpg', alt:'Fried prawns'},
+  {type:'photo', cat:'resort', poster:'images/photos/photo-15.jpg', alt:'Water villas at night'},
+  {type:'photo', cat:'fnb', poster:'images/photos/photo-16.jpg', alt:'Candlelit dessert'},
+  {type:'photo', cat:'resort', poster:'images/photos/photo-17.jpg', alt:'Rise with the tide'},
+  {type:'photo', cat:'fnb', poster:'images/photos/photo-18.jpg', alt:'Lagoon salad'}
 ];
 
 var CERTS = [
