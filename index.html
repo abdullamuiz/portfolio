@@ -124,7 +124,7 @@ p{max-width:62ch}
 .t-accent{background:var(--accent);border-color:var(--accent)}
 .t-accent,.t-accent h3,.t-accent i{color:var(--accent-ink)}
 .t-accent p{color:color-mix(in srgb,var(--accent-ink) 82%,transparent)}
-.t-image{padding:0;min-height:220px}
+.t-image{grid-column:span 2;padding:0;min-height:220px}
 .t-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .t-image .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 24px;background:linear-gradient(transparent,rgba(5,15,16,.8));color:#fff}
 .t-image .cap h3{font-size:1.15rem;margin-bottom:4px}
@@ -408,7 +408,7 @@ footer a:hover{color:var(--ink)}
       <!-- REPLACE: images/hero-resort.jpg (portrait 4:5) -->
       <img class="main" src="https://picsum.photos/seed/muiz-hero-resort/880/1100?grayscale" width="880" height="1100" alt="Overwater villas at a Maldives resort photographed by Muiz">
       <!-- REPLACE: images/muiz-with-camera.jpg (square) -->
-      <img class="inset" src="https://picsum.photos/seed/muiz-portrait-camera/500/500?grayscale" width="500" height="500" alt="Abdulla Muiz Fuad with his camera">
+      <img class="inset" src="images/muiz-square.jpg" width="500" height="500" alt="Abdulla Muiz Fuad">
     </div>
   </div>
 </section>
@@ -438,7 +438,7 @@ footer a:hover{color:var(--ink)}
       </div>
       <div class="tile t-portrait reveal d1">
         <!-- REPLACE: images/muiz-portrait.jpg -->
-        <img src="https://picsum.photos/seed/muiz-headshot-studio/600/800?grayscale" width="600" height="800" alt="Portrait of Abdulla Muiz Fuad" loading="lazy">
+        <img src="images/muiz-portrait.jpg" width="600" height="800" alt="Portrait of Abdulla Muiz Fuad" loading="lazy" style="object-position:center 20%">
       </div>
       <div class="tile t-pillar t-accent reveal">
         <i class="ph ph-magnifying-glass"></i>
