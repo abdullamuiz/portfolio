@@ -23,7 +23,7 @@
 :root{
   --bg:#f3f5f3; --surface:#ffffff; --surface-2:#e7ecea;
   --ink:#10191b; --muted:#56625f; --line:#d6dddb;
-  --accent:#0b6b70; --accent-ink:#ffffff; --accent-soft:#d8ebea;
+  --accent:#0b6b70; --accent-ink:#ffffff; --accent-soft:#d8ebea; --hl:#e0603f; --hl-ink:#ffffff; --hl-soft:#fbe4dc;
   --shadow:0 20px 50px -24px rgba(16,40,44,.28);
   --radius:18px; --pill:999px; --max:1240px;
   --ease:cubic-bezier(.16,1,.3,1);
@@ -31,13 +31,13 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#0d1416; --surface:#141d20; --surface-2:#1b2629; --ink:#e8eeec; --muted:#9aa8a5;
-    --line:#26333a; --accent:#5cc5c0; --accent-ink:#06201f; --accent-soft:#16312f;
+    --line:#26333a; --accent:#5cc5c0; --accent-ink:#06201f; --accent-soft:#16312f; --hl:#f2876c; --hl-ink:#2a0d05; --hl-soft:#3a1f18;
     --shadow:0 20px 50px -24px rgba(0,0,0,.6);
   }
 }
 :root[data-theme="dark"]{
   --bg:#0d1416; --surface:#141d20; --surface-2:#1b2629; --ink:#e8eeec; --muted:#9aa8a5;
-  --line:#26333a; --accent:#5cc5c0; --accent-ink:#06201f; --accent-soft:#16312f;
+  --line:#26333a; --accent:#5cc5c0; --accent-ink:#06201f; --accent-soft:#16312f; --hl:#f2876c; --hl-ink:#2a0d05; --hl-soft:#3a1f18;
   --shadow:0 20px 50px -24px rgba(0,0,0,.6);
 }
 
@@ -277,7 +277,7 @@ details p b{color:var(--ink);font-weight:500;display:block;font-size:.78rem;font
 .plan{border-radius:var(--radius);padding:34px;background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:14px}
 .plan-feature{grid-row:span 2;background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .plan-feature li{color:color-mix(in srgb,var(--bg) 75%,transparent)}
-.plan-feature .chip{background:color-mix(in srgb,var(--bg) 14%,transparent);color:var(--bg);align-self:flex-start}
+.plan-feature .chip{background:var(--hl);color:var(--hl-ink);align-self:flex-start}
 .plan h3{font-size:1.6rem}
 .plan .price{font:500 .95rem "Geist Mono",monospace}
 .plan ul{list-style:none;display:grid;gap:10px;margin-top:6px;font-size:.96rem}
@@ -543,36 +543,57 @@ footer a:hover{color:var(--ink)}
 .funnel li:not(:last-child)::after{content:"\2192";position:absolute;right:-11px;top:50%;transform:translateY(-50%);font-size:.9rem;color:var(--accent);z-index:1}
 .funnel strong{font:700 1.45rem/1 Geist,sans-serif;letter-spacing:-.03em;color:var(--ink)}
 .funnel span{font-size:.8rem;color:var(--muted)}
-.funnel li.hl{background:var(--accent)}
-.funnel li.hl strong,.funnel li.hl span{color:var(--accent-ink)}
+.funnel li.hl{background:var(--hl)}
+.funnel li.hl strong,.funnel li.hl span{color:var(--hl-ink)}
 @media (max-width:900px){.funnel strong{font-size:1.2rem}.funnel li{padding:10px}}
 
-/* ================= GROWTH FUNNEL ================= */
-.fn-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
-.fn-head .sec-sub{max-width:62ch}
-.fn-toggle{display:inline-flex;padding:4px;border-radius:999px;border:1px solid var(--line);background:var(--surface);gap:4px}
-.fn-toggle button{border:0;background:none;color:var(--muted);font:500 .9rem Geist,sans-serif;padding:9px 18px;border-radius:999px;cursor:pointer;transition:background .25s,color .25s}
-.fn-toggle button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
-.funnel-flow{position:relative;margin-top:48px;display:flex;flex-direction:column;gap:14px;padding-left:46px}
-.fn-loop{position:absolute;left:8px;top:40px;bottom:40px;width:22px;border:2px dashed color-mix(in srgb,var(--accent) 55%,transparent);border-right:0;border-radius:14px 0 0 14px}
-.fn-loop::before{content:"";position:absolute;top:-7px;right:-8px;border:6px solid transparent;border-left:9px solid var(--accent)}
-.fn-loop span{position:absolute;left:-12px;top:50%;transform:translate(-50%,-50%) rotate(-90deg);font:500 .7rem "Geist Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--bg);padding:2px 6px}
-.fn-row{display:grid;grid-template-columns:300px minmax(0,1fr);gap:36px;align-items:stretch;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px}
-.fn-band{display:grid;place-items:center;height:110px;align-self:center;margin:0 auto;color:#fff;font:600 1.15rem Geist,sans-serif;letter-spacing:-.01em;clip-path:polygon(0 0,100% 0,92% 100%,8% 100%);border-radius:6px}
-.fn-b1{width:100%;background:#0b6b70}
-.fn-b2{width:84%;background:#13868a}
-.fn-b3{width:68%;background:#1ea19f}
-.fn-b4{width:52%;height:64px;background:#d79a4c;clip-path:none;border-radius:999px}
-.fn-body{display:flex;flex-direction:column;gap:10px;padding:6px 6px 6px 0}
-.fn-k{font:500 .72rem "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
-.fn-body h3{font-size:1.35rem;font-weight:500;letter-spacing:-.02em}
-.fn-body>p{color:var(--muted);line-height:1.6;max-width:70ch}
-.fn-chips{list-style:none;margin:2px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
-.fn-chips li{font-size:.82rem;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg)}
-.fn-ex{margin-top:4px;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--accent) 9%,transparent);font-size:.93rem;line-height:1.55}
-.fn-ex b{display:block;font:500 .7rem "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
-#growth[data-mode="gh"] .m-fb,#growth[data-mode="fb"] .m-gh{display:none}
-@media (max-width:900px){.funnel-flow{padding-left:0}.fn-loop{display:none}.fn-row{grid-template-columns:1fr;gap:18px;padding:18px;border-radius:18px}.fn-band{height:64px;font-size:1rem}.fn-head{align-items:flex-start}}
+/* ================= LEAK FINDER ================= */
+.btn-hl{background:var(--hl);color:var(--hl-ink)}
+.btn-hl:hover{filter:brightness(1.06)}
+.lk{margin-top:44px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px}
+.lk-panel,.lk-view{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:26px}
+.lk-step{display:block;font:500 .72rem "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.lk-step:not(:first-child){margin-top:24px}
+.lk-biz{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lk-biz button{border:1px solid var(--line);background:var(--bg);color:var(--ink);font:500 .92rem Geist,sans-serif;padding:12px;border-radius:14px;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.lk-biz button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.lk-qs{display:flex;flex-direction:column;gap:6px}
+.lk-q{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;cursor:pointer;font-size:.93rem;line-height:1.35;transition:background .2s}
+.lk-q:hover{background:var(--bg)}
+.lk-q input{position:absolute;opacity:0;pointer-events:none}
+.lk-sw{flex:none;width:36px;height:21px;border-radius:999px;background:var(--line);position:relative;transition:background .2s}
+.lk-sw::after{content:"";position:absolute;top:3px;left:3px;width:15px;height:15px;border-radius:50%;background:#fff;transition:transform .2s}
+.lk-q input:checked+.lk-sw{background:var(--accent)}
+.lk-q input:checked+.lk-sw::after{transform:translateX(15px)}
+.lk-q input:focus-visible+.lk-sw{outline:2px solid var(--accent);outline-offset:2px}
+.lk-view{display:flex;flex-direction:column;gap:18px}
+.lk-diagram{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:18px;align-items:center}
+.lk-svg{width:100%;height:auto;overflow:visible}
+.lk-stage{transition:opacity .35s}
+.lk-stage.weak .lk-body,.lk-stage.weak .lk-top{opacity:.32}
+.lk-lab{font:600 15px Geist,sans-serif;fill:#fff}
+.lk-lab-d{fill:#10191b}
+.lk-leak{display:none}
+.lk-leak rect{fill:var(--hl)}
+.lk-leak text{font:600 11px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;fill:var(--hl-ink)}
+.lk-stage.leak .lk-leak{opacity:1}
+.lk-stage.leak .lk-body{stroke:var(--hl);stroke-width:3;stroke-dasharray:6 5;opacity:1}
+.lk-stage.leak .lk-top{opacity:1}
+.lk-legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.lk-legend li{display:grid;grid-template-columns:1fr auto;column-gap:10px;font-size:.88rem}
+.lk-legend b{font-weight:500}
+.lk-legend span{grid-column:1;color:var(--muted);font-size:.8rem}
+.lk-score{grid-column:2;grid-row:1/3;align-self:center;font:500 .75rem "Geist Mono",monospace;font-style:normal;padding:4px 8px;border-radius:999px;background:var(--bg);color:var(--muted)}
+.lk-legend li.leak .lk-score{background:var(--hl);color:var(--hl-ink)}
+.lk-legend li.ok .lk-score{background:var(--accent-soft);color:var(--accent)}
+.lk-result{border-top:1px solid var(--line);padding-top:18px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.lk-tag{font:500 .72rem "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--hl);background:var(--hl-soft);padding:5px 10px;border-radius:999px}
+.lk-result h3{font-size:1.5rem;font-weight:500;letter-spacing:-.02em}
+.lk-result>p{color:var(--muted);line-height:1.6}
+.lk-insight{width:100%;padding:12px 14px;border-radius:14px;background:var(--accent-soft);font-size:.93rem;line-height:1.55}
+.lk-insight b{display:block;font:500 .7rem "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+@media (max-width:1000px){.lk{grid-template-columns:1fr}}
+@media (max-width:560px){.lk-panel,.lk-view{padding:18px;border-radius:18px}.lk-diagram{grid-template-columns:1fr}.lk-legend{gap:8px}}
 /* ================= MOTION ================= */
 .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .js .reveal.in{opacity:1;transform:none}
@@ -614,7 +635,7 @@ footer a:hover{color:var(--ink)}
     </ul>
     <div class="nav-right">
       <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch light or dark mode"><i class="ph ph-moon"></i></button>
-      <a href="#contact" class="btn btn-primary">Book a call</a>
+      <a href="#contact" class="btn btn-hl">Book a call</a>
     </div>
   </div>
 </header>
@@ -721,92 +742,7 @@ footer a:hover{color:var(--ink)}
 </section>
 
 
-<!-- ================= GROWTH FUNNEL ================= -->
-<section id="growth" data-mode="gh" style="padding-top:24px">
-  <div class="wrap">
-    <div class="fn-head">
-      <div>
-        <h2 class="reveal">From first search <em>to repeat guest.</em></h2>
-        <p class="sec-sub reveal d1">How I grow Maldivian guesthouses and restaurants for value-minded travellers, in a market where every guest counts. It starts with being seen: most small properties lose guests at the very top, because the guest never finds them.</p>
-      </div>
-      <div class="fn-toggle reveal d1" role="group" aria-label="Show examples for">
-        <button type="button" data-mode="gh" aria-pressed="true">Guesthouse</button>
-        <button type="button" data-mode="fb" aria-pressed="false">Restaurant</button>
-      </div>
-    </div>
-    <div class="funnel-flow">
-      <div class="fn-loop" aria-hidden="true"><span>Loop</span></div>
-      <div class="fn-row reveal">
-        <div class="fn-band fn-b1"><span class="m-gh">Discover</span><span class="m-fb">Discover</span></div>
-        <div class="fn-body m-gh">
-          <span class="fn-k">Top of the funnel</span>
-          <h3>Be found before they compare.</h3>
-          <p>Value-minded travellers plan the Maldives on their phones: short videos, Google Maps, booking sites and, more and more, AI assistants like ChatGPT and Gemini. If you don't show up there, nothing further down the funnel gets a chance.</p>
-          <ul class="fn-chips"><li>AI search optimisation</li><li>Google Maps and Business Profile</li><li>One shoot, many short videos</li><li>Intent-based ads</li></ul>
-          <p class="fn-ex"><b>For example</b>When someone asks an AI assistant how to reach your island from Malé, the answer names your guesthouse, with the ferry time, the transfer price and what a night costs.</p>
-        </div>
-        <div class="fn-body m-fb">
-          <span class="fn-k">Top of the funnel</span>
-          <h3>Be found when they're hungry.</h3>
-          <p>Residents and visitors decide where to eat on their phones, often minutes before they go: Google Maps, Instagram, TikTok and, more and more, AI assistants. If you don't show up in that moment, someone else gets the table.</p>
-          <ul class="fn-chips"><li>Google Maps and Business Profile</li><li>AI search optimisation</li><li>Short food videos from one shoot</li><li>Location-based ads</li></ul>
-          <p class="fn-ex"><b>For example</b>When someone searches for seafood near them in Hulhumalé, you're in the top three on Maps, with fresh photos and a reply to every review.</p>
-        </div>
-      </div>
-      <div class="fn-row reveal">
-        <div class="fn-band fn-b2"><span class="m-gh">Consider</span><span class="m-fb">Choose</span></div>
-        <div class="fn-body m-gh">
-          <span class="fn-k">Middle of the funnel</span>
-          <h3>Give them reasons to choose you.</h3>
-          <p>Now they're comparing you with three other places on the same island. Reviews, clear prices and fast answers decide who wins.</p>
-          <ul class="fn-chips"><li>Review replies</li><li>Clear prices and transfer details</li><li>Fast WhatsApp and DM replies</li><li>Offers for each type of guest</li></ul>
-          <p class="fn-ex"><b>For example</b>Divers, honeymooners and families each see the package that fits them, and questions on WhatsApp get an answer in minutes, not the next morning.</p>
-        </div>
-        <div class="fn-body m-fb">
-          <span class="fn-k">Middle of the funnel</span>
-          <h3>Give them a reason to pick you.</h3>
-          <p>Now they're comparing you with the place next door. Photos that make them hungry, honest reviews, clear prices and something only you offer make the decision for them.</p>
-          <ul class="fn-chips"><li>Signature dish content</li><li>Review replies</li><li>Menus and prices online</li><li>Fast DM and WhatsApp replies</li></ul>
-          <p class="fn-ex"><b>For example</b>A clear reason to choose you, like the best sunset seats on the street or a set menu for two, and a quick reply that turns "do you have a table for six?" into a booking.</p>
-        </div>
-      </div>
-      <div class="fn-row reveal">
-        <div class="fn-band fn-b3"><span class="m-gh">Book</span><span class="m-fb">Visit</span></div>
-        <div class="fn-body m-gh">
-          <span class="fn-k">Bottom of the funnel</span>
-          <h3>Make booking direct the easy choice.</h3>
-          <p>Every guest who books direct instead of through an OTA keeps 18 to 35% more of the room rate with you. Ad spend should follow the people who are almost ready, not everyone.</p>
-          <ul class="fn-chips"><li>Direct-booking perks</li><li>Booking engine and WhatsApp booking</li><li>Retargeting ads</li><li>Follow-ups on unanswered enquiries</li></ul>
-          <p class="fn-ex"><b>For example</b>A free transfer or excursion for booking on your own website, and a reminder to anyone who checked dates but didn't book.</p>
-        </div>
-        <div class="fn-body m-fb">
-          <span class="fn-k">Bottom of the funnel</span>
-          <h3>Turn interest into a table or an order.</h3>
-          <p>Make the last step easy: a booking or order link everywhere, offers that fill the quiet nights, and ads aimed at nearby people who have already shown interest. Orders through your own channels keep more of every bill than delivery apps do.</p>
-          <ul class="fn-chips"><li>Table booking and WhatsApp orders</li><li>Quiet-night and group offers</li><li>Ads to nearby, interested people</li><li>Direct orders over delivery apps</li></ul>
-          <p class="fn-ex"><b>For example</b>A table booking link in every post and profile, a weekday set menu that fills the quiet nights, and group offers for birthdays and office dinners.</p>
-        </div>
-      </div>
-      <div class="fn-row reveal">
-        <div class="fn-band fn-b4"><span class="m-gh">Return</span><span class="m-fb">Return</span></div>
-        <div class="fn-body m-gh">
-          <span class="fn-k">The loop</span>
-          <h3>Turn guests into the next campaign.</h3>
-          <p>In a finite market, repeat guests and their recommendations are what hold sales steady. What they do and say feeds straight back into the top of the funnel.</p>
-          <ul class="fn-chips"><li>Review requests</li><li>Returning-guest offers</li><li>Guest photos and stories</li><li>Email and WhatsApp lists</li></ul>
-          <p class="fn-ex"><b>For example</b>Guests leave with a returning-guest rate, their photos become next month's content, and their reviews feed the AI answers that bring the next booking.</p>
-        </div>
-        <div class="fn-body m-fb">
-          <span class="fn-k">The loop</span>
-          <h3>Turn diners into regulars.</h3>
-          <p>Malé and Hulhumalé are small. Regulars and word of mouth keep tables full long after a campaign ends, and what they post feeds straight back into the top of the funnel.</p>
-          <ul class="fn-chips"><li>Regulars' perks</li><li>Review requests</li><li>Diner photos and stories</li><li>WhatsApp broadcast lists</li></ul>
-          <p class="fn-ex"><b>For example</b>Regulars hear first about new dishes and events, and their posts and reviews do the work of an ad.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!-- ================= WORK ================= -->
 <section id="work">
@@ -993,6 +929,32 @@ footer a:hover{color:var(--ink)}
         <span class="print"><img src="images/campaigns/xstand.jpg" width="1400" height="933" alt="On-island promotion stands" loading="lazy"></span>
         <span class="cap">On-island promotion stands<small>Print for guest events and special dinners.</small></span>
       </button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LEAK FINDER (funnel) ================= -->
+<section id="growth" style="padding-top:24px">
+  <div class="wrap">
+    <h2 class="reveal">Find the leak <em>in your funnel.</em></h2>
+    <p class="sec-sub reveal d1">Most businesses pour money into the top of the funnel, with more posts and more ads, while customers slip out further down. Pick your business, tick what you already do, and see where you're losing people first.</p>
+    <div class="lk reveal">
+      <div class="lk-panel">
+        <span class="lk-step">1. Your business</span>
+        <div class="lk-biz" role="group" aria-label="Your business"><button type="button" data-biz="guesthouse" aria-pressed="true">Guesthouse</button><button type="button" data-biz="restaurant" aria-pressed="false">Restaurant</button><button type="button" data-biz="dive" aria-pressed="false">Dive centre</button><button type="button" data-biz="coffee" aria-pressed="false">Coffee shop</button></div>
+        <span class="lk-step">2. What you already do</span>
+        <div class="lk-qs"><label class="lk-q"><input type="checkbox" data-stage="aw"><span class="lk-sw" aria-hidden="true"></span><span>People can find us on Google Maps with current photos and hours</span></label><label class="lk-q"><input type="checkbox" data-stage="aw"><span class="lk-sw" aria-hidden="true"></span><span>We post short videos at least once a week</span></label><label class="lk-q"><input type="checkbox" data-stage="co"><span class="lk-sw" aria-hidden="true"></span><span>We reply to every review within two days</span></label><label class="lk-q"><input type="checkbox" data-stage="co"><span class="lk-sw" aria-hidden="true"></span><span>Prices, menus and how to reach us are easy to find online</span></label><label class="lk-q"><input type="checkbox" data-stage="cv"><span class="lk-sw" aria-hidden="true"></span><span>Customers can book or order directly with us in under a minute</span></label><label class="lk-q"><input type="checkbox" data-stage="lo"><span class="lk-sw" aria-hidden="true"></span><span>We collect customer contacts and invite them back</span></label><label class="lk-q"><input type="checkbox" data-stage="ad"><span class="lk-sw" aria-hidden="true"></span><span>We ask happy customers for a review or a share</span></label></div>
+      </div>
+      <div class="lk-view">
+        <div class="lk-diagram"><svg class="lk-svg" viewBox="0 0 420 340" role="img" aria-label="Marketing funnel with five stages"><g class="lk-stage" data-stage="aw"><path class="lk-body" d="M10.0,18 L410.0,18 L377.0,76 A167.0,10.9 0 0 1 43.0,76 Z" fill="#157f83"/><ellipse class="lk-top" cx="210" cy="18" rx="200.0" ry="13" fill="#5fb3b4"/><text x="210" y="55.0" text-anchor="middle" class="lk-lab">Awareness</text><g class="lk-leak"><rect x="404.0" y="41.0" width="78" height="24" rx="12"/><text x="443.0" y="57.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="co"><path class="lk-body" d="M43.0,76 L377.0,76 L346.0,134 A136.0,10.6 0 0 1 74.0,134 Z" fill="#24a39b"/><ellipse class="lk-top" cx="210" cy="76" rx="167.0" ry="13" fill="#7fcfc6"/><text x="210" y="113.0" text-anchor="middle" class="lk-lab">Consideration</text><g class="lk-leak"><rect x="371.0" y="99.0" width="78" height="24" rx="12"/><text x="410.0" y="115.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="cv"><path class="lk-body" d="M74.0,134 L346.0,134 L317.0,192 A107.0,10.2 0 0 1 103.0,192 Z" fill="#7cc7b2"/><ellipse class="lk-top" cx="210" cy="134" rx="136.0" ry="13" fill="#b9e4d7"/><text x="210" y="171.0" text-anchor="middle" class="lk-lab lk-lab-d">Conversion</text><g class="lk-leak"><rect x="340.0" y="157.0" width="78" height="24" rx="12"/><text x="379.0" y="173.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="lo"><path class="lk-body" d="M103.0,192 L317.0,192 L291.0,250 A81.0,9.8 0 0 1 129.0,250 Z" fill="#e0a458"/><ellipse class="lk-top" cx="210" cy="192" rx="107.0" ry="13" fill="#f0cc96"/><text x="210" y="229.0" text-anchor="middle" class="lk-lab lk-lab-d">Loyalty</text><g class="lk-leak"><rect x="311.0" y="215.0" width="78" height="24" rx="12"/><text x="350.0" y="231.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="ad"><path class="lk-body" d="M129.0,250 L291.0,250 L269.0,308 A59.0,9.5 0 0 1 151.0,308 Z" fill="#9b8a7a"/><ellipse class="lk-top" cx="210" cy="250" rx="81.0" ry="13" fill="#c9bcb0"/><text x="210" y="287.0" text-anchor="middle" class="lk-lab lk-lab-d">Advocacy</text><g class="lk-leak"><rect x="285.0" y="273.0" width="78" height="24" rx="12"/><text x="324.0" y="289.0" text-anchor="middle">Leak</text></g></g></svg><ul class="lk-legend"><li data-stage="aw"><b>Awareness</b><span>They find you</span><i class="lk-score"></i></li><li data-stage="co"><b>Consideration</b><span>They compare you</span><i class="lk-score"></i></li><li data-stage="cv"><b>Conversion</b><span>They book or buy</span><i class="lk-score"></i></li><li data-stage="lo"><b>Loyalty</b><span>They come back</span><i class="lk-score"></i></li><li data-stage="ad"><b>Advocacy</b><span>They recommend you</span><i class="lk-score"></i></li></ul></div>
+        <div class="lk-result" aria-live="polite">
+          <span class="lk-tag" id="lkTag">Biggest leak</span>
+          <h3 id="lkTitle">Awareness</h3>
+          <p id="lkFix"></p>
+          <p class="lk-insight"><b>Insight</b><span id="lkInsight"></span></p>
+          <a href="#contact" class="btn btn-hl">Fix this with me</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1212,7 +1174,7 @@ footer a:hover{color:var(--ink)}
     <span class="label">Contact</span>
     <h2 class="reveal">Tell me about <em>your property.</em></h2>
     <div class="contact-row reveal d1">
-      <a href="mailto:muiz@islandeative.com?subject=Retainer%20enquiry" class="btn btn-primary">Book a call <i class="ph ph-arrow-up-right"></i></a>
+      <a href="mailto:muiz@islandeative.com?subject=Retainer%20enquiry" class="btn btn-hl">Book a call <i class="ph ph-arrow-up-right"></i></a>
       <a href="https://wa.me/9609902996" class="btn btn-line" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo"></i> WhatsApp</a>
       <button class="copy-mail" id="copyMail" type="button"><i class="ph ph-copy"></i><span>muiz@islandeative.com</span></button>
     </div>
@@ -1494,11 +1456,26 @@ var CERTS = [
     sx=sy=null;
   });
 
-  /* ---------- Growth funnel toggle ---------- */
+  /* ---------- Leak finder ---------- */
   (function(){ var g=document.getElementById('growth'); if(!g) return;
-    g.querySelectorAll('.fn-toggle button').forEach(function(b){ b.addEventListener('click',function(){
-      g.dataset.mode=b.dataset.mode; g.querySelectorAll('.fn-toggle button').forEach(function(x){ x.setAttribute('aria-pressed', x===b?'true':'false'); });
-    }); });
+    var D={"guesthouse": {"fix": {"aw": "Answer the questions travellers now ask AI assistants: how to reach your island from Mal\u00e9, ferry and speedboat times, and what a night really costs. Clear answers on your website and Google profile get you named.", "co": "Show divers, couples and families the package that fits them, answer every review, and reply on WhatsApp in minutes, not the next morning.", "cv": "Make your own website the easiest way to book, with a perk the OTAs can't match, like a free transfer or an excursion.", "lo": "Collect every guest's WhatsApp or email at check-out, and send a returning-guest rate before the next season.", "ad": "Ask for the review on the last evening, not after they leave, and reshare guests' photos with their permission."}, "insight": "Every booking you move from an OTA to your own website keeps 18 to 35% more of the room rate with you. Direct bookings are the cheapest growth a guesthouse has."}, "restaurant": {"fix": {"aw": "Own your Google Maps listing: fresh food photos, correct hours and the dishes people search for. Many diners in Mal\u00e9 and Hulhumal\u00e9 decide there, minutes before they go.", "co": "Give people one clear reason to pick you over the place next door, like a signature dish, the view or a set menu, and show it in every post.", "cv": "Put a booking or WhatsApp order link everywhere, and fill the quiet nights with weekday set menus and group offers.", "lo": "Start a WhatsApp list of regulars and tell them first about new dishes and events.", "ad": "Make your signature dish photogenic and ask happy tables to tag you. Their posts are your cheapest ads."}, "insight": "In a small city, the same few thousand people eat out every week. Turning them into regulars beats chasing new followers."}, "dive": {"fix": {"aw": "Publish what divers actually search for: sites, seasons, sightings and courses. A simple weekly sightings log becomes content that Google and AI assistants can quote.", "co": "Show your instructors, your safety standards and real underwater footage. Divers choose people they trust, not just the lowest price.", "cv": "Let divers book a course or dive package online, and partner with guesthouses so their guests are booked before they arrive.", "lo": "Keep track of each diver's certification level and invite them back for the next course or the season's big sightings.", "ad": "Send every diver their best clip after the dive, with your tag on it. Divers love to post, and their friends dive too."}, "insight": "Divers plan trips around the sea, not the hotel. Own the information on conditions and sightings, and the bookings follow you."}, "coffee": {"fix": {"aw": "Be on Google Maps with the right hours and photos, and post short videos of what makes your coffee different, from the beans to the latte art.", "co": "Give people a reason to come to you: a signature drink, a space to work, or the best breakfast near the office.", "cv": "Make ordering easy with a WhatsApp or pick-up link for office orders, and a morning offer that builds the habit.", "lo": "A digital stamp card or a WhatsApp list turns the once-a-week customer into a daily one.", "ad": "Seasonal drinks and a corner worth photographing give regulars something to share."}, "insight": "A coffee shop grows on frequency, not footfall. One extra visit a week from your regulars is worth more than a hundred new followers."}}, N={"aw": "Awareness", "co": "Consideration", "cv": "Conversion", "lo": "Loyalty", "ad": "Advocacy"}, order=['aw','co','cv','lo','ad'], biz='guesthouse';
+    function run(){
+      var sc={}; order.forEach(function(s){ var q=g.querySelectorAll('.lk-q input[data-stage="'+s+'"]'), n=0; q.forEach(function(i){ if(i.checked) n++; }); sc[s]={n:n,t:q.length,r:n/q.length}; });
+      var leak=null; order.forEach(function(s){ if(sc[s].r<1 && (leak===null || sc[s].r<sc[leak].r)) leak=s; });
+      order.forEach(function(s){
+        var st=g.querySelector('.lk-stage[data-stage="'+s+'"]'), li=g.querySelector('.lk-legend li[data-stage="'+s+'"]');
+        st.classList.toggle('weak', sc[s].r<1 && s!==leak); st.classList.toggle('leak', s===leak);
+        li.classList.toggle('leak', s===leak); li.classList.toggle('ok', sc[s].r===1);
+        li.querySelector('.lk-score').textContent=sc[s].n+'/'+sc[s].t;
+      });
+      var tag=document.getElementById('lkTag'), t=document.getElementById('lkTitle'), f=document.getElementById('lkFix');
+      if(leak){ tag.textContent='Biggest leak'; t.textContent=N[leak]; f.textContent=D[biz].fix[leak]; }
+      else { tag.textContent='No obvious leak'; t.textContent='Time to scale'; f.textContent='Your funnel holds together. The next step is measuring which channel brings the most revenue, then putting more behind it.'; }
+      document.getElementById('lkInsight').textContent=D[biz].insight;
+    }
+    g.querySelectorAll('.lk-biz button').forEach(function(b){ b.addEventListener('click',function(){ biz=b.dataset.biz; g.querySelectorAll('.lk-biz button').forEach(function(x){ x.setAttribute('aria-pressed', x===b?'true':'false'); }); run(); }); });
+    g.querySelectorAll('.lk-q input').forEach(function(i){ i.addEventListener('change',run); });
+    run();
   })();
 
   /* ---------- Campaigns ---------- */
