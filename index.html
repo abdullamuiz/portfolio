@@ -772,7 +772,7 @@ footer a:hover{color:var(--ink)}
     </ul>
     <div class="nav-right">
       <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch light or dark mode"><i class="ph ph-moon"></i></button>
-      <a href="mailto:muiz@islandeative.com?subject=Booking%20a%20call&amp;body=Hi%20Muiz%2C%0A%0AI%27d%20like%20to%20book%20a%20call%20about%20my%20business.%0A%0A" class="btn btn-hl">Book a call</a>
+      <a href="mailto:muiz@islandeative.com" class="btn btn-hl js-call">Request a call</a>
     </div>
   </div>
 </header>
@@ -790,7 +790,7 @@ footer a:hover{color:var(--ink)}
           <p>Ten years marketing Maldivian resorts. Fifteen years behind the camera. One senior partner for your plan, content and results.</p>
           <div class="cta-row">
             <a href="#work" class="btn btn-primary">View work <i class="ph ph-arrow-down-right"></i></a>
-            <a href="mailto:muiz@islandeative.com?subject=Booking%20a%20call&amp;body=Hi%20Muiz%2C%0A%0AI%27d%20like%20to%20book%20a%20call%20about%20my%20business.%0A%0A" class="btn btn-line">Book a call</a>
+            <a href="mailto:muiz@islandeative.com" class="btn btn-line js-call">Request a call</a>
           </div>
         </div>
       </div>
@@ -1174,7 +1174,7 @@ footer a:hover{color:var(--ink)}
           <li><i class="ph ph-check"></i>Monthly newsletter to past and future guests</li>
           <li><i class="ph ph-check"></i>Google, TripAdvisor and OTA optimisation</li>
         </ul>
-        <a href="mailto:muiz@islandeative.com?subject=Booking%20a%20call&amp;body=Hi%20Muiz%2C%0A%0AI%27d%20like%20to%20book%20a%20call%20about%20my%20business.%0A%0A" class="btn btn-primary">Book a call</a>
+        <a href="mailto:muiz@islandeative.com" class="btn btn-primary js-call">Request a call</a>
       </div>
       <div class="plan reveal d1">
         <h3>Visibility retainer</h3>
@@ -1344,7 +1344,7 @@ footer a:hover{color:var(--ink)}
     <span class="label">Contact</span>
     <h2 class="reveal">Tell me about <em>your property.</em></h2>
     <div class="contact-row reveal d1">
-      <a href="mailto:muiz@islandeative.com?subject=Booking%20a%20call&amp;body=Hi%20Muiz%2C%0A%0AI%27d%20like%20to%20book%20a%20call%20about%20my%20business.%0A%0A" class="btn btn-hl">Book a call <i class="ph ph-arrow-up-right"></i></a>
+      <a href="mailto:muiz@islandeative.com" class="btn btn-hl js-call">Request a call <i class="ph ph-arrow-up-right"></i></a>
       <a href="https://wa.me/9609902996" class="btn btn-wa" target="_blank" rel="noopener"><i class="ph-fill ph-whatsapp-logo"></i> WhatsApp</a>
       <a href="https://t.me/+9609902996" class="btn btn-tg" target="_blank" rel="noopener"><i class="ph-fill ph-telegram-logo"></i> Telegram</a>
     </div>
@@ -1681,6 +1681,17 @@ var CERTS = [
     r.addEventListener('input',draw);
     be.querySelectorAll('.be-toggle button').forEach(function(b){ b.addEventListener('click',function(){ ch=b.dataset.ch; be.querySelectorAll('.be-toggle button').forEach(function(x){ x.setAttribute('aria-pressed',x===b?'true':'false'); }); draw(); }); });
     draw();
+  })();
+
+  /* ---------- Request a call: SMS on phones, email on desktop ---------- */
+  (function(){
+    var msg="Hi Muiz, I saw your portfolio and would like to request a call to discuss further. Please call me back when you're free.";
+    var mobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.maxTouchPoints>1 && /Macintosh/.test(navigator.userAgent));
+    var ios=/iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.maxTouchPoints>1 && /Macintosh/.test(navigator.userAgent));
+    var href = mobile
+      ? 'sms:+9609902996'+(ios?'&':'?')+'body='+encodeURIComponent(msg)
+      : 'mailto:muiz@islandeative.com?subject='+encodeURIComponent('Call request from your portfolio')+'&body='+encodeURIComponent(msg+'\n\nName:\nBusiness:\nBest number to reach me:\n');
+    document.querySelectorAll('.js-call').forEach(function(a){ a.setAttribute('href',href); });
   })();
 
   /* ---------- Campaigns ---------- */
