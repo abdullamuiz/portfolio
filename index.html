@@ -11,7 +11,7 @@
 <meta name="theme-color" content="#0d1416" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Young+Serif&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 <style>
 /* ==========================================================
@@ -478,6 +478,12 @@ footer a:hover{color:var(--ink)}
 @media (max-width:480px){.plaques{grid-template-columns:1fr 1fr;gap:16px}.plaque-inner{padding:12px 4px 4px}.plaque .award{font-size:.95rem}.plaque .honour{font-size:.8rem}.plaque .inst{font-size:.6rem}}
 
 @media (min-width:901px){.contact-grid{grid-template-columns:.8fr 1.2fr;gap:72px}.contact-grid .contact-figure{order:-1;justify-self:start}}
+
+/* ================= WORDMARK ================= */
+.nav .brand{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.6rem;letter-spacing:-.02em;line-height:1;color:var(--ink);display:inline-flex;align-items:baseline}
+.brand .bi{position:relative;display:inline-block}
+.brand .bdot{position:absolute;left:50%;top:-.05em;transform:translateX(-50%);width:.19em;height:.19em;border-radius:50%;background:var(--accent)}
+.brand .bstop{display:inline-block;width:.28em;height:.28em;border-radius:50%;background:var(--accent);margin-left:.05em}
 /* ================= MOTION ================= */
 .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .js .reveal.in{opacity:1;transform:none}
@@ -507,7 +513,7 @@ footer a:hover{color:var(--ink)}
 
 <header class="nav" id="nav">
   <div class="wrap">
-    <a href="#top" class="brand">Muiz Fuad</a>
+    <a href="#top" class="brand" aria-label="Muiz, home">Mu<span class="bi">ı<b class="bdot"></b></span>z<b class="bstop"></b></a>
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#work">Work</a></li>
