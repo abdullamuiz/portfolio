@@ -347,7 +347,7 @@ details p b{color:var(--ink);font-weight:500;display:block;font-size:.78rem;font
 @media (max-width:900px){.quotes{grid-template-columns:1fr}.quote-lg{grid-row:auto}}
 
 /* ================= CONTACT ================= */
-.contact{padding:140px 0 120px}
+.contact{padding:40px 0 120px}
 .contact h2{font-size:clamp(2.6rem,7vw,6rem);max-width:14ch;line-height:1.04;padding-bottom:6px}
 .contact-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:44px;align-items:center}
 .copy-mail{font:500 1rem "Geist Mono",monospace;background:transparent;border:0;color:var(--muted);cursor:pointer;display:inline-flex;gap:8px;align-items:center;padding:0 12px;height:50px}
@@ -746,6 +746,11 @@ footer a:hover{color:var(--ink)}
 .call-menu i{font-size:1.1rem;color:var(--accent)}
 .call-menu .cm-wa i{color:#25D366}.call-menu .cm-tg i{color:#229ED9}
 .call-menu .cm-sep{height:1px;background:var(--line);margin:6px 8px}
+
+.dhi-fig{position:relative;display:grid;place-items:center;background:#0b1a6b;aspect-ratio:4/3;margin:0}
+.dhi-fig img{position:static!important;width:62%!important;height:auto!important;object-fit:contain}
+.dhi-fig .soon{position:absolute;top:14px;right:14px;font:600 .72rem "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border-radius:999px;background:var(--hl);color:var(--hl-ink)}
+.studio-soon{font:500 .78rem "Geist Mono",monospace;color:var(--muted);letter-spacing:.04em}
 /* ================= MOTION ================= */
 .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .js .reveal.in{opacity:1;transform:none}
@@ -802,7 +807,7 @@ footer a:hover{color:var(--ink)}
       <div class="hero-card paper-wrap reveal d1">
         <div class="paper">
           <h1>Your strategist in <em>digital visibility and content creation.</em></h1>
-          <p>Ten years marketing Maldivian resorts. Fifteen years behind the camera. One senior partner for your plan, content and results.</p>
+          <p>Ten years in Maldivian marketing and digital visibility. Fifteen years behind the camera. One senior partner for your plan, content and results.</p>
           <div class="cta-row">
             <a href="#work" class="btn btn-primary">View work <i class="ph ph-arrow-down-right"></i></a>
             <a href="mailto:muiz@islandeative.com" class="btn btn-line js-call">Request a call</a>
@@ -999,8 +1004,8 @@ footer a:hover{color:var(--ink)}
         <p class="muted">Marketing Manager, 2021 to 2022. Paid social, influencer programmes, broadcast and print features across European markets.</p>
         <details>
           <summary>Challenge and approach <i class="ph ph-plus"></i></summary>
-          <p><b>Challenge</b><span class="todo">ADD what the resort needed, e.g. less OTA dependence, stronger German and Italian demand.</span></p>
-          <p><b>Approach</b>Built annual social strategies by source market and ran paid campaigns on Facebook and Instagram. Hosted up to 12 influencer and creator visits a year, including Miss Germany 2022 and an Italian travel documentary crew. Produced seasonal campaigns, magazine advertorials and on-island print, sent monthly newsletters to repeat guests and represented the resort at trade fairs, with Google Analytics reporting guiding every decision.</p>
+          <p><b>Challenge</b>When I joined, the website was stuck in an early-2000s format with no way to book direct. Around 90% of bookings came through OTAs, and the rest through bulk-buying agents taking even higher commissions. Social media had stalled and LinkedIn wasn't on the radar. I was contracted for one year to overhaul digital marketing and leave behind a system the team could run as its standard procedure.</p>
+          <p><b>Approach</b>Built annual social strategies by source market and ran paid campaigns on Facebook and Instagram. Hosted up to 12 influencer and creator visits a year, including Miss Germany 2022 and an Italian travel documentary crew. Produced seasonal campaigns, magazine advertorials and on-island print, sent monthly newsletters to repeat guests and represented the resort at trade fairs, with Google Analytics reporting guiding every decision. On the island, every event became a chance to upsell: cocktail nights, visiting chef dinners and special evenings, promoted through print, flyers and messages to guests before and after arrival.</p>
         </details>
         <div class="stats">
           <div><b>73+</b><span>bookings from one sub-USD 500 ad</span></div>
@@ -1030,12 +1035,12 @@ footer a:hover{color:var(--ink)}
         </div>
       </article>
       <article class="case-card reveal d2">
-        <figure><img src="https://picsum.photos/seed/dhi-brew-coldbrew/800/600?grayscale" width="800" height="600" alt="Dhi Brew Lab cold brew bottles" loading="lazy"></figure>
+        <figure class="dhi-fig"><img src="images/logos/dhibrew.png" width="700" height="700" alt="Dhi Brew Lab logo" loading="lazy"><span class="soon">Brewing soon</span></figure>
         <div class="inner">
           <div class="chips"><span class="chip">F&amp;B</span><span class="chip">Brand launch</span></div>
           <h3>Dhi Brew Lab</h3>
-          <p>A small-batch cold brew brand in Malé: label design, product photography and launch content.</p>
-          <div class="result"><b class="todo">00</b><span>ADD metric after launch</span></div>
+          <p>My own small-batch cold brew brand in Malé, built from the ground up: identity, label design, product photography and launch content.</p>
+          <div class="result"><b>2026</b><span>launching in Malé</span></div>
         </div>
       </article>
     </div>
@@ -1208,9 +1213,10 @@ footer a:hover{color:var(--ink)}
       <div class="studio-body">
         <span class="chip studio-chip">For bigger briefs</span>
         <h3>When a project needs a crew.</h3>
-        <p>I founded <strong>Islandeative Studio</strong>, where I work with trusted partners: second shooters, editors and drone operators. When a launch or campaign needs more hands, I bring them in and lead the shoot. You still deal with me, start to finish.</p>
+        <p><strong>Islandeative</strong> is the growth studio I founded for Maldivian guesthouses, restaurants and island businesses. It sells growth, not posts: 90-day growth sprints, a shared board that tracks what every experiment cost and brought back, and plans that can be paid as a fixed fee or partly from growth.</p>
+        <p>For bigger launches and campaigns, I bring in trusted Islandeative partners, from second shooters and editors to drone operators, and lead the work myself. You still deal with me, start to finish.</p>
         <ul class="studio-list"><li>Launches and openings</li><li>Multi-day campaign shoots</li><li>Drone, video and photo at once</li><li>Events and trade fairs</li></ul>
-        <a class="btn btn-primary studio-link" href="https://islandeative.com" target="_blank" rel="noopener">Visit Islandeative <i class="ph ph-arrow-up-right"></i></a>
+        <span class="studio-soon">islandeative.com is launching soon</span>
       </div>
     </div>
 
@@ -1360,7 +1366,7 @@ footer a:hover{color:var(--ink)}
     <div class="contact-row reveal d1">
       <a href="mailto:muiz@islandeative.com" class="btn btn-hl js-call">Request a call <i class="ph ph-arrow-up-right"></i></a>
       <a href="https://wa.me/9609902996" class="btn btn-wa" target="_blank" rel="noopener"><i class="ph-fill ph-whatsapp-logo"></i> WhatsApp</a>
-      <a href="https://t.me/+9609902996" class="btn btn-tg" target="_blank" rel="noopener"><i class="ph-fill ph-telegram-logo"></i> Telegram</a>
+      <a href="https://t.me/muizfuad" class="btn btn-tg" target="_blank" rel="noopener"><i class="ph-fill ph-telegram-logo"></i> Telegram</a>
     </div>
     <div class="contact-lines reveal d2">
       <a href="tel:+9609902996" class="c-line"><i class="ph ph-phone"></i><span>+960 990 2996</span></a>
@@ -1382,7 +1388,7 @@ footer a:hover{color:var(--ink)}
     <div class="socials">
       <a href="https://www.linkedin.com/in/abdullamuizfuad/" target="_blank" rel="noopener"><i class="ph ph-linkedin-logo"></i> LinkedIn</a>
       <a href="https://www.instagram.com/emyuaizee" target="_blank" rel="noopener"><i class="ph ph-instagram-logo"></i> Instagram</a>
-      <a href="https://t.me/+9609902996" target="_blank" rel="noopener"><i class="ph ph-telegram-logo"></i> Telegram</a>
+      <a href="https://t.me/muizfuad" target="_blank" rel="noopener"><i class="ph ph-telegram-logo"></i> Telegram</a>
     </div>
   </div>
 </footer>
@@ -1708,7 +1714,7 @@ var CERTS = [
     var links={
       sms:'sms:+9609902996'+(ios?'&':'?')+'body='+e(msg),
       wa:'https://wa.me/9609902996?text='+e(msg),
-      tg:'https://t.me/+9609902996',
+      tg:'https://t.me/muizfuad',
       app:'mailto:'+TO+'?subject='+e(SUB)+'&body='+e(body),
       gmail:'https://mail.google.com/mail/?view=cm&fs=1&to='+e(TO)+'&su='+e(SUB)+'&body='+e(body),
       outlook:'https://outlook.live.com/mail/0/deeplink/compose?to='+e(TO)+'&subject='+e(SUB)+'&body='+e(body)
