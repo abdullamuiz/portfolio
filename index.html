@@ -699,6 +699,17 @@ footer a:hover{color:var(--ink)}
 .studio-list li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--accent)}
 .studio .studio-link{align-self:flex-start;color:var(--accent-ink)}
 @media (max-width:900px){.pw{grid-template-columns:1fr}.pw-photo{min-height:320px}.pw-grid{grid-template-columns:1fr}.studio-list{grid-template-columns:1fr}.studio figure.studio-logo{min-height:220px}}
+
+/* ================= CONTACT BUTTONS ================= */
+.btn-wa{background:#25D366;color:#fff;border-color:#25D366}
+.btn-wa:hover{background:#1ebe5b;border-color:#1ebe5b}
+.btn-tg{background:#229ED9;color:#fff;border-color:#229ED9}
+.btn-tg:hover{background:#1b8cc2;border-color:#1b8cc2}
+.btn-wa i,.btn-tg i{font-size:1.15em}
+.contact-lines{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:18px}
+.c-line{display:inline-flex;align-items:center;gap:8px;font:500 .95rem "Geist Mono",monospace;color:var(--muted);text-decoration:none;background:none;border:0;padding:0;cursor:pointer}
+.c-line:hover{color:var(--ink)}
+.contact-lines .copy-mail{height:auto;padding:0}
 /* ================= MOTION ================= */
 .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .js .reveal.in{opacity:1;transform:none}
@@ -740,7 +751,7 @@ footer a:hover{color:var(--ink)}
     </ul>
     <div class="nav-right">
       <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch light or dark mode"><i class="ph ph-moon"></i></button>
-      <a href="#contact" class="btn btn-hl">Book a call</a>
+      <a href="mailto:muiz@islandeative.com?subject=Booking%20a%20call&amp;body=Hi%20Muiz%2C%0A%0AI%27d%20like%20to%20book%20a%20call%20about%20my%20business.%0A%0A" class="btn btn-hl">Book a call</a>
     </div>
   </div>
 </header>
@@ -758,7 +769,7 @@ footer a:hover{color:var(--ink)}
           <p>Ten years marketing Maldivian resorts. Fifteen years behind the camera. One senior partner for your plan, content and results.</p>
           <div class="cta-row">
             <a href="#work" class="btn btn-primary">View work <i class="ph ph-arrow-down-right"></i></a>
-            <a href="#contact" class="btn btn-line">Book a call</a>
+            <a href="mailto:muiz@islandeative.com?subject=Booking%20a%20call&amp;body=Hi%20Muiz%2C%0A%0AI%27d%20like%20to%20book%20a%20call%20about%20my%20business.%0A%0A" class="btn btn-line">Book a call</a>
           </div>
         </div>
       </div>
@@ -1141,7 +1152,7 @@ footer a:hover{color:var(--ink)}
           <li><i class="ph ph-check"></i>Monthly newsletter to past and future guests</li>
           <li><i class="ph ph-check"></i>Google, TripAdvisor and OTA optimisation</li>
         </ul>
-        <a href="#contact" class="btn btn-primary">Book a call</a>
+        <a href="mailto:muiz@islandeative.com?subject=Booking%20a%20call&amp;body=Hi%20Muiz%2C%0A%0AI%27d%20like%20to%20book%20a%20call%20about%20my%20business.%0A%0A" class="btn btn-primary">Book a call</a>
       </div>
       <div class="plan reveal d1">
         <h3>Visibility retainer</h3>
@@ -1297,9 +1308,13 @@ footer a:hover{color:var(--ink)}
     <span class="label">Contact</span>
     <h2 class="reveal">Tell me about <em>your property.</em></h2>
     <div class="contact-row reveal d1">
-      <a href="mailto:muiz@islandeative.com?subject=Retainer%20enquiry" class="btn btn-hl">Book a call <i class="ph ph-arrow-up-right"></i></a>
-      <a href="https://wa.me/9609902996" class="btn btn-line" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo"></i> WhatsApp</a>
-      <button class="copy-mail" id="copyMail" type="button"><i class="ph ph-copy"></i><span>muiz@islandeative.com</span></button>
+      <a href="mailto:muiz@islandeative.com?subject=Booking%20a%20call&amp;body=Hi%20Muiz%2C%0A%0AI%27d%20like%20to%20book%20a%20call%20about%20my%20business.%0A%0A" class="btn btn-hl">Book a call <i class="ph ph-arrow-up-right"></i></a>
+      <a href="https://wa.me/9609902996" class="btn btn-wa" target="_blank" rel="noopener"><i class="ph-fill ph-whatsapp-logo"></i> WhatsApp</a>
+      <a href="https://t.me/+9609902996" class="btn btn-tg" target="_blank" rel="noopener"><i class="ph-fill ph-telegram-logo"></i> Telegram</a>
+    </div>
+    <div class="contact-lines reveal d2">
+      <a href="tel:+9609902996" class="c-line"><i class="ph ph-phone"></i><span>+960 990 2996</span></a>
+      <button class="copy-mail c-line" id="copyMail" type="button"><i class="ph ph-copy"></i><span>muiz@islandeative.com</span></button>
     </div>
    </div>
    <div class="contact-figure reveal d2">
@@ -1315,8 +1330,9 @@ footer a:hover{color:var(--ink)}
   <div class="wrap">
     <span>© <span id="yr">2026</span> Abdulla Muiz Fuad. Founder, Islandeative Studio. Malé, Maldives.</span>
     <div class="socials">
-      <a href="#" class="todo"><i class="ph ph-linkedin-logo"></i> LinkedIn</a>
-      <a href="#" class="todo"><i class="ph ph-instagram-logo"></i> Instagram</a>
+      <a href="https://www.linkedin.com/in/abdullamuizfuad/" target="_blank" rel="noopener"><i class="ph ph-linkedin-logo"></i> LinkedIn</a>
+      <a href="https://www.instagram.com/emyuaizee" target="_blank" rel="noopener"><i class="ph ph-instagram-logo"></i> Instagram</a>
+      <a href="https://t.me/+9609902996" target="_blank" rel="noopener"><i class="ph ph-telegram-logo"></i> Telegram</a>
     </div>
   </div>
 </footer>
