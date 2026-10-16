@@ -571,7 +571,7 @@ footer a:hover{color:var(--ink)}
 .fn-chips li{font-size:.82rem;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg)}
 .fn-ex{margin-top:4px;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--accent) 9%,transparent);font-size:.93rem;line-height:1.55}
 .fn-ex b{display:block;font:500 .7rem "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
-#growth[data-mode="gh"] .ex-fb,#growth[data-mode="fb"] .ex-gh{display:none}
+#growth[data-mode="gh"] .m-fb,#growth[data-mode="fb"] .m-gh{display:none}
 @media (max-width:900px){.funnel-flow{padding-left:0}.fn-loop{display:none}.fn-row{grid-template-columns:1fr;gap:18px;padding:18px;border-radius:18px}.fn-band{height:64px;font-size:1rem}.fn-head{align-items:flex-start}}
 /* ================= MOTION ================= */
 .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
@@ -737,47 +737,71 @@ footer a:hover{color:var(--ink)}
     <div class="funnel-flow">
       <div class="fn-loop" aria-hidden="true"><span>Loop</span></div>
       <div class="fn-row reveal">
-        <div class="fn-band fn-b1"><span>Discover</span></div>
-        <div class="fn-body">
+        <div class="fn-band fn-b1"><span class="m-gh">Discover</span><span class="m-fb">Discover</span></div>
+        <div class="fn-body m-gh">
           <span class="fn-k">Top of the funnel</span>
           <h3>Be found before they compare.</h3>
           <p>Value-minded travellers plan the Maldives on their phones: short videos, Google Maps, booking sites and, more and more, AI assistants like ChatGPT and Gemini. If you don't show up there, nothing further down the funnel gets a chance.</p>
           <ul class="fn-chips"><li>AI search optimisation</li><li>Google Maps and Business Profile</li><li>One shoot, many short videos</li><li>Intent-based ads</li></ul>
-          <p class="fn-ex ex-gh"><b>Guesthouse</b>When someone asks an AI assistant how to reach your island from Malé, the answer names your guesthouse, with the ferry time, the transfer price and what a night costs.</p>
-          <p class="fn-ex ex-fb"><b>Restaurant</b>When someone searches for seafood near them in Hulhumalé, you're in the top three on Maps, with fresh photos and a reply to every review.</p>
+          <p class="fn-ex"><b>For example</b>When someone asks an AI assistant how to reach your island from Malé, the answer names your guesthouse, with the ferry time, the transfer price and what a night costs.</p>
+        </div>
+        <div class="fn-body m-fb">
+          <span class="fn-k">Top of the funnel</span>
+          <h3>Be found when they're hungry.</h3>
+          <p>Residents and visitors decide where to eat on their phones, often minutes before they go: Google Maps, Instagram, TikTok and, more and more, AI assistants. If you don't show up in that moment, someone else gets the table.</p>
+          <ul class="fn-chips"><li>Google Maps and Business Profile</li><li>AI search optimisation</li><li>Short food videos from one shoot</li><li>Location-based ads</li></ul>
+          <p class="fn-ex"><b>For example</b>When someone searches for seafood near them in Hulhumalé, you're in the top three on Maps, with fresh photos and a reply to every review.</p>
         </div>
       </div>
       <div class="fn-row reveal">
-        <div class="fn-band fn-b2"><span>Consider</span></div>
-        <div class="fn-body">
+        <div class="fn-band fn-b2"><span class="m-gh">Consider</span><span class="m-fb">Choose</span></div>
+        <div class="fn-body m-gh">
           <span class="fn-k">Middle of the funnel</span>
           <h3>Give them reasons to choose you.</h3>
-          <p>Now they're comparing you with three other places on the same island or street. Reviews, clear prices and fast answers decide who wins.</p>
+          <p>Now they're comparing you with three other places on the same island. Reviews, clear prices and fast answers decide who wins.</p>
           <ul class="fn-chips"><li>Review replies</li><li>Clear prices and transfer details</li><li>Fast WhatsApp and DM replies</li><li>Offers for each type of guest</li></ul>
-          <p class="fn-ex ex-gh"><b>Guesthouse</b>Divers, honeymooners and families each see the package that fits them, and questions on WhatsApp get an answer in minutes, not the next morning.</p>
-          <p class="fn-ex ex-fb"><b>Restaurant</b>Menus, prices and opening hours are easy to find, and a quick reply turns "do you have a table for six?" into a booking.</p>
+          <p class="fn-ex"><b>For example</b>Divers, honeymooners and families each see the package that fits them, and questions on WhatsApp get an answer in minutes, not the next morning.</p>
+        </div>
+        <div class="fn-body m-fb">
+          <span class="fn-k">Middle of the funnel</span>
+          <h3>Give them a reason to pick you.</h3>
+          <p>Now they're comparing you with the place next door. Photos that make them hungry, honest reviews, clear prices and something only you offer make the decision for them.</p>
+          <ul class="fn-chips"><li>Signature dish content</li><li>Review replies</li><li>Menus and prices online</li><li>Fast DM and WhatsApp replies</li></ul>
+          <p class="fn-ex"><b>For example</b>A clear reason to choose you, like the best sunset seats on the street or a set menu for two, and a quick reply that turns "do you have a table for six?" into a booking.</p>
         </div>
       </div>
       <div class="fn-row reveal">
-        <div class="fn-band fn-b3"><span>Book</span></div>
-        <div class="fn-body">
+        <div class="fn-band fn-b3"><span class="m-gh">Book</span><span class="m-fb">Visit</span></div>
+        <div class="fn-body m-gh">
           <span class="fn-k">Bottom of the funnel</span>
           <h3>Make booking direct the easy choice.</h3>
-          <p>Every guest who books direct, instead of through an OTA or a delivery app, keeps more of the revenue with you. Ad spend should follow the people who are almost ready, not everyone.</p>
+          <p>Every guest who books direct instead of through an OTA keeps 18 to 35% more of the room rate with you. Ad spend should follow the people who are almost ready, not everyone.</p>
           <ul class="fn-chips"><li>Direct-booking perks</li><li>Booking engine and WhatsApp booking</li><li>Retargeting ads</li><li>Follow-ups on unanswered enquiries</li></ul>
-          <p class="fn-ex ex-gh"><b>Guesthouse</b>A free transfer or excursion for booking on your own website, and a reminder to anyone who checked dates but didn't book.</p>
-          <p class="fn-ex ex-fb"><b>Restaurant</b>A table booking link in every post and profile, and group and event offers that fill the quiet nights.</p>
+          <p class="fn-ex"><b>For example</b>A free transfer or excursion for booking on your own website, and a reminder to anyone who checked dates but didn't book.</p>
+        </div>
+        <div class="fn-body m-fb">
+          <span class="fn-k">Bottom of the funnel</span>
+          <h3>Turn interest into a table or an order.</h3>
+          <p>Make the last step easy: a booking or order link everywhere, offers that fill the quiet nights, and ads aimed at nearby people who have already shown interest. Orders through your own channels keep more of every bill than delivery apps do.</p>
+          <ul class="fn-chips"><li>Table booking and WhatsApp orders</li><li>Quiet-night and group offers</li><li>Ads to nearby, interested people</li><li>Direct orders over delivery apps</li></ul>
+          <p class="fn-ex"><b>For example</b>A table booking link in every post and profile, a weekday set menu that fills the quiet nights, and group offers for birthdays and office dinners.</p>
         </div>
       </div>
       <div class="fn-row reveal">
-        <div class="fn-band fn-b4"><span>Return</span></div>
-        <div class="fn-body">
+        <div class="fn-band fn-b4"><span class="m-gh">Return</span><span class="m-fb">Return</span></div>
+        <div class="fn-body m-gh">
           <span class="fn-k">The loop</span>
           <h3>Turn guests into the next campaign.</h3>
           <p>In a finite market, repeat guests and their recommendations are what hold sales steady. What they do and say feeds straight back into the top of the funnel.</p>
           <ul class="fn-chips"><li>Review requests</li><li>Returning-guest offers</li><li>Guest photos and stories</li><li>Email and WhatsApp lists</li></ul>
-          <p class="fn-ex ex-gh"><b>Guesthouse</b>Guests leave with a returning-guest rate, their photos become next month's content, and their reviews feed the AI answers that bring the next booking.</p>
-          <p class="fn-ex ex-fb"><b>Restaurant</b>Regulars hear first about new dishes and events, and their posts and reviews do the work of an ad.</p>
+          <p class="fn-ex"><b>For example</b>Guests leave with a returning-guest rate, their photos become next month's content, and their reviews feed the AI answers that bring the next booking.</p>
+        </div>
+        <div class="fn-body m-fb">
+          <span class="fn-k">The loop</span>
+          <h3>Turn diners into regulars.</h3>
+          <p>Malé and Hulhumalé are small. Regulars and word of mouth keep tables full long after a campaign ends, and what they post feeds straight back into the top of the funnel.</p>
+          <ul class="fn-chips"><li>Regulars' perks</li><li>Review requests</li><li>Diner photos and stories</li><li>WhatsApp broadcast lists</li></ul>
+          <p class="fn-ex"><b>For example</b>Regulars hear first about new dishes and events, and their posts and reviews do the work of an ad.</p>
         </div>
       </div>
     </div>
