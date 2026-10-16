@@ -509,6 +509,22 @@ footer a:hover{color:var(--ink)}
 :root[data-theme="dark"] .g-teal{background-image:linear-gradient(120deg,#5cc5c0,#9fe6d6)}
 :root[data-theme="dark"] .g-sand{background-image:linear-gradient(120deg,#e0a458,#f3cf94)}
 @media (max-width:900px){.proof-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto}.stat-hero,.stat-wide{grid-column:span 2}.stat{padding:20px;border-radius:18px;min-height:130px}.stat-hero{grid-row:auto;min-height:230px;padding:26px}.stat-hero b{font-size:clamp(4rem,19vw,6rem)}.stat-wide b{font-size:3.2rem}.proof-grid .stat:last-child{grid-column:span 2}}
+
+/* ================= POINT OF VIEW ================= */
+.pov-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:48px}
+.pov{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:30px 28px;display:flex;flex-direction:column;gap:12px}
+.pov-k{font:700 clamp(2.2rem,3.4vw,3rem)/1 Geist,sans-serif;letter-spacing:-.045em;color:var(--ink);margin-bottom:8px}
+.pov h3{font-size:1.2rem;font-weight:500;letter-spacing:-.015em;line-height:1.3}
+.pov p{color:var(--muted);font-size:.96rem;line-height:1.6}
+.cycle{margin-top:16px;border-radius:22px;padding:28px 30px;border:1px solid rgba(28,35,38,.1);box-shadow:0 14px 28px -20px rgba(10,30,32,.4);display:flex;align-items:center;gap:36px;background:var(--noise),var(--paper);color:var(--paper-ink)}
+.cycle-steps{list-style:none;display:flex;align-items:center;gap:10px;margin:0;padding:0;flex:none}
+.cycle-steps li{font:500 .82rem "Geist Mono",monospace;letter-spacing:.04em;text-transform:uppercase;padding:9px 14px;border-radius:999px;border:1px solid rgba(28,35,38,.2);display:flex;align-items:center}
+.cycle-steps li:not(:last-child)::after{content:"\2192";margin-left:14px;margin-right:-4px;color:#0b6b70}
+.cycle-steps li:last-child{background:#0b6b70;color:#fff;border-color:#0b6b70}
+.cycle p{font-size:1.05rem;line-height:1.55;color:var(--paper-muted)}
+.cycle p strong{color:var(--paper-ink);font-weight:500}
+@media (max-width:1000px){.cycle{flex-direction:column;align-items:flex-start;gap:18px}}
+@media (max-width:900px){.pov-grid{grid-template-columns:1fr}.pov{padding:24px 22px;border-radius:18px}.cycle{padding:24px 22px}.cycle-steps{flex-wrap:wrap;gap:8px}.cycle-steps li{padding:8px 12px;font-size:.74rem}.cycle-steps li:not(:last-child)::after{margin-left:10px}}
 /* ================= MOTION ================= */
 .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .js .reveal.in{opacity:1;transform:none}
@@ -590,13 +606,14 @@ footer a:hover{color:var(--ink)}
 <!-- ================= ABOUT ================= -->
 <section id="about">
   <div class="wrap">
-    <h2 class="reveal">Over a decade of strategy and content experience, <em>at your disposal.</em></h2>
+    <h2 class="reveal">Over a decade of strategy and content, <em>now at your disposal.</em></h2>
     <div class="bento">
       <div class="tile t-story reveal">
-        <p class="big">Most properties hire one person for strategy, another for content and an agency for reporting. I do all three, so nothing gets lost between them.</p>
+        <p class="big">Most properties hire one person for strategy, another for content and an agency for reporting. Some skip reporting altogether, so ad spend goes out with no real way to see what it brings back. I work in systems: every expense is tracked, measured and accountable for its impact.</p>
         <div>
-          <p>As <strong>Marketing Manager at Reethi Beach Resort</strong>, I led the full marketing function for the German and Italian markets, built a multi-tier influencer programme and rebuilt the website for search. At <strong>Business Centre Corporation</strong>, I moved a TV channel onto web series and social, then ran SME HUB, guiding 23 Maldivian small businesses through growth.</p>
-          <p>Today I lecture Electronic Marketing, Brand Management and International Marketing at <strong>MNU Business School</strong>. <span class="todo">ADD one personal line about why local islands and guesthouses matter to you.</span></p>
+          <p>As <strong>Marketing Manager at Reethi Beach Resort</strong>, I led the full marketing function for the German and Italian markets, built a multi-tier influencer programme and rebuilt the website around direct bookings, with systems around the booking engine that drive discovery and engagement.</p>
+          <p>At <strong>Business Centre Corporation</strong>, I saw that a TV channel on financial literacy couldn't reach the audience that needed it most. So I moved its strongest content to web series and built social formats that held a younger audience. I then ran <strong>SME HUB</strong>, guiding 23 Maldivian small businesses through incubation and growth.</p>
+          <p>Today I lecture Digital Marketing, Brand Management, International Marketing and Business Entrepreneurship at <strong>MNU Business School</strong>. It's a step I always wanted to take, because passing what I know to the next generation matters to me.</p>
         </div>
       </div>
       <div class="tile t-portrait reveal d1">
@@ -615,6 +632,40 @@ footer a:hover{color:var(--ink)}
         <i class="ph ph-chart-line-up"></i>
         <div><h3>Measured monthly</h3><p>A clear report on what worked, what didn't and what comes next.</p></div>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= POINT OF VIEW ================= -->
+<section id="pov" style="padding-top:24px">
+  <div class="wrap">
+    <h2 class="reveal">What a decade of watching <em>the industry change</em> taught me.</h2>
+    <div class="pov-grid">
+      <article class="pov reveal">
+        <b class="pov-k g-teal">18 to 35%</b>
+        <h3>OTAs made booking easier and marketing harder.</h3>
+        <p>Tour operators once briefed guests on the destination and handled problems as part of the sale. Online travel agencies replaced that with a Book now button, and properties pay 18 to 35% of every room night for it.</p>
+        <p>Big chains hire agencies to build direct channels across their outlets. A guesthouse with 10 rooms or fewer can do the same, with a little consistent extra work that pays back for years.</p>
+      </article>
+      <article class="pov reveal d1">
+        <b class="pov-k g-sand">10K &ne; 10K</b>
+        <h3>More posts don't mean more customers.</h3>
+        <p>In food and beverage, the competition is fierce and the pressure to post never stops. But 10,000 followers doesn't mean 10,000 customers in a month, or even in three.</p>
+        <p>The Maldives market is finite. Repeat customers are what keep sales from bottoming out, so that's who the content should serve.</p>
+      </article>
+      <article class="pov reveal d2">
+        <b class="pov-k">Partner</b>
+        <h3>Not just another member of staff.</h3>
+        <p>Most marketers know all this. But for an employee, the job often ends at showing that content grew. Whether it turned into sales is left to the finance team.</p>
+        <p>I work differently. I judge marketing by the growth it brings to your business, and I own that result with you.</p>
+      </article>
+    </div>
+    <div class="cycle reveal">
+      <ol class="cycle-steps">
+        <li>Plan</li><li>Spend</li><li>Measure</li><li>Adjust</li>
+      </ol>
+      <p>Marketing should yield results, and results should bring growth. If they don't, the strategy changes. <strong>Then the cycle starts again.</strong></p>
     </div>
   </div>
 </section>
