@@ -657,6 +657,48 @@ footer a:hover{color:var(--ink)}
 .be-out .loss{color:var(--hl)}.be-out .gain{color:var(--accent)}
 .be-note{font-size:.78rem;color:var(--muted)}
 @media (max-width:900px){.stat-case{grid-column:span 2;grid-row:auto;grid-template-columns:1fr;gap:22px}}
+
+/* ================= REFRESH: stats feet, cycle, process, studio ================= */
+.stat:not(.stat-hero):not(.stat-wide){justify-content:flex-start}
+.stat:not(.stat-hero):not(.stat-wide) .k{margin-bottom:6px}
+.sfoot{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px}
+.sfoot em{font-style:normal;font:500 .72rem "Geist Mono",monospace;padding:4px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.sfoot em:nth-child(2){background:#f3e3c9;color:#8a5a1c}.sfoot em:nth-child(3){background:var(--hl-soft);color:var(--hl)}
+.sfoot-t{font-size:.8rem;color:var(--muted);line-height:1.45}
+.stat .mosaic,.stat .dots{margin-top:10px}
+.cycle{background:linear-gradient(135deg,var(--surface),color-mix(in srgb,var(--accent) 7%,var(--surface)))}
+.cycle-svg .node.n1 circle{fill:var(--accent);stroke:var(--accent)}.cycle-svg .node.n1 text{fill:var(--accent-ink)}
+.cycle-svg .node.n2 circle{fill:#d79a4c;stroke:#d79a4c}.cycle-svg .node.n2 text{fill:#2a1a05}
+.cycle-svg .node.n3 circle{fill:#7cc7b2;stroke:#7cc7b2}.cycle-svg .node.n3 text{fill:#06201f}
+.cycle-svg .node.n4 circle{fill:var(--hl);stroke:var(--hl)}.cycle-svg .node.n4 text{fill:var(--hl-ink)}
+.cycle-list{gap:12px}
+.cycle-list li{padding:14px 14px 14px 56px;border-radius:16px;background:var(--surface);border:1px solid var(--line)}
+.cycle-list li::before{display:none}
+.cycle-list li>i{position:absolute;left:14px;top:14px;width:30px;height:30px;border-radius:10px;display:grid;place-items:center;font-size:1rem}
+.cycle-list li.c1>i{background:var(--accent);color:var(--accent-ink)}.cycle-list li.c2>i{background:#d79a4c;color:#2a1a05}
+.cycle-list li.c3>i{background:#7cc7b2;color:#06201f}.cycle-list li.c4>i{background:var(--hl);color:var(--hl-ink)}
+.pw{margin-top:44px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:16px}
+.pw-photo{position:relative;margin:0;border-radius:22px;overflow:hidden;min-height:420px}
+.pw-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pw-photo figcaption{position:absolute;left:14px;right:14px;bottom:14px;padding:12px 14px;border-radius:14px;background:rgba(5,15,16,.62);backdrop-filter:blur(8px);color:#fff;font-weight:500}
+.pw-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.pw-step{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:8px}
+.pw-ico{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:1.3rem;margin-bottom:8px}
+.pw-step.s1 .pw-ico{background:var(--accent);color:var(--accent-ink)}.pw-step.s2 .pw-ico{background:#7cc7b2;color:#06201f}
+.pw-step.s3 .pw-ico{background:#d79a4c;color:#2a1a05}.pw-step.s4 .pw-ico{background:var(--hl);color:var(--hl-ink)}
+.pw-n{position:absolute;top:20px;right:22px;font:700 2.4rem/1 Geist,sans-serif;letter-spacing:-.04em;color:var(--line)}
+.pw-step .when{font:500 .72rem "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.pw-step h3{font-size:1.3rem;font-weight:500;letter-spacing:-.02em}
+.pw-step p{color:var(--muted);font-size:.94rem;line-height:1.55}
+.studio{grid-template-columns:.85fr 1.15fr;background:linear-gradient(135deg,var(--accent-soft),color-mix(in srgb,#2b83b9 12%,var(--surface)))}
+.studio figure.studio-logo{display:grid;place-items:center;background:#fff;min-height:340px;margin:0}
+.studio figure.studio-logo img{position:static;width:min(62%,300px);height:auto;object-fit:contain}
+.studio-chip{align-self:flex-start;background:var(--hl)!important;color:var(--hl-ink)!important}
+.studio-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+.studio-list li{position:relative;padding-left:18px;font-size:.94rem}
+.studio-list li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.studio .studio-link{align-self:flex-start;color:var(--accent-ink)}
+@media (max-width:900px){.pw{grid-template-columns:1fr}.pw-photo{min-height:320px}.pw-grid{grid-template-columns:1fr}.studio-list{grid-template-columns:1fr}.studio figure.studio-logo{min-height:220px}}
 /* ================= MOTION ================= */
 .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .js .reveal.in{opacity:1;transform:none}
@@ -759,9 +801,9 @@ footer a:hover{color:var(--ink)}
       <ol class="cpath"><li><span class="cp-logo"><img src="images/logos/highrise.png" alt="Highrise" loading="lazy"></span><b>2012</b><span>Marketing</span></li><li><span class="cp-logo"><img src="images/logos/blazon.png" alt="Blazon" loading="lazy"></span><b>2018</b><span>Creative Director</span></li><li><span class="cp-logo"><img src="images/logos/reethi.png" alt="Reethi Beach Resort" loading="lazy"></span><b>2021</b><span>Marketing Manager</span></li><li><span class="cp-logo"><img src="images/logos/bcc.png" alt="Business Centre Corporation" loading="lazy"></span><b>2023</b><span>MBN and SME HUB</span></li><li><span class="cp-logo"><img src="images/logos/mnu.png" alt="The Maldives National University" loading="lazy"></span><b>2024</b><span>Lecturer</span></li></ol>
       <p class="awards"><span>Events I helped deliver</span>Maldives Travel Awards 2012 &middot; Maldives Business Awards 2018 and 2019 &middot; SME Awards 2025</p>
     </div>
-    <div class="stat stat-content reveal d1"><span class="k">Behind the camera</span><svg class="mosaic" viewBox="0 0 109 45" aria-hidden="true"><rect class="ma" x="0" y="0" width="13" height="13" rx="3"/><rect class="mb" x="16" y="0" width="13" height="13" rx="3"/><rect class="ma" x="32" y="0" width="13" height="13" rx="3"/><rect class="mc" x="48" y="0" width="13" height="13" rx="3"/><path class="mp" d="M52.5,3.5 L57.5,6.5 L52.5,9.5 Z"/><rect class="ma" x="64" y="0" width="13" height="13" rx="3"/><rect class="mb" x="80" y="0" width="13" height="13" rx="3"/><rect class="ma" x="96" y="0" width="13" height="13" rx="3"/><rect class="md" x="0" y="16" width="13" height="13" rx="3"/><rect class="ma" x="16" y="16" width="13" height="13" rx="3"/><rect class="mb" x="32" y="16" width="13" height="13" rx="3"/><path class="mp" d="M36.5,19.5 L41.5,22.5 L36.5,25.5 Z"/><rect class="mc" x="48" y="16" width="13" height="13" rx="3"/><rect class="ma" x="64" y="16" width="13" height="13" rx="3"/><rect class="mb" x="80" y="16" width="13" height="13" rx="3"/><rect class="ma" x="96" y="16" width="13" height="13" rx="3"/><rect class="md" x="0" y="32" width="13" height="13" rx="3"/><rect class="ma" x="16" y="32" width="13" height="13" rx="3"/><path class="mp" d="M20.5,35.5 L25.5,38.5 L20.5,41.5 Z"/><rect class="mb" x="32" y="32" width="13" height="13" rx="3"/><rect class="ma" x="48" y="32" width="13" height="13" rx="3"/><rect class="mc" x="64" y="32" width="13" height="13" rx="3"/><rect class="mb" x="80" y="32" width="13" height="13" rx="3"/><rect class="ma" x="96" y="32" width="13" height="13" rx="3"/></svg><b>5K+</b><span class="l">pieces of content in 15 years behind the camera</span></div>
-    <div class="stat reveal d2"><span class="k">SME HUB, BCC</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><b>23</b><span class="l">small businesses incubated</span></div>
-    <div class="stat reveal d2"><span class="k">Published research</span><b>36+</b><span class="l">citations, <i>Tourism and Hospitality Research</i>, 2021</span><a class="paper-link" href="https://doi.org/10.1177/1467358420926688" target="_blank" rel="noopener">Read the paper &#8599;</a></div>
+    <div class="stat stat-content reveal d1"><span class="k">Behind the camera</span><svg class="mosaic" viewBox="0 0 109 45" aria-hidden="true"><rect class="ma" x="0" y="0" width="13" height="13" rx="3"/><rect class="mb" x="16" y="0" width="13" height="13" rx="3"/><rect class="ma" x="32" y="0" width="13" height="13" rx="3"/><rect class="mc" x="48" y="0" width="13" height="13" rx="3"/><path class="mp" d="M52.5,3.5 L57.5,6.5 L52.5,9.5 Z"/><rect class="ma" x="64" y="0" width="13" height="13" rx="3"/><rect class="mb" x="80" y="0" width="13" height="13" rx="3"/><rect class="ma" x="96" y="0" width="13" height="13" rx="3"/><rect class="md" x="0" y="16" width="13" height="13" rx="3"/><rect class="ma" x="16" y="16" width="13" height="13" rx="3"/><rect class="mb" x="32" y="16" width="13" height="13" rx="3"/><path class="mp" d="M36.5,19.5 L41.5,22.5 L36.5,25.5 Z"/><rect class="mc" x="48" y="16" width="13" height="13" rx="3"/><rect class="ma" x="64" y="16" width="13" height="13" rx="3"/><rect class="mb" x="80" y="16" width="13" height="13" rx="3"/><rect class="ma" x="96" y="16" width="13" height="13" rx="3"/><rect class="md" x="0" y="32" width="13" height="13" rx="3"/><rect class="ma" x="16" y="32" width="13" height="13" rx="3"/><path class="mp" d="M20.5,35.5 L25.5,38.5 L20.5,41.5 Z"/><rect class="mb" x="32" y="32" width="13" height="13" rx="3"/><rect class="ma" x="48" y="32" width="13" height="13" rx="3"/><rect class="mc" x="64" y="32" width="13" height="13" rx="3"/><rect class="mb" x="80" y="32" width="13" height="13" rx="3"/><rect class="ma" x="96" y="32" width="13" height="13" rx="3"/></svg><b>5K+</b><span class="l">pieces of content in 15 years behind the camera</span><span class="sfoot"><em>Reels</em><em>Photo</em><em>Print</em><em>Email</em></span></div>
+    <div class="stat reveal d2"><span class="k">SME HUB, BCC</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><b>23</b><span class="l">small businesses incubated</span><span class="sfoot sfoot-t">3 posts a week and daily stories for every vendor, for a year</span></div>
+    <div class="stat reveal d2"><span class="k">Published research</span><b>36+</b><span class="l">citations, <i>Tourism and Hospitality Research</i>, 2021</span><a class="paper-link" href="https://doi.org/10.1177/1467358420926688" target="_blank" rel="noopener">Read the paper &#8599;</a><span class="sfoot sfoot-t">2 peer-reviewed papers on Maldivian guesthouses, 2017 and 2021</span></div>
   </div>
 </div>
 
@@ -812,15 +854,15 @@ footer a:hover{color:var(--ink)}
       </article>
     </div>
     <div class="cycle reveal">
-      <svg class="cycle-svg" viewBox="0 0 300 300" role="img" aria-label="A loop: plan, spend, measure, adjust, then back to plan"><circle class="ring" cx="150" cy="150" r="108"/><path class="arr" d="M-6,-6 L6,0 L-6,6 z" transform="translate(226.4 73.6) rotate(45)"/><path class="arr" d="M-6,-6 L6,0 L-6,6 z" transform="translate(226.4 226.4) rotate(135)"/><path class="arr" d="M-6,-6 L6,0 L-6,6 z" transform="translate(73.6 226.4) rotate(225)"/><path class="arr" d="M-6,-6 L6,0 L-6,6 z" transform="translate(73.6 73.6) rotate(315)"/><g class="node"><circle cx="150.0" cy="42.0" r="36"/><text x="150.0" y="46.0" text-anchor="middle">Plan</text></g><g class="node"><circle cx="258.0" cy="150.0" r="36"/><text x="258.0" y="154.0" text-anchor="middle">Spend</text></g><g class="node"><circle cx="150.0" cy="258.0" r="36"/><text x="150.0" y="262.0" text-anchor="middle">Measure</text></g><g class="node end"><circle cx="42.0" cy="150.0" r="36"/><text x="42.0" y="154.0" text-anchor="middle">Adjust</text></g><text class="mid" x="150" y="146" text-anchor="middle">Every</text><text class="mid" x="150" y="164" text-anchor="middle">month</text></svg>
+      <svg class="cycle-svg" viewBox="0 0 300 300" role="img" aria-label="A loop: plan, spend, measure, adjust, then back to plan"><circle class="ring" cx="150" cy="150" r="108"/><path class="arr" d="M-6,-6 L6,0 L-6,6 z" transform="translate(226.4 73.6) rotate(45)"/><path class="arr" d="M-6,-6 L6,0 L-6,6 z" transform="translate(226.4 226.4) rotate(135)"/><path class="arr" d="M-6,-6 L6,0 L-6,6 z" transform="translate(73.6 226.4) rotate(225)"/><path class="arr" d="M-6,-6 L6,0 L-6,6 z" transform="translate(73.6 73.6) rotate(315)"/><g class="node n1"><circle cx="150.0" cy="42.0" r="36"/><text x="150.0" y="46.0" text-anchor="middle">Plan</text></g><g class="node n2"><circle cx="258.0" cy="150.0" r="36"/><text x="258.0" y="154.0" text-anchor="middle">Spend</text></g><g class="node n3"><circle cx="150.0" cy="258.0" r="36"/><text x="150.0" y="262.0" text-anchor="middle">Measure</text></g><g class="node n4"><circle cx="42.0" cy="150.0" r="36"/><text x="42.0" y="154.0" text-anchor="middle">Adjust</text></g><text class="mid" x="150" y="146" text-anchor="middle">Every</text><text class="mid" x="150" y="164" text-anchor="middle">month</text></svg>
       <div class="cycle-copy">
         <h3>How every engagement runs</h3>
         <p>Marketing should yield results, and results should bring growth. If they don't, the strategy changes. Each month runs through the same four steps, so every amount spent can be traced to what it brought back.</p>
         <ol class="cycle-list">
-          <li><b>Plan</b><span>Set the goals, the budget and the numbers that define success.</span></li>
-          <li><b>Spend</b><span>Run content and ads against that plan, with every amount logged.</span></li>
-          <li><b>Measure</b><span>Trace reach, enquiries, bookings and revenue back to the spend.</span></li>
-          <li><b>Adjust</b><span>Keep what works, cut what doesn't, then plan the next round.</span></li>
+          <li class="c1"><i class="ph ph-target"></i><b>Plan</b><span>Set the goals, the budget and the numbers that define success.</span></li>
+          <li class="c2"><i class="ph ph-coins"></i><b>Spend</b><span>Run content and ads against that plan, with every amount logged.</span></li>
+          <li class="c3"><i class="ph ph-chart-line-up"></i><b>Measure</b><span>Trace reach, enquiries, bookings and revenue back to the spend.</span></li>
+          <li class="c4"><i class="ph ph-arrows-clockwise"></i><b>Adjust</b><span>Keep what works, cut what doesn't, then plan the next round.</span></li>
         </ol>
       </div>
     </div>
@@ -852,6 +894,17 @@ footer a:hover{color:var(--ink)}
           <a href="#contact" class="btn btn-hl">Fix this with me</a>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESS ================= -->
+<section id="process" style="padding-top:24px">
+  <div class="wrap">
+    <h2 class="reveal">How we work <em>together.</em></h2>
+    <div class="pw">
+      <figure class="pw-photo reveal"><img src="images/muiz-working.jpg" width="960" height="1200" alt="Muiz planning a campaign on his laptop" loading="lazy"><figcaption>One point of contact, start to finish.</figcaption></figure>
+      <div class="pw-grid"><div class="pw-step s1 reveal d0"><span class="pw-ico"><i class="ph ph-magnifying-glass"></i></span><span class="pw-n">01</span><span class="when">Weeks 1 to 2</span><h3>Audit</h3><p>Your channels, listings, competitors and current numbers, scored against the funnel.</p></div><div class="pw-step s2 reveal d1"><span class="pw-ico"><i class="ph ph-map-trifold"></i></span><span class="pw-n">02</span><span class="when">Week 3</span><h3>Plan</h3><p>A 90-day plan with goals, content pillars, a calendar and the numbers we'll judge it by.</p></div><div class="pw-step s3 reveal d2"><span class="pw-ico"><i class="ph ph-aperture"></i></span><span class="pw-n">03</span><span class="when">Every month</span><h3>Create</h3><p>On-site shoots, production, scheduling and community work, all handled by me.</p></div><div class="pw-step s4 reveal d0"><span class="pw-ico"><i class="ph ph-chart-bar"></i></span><span class="pw-n">04</span><span class="when">Month end</span><h3>Report</h3><p>One page and one call: what worked, what it brought back and what changes next.</p></div></div>
     </div>
   </div>
 </section>
@@ -1073,23 +1126,6 @@ footer a:hover{color:var(--ink)}
   </div>
 
   <div class="wrap">
-    <!-- Islandeative Studio -->
-    <div class="studio reveal">
-      <figure>
-        <!-- REPLACE: images/studio-production.jpg (a bigger shoot with crew or drone) -->
-        <img src="https://picsum.photos/seed/islandeative-crew-shoot/900/800?grayscale" width="900" height="800" alt="A larger production shoot with Islandeative Studio" loading="lazy">
-      </figure>
-      <div class="studio-body">
-        <h3>When a project needs a crew.</h3>
-        <p>I founded <strong>Islandeative Studio</strong>, where I work with trusted partners: second shooters, editors and drone operators. When a launch or campaign needs more hands, I bring them in and lead the shoot. You still deal with me, start to finish.</p>
-        <span class="kit-title">My kit</span>
-        <div class="chips">
-          <span class="chip">DJI Air 3S drone</span><span class="chip">Sony A7R III</span><span class="chip">20mm and 85mm lenses</span><span class="chip">DJI Ronin SC</span><span class="chip">DJI Osmo</span>
-        </div>
-        <a class="studio-link todo" href="https://islandeative.com" target="_blank" rel="noopener">Visit Islandeative <i class="ph ph-arrow-up-right"></i></a>
-      </div>
-    </div>
-
     <div class="plans">
       <div class="plan plan-feature reveal">
         <span class="chip">Most requested</span>
@@ -1119,21 +1155,21 @@ footer a:hover{color:var(--ink)}
         <a href="#contact" class="btn btn-line">Plan your launch</a>
       </div>
     </div>
+    <!-- Islandeative Studio -->
+    <div class="studio reveal">
+      <figure class="studio-logo"><img src="images/brand/islandeative-logo.png" width="900" height="791" alt="Islandeative" loading="lazy"></figure>
+      <div class="studio-body">
+        <span class="chip studio-chip">For bigger briefs</span>
+        <h3>When a project needs a crew.</h3>
+        <p>I founded <strong>Islandeative Studio</strong>, where I work with trusted partners: second shooters, editors and drone operators. When a launch or campaign needs more hands, I bring them in and lead the shoot. You still deal with me, start to finish.</p>
+        <ul class="studio-list"><li>Launches and openings</li><li>Multi-day campaign shoots</li><li>Drone, video and photo at once</li><li>Events and trade fairs</li></ul>
+        <a class="btn btn-primary studio-link" href="https://islandeative.com" target="_blank" rel="noopener">Visit Islandeative <i class="ph ph-arrow-up-right"></i></a>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- ================= PROCESS ================= -->
-<section id="process">
-  <div class="wrap">
-    <h2 class="reveal">How we work together.</h2>
-    <div class="timeline">
-      <div class="tl-step reveal"><span class="node"><i class="ph ph-magnifying-glass"></i></span><span class="when">Weeks 1 to 2</span><h3>Audit</h3><p>Your channels, listings, competitors and current numbers.</p></div>
-      <div class="tl-step reveal d1"><span class="node"><i class="ph ph-map-trifold"></i></span><span class="when">Week 3</span><h3>Plan</h3><p>A 90-day plan with goals, content pillars and a calendar.</p></div>
-      <div class="tl-step reveal d2"><span class="node"><i class="ph ph-aperture"></i></span><span class="when">Every month</span><h3>Create</h3><p>On-site shoots, production, scheduling and community work.</p></div>
-      <div class="tl-step reveal d3"><span class="node"><i class="ph ph-chart-bar"></i></span><span class="when">Month end</span><h3>Report</h3><p>One page and one call: what worked and what changes next.</p></div>
-    </div>
-  </div>
-</section>
 
 <!-- ================= CAREER ================= -->
 <section id="career">
