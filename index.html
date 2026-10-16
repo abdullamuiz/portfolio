@@ -525,6 +525,15 @@ footer a:hover{color:var(--ink)}
 .cycle p strong{color:var(--paper-ink);font-weight:500}
 @media (max-width:1000px){.cycle{flex-direction:column;align-items:flex-start;gap:18px}}
 @media (max-width:900px){.pov-grid{grid-template-columns:1fr}.pov{padding:24px 22px;border-radius:18px}.cycle{padding:24px 22px}.cycle-steps{flex-wrap:wrap;gap:8px}.cycle-steps li{padding:8px 12px;font-size:.74rem}.cycle-steps li:not(:last-child)::after{margin-left:10px}}
+
+.funnel{list-style:none;margin:18px 0 0;padding:16px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;border-top:1px solid var(--line)}
+.funnel li{position:relative;display:flex;flex-direction:column;gap:4px;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--ink) 4%,transparent)}
+.funnel li:not(:last-child)::after{content:"\2192";position:absolute;right:-11px;top:50%;transform:translateY(-50%);font-size:.9rem;color:var(--accent);z-index:1}
+.funnel strong{font:700 1.45rem/1 Geist,sans-serif;letter-spacing:-.03em;color:var(--ink)}
+.funnel span{font-size:.8rem;color:var(--muted)}
+.funnel li.hl{background:var(--accent)}
+.funnel li.hl strong,.funnel li.hl span{color:var(--accent-ink)}
+@media (max-width:900px){.funnel strong{font-size:1.2rem}.funnel li{padding:10px}}
 /* ================= MOTION ================= */
 .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .js .reveal.in{opacity:1;transform:none}
@@ -595,7 +604,13 @@ footer a:hover{color:var(--ink)}
 <!-- ================= PROOF ================= -->
 <div class="proof">
   <div class="wrap proof-grid">
-    <div class="stat stat-hero reveal"><span class="k">Paid social, 2022</span><b class="g-teal">84.7K</b><span class="l">people reached by one campaign, on a budget capped at USD 500.</span></div>
+    <div class="stat stat-hero reveal"><span class="k">Manta Season, off-season 2022</span><b class="g-teal">73+</b><span class="l">bookings from one ad, on a budget under USD 500. Not just reach: revenue.</span>
+      <ol class="funnel">
+        <li><strong>84.7K</strong><span>people reached</span></li>
+        <li><strong>73+</strong><span>bookings</span></li>
+        <li class="hl"><strong>38</strong><span>booked direct</span></li>
+      </ol>
+    </div>
     <div class="stat stat-wide reveal d1"><b class="g-sand">10+</b><span class="l">years in Maldives tourism marketing</span></div>
     <div class="stat reveal d1"><b>15</b><span class="l">years behind the camera</span></div>
     <div class="stat reveal d2"><b>23</b><span class="l">small businesses incubated at SME HUB</span></div>
@@ -691,7 +706,7 @@ footer a:hover{color:var(--ink)}
           <p><b>Approach</b>Built annual social strategies by source market and ran paid campaigns on Facebook and Instagram. Hosted up to 12 influencer and creator visits a year, including Miss Germany 2022 and an Italian travel documentary crew. Produced seasonal campaigns, magazine advertorials and on-island print, sent monthly newsletters to repeat guests and represented the resort at trade fairs, with Google Analytics reporting guiding every decision.</p>
         </details>
         <div class="stats">
-          <div><b>84.7K</b><span>reached by one paid campaign</span></div>
+          <div><b>73+</b><span>bookings from one sub-USD 500 ad</span></div>
           <div><b>12</b><span>influencer collaborations a year</span></div>
           <div><b>30+</b><span>prime-time TV broadcasts in Italy</span></div>
         </div>
@@ -740,7 +755,7 @@ footer a:hover{color:var(--ink)}
         <div class="stack">
           <span class="what">People reached by one paid campaign</span>
           <b>84,688</b>
-          <span class="how">Manta Season offer for Reethi Beach Resort, run across Facebook and Instagram, February to April 2022, on a budget capped at USD 500.</span>
+          <span class="how">Manta Season offer for Reethi Beach Resort, run across Facebook and Instagram, February to April 2022, on a budget capped at USD 500. In the off-season, it brought in 73+ bookings at 40% off, and 38 of them came through direct channels.</span>
           <div class="mini">
             <div><strong>30,304</strong><span>reached by a single boosted post</span></div>
             <div><strong>325</strong><span>link clicks to the website</span></div>
