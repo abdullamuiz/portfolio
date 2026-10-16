@@ -739,6 +739,8 @@ footer a:hover{color:var(--ink)}
 .call-menu a,.call-menu button{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;color:var(--ink);text-decoration:none;font:500 .94rem Geist,sans-serif;background:none;border:0;cursor:pointer;text-align:left}
 .call-menu a:hover,.call-menu button:hover{background:var(--bg)}
 .call-menu i{font-size:1.1rem;color:var(--accent)}
+.call-menu .cm-wa i{color:#25D366}.call-menu .cm-tg i{color:#229ED9}
+.call-menu .cm-sep{height:1px;background:var(--line);margin:6px 8px}
 /* ================= MOTION ================= */
 .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .js .reveal.in{opacity:1;transform:none}
@@ -1701,12 +1703,17 @@ var CERTS = [
     var e=encodeURIComponent;
     var links={
       sms:'sms:+9609902996'+(ios?'&':'?')+'body='+e(msg),
+      wa:'https://wa.me/9609902996?text='+e(msg),
+      tg:'https://t.me/+9609902996',
       app:'mailto:'+TO+'?subject='+e(SUB)+'&body='+e(body),
       gmail:'https://mail.google.com/mail/?view=cm&fs=1&to='+e(TO)+'&su='+e(SUB)+'&body='+e(body),
       outlook:'https://outlook.live.com/mail/0/deeplink/compose?to='+e(TO)+'&subject='+e(SUB)+'&body='+e(body)
     };
     var menu=document.createElement('div'); menu.className='call-menu'; menu.hidden=true; menu.setAttribute('role','menu');
     menu.innerHTML='<span class="cm-t">Send a call request with</span>'+
+      '<a role="menuitem" target="_blank" rel="noopener" href="'+links.wa+'" class="cm-wa"><i class="ph-fill ph-whatsapp-logo"></i>WhatsApp</a>'+
+      '<a role="menuitem" target="_blank" rel="noopener" href="'+links.tg+'" class="cm-tg"><i class="ph-fill ph-telegram-logo"></i>Telegram</a>'+
+      '<span class="cm-sep"></span>'+
       '<a role="menuitem" target="_blank" rel="noopener" href="'+links.gmail+'"><i class="ph ph-google-logo"></i>Gmail</a>'+
       '<a role="menuitem" target="_blank" rel="noopener" href="'+links.outlook+'"><i class="ph ph-microsoft-outlook-logo"></i>Outlook</a>'+
       '<a role="menuitem" href="'+links.app+'"><i class="ph ph-envelope-simple"></i>Your email app</a>'+
