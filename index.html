@@ -9,9 +9,11 @@
 <meta property="og:description" content="Strategy, content and reporting for Maldives hospitality brands, from one senior partner.">
 <meta name="theme-color" content="#f3f5f3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0d1416" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/svg+xml" href="images/brand/favicon.svg">
+<link rel="apple-touch-icon" href="images/brand/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Young+Serif&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 <style>
 /* ==========================================================
@@ -480,10 +482,9 @@ footer a:hover{color:var(--ink)}
 @media (min-width:901px){.contact-grid{grid-template-columns:.8fr 1.2fr;gap:72px}.contact-grid .contact-figure{order:-1;justify-self:start}}
 
 /* ================= WORDMARK ================= */
-.nav .brand{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.6rem;letter-spacing:-.02em;line-height:1;color:var(--ink);display:inline-flex;align-items:baseline}
-.brand .bi{position:relative;display:inline-block}
-.brand .bdot{position:absolute;left:50%;top:-.05em;transform:translateX(-50%);width:.19em;height:.19em;border-radius:50%;background:var(--accent)}
-.brand .bstop{display:inline-block;width:.28em;height:.28em;border-radius:50%;background:var(--accent);margin-left:.05em}
+.nav .brand{display:inline-flex;align-items:center;color:var(--ink);line-height:0}
+.wordmark{height:26px;width:auto;display:block;fill:currentColor;overflow:visible}
+.wordmark .wm-dots{fill:var(--accent)}
 /* ================= MOTION ================= */
 .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .js .reveal.in{opacity:1;transform:none}
@@ -513,7 +514,7 @@ footer a:hover{color:var(--ink)}
 
 <header class="nav" id="nav">
   <div class="wrap">
-    <a href="#top" class="brand" aria-label="Muiz, home">Mu<span class="bi">ı<b class="bdot"></b></span>z<b class="bstop"></b></a>
+    <a href="#top" class="brand" aria-label="Muiz, home"><svg class="wordmark" viewBox="0 -765.0 2842.0 778.0" aria-hidden="true" focusable="false"><path d="M887 -155Q887 -115 905.5 -87.5Q924 -60 961 -60Q976 -60 976 -45V-15Q976 0 961 0H714Q699 0 699 -15V-45Q699 -60 714 -60Q751 -60 769.0 -87.5Q787 -115 787 -155V-534L551 -56Q546 -45 534 -45H442Q430 -45 424 -56L189 -534V-155Q189 -115 207.0 -87.5Q225 -60 262 -60Q277 -60 277 -45V-15Q277 0 262 0H15Q0 0 0 -15V-45Q0 -60 15 -60Q52 -60 70.5 -87.5Q89 -115 89 -155V-675Q75 -683 59.5 -686.5Q44 -690 27 -690Q12 -690 12 -705V-735Q12 -750 27 -750H215Q229 -750 233 -741L488 -225L743 -741Q747 -750 761 -750H949Q964 -750 964 -735V-705Q964 -690 949 -690Q933 -690 917.0 -686.5Q901 -683 887 -675Z M1570 -202Q1570 -176 1573.5 -150.5Q1577 -125 1589.5 -107.5Q1602 -90 1629 -87Q1637 -86 1638.5 -82.5Q1640 -79 1640 -74V-41Q1640 -27 1626 -27Q1577 -27 1544.5 -21.5Q1512 -16 1488.5 -7.5Q1465 1 1442 11Q1438 13 1434 13H1432Q1430 13 1430 10Q1430 7 1433.5 -20.5Q1437 -48 1446 -116Q1432 -88 1407.0 -58.0Q1382 -28 1346.5 -7.5Q1311 13 1265 13Q1211 13 1177.5 -3.5Q1144 -20 1126.0 -47.5Q1108 -75 1101.5 -109.5Q1095 -144 1095 -180V-345Q1095 -386 1076.5 -413.0Q1058 -440 1021 -440H1017Q1002 -440 1002 -455V-485Q1002 -500 1017 -500H1220Q1235 -500 1235 -485V-174Q1235 -147 1240.0 -124.5Q1245 -102 1260.5 -88.5Q1276 -75 1307 -75Q1332 -75 1357.0 -87.5Q1382 -100 1401.5 -119.5Q1421 -139 1429 -160V-345Q1429 -386 1410.5 -413.0Q1392 -440 1356 -440H1354Q1339 -440 1339 -455V-485Q1339 -500 1354 -500H1555Q1570 -500 1570 -485Z M1978 -60Q1993 -60 1993 -45V-15Q1993 0 1976 0H1693Q1676 0 1676 -15V-45Q1676 -60 1691 -60H1693Q1730 -60 1747.5 -87.5Q1765 -115 1765 -155V-261Q1765 -284 1761.5 -307.0Q1758 -330 1746.0 -347.0Q1734 -364 1706 -367Q1694 -368 1694 -380V-414Q1694 -420 1698.0 -422.5Q1702 -425 1709 -427Q1788 -453 1830.5 -480.5Q1873 -508 1893 -529Q1895 -531 1897 -531H1900Q1902 -531 1902 -529V-156Q1902 -116 1920.0 -88.0Q1938 -60 1975 -60Z M2541 -148Q2550 -144 2550 -136Q2550 -132 2547 -127L2469 5Q2464 13 2457 13Q2453 13 2443 5Q2439 1 2434.5 0.5Q2430 0 2425 0H2040Q2025 0 2025 -15V-58Q2025 -65 2028 -69L2343 -431H2247Q2147 -431 2097 -345L2093 -338Q2091 -334 2088.5 -331.0Q2086 -328 2082 -328Q2079 -328 2072 -332L2038 -352Q2035 -354 2032.5 -356.5Q2030 -359 2030 -364Q2030 -367 2033 -373L2115 -504Q2120 -513 2127 -513Q2132 -513 2140 -505Q2144 -501 2148.5 -500.5Q2153 -500 2158 -500H2528Q2541 -500 2541 -491Q2541 -486 2537 -482L2185 -69H2262Q2297 -69 2339.5 -73.0Q2382 -77 2422.0 -95.5Q2462 -114 2487 -155L2490 -160Q2495 -168 2502 -168Q2508 -168 2512 -165Z"/><g class="wm-dots"><circle cx="1834.5" cy="-685.0" r="80.0"/><circle cx="2736.0" cy="-106.0" r="106.0"/></g></svg></a>
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#work">Work</a></li>
