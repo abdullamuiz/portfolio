@@ -548,6 +548,7 @@ footer a:hover{color:var(--ink)}
 @media (max-width:900px){.funnel strong{font-size:1.2rem}.funnel li{padding:10px}}
 
 /* ================= LEAK FINDER ================= */
+.lk-h em{color:var(--hl)}
 .btn-hl{background:var(--hl);color:var(--hl-ink)}
 .btn-hl:hover{filter:brightness(1.06)}
 .lk{margin-top:44px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px}
@@ -744,6 +745,32 @@ footer a:hover{color:var(--ink)}
 
 
 
+<!-- ================= LEAK FINDER (funnel) ================= -->
+<section id="growth" style="padding-top:24px">
+  <div class="wrap">
+    <h2 class="reveal lk-h"><em>Find the leak</em> in your funnel.</h2>
+    <p class="sec-sub reveal d1">Most businesses pour money into the top of the funnel, with more posts and more ads, while customers slip out further down. Pick your business, tick what you already do, and see where you're losing people first.</p>
+    <div class="lk reveal">
+      <div class="lk-panel">
+        <span class="lk-step">1. Your business</span>
+        <div class="lk-biz" role="group" aria-label="Your business"><button type="button" data-biz="guesthouse" aria-pressed="true">Guesthouse</button><button type="button" data-biz="restaurant" aria-pressed="false">Restaurant</button><button type="button" data-biz="dive" aria-pressed="false">Dive centre</button><button type="button" data-biz="coffee" aria-pressed="false">Coffee shop</button></div>
+        <span class="lk-step">2. What you already do</span>
+        <div class="lk-qs"><label class="lk-q"><input type="checkbox" data-stage="aw"><span class="lk-sw" aria-hidden="true"></span><span>People can find us on Google Maps with current photos and hours</span></label><label class="lk-q"><input type="checkbox" data-stage="aw"><span class="lk-sw" aria-hidden="true"></span><span>We post short videos at least once a week</span></label><label class="lk-q"><input type="checkbox" data-stage="co"><span class="lk-sw" aria-hidden="true"></span><span>We reply to every review within two days</span></label><label class="lk-q"><input type="checkbox" data-stage="co"><span class="lk-sw" aria-hidden="true"></span><span>Prices, menus and how to reach us are easy to find online</span></label><label class="lk-q"><input type="checkbox" data-stage="cv"><span class="lk-sw" aria-hidden="true"></span><span>Customers can book or order directly with us in under a minute</span></label><label class="lk-q"><input type="checkbox" data-stage="lo"><span class="lk-sw" aria-hidden="true"></span><span>We collect customer contacts and invite them back</span></label><label class="lk-q"><input type="checkbox" data-stage="ad"><span class="lk-sw" aria-hidden="true"></span><span>We ask happy customers for a review or a share</span></label></div>
+      </div>
+      <div class="lk-view">
+        <div class="lk-diagram"><svg class="lk-svg" viewBox="0 0 420 340" role="img" aria-label="Marketing funnel with five stages"><g class="lk-stage" data-stage="aw"><path class="lk-body" d="M10.0,18 L410.0,18 L377.0,76 A167.0,10.9 0 0 1 43.0,76 Z" fill="#157f83"/><ellipse class="lk-top" cx="210" cy="18" rx="200.0" ry="13" fill="#5fb3b4"/><text x="210" y="55.0" text-anchor="middle" class="lk-lab">Awareness</text><g class="lk-leak"><rect x="404.0" y="41.0" width="78" height="24" rx="12"/><text x="443.0" y="57.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="co"><path class="lk-body" d="M43.0,76 L377.0,76 L346.0,134 A136.0,10.6 0 0 1 74.0,134 Z" fill="#24a39b"/><ellipse class="lk-top" cx="210" cy="76" rx="167.0" ry="13" fill="#7fcfc6"/><text x="210" y="113.0" text-anchor="middle" class="lk-lab">Consideration</text><g class="lk-leak"><rect x="371.0" y="99.0" width="78" height="24" rx="12"/><text x="410.0" y="115.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="cv"><path class="lk-body" d="M74.0,134 L346.0,134 L317.0,192 A107.0,10.2 0 0 1 103.0,192 Z" fill="#7cc7b2"/><ellipse class="lk-top" cx="210" cy="134" rx="136.0" ry="13" fill="#b9e4d7"/><text x="210" y="171.0" text-anchor="middle" class="lk-lab lk-lab-d">Conversion</text><g class="lk-leak"><rect x="340.0" y="157.0" width="78" height="24" rx="12"/><text x="379.0" y="173.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="lo"><path class="lk-body" d="M103.0,192 L317.0,192 L291.0,250 A81.0,9.8 0 0 1 129.0,250 Z" fill="#e0a458"/><ellipse class="lk-top" cx="210" cy="192" rx="107.0" ry="13" fill="#f0cc96"/><text x="210" y="229.0" text-anchor="middle" class="lk-lab lk-lab-d">Loyalty</text><g class="lk-leak"><rect x="311.0" y="215.0" width="78" height="24" rx="12"/><text x="350.0" y="231.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="ad"><path class="lk-body" d="M129.0,250 L291.0,250 L269.0,308 A59.0,9.5 0 0 1 151.0,308 Z" fill="#9b8a7a"/><ellipse class="lk-top" cx="210" cy="250" rx="81.0" ry="13" fill="#c9bcb0"/><text x="210" y="287.0" text-anchor="middle" class="lk-lab lk-lab-d">Advocacy</text><g class="lk-leak"><rect x="285.0" y="273.0" width="78" height="24" rx="12"/><text x="324.0" y="289.0" text-anchor="middle">Leak</text></g></g></svg><ul class="lk-legend"><li data-stage="aw"><b>Awareness</b><span>They find you</span><i class="lk-score"></i></li><li data-stage="co"><b>Consideration</b><span>They compare you</span><i class="lk-score"></i></li><li data-stage="cv"><b>Conversion</b><span>They book or buy</span><i class="lk-score"></i></li><li data-stage="lo"><b>Loyalty</b><span>They come back</span><i class="lk-score"></i></li><li data-stage="ad"><b>Advocacy</b><span>They recommend you</span><i class="lk-score"></i></li></ul></div>
+        <div class="lk-result" aria-live="polite">
+          <span class="lk-tag" id="lkTag">Biggest leak</span>
+          <h3 id="lkTitle">Awareness</h3>
+          <p id="lkFix"></p>
+          <p class="lk-insight"><b>Insight</b><span id="lkInsight"></span></p>
+          <a href="#contact" class="btn btn-hl">Fix this with me</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= WORK ================= -->
 <section id="work">
   <div class="wrap">
@@ -933,31 +960,6 @@ footer a:hover{color:var(--ink)}
   </div>
 </section>
 
-<!-- ================= LEAK FINDER (funnel) ================= -->
-<section id="growth" style="padding-top:24px">
-  <div class="wrap">
-    <h2 class="reveal">Find the leak <em>in your funnel.</em></h2>
-    <p class="sec-sub reveal d1">Most businesses pour money into the top of the funnel, with more posts and more ads, while customers slip out further down. Pick your business, tick what you already do, and see where you're losing people first.</p>
-    <div class="lk reveal">
-      <div class="lk-panel">
-        <span class="lk-step">1. Your business</span>
-        <div class="lk-biz" role="group" aria-label="Your business"><button type="button" data-biz="guesthouse" aria-pressed="true">Guesthouse</button><button type="button" data-biz="restaurant" aria-pressed="false">Restaurant</button><button type="button" data-biz="dive" aria-pressed="false">Dive centre</button><button type="button" data-biz="coffee" aria-pressed="false">Coffee shop</button></div>
-        <span class="lk-step">2. What you already do</span>
-        <div class="lk-qs"><label class="lk-q"><input type="checkbox" data-stage="aw"><span class="lk-sw" aria-hidden="true"></span><span>People can find us on Google Maps with current photos and hours</span></label><label class="lk-q"><input type="checkbox" data-stage="aw"><span class="lk-sw" aria-hidden="true"></span><span>We post short videos at least once a week</span></label><label class="lk-q"><input type="checkbox" data-stage="co"><span class="lk-sw" aria-hidden="true"></span><span>We reply to every review within two days</span></label><label class="lk-q"><input type="checkbox" data-stage="co"><span class="lk-sw" aria-hidden="true"></span><span>Prices, menus and how to reach us are easy to find online</span></label><label class="lk-q"><input type="checkbox" data-stage="cv"><span class="lk-sw" aria-hidden="true"></span><span>Customers can book or order directly with us in under a minute</span></label><label class="lk-q"><input type="checkbox" data-stage="lo"><span class="lk-sw" aria-hidden="true"></span><span>We collect customer contacts and invite them back</span></label><label class="lk-q"><input type="checkbox" data-stage="ad"><span class="lk-sw" aria-hidden="true"></span><span>We ask happy customers for a review or a share</span></label></div>
-      </div>
-      <div class="lk-view">
-        <div class="lk-diagram"><svg class="lk-svg" viewBox="0 0 420 340" role="img" aria-label="Marketing funnel with five stages"><g class="lk-stage" data-stage="aw"><path class="lk-body" d="M10.0,18 L410.0,18 L377.0,76 A167.0,10.9 0 0 1 43.0,76 Z" fill="#157f83"/><ellipse class="lk-top" cx="210" cy="18" rx="200.0" ry="13" fill="#5fb3b4"/><text x="210" y="55.0" text-anchor="middle" class="lk-lab">Awareness</text><g class="lk-leak"><rect x="404.0" y="41.0" width="78" height="24" rx="12"/><text x="443.0" y="57.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="co"><path class="lk-body" d="M43.0,76 L377.0,76 L346.0,134 A136.0,10.6 0 0 1 74.0,134 Z" fill="#24a39b"/><ellipse class="lk-top" cx="210" cy="76" rx="167.0" ry="13" fill="#7fcfc6"/><text x="210" y="113.0" text-anchor="middle" class="lk-lab">Consideration</text><g class="lk-leak"><rect x="371.0" y="99.0" width="78" height="24" rx="12"/><text x="410.0" y="115.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="cv"><path class="lk-body" d="M74.0,134 L346.0,134 L317.0,192 A107.0,10.2 0 0 1 103.0,192 Z" fill="#7cc7b2"/><ellipse class="lk-top" cx="210" cy="134" rx="136.0" ry="13" fill="#b9e4d7"/><text x="210" y="171.0" text-anchor="middle" class="lk-lab lk-lab-d">Conversion</text><g class="lk-leak"><rect x="340.0" y="157.0" width="78" height="24" rx="12"/><text x="379.0" y="173.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="lo"><path class="lk-body" d="M103.0,192 L317.0,192 L291.0,250 A81.0,9.8 0 0 1 129.0,250 Z" fill="#e0a458"/><ellipse class="lk-top" cx="210" cy="192" rx="107.0" ry="13" fill="#f0cc96"/><text x="210" y="229.0" text-anchor="middle" class="lk-lab lk-lab-d">Loyalty</text><g class="lk-leak"><rect x="311.0" y="215.0" width="78" height="24" rx="12"/><text x="350.0" y="231.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="ad"><path class="lk-body" d="M129.0,250 L291.0,250 L269.0,308 A59.0,9.5 0 0 1 151.0,308 Z" fill="#9b8a7a"/><ellipse class="lk-top" cx="210" cy="250" rx="81.0" ry="13" fill="#c9bcb0"/><text x="210" y="287.0" text-anchor="middle" class="lk-lab lk-lab-d">Advocacy</text><g class="lk-leak"><rect x="285.0" y="273.0" width="78" height="24" rx="12"/><text x="324.0" y="289.0" text-anchor="middle">Leak</text></g></g></svg><ul class="lk-legend"><li data-stage="aw"><b>Awareness</b><span>They find you</span><i class="lk-score"></i></li><li data-stage="co"><b>Consideration</b><span>They compare you</span><i class="lk-score"></i></li><li data-stage="cv"><b>Conversion</b><span>They book or buy</span><i class="lk-score"></i></li><li data-stage="lo"><b>Loyalty</b><span>They come back</span><i class="lk-score"></i></li><li data-stage="ad"><b>Advocacy</b><span>They recommend you</span><i class="lk-score"></i></li></ul></div>
-        <div class="lk-result" aria-live="polite">
-          <span class="lk-tag" id="lkTag">Biggest leak</span>
-          <h3 id="lkTitle">Awareness</h3>
-          <p id="lkFix"></p>
-          <p class="lk-insight"><b>Insight</b><span id="lkInsight"></span></p>
-          <a href="#contact" class="btn btn-hl">Fix this with me</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ================= SERVICES ================= -->
 <section id="services">
