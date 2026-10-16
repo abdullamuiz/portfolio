@@ -710,6 +710,27 @@ footer a:hover{color:var(--ink)}
 .c-line{display:inline-flex;align-items:center;gap:8px;font:500 .95rem "Geist Mono",monospace;color:var(--muted);text-decoration:none;background:none;border:0;padding:0;cursor:pointer}
 .c-line:hover{color:var(--ink)}
 .contact-lines .copy-mail{height:auto;padding:0}
+
+/* ================= PUBLICATIONS ================= */
+.pubs{display:flex;flex-direction:column;gap:12px}
+.pub{background:var(--surface);border:1px solid var(--line);border-radius:18px;transition:border-color .25s}
+.pub[open]{border-color:var(--accent)}
+.pub summary{list-style:none;cursor:pointer;padding:18px 20px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left}
+.creds .pub-btn{color:var(--accent-ink);text-decoration:none}
+.pub summary::-webkit-details-marker{display:none}
+.pub-plain{padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+.pub-meta{font:500 .7rem "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.pub b{font-weight:500;font-size:1.05rem;line-height:1.35;color:var(--ink)}
+.pub-auth{font-size:.86rem;color:var(--muted)}
+.pub-more{align-self:flex-start;margin-top:4px;font-size:.84rem;font-weight:500;color:var(--hl);display:inline-flex;align-items:center;gap:6px}
+.pub-more::after{content:"+";font:600 1rem/1 Geist,sans-serif}
+.pub[open] .pub-more{color:var(--muted)}
+.pub[open] .pub-more::after{content:"\2212"}
+.pub[open] .pub-more{font-size:0}.pub[open] .pub-more::before{content:"Hide abstract";font-size:.84rem}
+.pub-body{padding:0 20px 20px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.pub-body p{color:var(--muted);line-height:1.6;font-size:.95rem}
+.pub-btn{height:42px;padding:0 18px;font-size:.88rem}
+.pub-note{margin-top:14px;font-size:.82rem;color:var(--muted)}
 /* ================= MOTION ================= */
 .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .js .reveal.in{opacity:1;transform:none}
@@ -814,7 +835,7 @@ footer a:hover{color:var(--ink)}
     </div>
     <div class="stat stat-content reveal d1"><span class="k">Behind the camera</span><svg class="mosaic" viewBox="0 0 109 45" aria-hidden="true"><rect class="ma" x="0" y="0" width="13" height="13" rx="3"/><rect class="mb" x="16" y="0" width="13" height="13" rx="3"/><rect class="ma" x="32" y="0" width="13" height="13" rx="3"/><rect class="mc" x="48" y="0" width="13" height="13" rx="3"/><path class="mp" d="M52.5,3.5 L57.5,6.5 L52.5,9.5 Z"/><rect class="ma" x="64" y="0" width="13" height="13" rx="3"/><rect class="mb" x="80" y="0" width="13" height="13" rx="3"/><rect class="ma" x="96" y="0" width="13" height="13" rx="3"/><rect class="md" x="0" y="16" width="13" height="13" rx="3"/><rect class="ma" x="16" y="16" width="13" height="13" rx="3"/><rect class="mb" x="32" y="16" width="13" height="13" rx="3"/><path class="mp" d="M36.5,19.5 L41.5,22.5 L36.5,25.5 Z"/><rect class="mc" x="48" y="16" width="13" height="13" rx="3"/><rect class="ma" x="64" y="16" width="13" height="13" rx="3"/><rect class="mb" x="80" y="16" width="13" height="13" rx="3"/><rect class="ma" x="96" y="16" width="13" height="13" rx="3"/><rect class="md" x="0" y="32" width="13" height="13" rx="3"/><rect class="ma" x="16" y="32" width="13" height="13" rx="3"/><path class="mp" d="M20.5,35.5 L25.5,38.5 L20.5,41.5 Z"/><rect class="mb" x="32" y="32" width="13" height="13" rx="3"/><rect class="ma" x="48" y="32" width="13" height="13" rx="3"/><rect class="mc" x="64" y="32" width="13" height="13" rx="3"/><rect class="mb" x="80" y="32" width="13" height="13" rx="3"/><rect class="ma" x="96" y="32" width="13" height="13" rx="3"/></svg><b>5K+</b><span class="l">pieces of content in 15 years behind the camera</span><span class="sfoot"><em>Reels</em><em>Photo</em><em>Print</em><em>Email</em></span></div>
     <div class="stat reveal d2"><span class="k">SME HUB, BCC</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><b>23</b><span class="l">small businesses incubated</span><span class="sfoot sfoot-t">3 posts a week and daily stories for every vendor, for a year</span></div>
-    <div class="stat reveal d2"><span class="k">Published research</span><b>36+</b><span class="l">citations, <i>Tourism and Hospitality Research</i>, 2021</span><a class="paper-link" href="https://doi.org/10.1177/1467358420926688" target="_blank" rel="noopener">Read the paper &#8599;</a><span class="sfoot sfoot-t">2 peer-reviewed papers on Maldivian guesthouses, 2017 and 2021</span></div>
+    <div class="stat reveal d2"><span class="k">Published research</span><b>36+</b><span class="l">citations, <i>Tourism and Hospitality Research</i>, 2021</span><a class="paper-link" href="#credentials" target="_blank" rel="noopener">Read the abstracts &#8595;</a><span class="sfoot sfoot-t">2 peer-reviewed papers on Maldivian guesthouses, 2017 and 2021</span></div>
   </div>
 </div>
 
@@ -1257,11 +1278,24 @@ footer a:hover{color:var(--ink)}
     <div class="creds">
       <div class="reveal">
         <h3>Publications</h3>
-        <ul>
-          <li><span class="todo">ADD paper title</span><small>Tourism and Hospitality Research, 2021. Cited 36+ times. <a href="https://doi.org/10.1177/1467358420926688" target="_blank" rel="noopener">Read paper</a></small></li>
-          <li><span class="todo">ADD paper title</span><small>The International Journal of Tourism and Hospitality Administration, 2017</small></li>
-          <li>Sustainable Development of Local Island Tourism<small>Conceptual paper, 3rd International Hospitality and Tourism Conference, 2016</small></li>
-        </ul>
+        <div class="pubs">
+          <details class="pub">
+            <summary><span class="pub-meta">Tourism and Hospitality Research &middot; SAGE &middot; 2021 &middot; Cited 36+ times</span><b>The nature and challenges of guest house business in the Maldives: An exploratory study</b><span class="pub-auth">Chia, K. W. and Muiz, A.</span><span class="pub-more">Read abstract</span></summary>
+            <div class="pub-body">
+              <p>Political changes opened the Maldives, long seen as an exclusive and expensive destination, to locally owned guest houses offering affordable stays. Through in-depth interviews with nine key informants and thematic analysis, the study identifies six themes that shape the business: product image, service quality, marketing channels, infrastructure, competition, and policies, laws and regulations. It recommends a customer-oriented, service-quality-led approach for guest house managers.</p>
+              <a class="btn btn-primary pub-btn" href="https://doi.org/10.1177/1467358420926688" target="_blank" rel="noopener">Read on SAGE Journals <i class="ph ph-arrow-up-right"></i></a>
+            </div>
+          </details>
+          <details class="pub">
+            <summary><span class="pub-meta">Journal of Tourism and Leisure Studies &middot; Common Ground &middot; 2017</span><b>Increasing the visibility of guesthouse operation in the Maldives through e-marketing</b><span class="pub-auth">Pappayah, P. P. C. M., Muiz, A. and Jinus, D. J.</span><span class="pub-more">Read abstract</span></summary>
+            <div class="pub-body">
+              <p>Guesthouse tourism, introduced after the 2008 amendments to the Tourism Act, gave local communities a share of an industry built around luxury resorts. This study explores how guesthouses can adopt e-marketing to reach budget travellers, using interviews with five guesthouses across four islands in Kaafu Atoll. It looks at management support, technological competency and perceived benefits as the factors behind successful e-marketing.</p>
+              <a class="btn btn-primary pub-btn" href="https://cgscholar.com/bookstore/works/increasing-the-visibility-of-guesthouse-operation-in-the-maldives-through-emarketing?category_id=cgrn" target="_blank" rel="noopener">View on CG Scholar <i class="ph ph-arrow-up-right"></i></a>
+            </div>
+          </details>
+          <div class="pub pub-plain"><span class="pub-meta">3rd International Hospitality and Tourism Conference &middot; 2016</span><b>Sustainable development of local island tourism</b><span class="pub-auth">Conceptual paper</span></div>
+        </div>
+        <p class="pub-note">Full texts are published by SAGE and Common Ground. Copies for personal research are available on request.</p>
       </div>
       <div class="reveal d1">
         <h3>Teaching at MNU Business School</h3>
@@ -1270,6 +1304,7 @@ footer a:hover{color:var(--ink)}
           <li>Brand Management</li>
           <li>International Marketing</li>
           <li>Introduction to Marketing</li>
+          <li>Business Entrepreneurship</li>
         </ul>
       </div>
     </div>
