@@ -47,12 +47,12 @@ function doPost(e) {
 
     var c = d.compass || {}, f = d.funnel || {};
     var email = String(d.email || '').trim();
-    tab('Leads', COLS).appendRow([new Date(), d.name || '', email, d.wantsCall ? 'Yes' : 'No', d.whatsapp || '',
-      d.usernames || '', d.cat || '', d.btype || '', d.audiences || '', d.markets || '', d.islands || '',
-      d.platforms || '', num(d.score),
+    tab('Leads', COLS).appendRow([new Date(), txt(d.name), txt(email), d.wantsCall ? 'Yes' : 'No', txt(d.whatsapp),
+      txt(d.usernames), txt(d.cat), txt(d.btype), txt(d.audiences), txt(d.markets), txt(d.islands),
+      txt(d.platforms), num(d.score),
       num(c.profiles), num(c.mix), num(c.content), num(c.engage), num(c.community), num(c.paid), num(c.measure), num(c.team),
-      num(f.aw), num(f.co), num(f.cv), num(f.lo), num(f.ad), d.leak || '', (d.topFixes || []).join('\n'),
-      d.currency || '', d.date || '']);
+      num(f.aw), num(f.co), num(f.cv), num(f.lo), num(f.ad), txt(d.leak), txt((d.topFixes || []).join('\n')),
+      txt(d.currency), txt(d.date)]);
     lock.releaseLock();
 
     // 1) The visitor's report
@@ -113,7 +113,14 @@ function visitorHtml(first, d) {
     '<p style="color:#888;font-size:12px">You received this because you asked for your report. Reply "unsubscribe" and we won\'t email you again.</p>';
 }
 
-function num(v) { return (v === undefined || v === null || v === '') ? '' : v; }
+function num(v) { return (v === undefined || v === null || v === '' || isNaN(Number(v))) ? '' : Number(v); }
+
+// Store as plain text. A value starting with + = - or @ (like +960 phone numbers) would
+// otherwise be read by Sheets as a formula and show #ERROR!.
+function txt(v) {
+  var s = String(v == null ? '' : v);
+  return /^[=+\-@]/.test(s) ? "'" + s : s;
+}
 
 function esc(s) {
   return String(s == null ? '' : s).replace(/[&<>"]/g, function (ch) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]; });
