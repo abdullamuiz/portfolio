@@ -63,6 +63,19 @@ p { margin: 0; }
 .progress i { flex: 1; height: 6px; border-radius: 6px; background: var(--track); }
 .progress i.on { background: var(--accent); }
 .progress i.on:last-of-type { background: var(--hl); }
+.progress { margin-bottom: 8px; }
+.steplbl { margin: 0 0 18px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.cats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+.cat { display: flex; align-items: center; gap: 12px; text-align: left; border: 1.5px solid var(--line); background: var(--chip); color: var(--ink); font: 700 16px/1.2 var(--sans); padding: 14px; border-radius: 18px; cursor: pointer; transition: border-color .2s, background .2s; }
+.cat:hover { border-color: var(--hl); }
+.cat-ic { flex: none; width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; background: var(--hl-soft); color: var(--hl); }
+.cat-ic svg { width: 24px; height: 24px; }
+.cat[aria-pressed="true"] { border-color: var(--hl); background: color-mix(in srgb, var(--hl) 10%, var(--surface)); }
+.cat[aria-pressed="true"] .cat-ic { background: var(--hl); color: var(--hl-ink); }
+.subs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; padding: 12px; border-radius: 18px; border: 1.5px dashed color-mix(in srgb, var(--hl) 45%, var(--line)); }
+.subs .chip { margin: 0; }
+.aud3 .chip::before { content: none !important; }
+@media (max-width: 520px) { .cat { font-size: 14.5px; padding: 12px; gap: 10px; } .cat-ic { width: 36px; height: 36px; } }
 .stack { display: flex; flex-direction: column; gap: 26px; margin-top: 26px; }
 label, .lbl { font-weight: 700; font-size: 16px; display: block; }
 .field { position: relative; margin-top: 8px; }
@@ -342,7 +355,10 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     { id: 'hulhu', n: 'Hulhumalé', pop: 65714 },
     { id: 'villi', n: 'Villimalé', pop: 6755 },
     { id: 'addu', n: 'Addu City', pop: 25062 },
-    { id: 'islands', n: 'Other islands', pop: 280363 }
+    { id: 'fuvah', n: 'Fuvahmulah', pop: 9177 },
+    { id: 'kulhu', n: 'Kulhudhuffushi', pop: 10131 },
+    { id: 'thina', n: 'Thinadhoo', pop: 6217 },
+    { id: 'islands', n: 'Other islands', pop: 254838 }
   ];
   // Share of the whole population each platform can reach in the Maldives (DataReportal, Digital 2026).
   var MV_SHARE = { facebook: 0.723, instagram: 0.553, tiktok: 0.553, linkedin: 0.396 }; // TikTok: no published figure, Instagram share used as an estimate
@@ -454,11 +470,40 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   var RESULT = [['yes', 'Yes, clearly'], ['little', 'A little'], ['no', 'Not really']];
   var TRACK = [['all', 'Yes, every one'], ['some', 'Sometimes'], ['none', 'Not yet']];
   var WHO = [['nobody', 'Nobody really'], ['me', 'Me, when I find time'], ['staff', 'A team member, a few hours a week'], ['pro', 'A dedicated person or agency']];
-  var BIZ = [
-    ['locals', 'Locals only', 'A café, shop or service for people living in the Maldives'],
-    ['both', 'Tourists and locals', 'A guesthouse, dive centre or restaurant serving both'],
-    ['tourists', 'Tourists only', 'A resort, liveaboard or tour operator']
+  var CATS = [
+    { id: 'stay', n: 'Stay', ic: 'bed', subs: [['resort', 'Resort'], ['hotel', 'Hotel'], ['guesthouse', 'Guesthouse'], ['homestay', 'Homestay'], ['liveaboard', 'Liveaboard']] },
+    { id: 'food', n: 'Food & drink', ic: 'food', subs: [['cafe', 'Café'], ['restaurant', 'Restaurant'], ['takeaway', 'Takeaway & delivery']] },
+    { id: 'exp', n: 'Experiences & services', ic: 'wave', subs: [['dive', 'Dive centre'], ['spa', 'Spa & wellness'], ['tours', 'Excursions & tours'], ['service', 'Other service']] },
+    { id: 'shop', n: 'Shops & online', ic: 'shop', subs: [['shop', 'Shop'], ['online', 'Online store'], ['other', 'Other']] }
   ];
+  var CAT_ICON = {
+    bed: '<path d="M3 18V8M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/>',
+    food: '<path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 2-2 6 0 8v10"/>',
+    wave: '<path d="M2 14c2.5-2.5 5-2.5 7.5 0s5 2.5 7.5 0 3.5-2 5-1"/><path d="M2 19c2.5-2.5 5-2.5 7.5 0s5 2.5 7.5 0 3.5-2 5-1"/><circle cx="15" cy="6" r="2.5"/>',
+    shop: '<path d="M4 9l1.5-5h13L20 9M4 9h16v11H4zM4 9a2.7 2.7 0 0 0 5.3 0 2.7 2.7 0 0 0 5.4 0 2.7 2.7 0 0 0 5.3 0M10 20v-5h4v5"/>'
+  };
+  var AUDS = [['locals', 'Locals', 'People living in the Maldives'], ['expats', 'Expats', 'Foreigners living and working here'], ['tourists', 'Tourists', 'Visitors from abroad']];
+  function catOf(bt) { var r = null; CATS.forEach(function (c) { c.subs.forEach(function (s) { if (s[0] === bt) r = c.id; }); }); return r; }
+  function btName(bt) { var r = ''; CATS.forEach(function (c) { c.subs.forEach(function (s) { if (s[0] === bt) r = s[1]; }); }); return r; }
+  function syncBiz() {
+    var a = state.aud || {}, loc = a.locals || a.expats;
+    state.biz = !loc && !a.tourists ? null : loc && a.tourists ? 'both' : loc ? 'locals' : 'tourists';
+  }
+  // Funnel copy from the homepage leak finder, kept for the in-tool funnel (pass 2).
+  var FUNNEL = {
+    order: ['aw', 'co', 'cv', 'lo', 'ad'],
+    names: { aw: 'Awareness', co: 'Consideration', cv: 'Conversion', lo: 'Loyalty', ad: 'Advocacy' },
+    questions: [
+      ['aw', 'People can find us on Google Maps with current photos and hours'],
+      ['aw', 'We post short videos at least once a week'],
+      ['co', 'We reply to every review within two days'],
+      ['co', 'Prices, menus and how to reach us are easy to find online'],
+      ['cv', 'Customers can book or order directly with us in under a minute'],
+      ['lo', 'We collect customer contacts and invite them back'],
+      ['ad', 'We ask happy customers for a review or a share']
+    ],
+    byBiz: {"guesthouse": {"fix": {"aw": "Answer the questions travellers now ask AI assistants: how to reach your island from Mal\u00e9, ferry and speedboat times, and what a night really costs. Clear answers on your website and Google profile get you named.", "co": "Show divers, couples and families the package that fits them, answer every review, and reply on WhatsApp in minutes, not the next morning.", "cv": "Make your own website the easiest way to book, with a perk the OTAs can't match, like a free transfer or an excursion.", "lo": "Collect every guest's WhatsApp or email at check-out, and send a returning-guest rate before the next season.", "ad": "Ask for the review on the last evening, not after they leave, and reshare guests' photos with their permission."}, "insight": "Every booking you move from an OTA to your own website keeps 18 to 35% more of the room rate with you. Direct bookings are the cheapest growth a guesthouse has."}, "restaurant": {"fix": {"aw": "Own your Google Maps listing: fresh food photos, correct hours and the dishes people search for. Many diners in Mal\u00e9 and Hulhumal\u00e9 decide there, minutes before they go.", "co": "Give people one clear reason to pick you over the place next door, like a signature dish, the view or a set menu, and show it in every post.", "cv": "Put a booking or WhatsApp order link everywhere, and fill the quiet nights with weekday set menus and group offers.", "lo": "Start a WhatsApp list of regulars and tell them first about new dishes and events.", "ad": "Make your signature dish photogenic and ask happy tables to tag you. Their posts are your cheapest ads."}, "insight": "In a small city, the same few thousand people eat out every week. Turning them into regulars beats chasing new followers."}, "dive": {"fix": {"aw": "Publish what divers actually search for: sites, seasons, sightings and courses. A simple weekly sightings log becomes content that Google and AI assistants can quote.", "co": "Show your instructors, your safety standards and real underwater footage. Divers choose people they trust, not just the lowest price.", "cv": "Let divers book a course or dive package online, and partner with guesthouses so their guests are booked before they arrive.", "lo": "Keep track of each diver's certification level and invite them back for the next course or the season's big sightings.", "ad": "Send every diver their best clip after the dive, with your tag on it. Divers love to post, and their friends dive too."}, "insight": "Divers plan trips around the sea, not the hotel. Own the information on conditions and sightings, and the bookings follow you."}, "coffee": {"fix": {"aw": "Be on Google Maps with the right hours and photos, and post short videos of what makes your coffee different, from the beans to the latte art.", "co": "Give people a reason to come to you: a signature drink, a space to work, or the best breakfast near the office.", "cv": "Make ordering easy with a WhatsApp or pick-up link for office orders, and a morning offer that builds the habit.", "lo": "A digital stamp card or a WhatsApp list turns the once-a-week customer into a daily one.", "ad": "Seasonal drinks and a corner worth photographing give regulars something to share."}, "insight": "A coffee shop grows on frequency, not footfall. One extra visit a week from your regulars is worth more than a hundred new followers."}}
+  };
 
   /* ---------- helpers ---------- */
   var state;
@@ -507,13 +552,13 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     return d;
   }
   function fresh() {
-    return { step: 0, biz: null, shared: true, sharedName: '', names: {}, sel: {}, d: blankData(), example: false, email: '',
+    return { step: 0, biz: null, cat: null, btype: null, aud: {}, shared: true, sharedName: '', names: {}, sel: {}, d: blankData(), example: false, email: '',
       markets: {}, areas: {},
       ads: { mode: 'organic', spend: 0, camps: 0, on: {}, how: 'boost', result: 'little' }, team: { track: null, who: null },
       plan: { tab: 'reach', reach: tFor(20000, RE), perAd: tFor(50, PA), adj: 100, cpf: 0.8, target: 30, org: 2, occ: { val: true, ram: true, bf: true, xmas: true, ny: true }, occBudget: tFor(200, PA), occDays: 10 } };
   }
   function example() {
-    var s = fresh(); s.example = true; s.sharedName = 'bluepalm.maldives'; s.biz = 'both'; s.sel = { instagram: true, facebook: true }; s.areas = { male: true, hulhu: true };
+    var s = fresh(); s.example = true; s.sharedName = 'bluepalm.maldives'; s.biz = 'both'; s.cat = 'stay'; s.btype = 'guesthouse'; s.aud = { locals: true, tourists: true }; s.sel = { instagram: true, facebook: true }; s.areas = { male: true, hulhu: true };
     Object.assign(s.d.instagram, { f: tFor(1900, FOL), l: tFor(34, LIK), posts: 3, bio: true, link: true, brand: true, reply: 'slow' });
     Object.assign(s.d.facebook, { f: tFor(12800, FOL), l: tFor(40, LIK), posts: 6, bio: false, link: false, brand: true, reply: 'slow' });
     s.markets = { eu: true, uk: true, cn: true, ru: true };
@@ -809,20 +854,25 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   function progress(step) {
     var n = steps(), h = '';
     for (var i = 0; i < n; i++) h += '<i class="' + (i <= step ? 'on' : '') + '"></i>';
-    return '<div class="progress" aria-hidden="true">' + h + '</div>';
+    return '<div class="progress" aria-hidden="true">' + h + '</div><p class="steplbl">' + (step >= n - 1 ? 'Step ' + n + ' of ' + n + ' \u00b7 Your report' : 'Step ' + (step + 1) + ' of ' + n) + '</p>';
   }
 
   function viewBiz() {
-    var cards = BIZ.map(function (b) {
-      return '<button type="button" class="chip" data-act="biz" data-v="' + b[0] + '" aria-pressed="' + (state.biz === b[0]) + '">' + b[1] + '<small>' + b[2] + '</small></button>';
+    var cats = CATS.map(function (c) {
+      return '<button type="button" class="cat" data-act="cat" data-v="' + c.id + '" aria-pressed="' + (state.cat === c.id) + '"><span class="cat-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + CAT_ICON[c.ic] + '</svg></span>' + c.n + '</button>';
     }).join('');
+    var cur = CATS.filter(function (c) { return c.id === state.cat; })[0];
+    var subs = cur ? '<div class="subs">' + cur.subs.map(function (s) { return '<button type="button" class="chip small" data-act="bt" data-v="' + s[0] + '" aria-pressed="' + (state.btype === s[0]) + '">' + s[1] + '</button>'; }).join('') + '</div>' : '';
+    var auds = AUDS.map(function (a) { return '<button type="button" class="chip" data-act="aud" data-v="' + a[0] + '" aria-pressed="' + !!state.aud[a[0]] + '">' + a[1] + '<small>' + a[2] + '</small></button>'; }).join('');
+    var ok = state.btype && state.biz;
     return '<section class="card">' + progress(0) +
       (state.example ? '<div class="banner"><span>Example answers are filled in. Change anything you like.</span><button type="button" data-act="clear">Start fresh</button></div>' : '') +
-      '<p class="kicker">Free health check</p><h1>How healthy is your social media?</h1>' +
+      '<p class="kicker">Free 5-minute test</p><h1>How much of your funnel is working?</h1>' +
       '<p class="sub">A few taps and sliders. No logins, and nothing is saved.</p>' +
-      '<div style="margin-top:28px"><span class="lbl">First, who are your customers?</span><div class="big3">' + cards + '</div>' +
-      '<p class="hint">This shapes the rest of the check: the audiences we look at, ad costs and the advice in your report.</p></div>' +
-      '<div class="actions">' + (state.example ? '<span></span>' : '<button type="button" class="btn ghost" data-act="demo">See an example report</button>') + '<button type="button" class="btn primary" data-act="next"' + (state.biz ? '' : ' disabled') + '>Start</button></div></section>';
+      '<div style="margin-top:26px"><span class="lbl">Your business</span><div class="cats">' + cats + '</div>' + subs + '</div>' +
+      '<div style="margin-top:24px"><span class="lbl">Who are your customers? <span class="hint" style="font-weight:400">Pick all that apply</span></span><div class="big3 aud3">' + auds + '</div>' +
+      '<p class="hint">This shapes the rest of the test: the audiences we look at, ad costs and the advice in your report.</p></div>' +
+      '<div class="actions">' + (state.example ? '<span></span>' : '<button type="button" class="btn ghost" data-act="demo">See an example report</button>') + '<button type="button" class="btn primary" data-act="next"' + (ok ? '' : ' disabled') + '>Start</button></div></section>';
   }
 
   function viewIntro() {
@@ -1336,7 +1386,9 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       state.markets[v] = !state.markets[v]; t.setAttribute('aria-pressed', !!state.markets[v]);
       document.getElementById('mktWarn').innerHTML = blocked().map(function (b) { return '<div class="warnbox"><b>' + b.n + '.</b> ' + b.block + '</div>'; }).join('');
     }
-    else if (a === 'biz') { state.biz = v; press('[data-act="biz"]', function (b) { return b === t; }); var sb = document.querySelector('[data-act="next"]'); if (sb) sb.disabled = false; }
+    else if (a === 'cat') { if (state.cat !== v) { state.cat = v; state.btype = null; } render(); }
+    else if (a === 'bt') { state.btype = v; state.example = false; render(); }
+    else if (a === 'aud') { state.aud[v] = !state.aud[v]; syncBiz(); render(); }
     else if (a === 'demo') { state = example(); render(); }
     else if (a === 'area') {
       state.areas[v] = !state.areas[v]; t.setAttribute('aria-pressed', !!state.areas[v]);
@@ -1374,8 +1426,16 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
 
   state = fresh();
   try {
-    var qp = new URLSearchParams(location.search).get('p');
-    if (qp) qp.split(',').forEach(function (id) { if (BY[id]) state.sel[id] = true; });
+    var Q = new URLSearchParams(location.search);
+    function L(k) { return (Q.get(k) || '').split(',').filter(Boolean); }
+    L('p').forEach(function (id) { if (BY[id]) state.sel[id] = true; });
+    var bt = Q.get('bt'); if (bt && catOf(bt)) { state.btype = bt; state.cat = catOf(bt); }
+    else if (Q.get('cat') && CATS.some(function (c) { return c.id === Q.get('cat'); })) state.cat = Q.get('cat');
+    L('aud').forEach(function (a) { if (a === 'locals' || a === 'expats' || a === 'tourists') state.aud[a] = true; });
+    var MKMAP = { cn: 'cn', ru: 'ru', uk: 'uk', de: 'eu', it: 'eu', 'in': 'in' };
+    L('mk').forEach(function (m) { if (MKMAP[m]) state.markets[MKMAP[m]] = true; });
+    L('is').forEach(function (i) { if (AREAS.some(function (x) { return x.id === i; })) state.areas[i] = true; });
+    syncBiz();
   } catch (e) {}
   render();
 })();
