@@ -404,9 +404,9 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     ['MMTV, Maldives top source markets 2026', 'https://en.mmtv.mv/8462']
   ];
 
-  var FOL = { base: 50, span: 4.3 };
-  var LIK = { base: 1, span: 4.0 };
-  var SP = { base: 20, span: 3 };
+  var FOL = { base: 50, span: 4.3, zero: true };
+  var LIK = { base: 1, span: 4.0, zero: true };
+  var SP = { base: 20, span: 3, zero: true };
   var RE = { base: 1000, span: 3 };
   var PA = { base: 10, span: 2.7 };
   var FREQ = 2;
@@ -437,7 +437,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   var state;
   function tFor(v, c) { return Math.round(100 * Math.log10(v / c.base) / c.span); }
   function nice(v) { var p = Math.pow(10, Math.floor(Math.log10(v)) - 1); return Math.max(1, Math.round(v / p) * p); }
-  function valOf(t, c) { return nice(c.base * Math.pow(10, (t / 100) * c.span)); }
+  function valOf(t, c) { if (c.zero && t <= 0) return 0; return nice(c.base * Math.pow(10, (t / 100) * c.span)); }
   function fmt(v) {
     if (v >= 1e6) return (v / 1e6).toFixed(1).replace('.0', '') + 'M';
     if (v >= 1000) return (v / 1000).toFixed(v < 10000 ? 1 : 0).replace('.0', '') + 'K';
@@ -476,17 +476,17 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
 
   function blankData() {
     var d = {};
-    PLATFORMS.forEach(function (p) { d[p.id] = { f: tFor(500, FOL), l: tFor(10, LIK), posts: 4, bio: false, link: false, brand: false, reply: 'slow' }; });
+    PLATFORMS.forEach(function (p) { d[p.id] = { f: 0, l: 0, posts: 0, bio: false, link: false, brand: false, reply: 'slow' }; });
     return d;
   }
   function fresh() {
-    return { step: 0, biz: 'both', shared: true, sharedName: '', names: {}, sel: { instagram: true, facebook: true }, d: blankData(), example: false, email: '',
-      markets: { uk: true, eu: true }, areas: { male: true, hulhu: true },
-      ads: { mode: 'organic', spend: tFor(100, SP), camps: 4, on: { instagram: true, facebook: true }, how: 'boost', result: 'little' },
+    return { step: 0, biz: null, shared: true, sharedName: '', names: {}, sel: {}, d: blankData(), example: false, email: '',
+      markets: {}, areas: {},
+      ads: { mode: 'organic', spend: 0, camps: 0, on: {}, how: 'boost', result: 'little' },
       plan: { tab: 'reach', reach: tFor(20000, RE), perAd: tFor(50, PA), adj: 100, cpf: 0.8, target: 30, org: 2, occ: { val: true, ram: true, bf: true, xmas: true, ny: true }, occBudget: tFor(200, PA), occDays: 10 } };
   }
   function example() {
-    var s = fresh(); s.example = true; s.sharedName = 'bluepalm.maldives';
+    var s = fresh(); s.example = true; s.sharedName = 'bluepalm.maldives'; s.biz = 'both'; s.sel = { instagram: true, facebook: true }; s.areas = { male: true, hulhu: true };
     Object.assign(s.d.instagram, { f: tFor(1900, FOL), l: tFor(34, LIK), posts: 3, bio: true, link: true, brand: true, reply: 'slow' });
     Object.assign(s.d.facebook, { f: tFor(12800, FOL), l: tFor(40, LIK), posts: 6, bio: false, link: false, brand: true, reply: 'slow' });
     s.markets = { eu: true, uk: true, cn: true, ru: true };
@@ -524,7 +524,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   /* ---------- scoring ---------- */
   function scorePlatform(pl) {
     var s = state.d[pl.id], fol = valOf(s.f, FOL), lik = valOf(s.l, LIK);
-    var er = Math.min(50, lik / fol * 100), posts = s.posts, pr = posts / pl.posts;
+    var er = fol ? Math.min(50, lik / fol * 100) : 0, posts = s.posts, pr = posts / pl.posts;
     var rhythm = pr >= 1 ? 25 : pr >= 0.66 ? 20 : pr >= 0.33 ? 12 : posts > 0 ? 6 : 0;
     var ratio = er / pl.er;
     var eng = ratio >= 1 ? 25 : ratio >= 0.6 ? 17 : ratio >= 0.3 ? 9 : er > 0 ? 4 : 0;
@@ -743,7 +743,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       '<p class="sub">A few taps and sliders. No logins, and nothing is saved.</p>' +
       '<div style="margin-top:28px"><span class="lbl">First, who are your customers?</span><div class="big3">' + cards + '</div>' +
       '<p class="hint">This shapes the rest of the check: the audiences we look at, ad costs and the advice in your report.</p></div>' +
-      '<div class="actions"><span></span><button type="button" class="btn primary" data-act="next">Start</button></div></section>';
+      '<div class="actions">' + (state.example ? '<span></span>' : '<button type="button" class="btn ghost" data-act="demo">See an example report</button>') + '<button type="button" class="btn primary" data-act="next"' + (state.biz ? '' : ' disabled') + '>Start</button></div></section>';
   }
 
   function viewIntro() {
@@ -792,7 +792,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     var s = state.d[curPl().id], max = k === 'posts' ? 30 : 100, v = s[k];
     return '<div class="q"><div class="top"><label for="s-' + k + '">' + label + '</label><span class="val" id="v-' + k + '">' + sliderText(k) + '</span></div>' +
       '<input type="range" id="s-' + k + '" data-act="slide" data-k="' + k + '" min="0" max="' + max + '" step="1" value="' + v + '" style="--p:' + (v / max * 100) + '%">' +
-      '<div class="ticks">' + (k === 'f' ? '<span>50</span><span>1M</span>' : k === 'l' ? '<span>1</span><span>10K</span>' : '<span>0</span><span>30</span>') + '</div>' +
+      '<div class="ticks">' + (k === 'f' ? '<span>0</span><span>1M</span>' : k === 'l' ? '<span>0</span><span>10K</span>' : '<span>0</span><span>30</span>') + '</div>' +
       (k === 'l' ? '<span class="pillnote" id="er"></span>' : '') + '</div>';
   }
   function sliderText(k) {
@@ -803,7 +803,8 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   }
   function erText() {
     var pl = curPl(), s = state.d[pl.id];
-    var er = valOf(s.l, LIK) / valOf(s.f, FOL) * 100;
+    var fv = valOf(s.f, FOL), er = fv ? valOf(s.l, LIK) / fv * 100 : 0;
+    if (!fv) return 'Move the sliders to your follower and like counts. Typical engagement on ' + pl.name + ': ' + pl.er + '%.';
     return 'That is ' + (er < 1 ? er.toFixed(2) : er < 10 ? er.toFixed(1) : Math.round(er)) + '% of your ' + (pl.id === 'youtube' ? 'subscribers' : 'followers') + '. Typical on ' + pl.name + ': ' + pl.er + '%.';
   }
 
@@ -1221,7 +1222,8 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       state.markets[v] = !state.markets[v]; t.setAttribute('aria-pressed', !!state.markets[v]);
       document.getElementById('mktWarn').innerHTML = blocked().map(function (b) { return '<div class="warnbox"><b>' + b.n + '.</b> ' + b.block + '</div>'; }).join('');
     }
-    else if (a === 'biz') { state.biz = v; press('[data-act="biz"]', function (b) { return b === t; }); }
+    else if (a === 'biz') { state.biz = v; press('[data-act="biz"]', function (b) { return b === t; }); var sb = document.querySelector('[data-act="next"]'); if (sb) sb.disabled = false; }
+    else if (a === 'demo') { state = example(); render(); }
     else if (a === 'area') {
       state.areas[v] = !state.areas[v]; t.setAttribute('aria-pressed', !!state.areas[v]);
       document.getElementById('areaNote').textContent = areaSummary();
@@ -1255,7 +1257,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   document.addEventListener('click', function (e) { if (!e.target.closest('.share')) closeMenu(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
 
-  state = example();
+  state = fresh();
   render();
 })();
 </script>
