@@ -1034,7 +1034,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   /* ---------- views ---------- */
   var app = document.getElementById('app');
   // Lead capture: paste the Google Apps Script web app URL here (see tools/lead-capture.gs). Empty = PDF downloads instead.
-  var LEAD_ENDPOINT = '';
+  var LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwiQ0YAMChePy-yeHg6nf-TiccdkBZG65t9dSJ22Wl_QJsVAL1BHMu4jNY6MQ3zCODMEw/exec';
   var lead = { name: '', email: '', call: false, wa: '', state: 'idle', msg: '' };
   function steps() { return active().length + 6; } // business, accounts, platforms, customers, funnel, ads, report
   function progress(step) {
