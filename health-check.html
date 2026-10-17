@@ -155,7 +155,30 @@ input[type="range"]::-moz-range-thumb { width: 24px; height: 24px; border-radius
 }
 .mi:hover { background: var(--bg); }
 @media (min-width: 560px) { .menu { left: auto; right: 0; } }
-/* floating send button: stays in the corner while the report scrolls */
+/* send button: docked inside the report column, sticks to the bottom while the report scrolls */
+.dock { position: sticky; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: flex-end; margin-top: 18px; z-index: 30; pointer-events: none; }
+.dock > * { pointer-events: auto; }
+.share.docked > .btn { box-shadow: 0 12px 28px -10px var(--hl); padding: 15px 22px; background: var(--hl); color: var(--hl-ink); }
+.share.docked > .btn svg { width: 18px; height: 18px; flex: none; }
+.share.docked .menu { top: auto; left: auto; right: 0; bottom: calc(100% + 12px); max-height: calc(100vh - 120px); overflow-y: auto; }
+.ideal b { color: var(--hl); font-weight: 700; }
+.fq .chip > span { display: flex; flex-direction: column; gap: 3px; }
+.fstage { font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--hl); }
+.fwrap { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 18px; align-items: center; margin-top: 12px; }
+.fsvg { width: 100%; height: auto; display: block; overflow: visible; }
+.fs-lab { font: 700 14px var(--sans); fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 3px; }
+.fs.leak path { stroke: var(--hl); stroke-width: 3; stroke-dasharray: 6 5; opacity: 1 !important; }
+.fl { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.fl li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 9px 12px; border-radius: 14px; background: var(--chip); }
+.fl li.leak { box-shadow: inset 0 0 0 2px var(--hl); }
+.fl b { display: block; font-size: 14px; } .fl small { display: block; font-size: 12px; color: var(--muted); }
+.fl em { font-style: normal; font-weight: 700; font-size: 18px; } .fl em.good { color: var(--good); } .fl em.warn { color: var(--warn); } .fl em.bad { color: var(--bad); }
+.leakbox { margin-top: 18px; padding: 18px; border-radius: 18px; background: color-mix(in srgb, var(--hl) 8%, var(--surface)); border: 1px solid color-mix(in srgb, var(--hl) 30%, var(--line)); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.leakbox h3 { font-size: 1.4rem; }
+.insight { width: 100%; padding: 12px 14px; border-radius: 14px; background: var(--accent-soft); font-size: 15px; margin: 4px 0 0; }
+.insight b { display: block; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+@media (max-width: 640px) { .fwrap { grid-template-columns: 1fr; } }
+/* legacy floating send button (kept for reference) */
 .share.float { position: fixed; z-index: 30; right: max(16px, calc(env(safe-area-inset-right, 0px) + 16px)); bottom: calc(18px + env(safe-area-inset-bottom, 0px)); animation: pop 0.3s ease both; }
 .share.float > .btn { box-shadow: 0 12px 28px -10px var(--hl); padding: 15px 22px; background: var(--hl); color: var(--hl-ink); }
 .share.float > .btn svg { width: 18px; height: 18px; flex: none; }
@@ -446,6 +469,14 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   ];
 
   var FOL = { base: 50, span: 4.3, zero: true };
+  var VW = { base: 10, span: 5, zero: true };   // views per post: 10 to 1M
+  var SV = { base: 1, span: 5, zero: true };    // views per story: 1 to 100K
+  // Views per post as % of followers (Socialinsider 2026 Reels reach rates: 9.78% at 1K-5K followers, 5.0% at 100K-1M).
+  // Facebook uses the post reach tiers above. TikTok, LinkedIn and YouTube are rough guides only.
+  var VIEW_ROUGH = { tiktok: 30, linkedin: 5, youtube: 10 };
+  // Story views as % of followers. No single public benchmark; industry guides put typical story reach at about 2-5% of followers.
+  var STORY_BENCH = { instagram: 3, facebook: 2 };
+  var HL = [['none', 'None yet'], ['some', 'A few'], ['org', 'Organised by topic']];
   var LIK = { base: 1, span: 4.0, zero: true };
   var SP = { base: 20, span: 3, zero: true };
   var RE = { base: 1000, span: 3 };
@@ -505,6 +536,42 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     byBiz: {"guesthouse": {"fix": {"aw": "Answer the questions travellers now ask AI assistants: how to reach your island from Mal\u00e9, ferry and speedboat times, and what a night really costs. Clear answers on your website and Google profile get you named.", "co": "Show divers, couples and families the package that fits them, answer every review, and reply on WhatsApp in minutes, not the next morning.", "cv": "Make your own website the easiest way to book, with a perk the OTAs can't match, like a free transfer or an excursion.", "lo": "Collect every guest's WhatsApp or email at check-out, and send a returning-guest rate before the next season.", "ad": "Ask for the review on the last evening, not after they leave, and reshare guests' photos with their permission."}, "insight": "Every booking you move from an OTA to your own website keeps 18 to 35% more of the room rate with you. Direct bookings are the cheapest growth a guesthouse has."}, "restaurant": {"fix": {"aw": "Own your Google Maps listing: fresh food photos, correct hours and the dishes people search for. Many diners in Mal\u00e9 and Hulhumal\u00e9 decide there, minutes before they go.", "co": "Give people one clear reason to pick you over the place next door, like a signature dish, the view or a set menu, and show it in every post.", "cv": "Put a booking or WhatsApp order link everywhere, and fill the quiet nights with weekday set menus and group offers.", "lo": "Start a WhatsApp list of regulars and tell them first about new dishes and events.", "ad": "Make your signature dish photogenic and ask happy tables to tag you. Their posts are your cheapest ads."}, "insight": "In a small city, the same few thousand people eat out every week. Turning them into regulars beats chasing new followers."}, "dive": {"fix": {"aw": "Publish what divers actually search for: sites, seasons, sightings and courses. A simple weekly sightings log becomes content that Google and AI assistants can quote.", "co": "Show your instructors, your safety standards and real underwater footage. Divers choose people they trust, not just the lowest price.", "cv": "Let divers book a course or dive package online, and partner with guesthouses so their guests are booked before they arrive.", "lo": "Keep track of each diver's certification level and invite them back for the next course or the season's big sightings.", "ad": "Send every diver their best clip after the dive, with your tag on it. Divers love to post, and their friends dive too."}, "insight": "Divers plan trips around the sea, not the hotel. Own the information on conditions and sightings, and the bookings follow you."}, "coffee": {"fix": {"aw": "Be on Google Maps with the right hours and photos, and post short videos of what makes your coffee different, from the beans to the latte art.", "co": "Give people a reason to come to you: a signature drink, a space to work, or the best breakfast near the office.", "cv": "Make ordering easy with a WhatsApp or pick-up link for office orders, and a morning offer that builds the habit.", "lo": "A digital stamp card or a WhatsApp list turns the once-a-week customer into a daily one.", "ad": "Seasonal drinks and a corner worth photographing give regulars something to share."}, "insight": "A coffee shop grows on frequency, not footfall. One extra visit a week from your regulars is worth more than a hundred new followers."}}
   };
 
+  FUNNEL.byBiz.shop = { fix: {
+      aw: 'Show your products in short videos and make sure your shop appears on Google Maps with photos, opening hours and a phone number. Most people search before they visit or message.',
+      co: 'Post clear prices, sizes and delivery options. Answer every comment and review, and pin your best customer photos and reviews where people can see them.',
+      cv: 'Make ordering one step: a WhatsApp order link, a simple online shop or a DM template with prices and payment details.',
+      lo: 'Keep a WhatsApp list of past customers and send them new arrivals and a returning-customer offer.',
+      ad: 'Ask happy customers to post and tag you, and reshare their photos with permission.' },
+    insight: 'For a shop, the sale is usually lost between interest and ordering. Every extra message someone has to send before they can pay loses a share of buyers.' };
+  FUNNEL.byBiz.service = { fix: {
+      aw: 'Show the experience in short videos, and make sure people can find you on Google Maps and travel sites with current photos and prices.',
+      co: 'List what is included, how long it takes and what it costs, and reply to every review. Clear details beat clever captions.',
+      cv: 'Let people book a slot directly, by WhatsApp or online, with a deposit option, instead of waiting for a reply.',
+      lo: 'Collect contacts after every session or trip and invite people back with a seasonal offer.',
+      ad: 'Send a thank-you message with a review link the same day, while the experience is fresh.' },
+    insight: 'Experiences sell on trust. Reviews, real photos and quick replies matter more here than in almost any other business.' };
+  function fkey() {
+    var c = state.cat, b = state.btype;
+    if (c === 'stay') return 'guesthouse';
+    if (c === 'food') return b === 'restaurant' ? 'restaurant' : 'coffee';
+    if (c === 'exp') return b === 'dive' ? 'dive' : 'service';
+    if (c === 'shop') return 'shop';
+    return 'guesthouse';
+  }
+  function FQ(i) {
+    var c = state.cat, who = c === 'stay' ? 'Guests' : 'Customers';
+    var T = [
+      who + ' can find us on Google Maps with current photos and hours',
+      'We post short videos at least once a week',
+      'We reply to every review within two days',
+      c === 'stay' ? 'Room rates, packages and how to reach us are easy to find online' : c === 'food' ? 'Prices, menus and how to reach us are easy to find online' : c === 'exp' ? 'Prices, what is included and how to book are easy to find online' : c === 'shop' ? 'Prices, products and delivery options are easy to find online' : 'Prices and how to reach us are easy to find online',
+      c === 'stay' ? 'Guests can book directly with us in under a minute' : c === 'food' ? 'Customers can order or reserve directly with us in under a minute' : c === 'shop' ? 'Customers can order directly with us in under a minute (website, WhatsApp or DM)' : 'Customers can book directly with us in under a minute',
+      'We collect ' + (c === 'stay' ? 'guest' : 'customer') + ' contacts and invite them back',
+      'We ask happy ' + (c === 'stay' ? 'guests' : 'customers') + ' for a review or a share'
+    ];
+    return T[i];
+  }
+
   /* ---------- helpers ---------- */
   var state;
   function tFor(v, c) { return Math.round(100 * Math.log10(v / c.base) / c.span); }
@@ -548,19 +615,19 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
 
   function blankData() {
     var d = {};
-    PLATFORMS.forEach(function (p) { d[p.id] = { f: 0, l: 0, posts: 0, bio: false, link: false, brand: false, reply: 'slow' }; });
+    PLATFORMS.forEach(function (p) { d[p.id] = { f: 0, l: 0, v: 0, posts: 0, st: 0, sv: 0, hl: 'none', bio: false, link: false, brand: false, reply: 'slow' }; });
     return d;
   }
   function fresh() {
     return { step: 0, biz: null, cat: null, btype: null, aud: {}, shared: true, sharedName: '', names: {}, sel: {}, d: blankData(), example: false, email: '',
       markets: {}, areas: {},
-      ads: { mode: 'organic', spend: 0, camps: 0, on: {}, how: 'boost', result: 'little' }, team: { track: null, who: null },
+      ads: { mode: 'organic', spend: 0, camps: 0, on: {}, how: 'boost', result: 'little' }, team: { track: null, who: null }, fun: [false, false, false, false, false, false, false], planInit: false,
       plan: { tab: 'reach', reach: tFor(20000, RE), perAd: tFor(50, PA), adj: 100, cpf: 0.8, target: 30, org: 2, occ: { val: true, ram: true, bf: true, xmas: true, ny: true }, occBudget: tFor(200, PA), occDays: 10 } };
   }
   function example() {
     var s = fresh(); s.example = true; s.sharedName = 'bluepalm.maldives'; s.biz = 'both'; s.cat = 'stay'; s.btype = 'guesthouse'; s.aud = { locals: true, tourists: true }; s.sel = { instagram: true, facebook: true }; s.areas = { male: true, hulhu: true };
-    Object.assign(s.d.instagram, { f: tFor(1900, FOL), l: tFor(34, LIK), posts: 3, bio: true, link: true, brand: true, reply: 'slow' });
-    Object.assign(s.d.facebook, { f: tFor(12800, FOL), l: tFor(40, LIK), posts: 6, bio: false, link: false, brand: true, reply: 'slow' });
+    Object.assign(s.d.instagram, { f: tFor(1900, FOL), l: tFor(34, LIK), v: tFor(150, VW), posts: 3, st: 1, sv: tFor(45, SV), hl: 'some', bio: true, link: true, brand: true, reply: 'slow' });
+    Object.assign(s.d.facebook, { f: tFor(12800, FOL), l: tFor(40, LIK), v: tFor(400, VW), posts: 6, st: 0, sv: 0, bio: false, link: false, brand: true, reply: 'slow' }); s.fun = [true, false, true, true, false, false, true];
     s.markets = { eu: true, uk: true, cn: true, ru: true };
     s.ads = { mode: 'paid', spend: tFor(150, SP), camps: 3, on: { instagram: true, facebook: true }, how: 'boost', result: 'little' };
     s.team = { track: 'some', who: 'me' }; s.plan.reach = tFor(50000, RE); s.plan.occ = { val: true, ram: true, xmas: true };
@@ -593,25 +660,38 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     return t[0] + (t[1] - t[0]) * k;
   }
 
+  function viewBench(id, followers) {
+    if (id === 'instagram') { var k = Math.min(1, Math.max(0, (Math.log10(Math.max(followers, 1)) - Math.log10(3000)) / 2)); return 9.78 + (5.0 - 9.78) * k; }
+    if (id === 'facebook') return reachRate('facebook', Math.max(followers, 1));
+    return VIEW_ROUGH[id] || 10;
+  }
+  function band(r) { return r >= 1 ? 1 : r >= 0.6 ? 0.68 : r >= 0.3 ? 0.36 : r > 0 ? 0.16 : 0; }
+  function hasStories(id) { return id === 'instagram' || id === 'facebook'; }
+
   /* ---------- scoring ---------- */
   function scorePlatform(pl) {
-    var s = state.d[pl.id], fol = valOf(s.f, FOL), lik = valOf(s.l, LIK);
+    var s = state.d[pl.id], fol = valOf(s.f, FOL), lik = valOf(s.l, LIK), vw = valOf(s.v || 0, VW);
     var er = fol ? Math.min(50, lik / fol * 100) : 0, posts = s.posts, pr = posts / pl.posts;
-    var rhythm = pr >= 1 ? 25 : pr >= 0.66 ? 20 : pr >= 0.33 ? 12 : posts > 0 ? 6 : 0;
     var ratio = er / pl.er;
-    var eng = ratio >= 1 ? 25 : ratio >= 0.6 ? 17 : ratio >= 0.3 ? 9 : er > 0 ? 4 : 0;
-    var reply = s.reply === 'fast' ? 15 : s.reply === 'slow' ? 8 : 0;
+    var vr = fol ? vw / fol * 100 : 0, vb = viewBench(pl.id, fol), vratio = vb ? vr / vb : 0;
+    var stories = hasStories(pl.id), isIg = pl.id === 'instagram';
+    var st = s.st || 0, sv = valOf(s.sv || 0, SV), sr = fol ? sv / fol * 100 : 0, sratio = stories ? sr / STORY_BENCH[pl.id] : 0;
     var perWeek = Math.round(pl.posts / 4.3);
+    var pMax = stories ? 18 : 25, lMax = stories ? 10 : 12, vMax = stories ? 10 : 13;
     var parts = [
-      { max: 15, got: s.bio ? 15 : 0, tip: 'Say what you offer in the first line of your bio.' },
-      { max: 10, got: s.link ? 10 : 0, tip: 'Add a booking or enquiry link to your bio.' },
-      { max: 10, got: s.brand ? 10 : 0, tip: 'Use the same logo and name as your website.' },
-      { max: 25, got: rhythm, tip: 'You posted ' + posts + (posts === 1 ? ' time' : ' times') + ' last month. Active brands post about ' + pl.posts + ' times a month on ' + pl.name + ', roughly ' + perWeek + ' a week.' },
-      { max: 25, got: eng, tip: 'About ' + er.toFixed(er < 1 ? 2 : 1) + '% of your followers react to a post. The typical ' + pl.name + ' figure is ' + pl.er + '%. End posts with a question and reply to every comment.' },
-      { max: 15, got: reply, tip: 'Reply to comments and messages within a day.' }
+      { g: 'prof', max: isIg ? 12 : 15, got: s.bio ? (isIg ? 12 : 15) : 0, tip: 'Say what you offer in the first line of your bio.' },
+      { g: 'prof', max: isIg ? 8 : 10, got: s.link ? (isIg ? 8 : 10) : 0, tip: 'Add a booking or enquiry link to your bio.' },
+      { g: 'prof', max: isIg ? 8 : 10, got: s.brand ? (isIg ? 8 : 10) : 0, tip: 'Use the same logo and name as your website.' }
     ];
+    if (isIg) parts.push({ g: 'prof', max: 7, got: s.hl === 'org' ? 7 : s.hl === 'some' ? 4 : 0, tip: 'Organise your story highlights by topic (rooms, food, activities, prices, how to get here) so people who visit your profile find answers without asking.' });
+    parts.push({ g: 'rhythm', max: pMax, got: Math.round(pMax * (pr >= 1 ? 1 : pr >= 0.66 ? 0.8 : pr >= 0.33 ? 0.48 : posts > 0 ? 0.24 : 0)), tip: 'You posted ' + posts + (posts === 1 ? ' time' : ' times') + ' last month. Active brands post about ' + pl.posts + ' times a month on ' + pl.name + ', roughly ' + perWeek + ' a week.' });
+    if (stories) parts.push({ g: 'rhythm', max: 7, got: st >= 2 ? 7 : st >= 1 ? 5 : 0, tip: 'Post at least one story a day on ' + pl.name + ': behind the scenes, today’s offer or a guest moment. Stories keep you at the front of your followers’ feed.' });
+    parts.push({ g: 'eng', max: lMax, got: Math.round(lMax * band(ratio)), tip: 'About ' + er.toFixed(er < 1 ? 2 : 1) + '% of your followers react to a post. The typical ' + pl.name + ' figure is ' + pl.er + '%. End posts with a question and reply to every comment.' });
+    parts.push({ g: 'eng', max: vMax, got: Math.round(vMax * band(vratio)), tip: 'Your posts get about ' + fmt(vw) + ' views, around ' + (vr < 10 ? vr.toFixed(1) : Math.round(vr)) + '% of your followers. A typical ' + pl.name + ' account your size gets about ' + Math.round(vb) + '%. Short videos with a strong first second travel furthest.' });
+    if (stories) parts.push({ g: 'eng', max: 5, got: st ? Math.round(5 * band(sratio)) : 0, tip: 'Your stories reach about ' + (sr < 10 ? sr.toFixed(1) : Math.round(sr)) + '% of your followers. Around ' + STORY_BENCH[pl.id] + '% is typical. Polls, questions and countdown stickers bring more people back.' });
+    parts.push({ g: 'reply', max: 15, got: s.reply === 'fast' ? 15 : s.reply === 'slow' ? 8 : 0, tip: 'Reply to comments and messages within a day.' });
     var total = parts.reduce(function (a, x) { return a + x.got; }, 0);
-    return { pl: pl, total: total, er: er, ratio: ratio, parts: parts, followers: fol };
+    return { pl: pl, total: total, er: er, ratio: ratio, vr: vr, vratio: vratio, parts: parts, followers: fol };
   }
 
   function mixInfo() {
@@ -672,6 +752,8 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       var w = r.pl.core ? 1 : 0.5;
       r.parts.forEach(function (x) { if (x.max - x.got > 0) fixes.push({ p: r.pl.name, gain: x.max - x.got, rank: (x.max - x.got) * w, tip: x.tip, key: r.pl.id }); });
     });
+    var funnel = funnelScores(rows, mix);
+    if (funnel.leak) fixes.push({ p: 'Funnel · ' + funnel.leak.n, gain: Math.max(8, Math.round((100 - funnel.leak.v) / 4)), key: 'funnel', tip: funnel.fix });
     var tm = state.team || {};
     if (tm.track !== 'all') fixes.push({ p: 'Measurement', gain: tm.track === 'some' ? 8 : 15, key: 'measure',
       tip: 'Ask every ' + (isLocal() ? 'customer' : 'guest') + ' how they found you, and give each platform its own promo code or tracked link. Then you can see which posts bring ' + (isLocal() ? 'orders' : 'bookings') + ', not just likes.' });
@@ -700,24 +782,66 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     var claim = (missingAll.length && state.shared && clean(state.sharedName))
       ? 'Even where you don’t post yet, claim @' + clean(state.sharedName) + ' on ' + list(missingAll) + ' so nobody else takes it.' : '';
     var compass = compassScores(rows, mix);
-    return { compass: compass, rows: rows, avg: avg, capped: capped, pavg: Math.round(pavg), mix: mix, label: headline(avg), lede: lede(avg), top: top, nm: nm, claim: claim, ads: adsInfo(), plan: planLines(), local: localInfo(), guide: guide(), foreign: foreignInfo(),
+    return { funnel: funnel, compass: compass, rows: rows, avg: avg, capped: capped, pavg: Math.round(pavg), mix: mix, label: headline(avg), lede: lede(avg), top: top, nm: nm, claim: claim, ads: adsInfo(), plan: planLines(), local: localInfo(), guide: guide(), foreign: foreignInfo(),
       date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) };
   }
 
+  function funnelScores(rows, mix) {
+    var f = state.fun || [], b = function (x) { return x ? 100 : 0; };
+    function avg(a) { return a.length ? Math.round(a.reduce(function (s, x) { return s + x; }, 0) / a.length) : 0; }
+    var vt = 0, vw = 0, rp = [], lk = [];
+    rows.forEach(function (r) { var w = r.pl.core ? 1 : 0.5; vt += Math.min(1, r.vratio || 0) * 100 * w; vw += w; var s = state.d[r.pl.id]; rp.push(s.reply === 'fast' ? 100 : s.reply === 'slow' ? 50 : 0); lk.push(b(s.link)); });
+    var views = vw ? vt / vw : 0, vis = Math.round(mix.coverage * 0.5 + views * 0.5);
+    var co = [b(f[2]), b(f[3]), avg(rp)];
+    if (state.sel.instagram) { var hl = state.d.instagram.hl; co.push(hl === 'org' ? 100 : hl === 'some' ? 50 : 0); }
+    var S = [
+      { k: 'aw', v: avg([b(f[0]), b(f[1]), vis, vis]), why: 'Social reach ' + vis + '/100 plus Google Maps and video' },
+      { k: 'co', v: avg(co), why: 'Reviews, clear prices, reply speed' + (state.sel.instagram ? ' and highlights' : '') },
+      { k: 'cv', v: avg([b(f[4]), b(f[4]), avg(lk)]), why: 'Direct booking and a link in your bio' },
+      { k: 'lo', v: b(f[5]), why: 'Contacts collected and invited back' },
+      { k: 'ad', v: b(f[6]), why: 'Reviews and shares asked for' }
+    ];
+    S.forEach(function (x) { x.n = FUNNEL.names[x.k]; });
+    var leak = null; S.forEach(function (x) { if (x.v < 75 && (!leak || x.v < leak.v)) leak = x; });
+    var D = FUNNEL.byBiz[fkey()] || FUNNEL.byBiz.guesthouse;
+    return { stages: S, leak: leak, fix: leak ? D.fix[leak.k] : 'Your funnel holds together. The next step is measuring which channel brings the most revenue, then putting more behind it.', insight: D.insight, vis: vis };
+  }
+  function funnelSvg(S, leakK) {
+    var G = [[10, 410, 43, 377, 18, 76], [43, 377, 74, 346, 76, 134], [74, 346, 103, 317, 134, 192], [103, 317, 129, 291, 192, 250], [129, 291, 151, 269, 250, 308]];
+    var out = '';
+    S.forEach(function (s, i) {
+      var g = G[i], c = 'var(--' + cls(s.v) + ')', rx0 = (g[1] - g[0]) / 2, rx1 = (g[3] - g[2]) / 2, ry = 13 - i * 0.6;
+      out += '<g class="fs' + (s.k === leakK ? ' leak' : '') + '"><path d="M' + g[0] + ',' + g[4] + ' L' + g[1] + ',' + g[4] + ' L' + g[3] + ',' + g[5] + ' A' + rx1 + ',' + (ry * 0.8).toFixed(1) + ' 0 0 1 ' + g[2] + ',' + g[5] + ' Z" style="fill:' + c + ';opacity:' + (0.35 + 0.65 * s.v / 100).toFixed(2) + '"/>' +
+        '<ellipse cx="210" cy="' + g[4] + '" rx="' + rx0 + '" ry="' + ry.toFixed(1) + '" style="fill:' + c + ';opacity:.45"/>' +
+        '<text x="210" y="' + (g[4] + 37) + '" text-anchor="middle" class="fs-lab">' + s.n + ' · ' + s.v + '</text></g>';
+    });
+    return '<svg class="fsvg" viewBox="0 0 420 330" role="img" aria-label="Your marketing funnel: ' + S.map(function (s) { return s.n + ' ' + s.v; }).join(', ') + '">' + out + '</svg>';
+  }
+  function funnelSect(R) {
+    var F = R.funnel;
+    var legend = '<ul class="fl">' + F.stages.map(function (s) {
+      return '<li class="' + (F.leak && s.k === F.leak.k ? 'leak' : '') + '"><span><b>' + s.n + '</b><small>' + esc(s.why) + '</small></span><em class="' + cls(s.v) + '">' + s.v + '</em></li>';
+    }).join('') + '</ul>';
+    return '<div class="sect"><div class="row-h"><h3>Your marketing funnel</h3><span class="tag">5 stages</span></div>' +
+      '<p class="body">From being found to being recommended. Each stage is scored out of 100 from your social numbers and your funnel answers.</p>' +
+      '<div class="fwrap">' + funnelSvg(F.stages, F.leak && F.leak.k) + legend + '</div>' +
+      '<div class="leakbox"><span class="risk ' + (F.leak ? 'bad' : 'good') + '">' + (F.leak ? 'Biggest leak' : 'No obvious leak') + '</span><h3>' + (F.leak ? F.leak.n : 'Time to scale') + '</h3><p class="body">' + esc(F.fix) + '</p>' +
+      '<p class="insight"><b>Insight</b>' + esc(F.insight) + '</p></div></div>';
+  }
   function compassScores(rows, mix) {
     function avgPart(fn) {
       var s = 0, t = 0; rows.forEach(function (r) { var w = r.pl.core ? 1 : 0.5; s += fn(r) * w; t += w; });
       return t ? Math.round(s / t) : 0;
     }
-    function part(r, i) { return r.parts[i].got / r.parts[i].max * 100; }
+    function grp(r, g) { var got = 0, max = 0; r.parts.forEach(function (x) { if (x.g === g) { got += x.got; max += x.max; } }); return max ? got / max * 100 : 0; }
     var a = state.ads, tm = state.team || {};
     var paid = a.mode !== 'paid' ? 20 : Math.min(100, 40 + (a.how === 'boost' ? 0 : 20) + (a.result === 'yes' ? 40 : a.result === 'little' ? 20 : 0));
     return [
-      { k: 'profiles', c: 1, n: 'Profiles', v: avgPart(function (r) { return (r.parts[0].got + r.parts[1].got + r.parts[2].got) / 35 * 100; }), d: 'Bio, link and branding' },
+      { k: 'profiles', c: 1, n: 'Profiles', v: avgPart(function (r) { return grp(r, 'prof'); }), d: 'Bio, link, branding and highlights' },
       { k: 'mix', c: 2, n: 'Platform mix', v: mix.coverage, d: 'Audiences you can reach' },
-      { k: 'content', c: 3, n: 'Content', v: avgPart(function (r) { return part(r, 3); }), d: 'How often you post' },
-      { k: 'engage', c: 4, n: 'Engagement', v: avgPart(function (r) { return part(r, 4); }), d: 'Reactions per post' },
-      { k: 'community', c: 5, n: 'Community', v: avgPart(function (r) { return part(r, 5); }), d: 'Replies to comments and messages' },
+      { k: 'content', c: 3, n: 'Content', v: avgPart(function (r) { return grp(r, 'rhythm'); }), d: 'How often you post and share stories' },
+      { k: 'engage', c: 4, n: 'Engagement', v: avgPart(function (r) { return grp(r, 'eng'); }), d: 'Reactions and views per post' },
+      { k: 'community', c: 5, n: 'Community', v: avgPart(function (r) { return grp(r, 'reply'); }), d: 'Replies to comments and messages' },
       { k: 'paid', c: 6, n: 'Paid reach', v: paid, d: a.mode === 'paid' ? 'How well your ads work' : 'Organic only for now' },
       { k: 'measure', c: 7, n: 'Measurement', v: tm.track === 'all' ? 100 : tm.track === 'some' ? 55 : 10, d: 'Tracking what social brings in' },
       { k: 'team', c: 8, n: 'Resources', v: tm.who === 'pro' ? 100 : tm.who === 'staff' ? 70 : tm.who === 'me' ? 40 : 10, d: 'Time and people behind it' }
@@ -831,6 +955,9 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     R.foreign.forEach(function (f) { L.push('', f.title); f.items.forEach(function (it) { L.push('\u2022 ' + it.name + ': ' + it.ev + ' ' + it.how); }); });
     L.push('', 'Visibility compass (out of 100)');
     R.compass.forEach(function (c) { L.push('• ' + c.n + ': ' + c.v); });
+    L.push('', 'Marketing funnel (out of 100)');
+    R.funnel.stages.forEach(function (s) { L.push('• ' + s.n + ': ' + s.v); });
+    L.push((R.funnel.leak ? 'Biggest leak: ' + R.funnel.leak.n + '. ' : '') + R.funnel.fix);
     L.push('', 'By platform');
     R.rows.forEach(function (r) { L.push('• ' + r.pl.name + ': ' + r.total + '/100'); });
     if (R.top.length) { L.push('', 'Three things to do first'); R.top.forEach(function (f, i) { L.push((i + 1) + '. [' + tlOf(f, i)[1] + '] ' + f.p + ': ' + f.tip); }); }
@@ -850,7 +977,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
 
   /* ---------- views ---------- */
   var app = document.getElementById('app');
-  function steps() { return active().length + 5; } // business type, accounts, platforms, customers, ads, report
+  function steps() { return active().length + 6; } // business, accounts, platforms, customers, funnel, ads, report
   function progress(step) {
     var n = steps(), h = '';
     for (var i = 0; i < n; i++) h += '<i class="' + (i <= step ? 'on' : '') + '"></i>';
@@ -908,7 +1035,10 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       '<h2>How is ' + (nm ? '@' + esc(nm) : 'your page') + ' doing on ' + pl.name + '?</h2>' +
       '<p class="sub">Open the profile and slide to the closest number. A rough guess is fine.</p>' +
       '<div class="stack">' +
-      slider('f', folLabel) + slider('l', likeLabel) + slider('posts', (pl.id === 'youtube' ? 'Videos' : 'Posts') + ' in the last 30 days') +
+      slider('f', folLabel) + slider('l', likeLabel) + slider('v', 'Average views per ' + (pl.id === 'youtube' ? 'video' : 'post') + (pl.id === 'instagram' || pl.id === 'facebook' ? ' (reels and photos together)' : '')) +
+      slider('posts', (pl.id === 'youtube' ? 'Videos' : 'Posts') + ' in the last 30 days') +
+      (hasStories(pl.id) ? slider('st', 'Stories you post a day') + slider('sv', 'Average views per story') : '') +
+      (pl.id === 'instagram' ? '<div><span class="lbl">Story highlights on your profile</span><div class="seg">' + HL.map(function (x) { return '<button type="button" class="chip" data-act="hl" data-v="' + x[0] + '" aria-pressed="' + (s.hl === x[0]) + '">' + x[1] + '</button>'; }).join('') + '</div><p class="hint">Highlights are the saved story circles under your bio. Tidy ones answer questions before people message you.</p></div>' : '') +
       '<div><span class="lbl">Your profile</span><div class="togs">' +
       tog('bio', 'The bio says what we offer') + tog('link', 'The bio links to booking or enquiries') + tog('brand', 'Logo and name match our website') +
       '</div></div>' +
@@ -918,16 +1048,20 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   }
   function curPl() { return active()[state.step - 2]; }
   function slider(k, label) {
-    var s = state.d[curPl().id], max = k === 'posts' ? 30 : 100, v = s[k];
+    var s = state.d[curPl().id], max = k === 'posts' ? 30 : k === 'st' ? 10 : 100, v = s[k] || 0;
+    var ticks = { f: ['0', '1M'], l: ['0', '10K'], v: ['0', '1M'], posts: ['0', '30'], st: ['0', '10+'], sv: ['0', '100K'] }[k];
     return '<div class="q"><div class="top"><label for="s-' + k + '">' + label + '</label><span class="val" id="v-' + k + '">' + sliderText(k) + '</span></div>' +
       '<input type="range" id="s-' + k + '" data-act="slide" data-k="' + k + '" min="0" max="' + max + '" step="1" value="' + v + '" style="--p:' + (v / max * 100) + '%">' +
-      '<div class="ticks">' + (k === 'f' ? '<span>0</span><span>1M</span>' : k === 'l' ? '<span>0</span><span>10K</span>' : '<span>0</span><span>30</span>') + '</div>' +
-      (k === 'l' ? '<span class="pillnote" id="er"></span>' : '') + '</div>';
+      '<div class="ticks"><span>' + ticks[0] + '</span><span>' + ticks[1] + '</span></div>' +
+      (k === 'l' ? '<span class="pillnote" id="er"></span>' : k === 'v' ? '<span class="pillnote" id="vr"></span>' : k === 'sv' ? '<span class="pillnote" id="svr"></span>' : '') + '</div>';
   }
   function sliderText(k) {
     var s = state.d[curPl().id];
     if (k === 'f') return fmt(valOf(s.f, FOL));
     if (k === 'l') return fmt(valOf(s.l, LIK));
+    if (k === 'v') return fmt(valOf(s.v || 0, VW)) + ' views';
+    if (k === 'sv') return fmt(valOf(s.sv || 0, SV)) + ' views';
+    if (k === 'st') return (s.st >= 10 ? '10+' : (s.st || 0)) + ((s.st || 0) === 1 ? ' story' : ' stories') + ' a day';
     return s.posts + (s.posts === 1 ? ' post' : ' posts') + ' · ' + (s.posts / 4.3).toFixed(1).replace('.0', '') + ' a week';
   }
   function erText() {
@@ -952,6 +1086,18 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       '<p class="kicker">' + (isLocal() ? 'Your customers' : 'Your guests') + '</p><h2>' + (isLocal() ? 'Who are you trying to reach?' : state.biz === 'both' ? 'Who are your customers and guests?' : 'Where do your guests come from?') + '</h2>' +
       '<p class="sub">' + (isLocal() ? 'We use this to size your local audience and estimate ad costs.' : 'Ad costs depend a lot on where your audience lives. Pick all that apply.') + '</p>' +
       '<div class="stack">' + (hasLocal() ? localPart : '') + (hasTourist() ? touristPart : '') + '</div>' +
+      '<div class="actions"><button type="button" class="btn ghost" data-act="back">Back</button><button type="button" class="btn primary" data-act="next">Next: your funnel</button></div></section>';
+  }
+
+  function viewFunnel() {
+    var stg = { aw: 'Found', co: 'Compared', cv: 'Booked', lo: 'Back again', ad: 'Recommended' };
+    var rows = FUNNEL.questions.map(function (q, i) {
+      return '<button type="button" class="chip" data-act="fq" data-i="' + i + '" aria-pressed="' + !!state.fun[i] + '"><span>' + esc(FQ(i)) + '<small class="fstage">' + FUNNEL.names[q[0]] + '</small></span></button>';
+    }).join('');
+    return '<section class="card">' + progress(active().length + 3) +
+      '<p class="kicker">Your funnel</p><h2>What do you already do?</h2>' +
+      '<p class="sub">Tick everything that is true today. Your answers and your social numbers together show where people drop off between finding you and ' + (state.cat === 'stay' ? 'booking' : state.cat === 'shop' ? 'buying' : 'booking or buying') + '.</p>' +
+      '<div class="togs fq">' + rows + '</div>' +
       '<div class="actions"><button type="button" class="btn ghost" data-act="back">Back</button><button type="button" class="btn primary" data-act="next">Next: ads</button></div></section>';
   }
 
@@ -961,7 +1107,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     var adChips = PLATFORMS.filter(function (p) { return p.ads; }).map(function (p) {
       return '<button type="button" class="chip small" data-act="adon" data-v="' + p.id + '" aria-pressed="' + !!a.on[p.id] + '">' + p.name + '</button>';
     }).join('');
-    return '<section class="card">' + progress(active().length + 3) +
+    return '<section class="card">' + progress(active().length + 4) +
       '<p class="kicker">Last step</p><h2>Do you run paid ads, or grow organically?</h2>' +
       '<p class="sub">Boosted posts count as paid ads.</p>' +
       '<div class="big2">' + choice('organic', 'Organic only', 'Posts, stories and replies') + choice('paid', 'We run paid ads', 'Boosts or ad campaigns') + '</div>' +
@@ -1045,20 +1191,22 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       return '<li><span class="num">' + (i + 1) + '</span><div><b>' + esc(g.t) + '</b><p>' + esc(g.b) + '</p></div></li>';
     }).join('') + '</ol></div>';
     var extra = R.nm || R.claim ? '<div class="sect"><h3>Your names</h3>' + (R.nm ? '<p class="body">' + esc(R.nm) + '</p>' : '') + (R.claim ? '<p class="body">' + esc(R.claim) + '</p>' : '') + '</div>' : '';
-    return progress(active().length + 4) +
+    return progress(active().length + 5) +
       '<div class="bar-actions"><button type="button" class="btn ghost" data-act="back">← Edit answers</button></div>' +
       '<article class="report" id="report"><div class="mast"><span>The Health Check</span><span>' + R.date + '</span></div>' +
       '<div class="hero"><svg class="ring" viewBox="0 0 150 150" role="img" aria-label="Overall score ' + R.avg + ' out of 100"><circle class="t" cx="75" cy="75" r="62"/><circle class="a" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" stroke="' + col + '" stroke-dasharray="' + dash + '"/><text x="75" y="84" text-anchor="middle">' + R.avg + '</text><text class="s" x="75" y="104" text-anchor="middle">OUT OF 100</text></svg>' +
       '<div><p class="kicker">Report for ' + esc(who()) + '</p><h2>' + R.label + '</h2><p class="lede">' + R.lede + '</p><p class="hint">Profiles ' + R.pavg + '/100 · Platform mix ' + M.coverage + '/100' + (R.capped ? '. ' + R.capped : '') + '</p></div></div>' +
-      compassSect(R) + mixSect + localSect + foreignSect +
+      compassSect(R) + funnelSect(R) + mixSect + localSect + foreignSect +
       '<div class="sect"><h3>Platform by platform</h3><div style="margin-top:14px">' + rows + '</div></div>' +
       '<div class="sect"><h3>Do these three first</h3>' + todo + '</div>' + adsSect + guideSect + extra +
       '<p class="note" style="padding-top:20px;border-top:1px solid var(--line)">Scores are friendly guides built from the numbers you entered and published 2026 benchmarks, not data pulled from the platforms.</p></article>' +
-      '<section class="card plan" id="planner" aria-label="Plan your growth"></section><div class="float-space" aria-hidden="true"></div>' + shareMenu();
+      '<section class="card plan" id="planner" aria-label="Plan your growth"></section>' +
+      '<!-- Lead capture form goes here (next task) --><div id="leadspot"></div>' +
+      '<div class="dock">' + shareMenu() + '</div>';
   }
 
   function shareMenu() {
-    return '<div class="share float"><button type="button" class="btn primary" data-act="menu" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>Send this report</button>' +
+    return '<div class="share docked"><button type="button" class="btn primary" data-act="menu" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>Send this report</button>' +
       '<div class="menu" id="menu" hidden>' +
       '<label for="to" style="font-size:14px;color:var(--muted);font-weight:500">Send to (optional)</label>' +
       '<input type="email" id="to" data-act="email" value="' + esc(state.email) + '" placeholder="name@email.com" autocomplete="email">' +
@@ -1070,7 +1218,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       '</div></div>';
   }
   function refreshLinks() {
-    if (state.step !== active().length + 4) return;
+    if (state.step !== active().length + 5) return;
     var R = report(), t = plainText(R), s = subject(R), to = encodeURIComponent(state.email || '');
     var g = document.getElementById('m-gmail'), o = document.getElementById('m-outlook'), w = document.getElementById('m-wa');
     if (g) g.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + to + '&su=' + encodeURIComponent(s) + '&body=' + encodeURIComponent(t);
@@ -1096,16 +1244,23 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   function render() {
     var k = active().length;
     app.innerHTML = state.step === 0 ? viewBiz() : state.step === 1 ? viewIntro() : state.step <= k + 1 ? viewPlatform(state.step - 2)
-      : state.step === k + 2 ? viewMarkets() : state.step === k + 3 ? viewAds() : viewReport();
+      : state.step === k + 2 ? viewMarkets() : state.step === k + 3 ? viewFunnel() : state.step === k + 4 ? viewAds() : viewReport();
     var firstCard = app.querySelector('section.card');
-    if (state.step > k + 3 || !firstCard) app.insertAdjacentHTML('afterbegin', topbar(true));
+    if (state.step > k + 4 || !firstCard) app.insertAdjacentHTML('afterbegin', topbar(true));
     else firstCard.insertAdjacentHTML('afterbegin', topbar(false));
-    document.body.classList.toggle('float-on', state.step > k + 3);
-    if (state.step > k + 3) { renderPlan(); refreshLinks(); }
+    document.body.classList.toggle('float-on', state.step > k + 4);
+    if (state.step > k + 4) { renderPlan(); refreshLinks(); }
     if (state.step >= 2 && state.step <= k + 1) updateEr();
     window.scrollTo({ top: 0 });
   }
-  function updateEr() { var e = document.getElementById('er'); if (e) e.textContent = erText(); }
+  function updateEr() {
+    var e = document.getElementById('er'); if (e) e.textContent = erText();
+    var pl = curPl(); if (!pl) return; var s = state.d[pl.id], fol = valOf(s.f, FOL);
+    var v = document.getElementById('vr');
+    if (v) { var vw = valOf(s.v || 0, VW), vb = viewBench(pl.id, fol); v.textContent = !fol ? 'Typical ' + pl.name + ' posts are seen by about ' + Math.round(vb) + '% of followers.' : 'That is ' + (vw / fol * 100 < 10 ? (vw / fol * 100).toFixed(1) : Math.round(vw / fol * 100)) + '% of your followers. Typical for your size: about ' + Math.round(vb) + '%.' + (VIEW_ROUGH[pl.id] ? ' (rough guide)' : ''); }
+    var sv = document.getElementById('svr');
+    if (sv) { var x = valOf(s.sv || 0, SV); sv.textContent = !fol ? 'Around ' + STORY_BENCH[pl.id] + '% of followers is typical for stories.' : 'That is ' + (x / fol * 100 < 10 ? (x / fol * 100).toFixed(1) : Math.round(x / fol * 100)) + '% of your followers. Around ' + STORY_BENCH[pl.id] + '% is typical.'; }
+  }
 
   /* ---------- generic sliders ---------- */
   var G = {
@@ -1176,8 +1331,9 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
         gslider('occBudget', 'Budget for each promotion', 0, 100, 1, [money(10), money(5000)]) +
         gslider('occDays', 'How many days does each one run?', 3, 30, 1, ['3 days', '30 days']);
     }
-    el.innerHTML = '<p class="kicker">Plan your growth</p><h2>What would it take?</h2>' +
-      '<p class="sub">Costs use 2026 ad prices for your guest markets and the platforms you advertise on.</p>' +
+    var un = clean(state.sharedName) || clean(state.names[(active()[0] || {}).id]);
+    el.innerHTML = '<p class="kicker">Plan your growth</p><h2 class="ideal">The ideal campaign for <b>' + (un ? '@' + esc(un) : 'your business') + '</b></h2>' +
+      '<p class="sub">We set this up from your results: your reach today, your ' + (state.ads.mode === 'paid' ? 'current ad spend' : 'market') + ', your followers and the occasions your ' + (isLocal() ? 'customers' : 'guests') + ' care about. Change anything to see what it would take.</p>' +
       '<div class="tabs" role="tablist">' + tab('reach', 'Reach') + tab('growth', 'Growth') + tab('occ', 'Occasions') + '</div>' +
       '<div class="stack">' + body + '<div id="plan-out" class="stack" style="margin-top:0" aria-live="polite"></div>' +
       '<details class="assume"><summary>About these numbers</summary><div class="stack" style="margin-top:16px">' +
@@ -1188,6 +1344,28 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       '<div><span class="lbl" style="font-size:15px">Sources</span><ol class="src">' + SOURCES.map(function (s) { return '<li><a href="' + s[1] + '" target="_blank" rel="noopener">' + esc(s[0]) + '</a></li>'; }).join('') + '</ol></div>' +
       '</div></details></div>';
     planOut();
+  }
+  function initPlan() {
+    var P = state.plan, a = state.aud || {};
+    var org = organicReach(), target = Math.max(5000, Math.round(org * 2 * 3 / 1000) * 1000);
+    if (hasLocal() && !hasTourist() && localAud('facebook')) target = Math.min(target, Math.max(5000, Math.round(localAud('facebook') * 0.6 / 1000) * 1000));
+    var ri = Math.max(0, Math.min(100, tFor(Math.min(1e6, target), RE))); while (ri < 100 && valOf(ri, RE) < target) ri++;
+    P.reach = ri;
+    var budget = valOf(ri, RE) * FREQ / 1000 * mixCpm();
+    var per;
+    if (state.ads.mode === 'paid' && valOf(state.ads.spend, SP) > 0) per = valOf(state.ads.spend, SP) * 12 / Math.max(state.ads.camps || 0, 4) / 2;
+    else per = isLocal() ? 30 : hasLocal() ? 50 : 60;
+    per = Math.max(10, Math.min(5000, Math.min(per, Math.max(10, budget / 3))));
+    P.perAd = Math.max(0, Math.min(100, tFor(per, PA)));
+    P.occBudget = Math.max(0, Math.min(100, tFor(Math.min(5000, per * 2), PA)));
+    var C = totalFollowers();
+    P.target = C < 2000 ? 30 : C < 20000 ? 18 : 11;
+    var occ = {};
+    if (a.locals || a.expats) { occ.ram = true; occ.adha = true; occ.ind = true; occ.school = true; occ.ny = true; }
+    if (a.tourists) { occ.xmas = true; occ.val = true; occ.bf = true; if (state.markets.cn) occ.cny = true; if (state.markets.uk || state.markets.eu) occ.sum = true; }
+    var allowed = {}; occList().forEach(function (o) { allowed[o.id] = 1; });
+    Object.keys(occ).forEach(function (k) { if (!allowed[k]) delete occ[k]; });
+    P.occ = occ;
   }
   function cpmTable() {
     var rows = PLATFORMS.map(function (p) {
@@ -1301,6 +1479,17 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       if (i % 2 === 1) y += 12;
     });
     y += 4;
+    head('Your marketing funnel');
+    R.funnel.stages.forEach(function (s, i) {
+      room(10); var cc = C[cls(s.v)], w = W - 2 * M, ind = i * 8;
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5); doc.setTextColor(29, 43, 42); doc.text(s.n, M + ind, y);
+      doc.setTextColor(cc[0], cc[1], cc[2]); doc.text(String(s.v), W - M - ind, y, { align: 'right' });
+      doc.setFillColor(231, 236, 234); doc.roundedRect(M + ind, y + 2, w - 2 * ind, 3, 1.5, 1.5, 'F');
+      doc.setFillColor(cc[0], cc[1], cc[2]); doc.roundedRect(M + ind, y + 2, Math.max(3, (w - 2 * ind) * s.v / 100), 3, 1.5, 1.5, 'F');
+      y += 10;
+    });
+    y += 2; para([(R.funnel.leak ? 'Biggest leak: ' + R.funnel.leak.n + '. ' : '') + R.funnel.fix, 'Insight: ' + R.funnel.insight]);
+    y += 4;
     var mx = R.mix, rc = C[mx.riskCls];
     head('Your platform mix');
     doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(rc[0], rc[1], rc[2]); doc.text(mx.risk.toUpperCase() + '  ·  ' + mx.coverage + '% AUDIENCE COVERAGE', M, y); y += 6;
@@ -1378,9 +1567,11 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     if (a === 'plat') { var id = t.getAttribute('data-id'); state.sel[id] = !state.sel[id]; render(); }
     else if (a === 'same') { state.shared = !state.shared; render(); }
     else if (a === 'clear') { state = fresh(); render(); }
-    else if (a === 'next') { state.step += 1; render(); }
+    else if (a === 'next') { state.step += 1; if (state.step === active().length + 5 && !state.planInit) { initPlan(); state.planInit = true; } render(); }
     else if (a === 'back') { state.step = Math.max(0, state.step - 1); render(); }
     else if (a === 'tog') { var s = state.d[curPl().id], key = t.getAttribute('data-k'); s[key] = !s[key]; t.setAttribute('aria-pressed', s[key]); }
+    else if (a === 'hl') { state.d[curPl().id].hl = v; press('[data-act="hl"]', function (b) { return b === t; }); }
+    else if (a === 'fq') { var qi = +t.getAttribute('data-i'); state.fun[qi] = !state.fun[qi]; t.setAttribute('aria-pressed', state.fun[qi]); }
     else if (a === 'reply') { state.d[curPl().id].reply = v; press('[data-act="reply"]', function (b) { return b === t; }); }
     else if (a === 'mkt') {
       state.markets[v] = !state.markets[v]; t.setAttribute('aria-pressed', !!state.markets[v]);
@@ -1411,7 +1602,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       var key = t.getAttribute('data-k'), s = state.d[curPl().id], max = +t.max;
       s[key] = +t.value; t.style.setProperty('--p', (t.value / max * 100) + '%');
       document.getElementById('v-' + key).textContent = sliderText(key);
-      if (key === 'f' || key === 'l') updateEr();
+      updateEr();
     } else if (a === 'gslide') {
       var g = G[t.getAttribute('data-k')]; g.set(+t.value);
       t.style.setProperty('--p', ((t.value - t.min) / (t.max - t.min) * 100) + '%');
