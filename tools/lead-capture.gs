@@ -14,7 +14,8 @@
  * so you can always see whether the website reached the script.
  */
 
-var OWNER = 'muiz@islandeative.com';                          // where lead notifications go
+var OWNER = 'abdullamuizfuad@gmail.com';                      // where your new-lead alerts go
+var REPLY_TO = 'muiz@islandeative.com';                      // where visitors' replies go
 var SHEET_ID = '1l2Hv8EZZUSXo2D0U9aWa7OKZN0whVwlOvP8Jk-etTIU'; // the Health check leads Sheet
 
 var COLS = ['Timestamp', 'Name', 'Email', 'Wants call', 'WhatsApp', 'Usernames', 'Category', 'Business type',
@@ -58,7 +59,7 @@ function doPost(e) {
     // 1) The visitor's report
     if (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
       var first = String(d.name || '').trim().split(' ')[0];
-      var opts = { htmlBody: visitorHtml(first, d), name: 'Muiz from Islandeative', replyTo: OWNER };
+      var opts = { htmlBody: visitorHtml(first, d), name: 'Muiz from Islandeative', replyTo: REPLY_TO };
       if (d.pdf_base64) {
         opts.attachments = [Utilities.newBlob(Utilities.base64Decode(d.pdf_base64), 'application/pdf',
           d.pdf_filename || 'social-visibility-report.pdf')];
@@ -135,10 +136,10 @@ function testVisitorEmail() {
   Logger.log(res.getContent());
 }
 
-/** Run this from the editor to check everything works (it emails OWNER, not a visitor). */
+/** Run this from the editor to check everything works (it emails OWNER and REPLY_TO, not a visitor). */
 function testLead() {
   var res = doPost({ postData: { contents: JSON.stringify({
-    name: 'Test', email: OWNER, wantsCall: true, whatsapp: '+960 000 0000', usernames: '@test',
+    name: 'Test', email: REPLY_TO, wantsCall: true, whatsapp: '+960 000 0000', usernames: '@test',
     cat: 'stay', btype: 'resort', audiences: 'tourists', markets: 'uk', islands: '', platforms: 'Instagram, Facebook',
     score: 66, compass: { profiles: 70, mix: 57 }, funnel: { aw: 66, co: 75, cv: 17, lo: 0, ad: 100 },
     leak: 'Loyalty', topFixes: ['1. Test fix'], currency: 'USD', date: 'test'
