@@ -798,6 +798,16 @@ footer a:hover{color:var(--ink)}
   .track [data-dup]{display:none}
 }
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+/* Floating test prompt */
+.tz-float{position:fixed;z-index:55;right:max(16px,calc(env(safe-area-inset-right,0px) + 16px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:6px;padding:6px 6px 6px 8px;border-radius:999px;background:var(--surface);border:1px solid var(--line);box-shadow:0 18px 40px -16px rgba(5,15,16,.45);transform:translateY(140%);opacity:0;transition:transform .45s var(--ease),opacity .3s;pointer-events:none;max-width:calc(100vw - 32px)}
+.tz-float.on{transform:none;opacity:1;pointer-events:auto}
+.tz-float a{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;background:var(--hl);color:var(--hl-ink);text-decoration:none;font:600 .92rem Geist,sans-serif;min-width:0;line-height:1.2}
+.tz-float a i{font-size:1.15rem;flex:none}
+.tz-float a span{min-width:0}
+.tz-float a small{display:block;font:500 .7rem Geist,sans-serif;opacity:.85;margin-top:2px}
+.tz-float button{flex:none;width:34px;height:34px;border-radius:50%;border:0;background:transparent;color:var(--muted);cursor:pointer;display:grid;place-items:center;font-size:1rem}
+.tz-float button:hover{color:var(--ink);background:var(--bg)}
+@media (prefers-reduced-motion:reduce){.tz-float{transition:none}}
 </style>
 </head>
 <body>
@@ -1922,6 +1932,25 @@ var CERTS = [
     var f=root.querySelector('[data-'+Object.keys(d)[0].replace(/[A-Z]/g,function(m){return '-'+m.toLowerCase();})+'="'+d[Object.keys(d)[0]]+'"]'); if(f) f.focus({preventScroll:true});
   });
   drawStatic(); paint();
+})();
+</script>
+
+<div class="tz-float" id="tzFloat" role="complementary" aria-label="Free marketing test">
+  <a href="health-check.html" id="tzFloatGo"><i class="ph ph-heartbeat" aria-hidden="true"></i><span>Free 5-minute social visibility health check<small>No sign-up · Your report as a PDF</small></span></a>
+  <button type="button" id="tzFloatX" aria-label="Hide this"><i class="ph ph-x"></i></button>
+</div>
+<script>
+(function(){
+  var f=document.getElementById('tzFloat'), hc=document.getElementById('healthcheck'), ct=document.getElementById('contact'); if(!f||!hc) return;
+  var off=false; try{off=sessionStorage.getItem('tzFloatOff')==='1';}catch(e){}
+  function upd(){
+    if(off){f.classList.remove('on');return;}
+    var r=hc.getBoundingClientRect(), past=r.bottom<0, nearEnd=ct&&ct.getBoundingClientRect().top<window.innerHeight*0.9;
+    f.classList.toggle('on', past && !nearEnd);
+    var go=document.getElementById('tzGo'); if(go) document.getElementById('tzFloatGo').href=go.getAttribute('href');
+  }
+  document.getElementById('tzFloatX').addEventListener('click',function(){off=true;try{sessionStorage.setItem('tzFloatOff','1');}catch(e){} upd();});
+  window.addEventListener('scroll',upd,{passive:true}); window.addEventListener('resize',upd); upd();
 })();
 </script>
 </body>
