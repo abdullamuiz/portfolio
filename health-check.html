@@ -158,6 +158,10 @@ input[type="range"]::-moz-range-thumb { width: 24px; height: 24px; border-radius
 /* send button: docked inside the report column, sticks to the bottom while the report scrolls */
 .dock { position: sticky; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: flex-end; margin-top: 18px; z-index: 30; pointer-events: none; }
 .dock > * { pointer-events: auto; }
+.dockbtn { box-shadow: 0 12px 28px -10px var(--hl); padding: 15px 22px; background: var(--hl); color: var(--hl-ink); text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
+.dockbtn svg { width: 18px; height: 18px; flex: none; }
+.ldone-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.ldone-actions .btn { text-decoration: none; }
 .share.docked > .btn { box-shadow: 0 12px 28px -10px var(--hl); padding: 15px 22px; background: var(--hl); color: var(--hl-ink); }
 .share.docked > .btn svg { width: 18px; height: 18px; flex: none; }
 .share.docked .menu { top: auto; left: auto; right: 0; bottom: calc(100% + 12px); max-height: calc(100vh - 120px); overflow-y: auto; }
@@ -1284,11 +1288,18 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       '<p class="note" style="padding-top:20px;border-top:1px solid var(--line)">Scores are friendly guides built from the numbers you entered and published 2026 benchmarks, not data pulled from the platforms.</p></article>' +
       '<section class="card plan" id="planner" aria-label="Plan your growth"></section>' +
       '<div id="leadspot">' + leadForm() + '</div>' +
-      '<div class="dock">' + shareMenu() + '</div>';
+      '<div class="dock" id="leadDock">' + dockBtn() + '</div>';
   }
 
+  function dockBtn() {
+    if (lead.state === 'sent') return '';
+    return '<a class="btn primary dockbtn" href="#leadspot" data-act="tolead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email me my report</a>';
+  }
   function leadForm() {
-    if (lead.state === 'sent') return '<section class="card lead done" aria-live="polite"><p class="kicker">Report on its way</p><h2>Sent! Check your inbox in a minute</h2><p class="sub">And the spam folder, just in case.' + (lead.call ? ' Muiz will message you on WhatsApp to set up your call.' : '') + '</p></section>';
+    if (lead.state === 'sent') return '<section class="card lead done" aria-live="polite"><p class="kicker">Report on its way</p><h2>Sent! Check your inbox in a minute</h2><p class="sub">And the spam folder, just in case.' + (lead.call ? ' Muiz will message you on WhatsApp to set up your call.' : '') + '</p>' +
+      '<div class="ldone-actions"><a class="btn primary" href="./#healthcheck">Back to portfolio</a>' +
+      '<a class="btn ghost" href="https://wa.me/9609902996?text=' + encodeURIComponent('Hi Muiz, I just took your 5-minute marketing test.') + '" target="_blank" rel="noopener">Chat with Muiz on WhatsApp</a>' +
+      '<a class="btn ghost" href="https://wa.me/?text=' + encodeURIComponent('Try this free 5-minute marketing test for Maldivian businesses: https://abdullamuiz.github.io/portfolio/#healthcheck') + '" target="_blank" rel="noopener">Share the test with a friend</a></div></section>';
     return '<section class="card lead" aria-labelledby="leadH"><p class="kicker">Keep your results</p><h2 id="leadH">Get your full report in your inbox</h2>' +
       '<p class="sub">We\u2019ll email your PDF report. No spam, unsubscribe any time.</p>' +
       '<form id="leadForm" novalidate><div class="lgrid">' +
@@ -1316,7 +1327,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       topFixes: R.top.map(function (f, i) { return (i + 1) + '. ' + f.p + ': ' + f.tip; }), currency: CUR, date: R.date };
   }
   function blobB64(blob) { return new Promise(function (res, rej) { var r = new FileReader(); r.onload = function () { res(String(r.result).split(',')[1] || ''); }; r.onerror = rej; r.readAsDataURL(blob); }); }
-  function redrawLead() { var s = document.getElementById('leadspot'); if (s) s.innerHTML = leadForm(); }
+  function redrawLead() { var s = document.getElementById('leadspot'); if (s) s.innerHTML = leadForm(); var d = document.getElementById('leadDock'); if (d) d.innerHTML = dockBtn(); }
   async function submitLead() {
     var hp = document.getElementById('lfWeb'), err = document.getElementById('lfErr');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(lead.email.trim())) { if (err) err.textContent = 'Please enter a valid email address.'; var em = document.getElementById('lfEmail'); if (em) em.focus(); return; }
@@ -1700,6 +1711,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     var a = t.getAttribute('data-act'), v = t.getAttribute('data-v');
     if (a === 'plat') { var id = t.getAttribute('data-id'); state.sel[id] = !state.sel[id]; render(); }
     else if (a === 'same') { state.shared = !state.shared; render(); }
+    else if (a === 'tolead') { e.preventDefault(); var ls = document.getElementById('leadspot'); if (ls) { ls.scrollIntoView({ behavior: 'smooth', block: 'center' }); var em = document.getElementById('lfEmail'); if (em) setTimeout(function () { em.focus({ preventScroll: true }); }, 500); } }
     else if (a === 'clear') { state = fresh(); render(); }
     else if (a === 'next') { state.step += 1; if (state.step === active().length + 5 && !state.planInit) { initPlan(); state.planInit = true; } render(); }
     else if (a === 'back') { state.step = Math.max(0, state.step - 1); render(); }
