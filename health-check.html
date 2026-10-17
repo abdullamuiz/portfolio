@@ -1628,41 +1628,80 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   function buildPdf(R) {
     var J = window.jspdf.jsPDF, doc = new J({ unit: 'mm', format: 'a4' }), W = 210, M = 18, y;
     var C = { good: [46, 139, 87], warn: [201, 138, 27], bad: [209, 80, 63] };
-    doc.setFillColor(11, 107, 112); doc.rect(0, 0, W, 58, 'F');
-    doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.text('THE HEALTH CHECK  ·  ' + R.date.toUpperCase(), M, 16);
-    doc.setFontSize(26); doc.text(R.label, M, 34);
-    doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
-    doc.text('Report for ' + who() + '   ·   Profiles ' + R.pavg + '/100   ·   Platform mix ' + R.mix.coverage + '/100', M, 44);
-    doc.setFont('helvetica', 'bold'); doc.setFontSize(46); doc.text(String(R.avg), W - M, 38, { align: 'right' });
-    doc.setFontSize(9); doc.text('OUT OF 100', W - M, 46, { align: 'right' });
-    y = 74;
+    // traffic-light header: red up to 40, amber 41-84, green 85+
+    var tier = R.avg >= 85 ? 'good' : R.avg > 40 ? 'warn' : 'bad';
+    var HB = { good: [38, 128, 78], warn: [232, 168, 46], bad: [196, 62, 50] }[tier], HT = tier === 'warn' ? [43, 33, 10] : [255, 255, 255];
+    var hTitle = tier === 'good' ? 'Healthy social visibility' : tier === 'bad' ? 'Needs some love' : R.avg >= 60 ? 'Solid, with room to grow' : 'Patchy right now';
+    var hSub = tier === 'good' ? 'With room for enhancement.' : tier === 'warn' ? 'Some parts work, some leak. The fixes below come first.' : 'Your visibility needs attention. Start with the fixes below.';
+    doc.setFillColor(HB[0], HB[1], HB[2]); doc.rect(0, 0, W, 62, 'F');
+    doc.setTextColor(HT[0], HT[1], HT[2]); doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.text('THE HEALTH CHECK  ·  ' + R.date.toUpperCase(), M, 16);
+    // signal lamps in a dark housing
+    doc.setFillColor(28, 33, 32); doc.roundedRect(W - M - 25, 9.5, 25, 10, 5, 5, 'F');
+    ['bad', 'warn', 'good'].forEach(function (k, i) {
+      var lc = { good: [52, 199, 89], warn: [255, 196, 0], bad: [255, 69, 58] }[k], on = k === tier, lx = W - M - 20 + i * 7.5;
+      doc.setFillColor(on ? lc[0] : 70, on ? lc[1] : 76, on ? lc[2] : 75); doc.circle(lx, 14.5, 2.6, 'F');
+    });
+    doc.setTextColor(HT[0], HT[1], HT[2]); doc.setFont('helvetica', 'bold');
+    doc.setFontSize(24); doc.text(hTitle, M, 33);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(11.5); doc.text(hSub, M, 41);
+    doc.setFontSize(10); doc.text('Report for ' + who() + '   ·   Profiles ' + R.pavg + '/100   ·   Platform mix ' + R.mix.coverage + '/100', M, 51);
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(46); doc.text(String(R.avg), W - M, 40, { align: 'right' });
+    doc.setFontSize(9); doc.text('OUT OF 100', W - M, 48, { align: 'right' });
+    doc.setTextColor(HT[0], HT[1], HT[2]);
+    y = 76;
     function room(h) { if (y + h > 278) { doc.addPage(); y = 24; } }
     function head(t) { room(16); doc.setTextColor(29, 43, 42); doc.setFont('helvetica', 'bold'); doc.setFontSize(15); doc.text(t, M, y); y += 9; }
     function para(lines, bullet) {
       doc.setFont('helvetica', 'normal'); doc.setFontSize(11); doc.setTextColor(29, 43, 42);
       lines.forEach(function (t) { var ln = doc.splitTextToSize((bullet ? '•  ' : '') + t, W - 2 * M); room(ln.length * 5); doc.text(ln, M, y); y += ln.length * 5 + 3; });
     }
+    function poly(pts, style) {
+      var d = []; for (var k = 1; k < pts.length; k++) d.push([pts[k][0] - pts[k - 1][0], pts[k][1] - pts[k - 1][1]]);
+      doc.lines(d, pts[0][0], pts[0][1], [1, 1], style, true);
+    }
+    function tint(c, t) { return [Math.round(c[0] + (255 - c[0]) * t), Math.round(c[1] + (255 - c[1]) * t), Math.round(c[2] + (255 - c[2]) * t)]; }
     head('Your visibility compass');
-    R.compass.forEach(function (c, i) {
-      var colw = (W - 2 * M - 10) / 2, x0 = M + (i % 2) * (colw + 10);
-      if (i % 2 === 0) room(12);
-      var PAL = [[11,107,112],[42,123,212],[224,96,63],[214,69,127],[123,91,214],[217,154,43],[46,158,106],[31,160,191]], cc = PAL[c.c - 1];
-      doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5); doc.setTextColor(29, 43, 42); doc.text(c.n, x0, y);
-      doc.setTextColor(cc[0], cc[1], cc[2]); doc.text(String(c.v), x0 + colw, y, { align: 'right' });
-      doc.setFillColor(231, 236, 234); doc.roundedRect(x0, y + 2.2, colw, 3, 1.5, 1.5, 'F');
-      doc.setFillColor(cc[0], cc[1], cc[2]); doc.roundedRect(x0, y + 2.2, Math.max(3, colw * c.v / 100), 3, 1.5, 1.5, 'F');
-      if (i % 2 === 1) y += 12;
-    });
-    y += 4;
-    head('Your marketing funnel');
-    R.funnel.stages.forEach(function (s, i) {
-      room(10); var cc = C[cls(s.v)], w = W - 2 * M, ind = i * 8;
-      doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5); doc.setTextColor(29, 43, 42); doc.text(s.n, M + ind, y);
-      doc.setTextColor(cc[0], cc[1], cc[2]); doc.text(String(s.v), W - M - ind, y, { align: 'right' });
-      doc.setFillColor(231, 236, 234); doc.roundedRect(M + ind, y + 2, w - 2 * ind, 3, 1.5, 1.5, 'F');
-      doc.setFillColor(cc[0], cc[1], cc[2]); doc.roundedRect(M + ind, y + 2, Math.max(3, (w - 2 * ind) * s.v / 100), 3, 1.5, 1.5, 'F');
-      y += 10;
-    });
+    (function () {
+      var PAL = [[11,107,112],[42,123,212],[224,96,63],[214,69,127],[123,91,214],[217,154,43],[46,158,106],[31,160,191]];
+      var cx = W / 2, cy = y + 47, r0 = 5, R0 = 36, n = R.compass.length, step = 2 * Math.PI / n, gap = 0.035;
+      function wedge(i, r) {
+        var a0 = -Math.PI / 2 + (i - 0.5) * step + gap, a1 = a0 + step - 2 * gap, pts = [], k, N = 14;
+        for (k = 0; k <= N; k++) { var a = a0 + (a1 - a0) * k / N; pts.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]); }
+        for (k = N; k >= 0; k--) { var b = a0 + (a1 - a0) * k / N; pts.push([cx + r0 * Math.cos(b), cy + r0 * Math.sin(b)]); }
+        return pts;
+      }
+      R.compass.forEach(function (c, i) { var g = tint(PAL[c.c - 1], 0.86); doc.setFillColor(g[0], g[1], g[2]); poly(wedge(i, R0), 'F'); });
+      R.compass.forEach(function (c, i) { var cc = PAL[c.c - 1]; doc.setFillColor(cc[0], cc[1], cc[2]); poly(wedge(i, r0 + (R0 - r0) * Math.max(6, c.v) / 100), 'F'); });
+      var rH = r0 + (R0 - r0) * 0.75;
+      doc.setDrawColor(120, 130, 126); doc.setLineWidth(0.3); doc.setLineDashPattern([1, 1], 0); doc.circle(cx, cy, rH, 'S'); doc.setLineDashPattern([], 0);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.setTextColor(102, 119, 114); doc.text('healthy', cx + 1.5, cy - rH - 1.2);
+      doc.setFillColor(255, 255, 255); doc.circle(cx, cy, r0 - 0.8, 'F');
+      R.compass.forEach(function (c, i) {
+        var a = -Math.PI / 2 + i * step, x = cx + (R0 + 7) * Math.cos(a), yy = cy + (R0 + 7) * Math.sin(a) + 1;
+        var al = Math.abs(x - cx) < 3 ? 'center' : x > cx ? 'left' : 'right', cc = PAL[c.c - 1];
+        if (al === 'center') yy += (yy < cy ? -2 : 2);
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(9.5); doc.setTextColor(29, 43, 42); doc.text(c.n, x, yy - 1.5, { align: al });
+        doc.setFontSize(11); doc.setTextColor(cc[0], cc[1], cc[2]); doc.text(String(c.v), x, yy + 3.5, { align: al });
+      });
+      y = cy + R0 + 24;
+    })();
+    room(84); head('Your marketing funnel');
+    (function () {
+      var FC = { good: [38, 128, 78], warn: [214, 150, 32], bad: [196, 62, 50] }, cx = W / 2, top = 118, step = 18, h = 11.5, g = 1.6;
+      R.funnel.stages.forEach(function (st, i) {
+        var w0 = top - i * step, w1 = w0 - step, y0 = y + i * (h + g), cc = FC[cls(st.v)];
+        doc.setFillColor(cc[0], cc[1], cc[2]);
+        poly([[cx - w0 / 2, y0], [cx + w0 / 2, y0], [cx + w1 / 2, y0 + h], [cx - w1 / 2, y0 + h]], 'F');
+        var light = cls(st.v) === 'warn';
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.setTextColor(light ? 43 : 255, light ? 33 : 255, light ? 10 : 255);
+        doc.text(st.n + '  ' + st.v, cx, y0 + h / 2 + 1.4, { align: 'center' });
+        if (R.funnel.leak && st.k === R.funnel.leak.k) {
+          doc.setFillColor(FC.bad[0], FC.bad[1], FC.bad[2]); doc.roundedRect(W - M - 26, y0 + 2.5, 26, 6.5, 3.2, 3.2, 'F');
+          doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(255, 255, 255); doc.text('BIGGEST LEAK', W - M - 13, y0 + 6.8, { align: 'center' });
+        }
+      });
+      y += 5 * (h + g) + 6;
+    })();
     y += 2; para([(R.funnel.leak ? 'Biggest leak: ' + R.funnel.leak.n + '. ' : '') + R.funnel.fix, 'Insight: ' + R.funnel.insight]);
     y += 4;
     var mx = R.mix, rc = C[mx.riskCls];
