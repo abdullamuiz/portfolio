@@ -4,8 +4,8 @@
  * SETUP
  *  1. Open the "Health check leads" Sheet > Extensions > Apps Script.
  *  2. Delete ALL existing code, paste this whole file, press Save (Ctrl/Cmd + S).
- *  3. In the function dropdown next to Run, pick testLead and click Run.
- *     Approve the permissions (Advanced > Go to project > Allow).
+ *  3. In the function dropdown next to Run, pick testVisitorEmail and click Run.
+ *     Approve the permissions (Advanced > Go to project > Allow). It now asks for Gmail access.
  *     You should get a "Test" row in the Leads tab and a "Call request" email.
  *  4. Deploy > Manage deployments > pencil icon > Version: New version > Deploy.
  *     (Execute as: Me. Who has access: Anyone. The /exec link stays the same.)
@@ -58,29 +58,22 @@ function doPost(e) {
     // 1) The visitor's report
     if (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
       var first = String(d.name || '').trim().split(' ')[0];
-      var msg = {
-        to: email,
-        subject: 'Your social visibility and funnel report',
-        body: visitorText(first, d),
-        htmlBody: visitorHtml(first, d),
-        name: 'Muiz · Islandeative',
-        replyTo: OWNER
-      };
+      var opts = { htmlBody: visitorHtml(first, d), name: 'Muiz from Islandeative', replyTo: OWNER };
       if (d.pdf_base64) {
-        msg.attachments = [Utilities.newBlob(Utilities.base64Decode(d.pdf_base64), 'application/pdf',
+        opts.attachments = [Utilities.newBlob(Utilities.base64Decode(d.pdf_base64), 'application/pdf',
           d.pdf_filename || 'social-visibility-report.pdf')];
       }
-      MailApp.sendEmail(msg);
+      GmailApp.sendEmail(email, 'Your social visibility and funnel report', visitorText(first, d), opts);
     }
 
     // 2) Your notification
     var summary = [d.btype, d.audiences, d.platforms].filter(function (x) { return x; }).join(' · ');
-    MailApp.sendEmail({
-      to: OWNER,
-      subject: (d.wantsCall ? 'Call request: ' : 'New lead: ') + (d.usernames || email || 'marketing test') + ' (' + num(d.score) + '/100)',
-      body: (d.name || '(no name)') + ' · ' + email + (d.whatsapp ? ' · WhatsApp ' + d.whatsapp : '') + '\n' + summary +
-        '\nScore ' + num(d.score) + '/100. Biggest leak: ' + (d.leak || 'none') + '\n\n' + (d.topFixes || []).join('\n') +
-        '\n\nLeads sheet: ' + book().getUrl(),
+    var subj = (d.wantsCall ? 'Call request: ' : 'New lead: ') + (d.usernames || email || 'marketing test') + ' (' + num(d.score) + '/100)';
+    var plain = (d.name || '(no name)') + ' · ' + email + (d.whatsapp ? ' · WhatsApp ' + d.whatsapp : '') + '\n' + summary +
+      '\nScore ' + num(d.score) + '/100. Biggest leak: ' + (d.leak || 'none') + '\n\n' + (d.topFixes || []).join('\n') +
+      '\n\nLeads sheet: ' + book().getUrl();
+    GmailApp.sendEmail(OWNER, subj, plain, {
+      name: 'Health check leads',
       htmlBody: '<p><b>' + esc(d.name || '(no name)') + '</b> · ' + esc(email) + (d.whatsapp ? ' · WhatsApp ' + esc(d.whatsapp) : '') + '</p>' +
         '<p>' + esc(summary) + '</p>' +
         '<p>Score <b>' + num(d.score) + '/100</b>. Biggest leak: <b>' + esc(d.leak || 'none') + '</b></p>' +
@@ -97,20 +90,23 @@ function doPost(e) {
 }
 
 function visitorText(first, d) {
-  return 'Hi ' + (first || 'there') + ',\n\nThanks for taking the free marketing test. Your full report is attached as a PDF.\n\n' +
-    'Your overall score was ' + num(d.score) + '/100' + (d.leak && d.leak !== 'None' ? ', and the biggest leak in your funnel is ' + d.leak : '') +
-    '. The report shows the three things to fix first.\n\nIf you\'d like a hand putting it into action, reply to this email or message me on WhatsApp at +960 990 2996.\n\n' +
-    'Muiz\nAbdulla Muiz Fuad · Islandeative\nhttps://abdullamuiz.github.io/portfolio/\n\nYou received this because you asked for your report. Reply "unsubscribe" and we won\'t email you again.';
+  return 'Hi ' + (first || 'there') + ',\n\n' +
+    'Thanks for taking the 5-minute social visibility health check. Your report is attached as a PDF.\n\n' +
+    'Your overall score was ' + num(d.score) + '/100' + (d.leak && d.leak !== 'None' ? ', and the biggest gap in your funnel is ' + d.leak : '') + '. ' +
+    'The report lists the three things to fix first.\n\n' +
+    'If you would like help putting it into action, just reply to this email or WhatsApp me on +960 990 2996.\n\n' +
+    'Best,\nMuiz\nAbdulla Muiz Fuad, Islandeative\n\n' +
+    'You are getting this one email because you asked for your report on my website.';
 }
 
 function visitorHtml(first, d) {
   return '<p>Hi ' + esc(first || 'there') + ',</p>' +
-    '<p>Thanks for taking the free marketing test. Your full report is attached as a PDF.</p>' +
-    '<p>Your overall score was <b>' + num(d.score) + '/100</b>' + (d.leak && d.leak !== 'None' ? ', and the biggest leak in your funnel is <b>' + esc(d.leak) + '</b>' : '') +
-    '. The report shows the three things to fix first.</p>' +
-    '<p>If you\'d like a hand putting it into action, reply to this email or message me on WhatsApp at +960 990 2996.</p>' +
-    '<p>Muiz<br>Abdulla Muiz Fuad · Islandeative<br><a href="https://abdullamuiz.github.io/portfolio/">abdullamuiz.github.io/portfolio</a></p>' +
-    '<p style="color:#888;font-size:12px">You received this because you asked for your report. Reply "unsubscribe" and we won\'t email you again.</p>';
+    '<p>Thanks for taking the 5-minute social visibility health check. Your report is attached as a PDF.</p>' +
+    '<p>Your overall score was <b>' + num(d.score) + '/100</b>' + (d.leak && d.leak !== 'None' ? ', and the biggest gap in your funnel is <b>' + esc(d.leak) + '</b>' : '') + '. ' +
+    'The report lists the three things to fix first.</p>' +
+    '<p>If you would like help putting it into action, just reply to this email or WhatsApp me on +960 990 2996.</p>' +
+    '<p>Best,<br>Muiz<br>Abdulla Muiz Fuad, Islandeative</p>' +
+    '<p style="color:#888;font-size:12px">You are getting this one email because you asked for your report on my website.</p>';
 }
 
 function num(v) { return (v === undefined || v === null || v === '' || isNaN(Number(v))) ? '' : Number(v); }
@@ -128,6 +124,15 @@ function esc(s) {
 
 function json(o) {
   return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);
+}
+
+/** Run this to send a sample visitor report (no PDF) to your personal Gmail. */
+function testVisitorEmail() {
+  var res = doPost({ postData: { contents: JSON.stringify({
+    name: 'Muiz', email: 'abdullamuizfuad@gmail.com', usernames: '@test', score: 66, leak: 'Loyalty',
+    topFixes: ['1. Test fix'], currency: 'USD', date: 'test'
+  }) } });
+  Logger.log(res.getContent());
 }
 
 /** Run this from the editor to check everything works (it emails OWNER, not a visitor). */
