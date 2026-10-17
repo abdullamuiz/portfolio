@@ -19,6 +19,7 @@
   --bg: #f3f5f3; --surface: #ffffff; --ink: #10191b; --muted: #56625f; --line: #d6dddb;
   --accent: #0b6b70; --accent-soft: #d8ebea; --accent-ink: #ffffff;
   --hl: #e0603f; --hl-ink: #ffffff; --hl-soft: #fbe4dc;
+  --c1:#0b6b70;--c2:#2a7bd4;--c3:#e0603f;--c4:#d6457f;--c5:#7b5bd6;--c6:#d99a2b;--c7:#2e9e6a;--c8:#1fa0bf;
   --good: #2e8b57; --warn: #b87a10; --bad: #d1503f; --track: #e7ecea; --chip: #e7ecea;
   --shadow: 0 20px 50px -24px rgba(16, 40, 44, 0.28);
   --serif: Geist, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -28,7 +29,7 @@
   :root:not([data-theme="light"]) {
     --bg: #0d1416; --surface: #141d20; --ink: #e8eeec; --muted: #9aa8a5; --line: #26333a;
     --accent: #5cc5c0; --accent-soft: #16312f; --accent-ink: #06201f;
-    --hl: #f2876c; --hl-ink: #2a0d05; --hl-soft: #3a1f18;
+    --hl: #f2876c; --hl-ink: #2a0d05; --hl-soft: #3a1f18; --c1:#5cc5c0;--c2:#6ea8f0;--c3:#f2876c;--c4:#f07aa8;--c5:#a68cf0;--c6:#f0c060;--c7:#5cc98b;--c8:#5ccbe6;
     --good: #5cc98b; --warn: #e5b04b; --bad: #f08a7b; --track: #1b2629; --chip: #1b2629;
     --shadow: 0 20px 50px -24px rgba(0, 0, 0, 0.6);
     color-scheme: dark;
@@ -37,7 +38,7 @@
 :root[data-theme="dark"] {
   --bg: #0d1416; --surface: #141d20; --ink: #e8eeec; --muted: #9aa8a5; --line: #26333a;
   --accent: #5cc5c0; --accent-soft: #16312f; --accent-ink: #06201f;
-  --hl: #f2876c; --hl-ink: #2a0d05; --hl-soft: #3a1f18;
+  --hl: #f2876c; --hl-ink: #2a0d05; --hl-soft: #3a1f18; --c1:#5cc5c0;--c2:#6ea8f0;--c3:#f2876c;--c4:#f07aa8;--c5:#a68cf0;--c6:#f0c060;--c7:#5cc98b;--c8:#5ccbe6;
   --good: #5cc98b; --warn: #e5b04b; --bad: #f08a7b; --track: #1b2629; --chip: #1b2629;
   --shadow: 0 20px 50px -24px rgba(0, 0, 0, 0.6);
   color-scheme: dark;
@@ -169,7 +170,7 @@ body.float-on #toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
 .hero p.lede { color: var(--muted); margin-top: 8px; }
 .prow { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 4px 14px; align-items: center; padding: 14px 0; border-top: 1px solid var(--line); }
 .prow:first-of-type { border-top: 0; padding-top: 4px; }
-.badge { width: 44px; height: 44px; border-radius: 14px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-family: var(--serif); font-weight: 700; font-size: 1.3rem; grid-row: span 2; }
+.badge { width: 44px; height: 44px; border-radius: 14px; background: color-mix(in srgb, var(--cc, var(--accent)) 16%, transparent); color: var(--cc, var(--accent)); display: grid; place-items: center; font-family: var(--serif); font-weight: 700; font-size: 1.3rem; grid-row: span 2; }
 .prow b { font-size: 18px; }
 .prow .n { font-family: var(--serif); font-weight: 700; font-size: 1.5rem; }
 .prow .meter { grid-column: 2 / -1; height: 10px; border-radius: 10px; background: var(--track); overflow: hidden; }
@@ -188,20 +189,21 @@ body.float-on #toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
 .tlpill { display: inline-flex; align-items: center; gap: 7px; padding: 4px 11px; border-radius: 999px; font-size: 12.5px; font-weight: 700; margin-bottom: 6px; background: var(--chip); }
 .tlpill.bad { color: var(--bad); } .tlpill.warn { color: var(--warn); } .tlpill.good { color: var(--good); }
 .cp-wrap { display: grid; gap: 18px; margin-top: 10px; }
-.compass { width: 100%; max-width: 460px; margin: 0 auto; height: auto; display: block; overflow: visible; }
-.cp-ring { fill: none; stroke: var(--line); stroke-width: 1; }
-.cp-ring:last-of-type { stroke-width: 1.5; }
-.cp-spoke { stroke: var(--line); stroke-width: 1; }
-.cp-shape { fill: color-mix(in srgb, var(--accent) 22%, transparent); stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; }
-.cp-dot { stroke: var(--surface); stroke-width: 2; }
-.cp-lab { fill: var(--ink); font: 600 13px var(--sans); }
-.cp-val { font: 700 14px var(--sans); }
-.cp-val.good { fill: var(--good); } .cp-val.warn { fill: var(--warn); } .cp-val.bad { fill: var(--bad); }
+.compass { width: 100%; max-width: 500px; margin: 0 auto; height: auto; display: block; overflow: visible; }
+.cp-ghost { opacity: 0.09; }
+.cp-bar { transition: opacity .2s; }
+.cp-bar:hover { opacity: .85; }
+.cp-healthy { fill: none; stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 4 5; opacity: .7; }
+.cp-hlab { fill: var(--muted); font: 600 10.5px var(--sans); letter-spacing: .08em; text-transform: uppercase; }
+.cp-hub { fill: var(--surface); }
+.cp-lab { fill: var(--ink); font: 600 15px var(--sans); }
+.cp-val { font: 700 17px var(--sans); }
 .cp-legend { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-.cp-legend li { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 12px; border-radius: 14px; background: var(--chip); }
+.cp-legend li { display: grid; grid-template-columns: 6px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 14px 10px 10px; border-radius: 14px; background: color-mix(in srgb, var(--cc) 10%, var(--chip)); }
+.cp-sw { align-self: stretch; width: 6px; border-radius: 6px; background: var(--cc); }
 .cp-legend b { display: block; font-size: 14px; } .cp-legend small { display: block; font-size: 12.5px; color: var(--muted); }
-.cp-legend em { font-style: normal; font-weight: 700; font-size: 16px; }
-.cp-legend em.good { color: var(--good); } .cp-legend em.warn { color: var(--warn); } .cp-legend em.bad { color: var(--bad); }
+.cp-legend em { font-style: normal; font-weight: 700; font-size: 18px; color: var(--cc); text-align: right; line-height: 1.1; }
+.cp-legend em small { display: block; font-size: 11px; font-weight: 600; color: var(--muted); }
 .teamq { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); display: grid; gap: 18px; }
 @media (max-width: 520px) { .cp-legend { grid-template-columns: 1fr; } }
 .note { font-size: 14.5px; color: var(--muted); padding: 0 clamp(22px, 5vw, 34px) clamp(22px, 5vw, 30px); }
@@ -666,31 +668,39 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     var a = state.ads, tm = state.team || {};
     var paid = a.mode !== 'paid' ? 20 : Math.min(100, 40 + (a.how === 'boost' ? 0 : 20) + (a.result === 'yes' ? 40 : a.result === 'little' ? 20 : 0));
     return [
-      { k: 'profiles', n: 'Profiles', v: avgPart(function (r) { return (r.parts[0].got + r.parts[1].got + r.parts[2].got) / 35 * 100; }), d: 'Bio, link and branding' },
-      { k: 'mix', n: 'Platform mix', v: mix.coverage, d: 'Audiences you can reach' },
-      { k: 'content', n: 'Content', v: avgPart(function (r) { return part(r, 3); }), d: 'How often you post' },
-      { k: 'engage', n: 'Engagement', v: avgPart(function (r) { return part(r, 4); }), d: 'Reactions per post' },
-      { k: 'community', n: 'Community', v: avgPart(function (r) { return part(r, 5); }), d: 'Replies to comments and messages' },
-      { k: 'paid', n: 'Paid reach', v: paid, d: a.mode === 'paid' ? 'How well your ads work' : 'Organic only for now' },
-      { k: 'measure', n: 'Measurement', v: tm.track === 'all' ? 100 : tm.track === 'some' ? 55 : 10, d: 'Tracking what social brings in' },
-      { k: 'team', n: 'Resources', v: tm.who === 'pro' ? 100 : tm.who === 'staff' ? 70 : tm.who === 'me' ? 40 : 10, d: 'Time and people behind it' }
+      { k: 'profiles', c: 1, n: 'Profiles', v: avgPart(function (r) { return (r.parts[0].got + r.parts[1].got + r.parts[2].got) / 35 * 100; }), d: 'Bio, link and branding' },
+      { k: 'mix', c: 2, n: 'Platform mix', v: mix.coverage, d: 'Audiences you can reach' },
+      { k: 'content', c: 3, n: 'Content', v: avgPart(function (r) { return part(r, 3); }), d: 'How often you post' },
+      { k: 'engage', c: 4, n: 'Engagement', v: avgPart(function (r) { return part(r, 4); }), d: 'Reactions per post' },
+      { k: 'community', c: 5, n: 'Community', v: avgPart(function (r) { return part(r, 5); }), d: 'Replies to comments and messages' },
+      { k: 'paid', c: 6, n: 'Paid reach', v: paid, d: a.mode === 'paid' ? 'How well your ads work' : 'Organic only for now' },
+      { k: 'measure', c: 7, n: 'Measurement', v: tm.track === 'all' ? 100 : tm.track === 'some' ? 55 : 10, d: 'Tracking what social brings in' },
+      { k: 'team', c: 8, n: 'Resources', v: tm.who === 'pro' ? 100 : tm.who === 'staff' ? 70 : tm.who === 'me' ? 40 : 10, d: 'Time and people behind it' }
     ];
   }
   function compassSvg(C) {
-    var cx = 200, cy = 190, R0 = 120, n = C.length;
-    function pt(i, r) { var ang = -Math.PI / 2 + i * 2 * Math.PI / n; return [cx + r * Math.cos(ang), cy + r * Math.sin(ang)]; }
-    var rings = [25, 50, 75, 100].map(function (v) {
-      return '<polygon class="cp-ring" points="' + C.map(function (_, i) { return pt(i, R0 * v / 100).map(function (x) { return x.toFixed(1); }).join(','); }).join(' ') + '"/>';
-    }).join('');
-    var spokes = C.map(function (_, i) { var e = pt(i, R0); return '<line class="cp-spoke" x1="' + cx + '" y1="' + cy + '" x2="' + e[0].toFixed(1) + '" y2="' + e[1].toFixed(1) + '"/>'; }).join('');
-    var shape = '<polygon class="cp-shape" points="' + C.map(function (c, i) { return pt(i, R0 * Math.max(4, c.v) / 100).map(function (x) { return x.toFixed(1); }).join(','); }).join(' ') + '"/>';
-    var dots = C.map(function (c, i) { var p2 = pt(i, R0 * Math.max(4, c.v) / 100); return '<circle class="cp-dot" cx="' + p2[0].toFixed(1) + '" cy="' + p2[1].toFixed(1) + '" r="5" fill="var(--' + cls(c.v) + ')"/>'; }).join('');
+    var cx = 250, cy = 215, r0 = 24, R0 = 138, n = C.length, step = 2 * Math.PI / n, gap = 0.035;
+    function P(a, r) { return (cx + r * Math.cos(a)).toFixed(1) + ' ' + (cy + r * Math.sin(a)).toFixed(1); }
+    function wedge(i, r) {
+      var a0 = -Math.PI / 2 + (i - 0.5) * step + gap, a1 = a0 + step - 2 * gap;
+      return 'M' + P(a0, r0) + ' L' + P(a0, r) + ' A' + r.toFixed(1) + ' ' + r.toFixed(1) + ' 0 0 1 ' + P(a1, r) + ' L' + P(a1, r0) + ' A' + r0 + ' ' + r0 + ' 0 0 0 ' + P(a0, r0) + 'Z';
+    }
+    var defs = '<defs>' + C.map(function (c) {
+      return '<radialGradient id="cg' + c.c + '" gradientUnits="userSpaceOnUse" cx="' + cx + '" cy="' + cy + '" r="' + R0 + '"><stop offset="0.15" stop-color="var(--c' + c.c + ')" stop-opacity="0.35"/><stop offset="1" stop-color="var(--c' + c.c + ')" stop-opacity="1"/></radialGradient>';
+    }).join('') + '</defs>';
+    var ghosts = C.map(function (c, i) { return '<path class="cp-ghost" d="' + wedge(i, R0) + '" style="fill:var(--c' + c.c + ')"/>'; }).join('');
+    var bars = C.map(function (c, i) { return '<path class="cp-bar" d="' + wedge(i, r0 + (R0 - r0) * Math.max(6, c.v) / 100) + '" fill="url(#cg' + c.c + ')"><title>' + c.n + ': ' + c.v + '/100</title></path>'; }).join('');
+    var rH = r0 + (R0 - r0) * 0.75;
+    var ring = '<circle class="cp-healthy" cx="' + cx + '" cy="' + cy + '" r="' + rH.toFixed(1) + '"/>' +
+      '<text class="cp-hlab" x="' + cx + '" y="' + (cy - rH - 5).toFixed(1) + '" text-anchor="middle">healthy</text>';
     var labels = C.map(function (c, i) {
-      var p2 = pt(i, R0 + 30), anchor = Math.abs(p2[0] - cx) < 8 ? 'middle' : p2[0] > cx ? 'start' : 'end';
-      return '<text class="cp-lab" x="' + p2[0].toFixed(1) + '" y="' + (p2[1] - 2).toFixed(1) + '" text-anchor="' + anchor + '">' + c.n + '</text>' +
-        '<text class="cp-val ' + cls(c.v) + '" x="' + p2[0].toFixed(1) + '" y="' + (p2[1] + 15).toFixed(1) + '" text-anchor="' + anchor + '">' + c.v + '</text>';
+      var a = -Math.PI / 2 + i * step, x = cx + (R0 + 24) * Math.cos(a), y = cy + (R0 + 24) * Math.sin(a);
+      var anchor = Math.abs(x - cx) < 10 ? 'middle' : x > cx ? 'start' : 'end';
+      return '<text class="cp-lab" x="' + x.toFixed(1) + '" y="' + (y - 3).toFixed(1) + '" text-anchor="' + anchor + '">' + c.n + '</text>' +
+        '<text class="cp-val" style="fill:var(--c' + c.c + ')" x="' + x.toFixed(1) + '" y="' + (y + 15).toFixed(1) + '" text-anchor="' + anchor + '">' + c.v + '</text>';
     }).join('');
-    return '<svg class="compass" viewBox="-40 0 480 380" role="img" aria-label="Visibility compass: ' + C.map(function (c) { return c.n + ' ' + c.v; }).join(', ') + '">' + rings + spokes + shape + dots + labels + '</svg>';
+    var hub = '<circle class="cp-hub" cx="' + cx + '" cy="' + cy + '" r="' + (r0 - 3) + '"/>';
+    return '<svg class="compass" viewBox="0 0 500 430" role="img" aria-label="Visibility compass: ' + C.map(function (c) { return c.n + ' ' + c.v; }).join(', ') + '">' + defs + ghosts + bars + ring + hub + labels + '</svg>';
   }
 
   function adsInfo() {
@@ -931,10 +941,11 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   function compassSect(R) {
     var C = R.compass, sorted = C.slice().sort(function (a, b) { return b.v - a.v; });
     var legend = '<ul class="cp-legend">' + C.map(function (c) {
-      return '<li><i class="tl tl-' + cls(c.v) + '"></i><span><b>' + c.n + '</b><small>' + esc(c.d) + '</small></span><em class="' + cls(c.v) + '">' + c.v + '</em></li>';
+      var st = c.v >= 75 ? 'Strong' : c.v >= 50 ? 'Getting there' : 'Needs work';
+      return '<li style="--cc:var(--c' + c.c + ')"><i class="cp-sw"></i><span><b>' + c.n + '</b><small>' + esc(c.d) + '</small></span><em>' + c.v + '<small>' + st + '</small></em></li>';
     }).join('') + '</ul>';
     return '<div class="sect"><div class="row-h"><h3>Your visibility compass</h3><span class="tag">8 areas</span></div>' +
-      '<p class="body">Each point is scored out of 100. The further it reaches out, the stronger that area. Strongest: <b>' + sorted[0].n + '</b>. Needs the most work: <b>' + sorted[sorted.length - 1].n + '</b>.</p>' +
+      '<p class="body">Each area is scored out of 100. The longer the slice, the stronger it is. Past the dashed ring is healthy. Strongest: <b>' + sorted[0].n + '</b>. Needs the most work: <b>' + sorted[sorted.length - 1].n + '</b>.</p>' +
       '<div class="cp-wrap">' + compassSvg(C) + legend + '</div></div>';
   }
   function tlOf(f, i) { var g = f.gainText ? 30 : f.gain; return g >= 20 || i === 0 ? ['bad', 'Do this week'] : g >= 10 ? ['warn', 'This month'] : ['good', 'Quick tidy-up']; }
@@ -942,8 +953,9 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     var R = report(), M = R.mix;
     var c = cls(R.avg), col = 'var(--' + c + ')', circ = 2 * Math.PI * 62, dash = (R.avg / 100 * circ).toFixed(1) + ' ' + circ.toFixed(1);
     var rows = R.rows.map(function (r) {
-      return '<div class="prow"><div class="badge" aria-hidden="true">' + r.pl.name[0] + '</div><b>' + r.pl.name + (r.pl.core ? '' : ' <span class="hint" style="font-weight:400">extra</span>') + '</b><span class="n ' + cls(r.total) + '">' + r.total + '</span>' +
-        '<div class="meter"><i class="bg-' + cls(r.total) + '" style="width:' + r.total + '%"></i></div><p class="why">' + esc(r.focus) + '</p></div>';
+      var pc = { instagram: 4, facebook: 2, tiktok: 8, linkedin: 5, youtube: 3 }[r.pl.id] || 1;
+      return '<div class="prow" style="--cc:var(--c' + pc + ')"><div class="badge" aria-hidden="true">' + r.pl.name[0] + '</div><b>' + r.pl.name + (r.pl.core ? '' : ' <span class="hint" style="font-weight:400">extra</span>') + '</b><span class="n ' + cls(r.total) + '">' + r.total + '</span>' +
+        '<div class="meter"><i style="width:' + r.total + '%;background:var(--cc)"></i></div><p class="why">' + esc(r.focus) + '</p></div>';
     }).join('');
     var todo = R.top.length ? '<ol class="todo">' + R.top.map(function (f, i) {
       var tl = tlOf(f, i);
@@ -1231,7 +1243,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     R.compass.forEach(function (c, i) {
       var colw = (W - 2 * M - 10) / 2, x0 = M + (i % 2) * (colw + 10);
       if (i % 2 === 0) room(12);
-      var cc = C[cls(c.v)];
+      var PAL = [[11,107,112],[42,123,212],[224,96,63],[214,69,127],[123,91,214],[217,154,43],[46,158,106],[31,160,191]], cc = PAL[c.c - 1];
       doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5); doc.setTextColor(29, 43, 42); doc.text(c.n, x0, y);
       doc.setTextColor(cc[0], cc[1], cc[2]); doc.text(String(c.v), x0 + colw, y, { align: 'right' });
       doc.setFillColor(231, 236, 234); doc.roundedRect(x0, y + 2.2, colw, 3, 1.5, 1.5, 'F');
