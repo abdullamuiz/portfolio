@@ -553,6 +553,29 @@ footer a:hover{color:var(--ink)}
 .funnel strong{font:700 1.45rem/1 Geist,sans-serif;letter-spacing:-.03em;color:var(--ink)}
 .funnel span{font-size:.8rem;color:var(--muted)}
 .funnel li.hl{background:var(--hl)}
+
+/* Free checkup frame */
+.ck-strip{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 18px;padding:14px 18px;margin-bottom:34px;border-radius:999px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+.ck-title{display:inline-flex;align-items:center;flex-wrap:wrap;gap:8px;font:600 1rem Geist,sans-serif}
+.ck-title i{font-size:1.2rem;color:var(--hl)}
+.ck-title small{font:500 .72rem "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ck-steps{display:inline-flex;align-items:center;gap:10px;color:var(--muted)}
+.ck-steps a{display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 7px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--ink);text-decoration:none;font:500 .9rem Geist,sans-serif;transition:border-color .2s}
+.ck-steps a:hover{border-color:var(--hl)}
+.ck-steps b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--hl);color:var(--hl-ink);font-size:.8rem}
+.ck-steps a+i+a b{background:var(--accent);color:var(--accent-ink)}
+.ck-step{display:inline-block;margin-bottom:14px;font:500 .74rem "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--hl);background:var(--hl-soft);padding:6px 12px;border-radius:999px}
+.hcx-next{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font:500 .95rem Geist,sans-serif;text-decoration:none;margin-top:2px}
+.hcx-next:hover{text-decoration:underline}
+#growth{scroll-margin-top:90px}#healthcheck{scroll-margin-top:90px}
+#growth .lk-panel{background:radial-gradient(120% 80% at 0% 0%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 60%),var(--surface)}
+#growth .lk-biz button{padding:13px 14px;font-size:.95rem}
+#growth .lk-biz button[aria-pressed="true"]{background:var(--hl);border-color:var(--hl);color:var(--hl-ink)}
+#growth .lk-q input:checked+.lk-sw{background:var(--hl)}
+#growth .lk-result h3{font:600 clamp(1.3rem,2.2vw,1.7rem)/1.15 Geist,sans-serif;letter-spacing:-.02em}
+.lk-from{display:block;font-style:normal;font:500 .7rem "Geist Mono",monospace;letter-spacing:.04em;color:var(--hl);margin-top:2px}
+.lk-ctas{display:flex;flex-wrap:wrap;gap:10px}
+@media (max-width:640px){.ck-strip{border-radius:22px}.ck-steps a{font-size:.85rem}}
 /* Social health check section */
 :root{--a1:#e0603f;--a2:#d6457f;--a3:#7b5bd6;--a4:#0b6b70;--a5:#2a7bd4;--a6:#d99a2b}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--a1:#f2876c;--a2:#f07aa8;--a3:#a68cf0;--a4:#5cc5c0;--a5:#6ea8f0;--a6:#f0c060}}
@@ -931,6 +954,11 @@ footer a:hover{color:var(--ink)}
 <!-- ================= SOCIAL HEALTH CHECK ================= -->
 <section id="healthcheck" style="padding-top:24px">
   <div class="wrap">
+    <nav class="ck-strip reveal" aria-label="Free marketing checkup">
+      <span class="ck-title"><i class="ph ph-stethoscope"></i> Free marketing checkup <small>2 steps &middot; about 3 minutes</small></span>
+      <span class="ck-steps"><a href="#healthcheck"><b>1</b>Get seen</a><i class="ph ph-arrow-right" aria-hidden="true"></i><a href="#growth"><b>2</b>Get booked</a></span>
+    </nav>
+    <span class="ck-step reveal">Step 1 of 2 &middot; Digital visibility</span>
     <h2 class="reveal lk-h"><em>Is anyone seeing</em> your socials?</h2>
     <p class="sec-sub reveal d1">Most Maldivian businesses post to the same followers every week. Tap the platforms you're on and see which audiences never see you.</p>
     <div class="hcx reveal">
@@ -949,6 +977,7 @@ footer a:hover{color:var(--ink)}
         </div>
         <a class="btn btn-hl hcx-btn" id="hcxGo" href="health-check.html">See my full report <i class="ph ph-arrow-right"></i></a>
         <span class="hcx-meta">Free &middot; 2 minutes &middot; No sign-up &middot; PDF report</span>
+        <a class="hcx-next" href="#growth">Next: find the leak in your funnel <i class="ph ph-arrow-down"></i></a>
       </div>
       <div class="hcx-view">
         <span class="lk-step">2. Audiences you reach</span>
@@ -956,6 +985,34 @@ footer a:hover{color:var(--ink)}
         <ul class="hcx-legend" id="hcxLegend"></ul>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ================= LEAK FINDER (funnel) ================= -->
+<section id="growth" style="padding-top:24px">
+  <div class="wrap">
+    <span class="ck-step reveal">Step 2 of 2 &middot; Marketing funnel</span>
+    <h2 class="reveal lk-h">Digital visibility is step one. Now <em>find the leak</em> in your funnel.</h2>
+    <p class="sec-sub reveal d1">Most businesses pour money into more posts and more ads while customers slip out further down. Pick your business, tick what you already do, and see where you're losing people.</p>
+    <div class="lk reveal">
+      <div class="lk-panel">
+        <span class="lk-step">1. Your business</span>
+        <div class="lk-biz" role="group" aria-label="Your business"><button type="button" data-biz="guesthouse" aria-pressed="true">Guesthouse</button><button type="button" data-biz="restaurant" aria-pressed="false">Restaurant</button><button type="button" data-biz="dive" aria-pressed="false">Dive centre</button><button type="button" data-biz="coffee" aria-pressed="false">Coffee shop</button></div>
+        <span class="lk-step">2. What you already do</span>
+        <div class="lk-qs"><label class="lk-q"><input type="checkbox" data-stage="aw"><span class="lk-sw" aria-hidden="true"></span><span>People can find us on Google Maps with current photos and hours</span></label><label class="lk-q"><input type="checkbox" data-stage="aw"><span class="lk-sw" aria-hidden="true"></span><span>We post short videos at least once a week</span></label><label class="lk-q"><input type="checkbox" data-stage="co"><span class="lk-sw" aria-hidden="true"></span><span>We reply to every review within two days</span></label><label class="lk-q"><input type="checkbox" data-stage="co"><span class="lk-sw" aria-hidden="true"></span><span>Prices, menus and how to reach us are easy to find online</span></label><label class="lk-q"><input type="checkbox" data-stage="cv"><span class="lk-sw" aria-hidden="true"></span><span>Customers can book or order directly with us in under a minute</span></label><label class="lk-q"><input type="checkbox" data-stage="lo"><span class="lk-sw" aria-hidden="true"></span><span>We collect customer contacts and invite them back</span></label><label class="lk-q"><input type="checkbox" data-stage="ad"><span class="lk-sw" aria-hidden="true"></span><span>We ask happy customers for a review or a share</span></label></div>
+      </div>
+      <div class="lk-view">
+        <div class="lk-diagram"><svg class="lk-svg" viewBox="0 0 420 340" role="img" aria-label="Marketing funnel with five stages"><g class="lk-stage" data-stage="aw"><path class="lk-body" d="M10.0,18 L410.0,18 L377.0,76 A167.0,10.9 0 0 1 43.0,76 Z" fill="#157f83"/><ellipse class="lk-top" cx="210" cy="18" rx="200.0" ry="13" fill="#5fb3b4"/><text x="210" y="55.0" text-anchor="middle" class="lk-lab">Awareness</text><g class="lk-leak"><rect x="404.0" y="41.0" width="78" height="24" rx="12"/><text x="443.0" y="57.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="co"><path class="lk-body" d="M43.0,76 L377.0,76 L346.0,134 A136.0,10.6 0 0 1 74.0,134 Z" fill="#24a39b"/><ellipse class="lk-top" cx="210" cy="76" rx="167.0" ry="13" fill="#7fcfc6"/><text x="210" y="113.0" text-anchor="middle" class="lk-lab">Consideration</text><g class="lk-leak"><rect x="371.0" y="99.0" width="78" height="24" rx="12"/><text x="410.0" y="115.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="cv"><path class="lk-body" d="M74.0,134 L346.0,134 L317.0,192 A107.0,10.2 0 0 1 103.0,192 Z" fill="#7cc7b2"/><ellipse class="lk-top" cx="210" cy="134" rx="136.0" ry="13" fill="#b9e4d7"/><text x="210" y="171.0" text-anchor="middle" class="lk-lab lk-lab-d">Conversion</text><g class="lk-leak"><rect x="340.0" y="157.0" width="78" height="24" rx="12"/><text x="379.0" y="173.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="lo"><path class="lk-body" d="M103.0,192 L317.0,192 L291.0,250 A81.0,9.8 0 0 1 129.0,250 Z" fill="#e0a458"/><ellipse class="lk-top" cx="210" cy="192" rx="107.0" ry="13" fill="#f0cc96"/><text x="210" y="229.0" text-anchor="middle" class="lk-lab lk-lab-d">Loyalty</text><g class="lk-leak"><rect x="311.0" y="215.0" width="78" height="24" rx="12"/><text x="350.0" y="231.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="ad"><path class="lk-body" d="M129.0,250 L291.0,250 L269.0,308 A59.0,9.5 0 0 1 151.0,308 Z" fill="#9b8a7a"/><ellipse class="lk-top" cx="210" cy="250" rx="81.0" ry="13" fill="#c9bcb0"/><text x="210" y="287.0" text-anchor="middle" class="lk-lab lk-lab-d">Advocacy</text><g class="lk-leak"><rect x="285.0" y="273.0" width="78" height="24" rx="12"/><text x="324.0" y="289.0" text-anchor="middle">Leak</text></g></g></svg><ul class="lk-legend"><li data-stage="aw"><b>Awareness</b><span>They find you<em class="lk-from" id="lkFrom"></em></span><i class="lk-score"></i></li><li data-stage="co"><b>Consideration</b><span>They compare you</span><i class="lk-score"></i></li><li data-stage="cv"><b>Conversion</b><span>They book or buy</span><i class="lk-score"></i></li><li data-stage="lo"><b>Loyalty</b><span>They come back</span><i class="lk-score"></i></li><li data-stage="ad"><b>Advocacy</b><span>They recommend you</span><i class="lk-score"></i></li></ul></div>
+        <div class="lk-result" aria-live="polite">
+          <span class="lk-tag" id="lkTag">Biggest leak</span>
+          <h3 id="lkTitle">Awareness</h3>
+          <p id="lkFix"></p>
+          <p class="lk-insight"><b>Insight</b><span id="lkInsight"></span></p>
+          <div class="lk-ctas"><a href="#contact" class="btn btn-hl">Fix this with me</a><a href="health-check.html" class="btn btn-line" id="lkReport">Get my full report <i class="ph ph-arrow-right"></i></a></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1024,32 +1081,6 @@ footer a:hover{color:var(--ink)}
 
 
 
-<!-- ================= LEAK FINDER (funnel) ================= -->
-<section id="growth" style="padding-top:24px">
-  <div class="wrap">
-    <h2 class="reveal lk-h"><em>Find the leak</em> in your funnel.</h2>
-    <p class="sec-sub reveal d1">Most businesses pour money into the top of the funnel, with more posts and more ads, while customers slip out further down. Pick your business, tick what you already do, and see where you're losing people first.</p>
-    <div class="lk reveal">
-      <div class="lk-panel">
-        <span class="lk-step">1. Your business</span>
-        <div class="lk-biz" role="group" aria-label="Your business"><button type="button" data-biz="guesthouse" aria-pressed="true">Guesthouse</button><button type="button" data-biz="restaurant" aria-pressed="false">Restaurant</button><button type="button" data-biz="dive" aria-pressed="false">Dive centre</button><button type="button" data-biz="coffee" aria-pressed="false">Coffee shop</button></div>
-        <span class="lk-step">2. What you already do</span>
-        <div class="lk-qs"><label class="lk-q"><input type="checkbox" data-stage="aw"><span class="lk-sw" aria-hidden="true"></span><span>People can find us on Google Maps with current photos and hours</span></label><label class="lk-q"><input type="checkbox" data-stage="aw"><span class="lk-sw" aria-hidden="true"></span><span>We post short videos at least once a week</span></label><label class="lk-q"><input type="checkbox" data-stage="co"><span class="lk-sw" aria-hidden="true"></span><span>We reply to every review within two days</span></label><label class="lk-q"><input type="checkbox" data-stage="co"><span class="lk-sw" aria-hidden="true"></span><span>Prices, menus and how to reach us are easy to find online</span></label><label class="lk-q"><input type="checkbox" data-stage="cv"><span class="lk-sw" aria-hidden="true"></span><span>Customers can book or order directly with us in under a minute</span></label><label class="lk-q"><input type="checkbox" data-stage="lo"><span class="lk-sw" aria-hidden="true"></span><span>We collect customer contacts and invite them back</span></label><label class="lk-q"><input type="checkbox" data-stage="ad"><span class="lk-sw" aria-hidden="true"></span><span>We ask happy customers for a review or a share</span></label></div>
-      </div>
-      <div class="lk-view">
-        <div class="lk-diagram"><svg class="lk-svg" viewBox="0 0 420 340" role="img" aria-label="Marketing funnel with five stages"><g class="lk-stage" data-stage="aw"><path class="lk-body" d="M10.0,18 L410.0,18 L377.0,76 A167.0,10.9 0 0 1 43.0,76 Z" fill="#157f83"/><ellipse class="lk-top" cx="210" cy="18" rx="200.0" ry="13" fill="#5fb3b4"/><text x="210" y="55.0" text-anchor="middle" class="lk-lab">Awareness</text><g class="lk-leak"><rect x="404.0" y="41.0" width="78" height="24" rx="12"/><text x="443.0" y="57.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="co"><path class="lk-body" d="M43.0,76 L377.0,76 L346.0,134 A136.0,10.6 0 0 1 74.0,134 Z" fill="#24a39b"/><ellipse class="lk-top" cx="210" cy="76" rx="167.0" ry="13" fill="#7fcfc6"/><text x="210" y="113.0" text-anchor="middle" class="lk-lab">Consideration</text><g class="lk-leak"><rect x="371.0" y="99.0" width="78" height="24" rx="12"/><text x="410.0" y="115.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="cv"><path class="lk-body" d="M74.0,134 L346.0,134 L317.0,192 A107.0,10.2 0 0 1 103.0,192 Z" fill="#7cc7b2"/><ellipse class="lk-top" cx="210" cy="134" rx="136.0" ry="13" fill="#b9e4d7"/><text x="210" y="171.0" text-anchor="middle" class="lk-lab lk-lab-d">Conversion</text><g class="lk-leak"><rect x="340.0" y="157.0" width="78" height="24" rx="12"/><text x="379.0" y="173.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="lo"><path class="lk-body" d="M103.0,192 L317.0,192 L291.0,250 A81.0,9.8 0 0 1 129.0,250 Z" fill="#e0a458"/><ellipse class="lk-top" cx="210" cy="192" rx="107.0" ry="13" fill="#f0cc96"/><text x="210" y="229.0" text-anchor="middle" class="lk-lab lk-lab-d">Loyalty</text><g class="lk-leak"><rect x="311.0" y="215.0" width="78" height="24" rx="12"/><text x="350.0" y="231.0" text-anchor="middle">Leak</text></g></g><g class="lk-stage" data-stage="ad"><path class="lk-body" d="M129.0,250 L291.0,250 L269.0,308 A59.0,9.5 0 0 1 151.0,308 Z" fill="#9b8a7a"/><ellipse class="lk-top" cx="210" cy="250" rx="81.0" ry="13" fill="#c9bcb0"/><text x="210" y="287.0" text-anchor="middle" class="lk-lab lk-lab-d">Advocacy</text><g class="lk-leak"><rect x="285.0" y="273.0" width="78" height="24" rx="12"/><text x="324.0" y="289.0" text-anchor="middle">Leak</text></g></g></svg><ul class="lk-legend"><li data-stage="aw"><b>Awareness</b><span>They find you</span><i class="lk-score"></i></li><li data-stage="co"><b>Consideration</b><span>They compare you</span><i class="lk-score"></i></li><li data-stage="cv"><b>Conversion</b><span>They book or buy</span><i class="lk-score"></i></li><li data-stage="lo"><b>Loyalty</b><span>They come back</span><i class="lk-score"></i></li><li data-stage="ad"><b>Advocacy</b><span>They recommend you</span><i class="lk-score"></i></li></ul></div>
-        <div class="lk-result" aria-live="polite">
-          <span class="lk-tag" id="lkTag">Biggest leak</span>
-          <h3 id="lkTitle">Awareness</h3>
-          <p id="lkFix"></p>
-          <p class="lk-insight"><b>Insight</b><span id="lkInsight"></span></p>
-          <a href="#contact" class="btn btn-hl">Fix this with me</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ================= PROCESS ================= -->
 <section id="process" style="padding-top:24px">
@@ -1734,6 +1765,10 @@ var CERTS = [
     var D={"guesthouse": {"fix": {"aw": "Answer the questions travellers now ask AI assistants: how to reach your island from Mal\u00e9, ferry and speedboat times, and what a night really costs. Clear answers on your website and Google profile get you named.", "co": "Show divers, couples and families the package that fits them, answer every review, and reply on WhatsApp in minutes, not the next morning.", "cv": "Make your own website the easiest way to book, with a perk the OTAs can't match, like a free transfer or an excursion.", "lo": "Collect every guest's WhatsApp or email at check-out, and send a returning-guest rate before the next season.", "ad": "Ask for the review on the last evening, not after they leave, and reshare guests' photos with their permission."}, "insight": "Every booking you move from an OTA to your own website keeps 18 to 35% more of the room rate with you. Direct bookings are the cheapest growth a guesthouse has."}, "restaurant": {"fix": {"aw": "Own your Google Maps listing: fresh food photos, correct hours and the dishes people search for. Many diners in Mal\u00e9 and Hulhumal\u00e9 decide there, minutes before they go.", "co": "Give people one clear reason to pick you over the place next door, like a signature dish, the view or a set menu, and show it in every post.", "cv": "Put a booking or WhatsApp order link everywhere, and fill the quiet nights with weekday set menus and group offers.", "lo": "Start a WhatsApp list of regulars and tell them first about new dishes and events.", "ad": "Make your signature dish photogenic and ask happy tables to tag you. Their posts are your cheapest ads."}, "insight": "In a small city, the same few thousand people eat out every week. Turning them into regulars beats chasing new followers."}, "dive": {"fix": {"aw": "Publish what divers actually search for: sites, seasons, sightings and courses. A simple weekly sightings log becomes content that Google and AI assistants can quote.", "co": "Show your instructors, your safety standards and real underwater footage. Divers choose people they trust, not just the lowest price.", "cv": "Let divers book a course or dive package online, and partner with guesthouses so their guests are booked before they arrive.", "lo": "Keep track of each diver's certification level and invite them back for the next course or the season's big sightings.", "ad": "Send every diver their best clip after the dive, with your tag on it. Divers love to post, and their friends dive too."}, "insight": "Divers plan trips around the sea, not the hotel. Own the information on conditions and sightings, and the bookings follow you."}, "coffee": {"fix": {"aw": "Be on Google Maps with the right hours and photos, and post short videos of what makes your coffee different, from the beans to the latte art.", "co": "Give people a reason to come to you: a signature drink, a space to work, or the best breakfast near the office.", "cv": "Make ordering easy with a WhatsApp or pick-up link for office orders, and a morning offer that builds the habit.", "lo": "A digital stamp card or a WhatsApp list turns the once-a-week customer into a daily one.", "ad": "Seasonal drinks and a corner worth photographing give regulars something to share."}, "insight": "A coffee shop grows on frequency, not footfall. One extra visit a week from your regulars is worth more than a hundred new followers."}}, N={"aw": "Awareness", "co": "Consideration", "cv": "Conversion", "lo": "Loyalty", "ad": "Advocacy"}, order=['aw','co','cv','lo','ad'], biz='guesthouse';
     function run(){
       var sc={}; order.forEach(function(s){ var q=g.querySelectorAll('.lk-q input[data-stage="'+s+'"]'), n=0; q.forEach(function(i){ if(i.checked) n++; }); sc[s]={n:n,t:q.length,r:n/q.length}; });
+      var H=window.HCX, fr=document.getElementById('lkFrom');
+      if(H && H.plats.length){ var ok=H.pct>=75; sc.aw.t++; if(ok) sc.aw.n++; sc.aw.r=sc.aw.n/sc.aw.t; if(fr) fr.textContent='Step 1: your socials reach '+H.pct+'% of key audiences'; }
+      else if(fr) fr.textContent='';
+      var rl=document.getElementById('lkReport'); if(rl) rl.href='health-check.html'+(H&&H.plats.length?'?p='+H.plats.join(','):'');
       var leak=null; order.forEach(function(s){ if(sc[s].r<1 && (leak===null || sc[s].r<sc[leak].r)) leak=s; });
       order.forEach(function(s){
         var st=g.querySelector('.lk-stage[data-stage="'+s+'"]'), li=g.querySelector('.lk-legend li[data-stage="'+s+'"]');
@@ -1748,7 +1783,7 @@ var CERTS = [
     }
     g.querySelectorAll('.lk-biz button').forEach(function(b){ b.addEventListener('click',function(){ biz=b.dataset.biz; g.querySelectorAll('.lk-biz button').forEach(function(x){ x.setAttribute('aria-pressed', x===b?'true':'false'); }); run(); }); });
     g.querySelectorAll('.lk-q input').forEach(function(i){ i.addEventListener('change',run); });
-    run();
+    window.lkRun=run; run();
   })();
 
   /* ---------- Break-even calculator ---------- */
@@ -1864,6 +1899,7 @@ var CERTS = [
     else if(core===2){risk.className='hcx-risk warn';risk.textContent='Some risk';t.textContent='A good base, with gaps';x.textContent=(s.instagram&&s.facebook?'Instagram and Facebook are both Meta, so one problem can hit both. ':'')+'You reach about '+pct+'% of the audiences that matter.';}
     else{risk.className='hcx-risk good';risk.textContent='Well spread';t.textContent='You\u2019re on all three main platforms';x.textContent='If one app has a problem, customers can still find you on the others. Next, check whether your posts actually bring in enquiries and sales.';}
     document.getElementById('hcxGo').href='health-check.html'+(Object.keys(s).length?'?p='+Object.keys(s).join(','):'');
+    window.HCX={pct:pct,plats:Object.keys(s)}; if(window.lkRun) window.lkRun();
   }
   btns.forEach(function(b){b.addEventListener('click',function(){b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true');paint();});});
   paint();
