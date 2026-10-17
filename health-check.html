@@ -106,6 +106,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
 .seg .chip { padding-inline: 8px; text-align: center; line-height: 1.25; }
 .seg .chip[aria-pressed="true"]::before { content: none; }
+.seg-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.seg-list .chip { border-radius: 16px; text-align: left; padding: 12px 14px; }
 .hint { font-size: 14.5px; color: var(--muted); margin-top: 8px; }
 .banner { background: var(--accent-soft); border-radius: 16px; padding: 12px 16px; font-size: 15px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
 .banner button { border: 0; background: none; color: var(--accent); font-weight: 700; font-size: 15px; text-decoration: underline; padding: 4px; cursor: pointer; }
@@ -181,6 +183,27 @@ body.float-on #toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
 .todo b { display: block; font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 .todo p { overflow-wrap: anywhere; }
 .todo .gain { color: var(--accent); font-weight: 700; font-size: 14.5px; }
+.tl { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.tl-good { background: var(--good); } .tl-warn { background: var(--warn); } .tl-bad { background: var(--bad); }
+.tlpill { display: inline-flex; align-items: center; gap: 7px; padding: 4px 11px; border-radius: 999px; font-size: 12.5px; font-weight: 700; margin-bottom: 6px; background: var(--chip); }
+.tlpill.bad { color: var(--bad); } .tlpill.warn { color: var(--warn); } .tlpill.good { color: var(--good); }
+.cp-wrap { display: grid; gap: 18px; margin-top: 10px; }
+.compass { width: 100%; max-width: 460px; margin: 0 auto; height: auto; display: block; overflow: visible; }
+.cp-ring { fill: none; stroke: var(--line); stroke-width: 1; }
+.cp-ring:last-of-type { stroke-width: 1.5; }
+.cp-spoke { stroke: var(--line); stroke-width: 1; }
+.cp-shape { fill: color-mix(in srgb, var(--accent) 22%, transparent); stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; }
+.cp-dot { stroke: var(--surface); stroke-width: 2; }
+.cp-lab { fill: var(--ink); font: 600 13px var(--sans); }
+.cp-val { font: 700 14px var(--sans); }
+.cp-val.good { fill: var(--good); } .cp-val.warn { fill: var(--warn); } .cp-val.bad { fill: var(--bad); }
+.cp-legend { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.cp-legend li { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 12px; border-radius: 14px; background: var(--chip); }
+.cp-legend b { display: block; font-size: 14px; } .cp-legend small { display: block; font-size: 12.5px; color: var(--muted); }
+.cp-legend em { font-style: normal; font-weight: 700; font-size: 16px; }
+.cp-legend em.good { color: var(--good); } .cp-legend em.warn { color: var(--warn); } .cp-legend em.bad { color: var(--bad); }
+.teamq { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); display: grid; gap: 18px; }
+@media (max-width: 520px) { .cp-legend { grid-template-columns: 1fr; } }
 .note { font-size: 14.5px; color: var(--muted); padding: 0 clamp(22px, 5vw, 34px) clamp(22px, 5vw, 30px); }
 .sect p.body { margin-top: 10px; }
 /* ads question */
@@ -427,6 +450,8 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   ];
   var HOW = [['boost', 'The Boost button'], ['manager', 'Ads Manager'], ['agency', 'An agency or freelancer']];
   var RESULT = [['yes', 'Yes, clearly'], ['little', 'A little'], ['no', 'Not really']];
+  var TRACK = [['all', 'Yes, every one'], ['some', 'Sometimes'], ['none', 'Not yet']];
+  var WHO = [['nobody', 'Nobody really'], ['me', 'Me, when I find time'], ['staff', 'A team member, a few hours a week'], ['pro', 'A dedicated person or agency']];
   var BIZ = [
     ['locals', 'Locals only', 'A café, shop or service for people living in the Maldives'],
     ['both', 'Tourists and locals', 'A guesthouse, dive centre or restaurant serving both'],
@@ -482,7 +507,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   function fresh() {
     return { step: 0, biz: null, shared: true, sharedName: '', names: {}, sel: {}, d: blankData(), example: false, email: '',
       markets: {}, areas: {},
-      ads: { mode: 'organic', spend: 0, camps: 0, on: {}, how: 'boost', result: 'little' },
+      ads: { mode: 'organic', spend: 0, camps: 0, on: {}, how: 'boost', result: 'little' }, team: { track: null, who: null },
       plan: { tab: 'reach', reach: tFor(20000, RE), perAd: tFor(50, PA), adj: 100, cpf: 0.8, target: 30, org: 2, occ: { val: true, ram: true, bf: true, xmas: true, ny: true }, occBudget: tFor(200, PA), occDays: 10 } };
   }
   function example() {
@@ -491,7 +516,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     Object.assign(s.d.facebook, { f: tFor(12800, FOL), l: tFor(40, LIK), posts: 6, bio: false, link: false, brand: true, reply: 'slow' });
     s.markets = { eu: true, uk: true, cn: true, ru: true };
     s.ads = { mode: 'paid', spend: tFor(150, SP), camps: 3, on: { instagram: true, facebook: true }, how: 'boost', result: 'little' };
-    s.plan.reach = tFor(50000, RE); s.plan.occ = { val: true, ram: true, xmas: true };
+    s.team = { track: 'some', who: 'me' }; s.plan.reach = tFor(50000, RE); s.plan.occ = { val: true, ram: true, xmas: true };
     return s;
   }
   function active() { return PLATFORMS.filter(function (p) { return state.sel[p.id]; }); }
@@ -600,6 +625,11 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       var w = r.pl.core ? 1 : 0.5;
       r.parts.forEach(function (x) { if (x.max - x.got > 0) fixes.push({ p: r.pl.name, gain: x.max - x.got, rank: (x.max - x.got) * w, tip: x.tip, key: r.pl.id }); });
     });
+    var tm = state.team || {};
+    if (tm.track !== 'all') fixes.push({ p: 'Measurement', gain: tm.track === 'some' ? 8 : 15, key: 'measure',
+      tip: 'Ask every ' + (isLocal() ? 'customer' : 'guest') + ' how they found you, and give each platform its own promo code or tracked link. Then you can see which posts bring ' + (isLocal() ? 'orders' : 'bookings') + ', not just likes.' });
+    if (tm.who !== 'pro' && tm.who !== 'staff') fixes.push({ p: 'Resources', gain: tm.who === 'me' ? 8 : 14, key: 'team',
+      tip: 'Give social media a fixed slot: two hours a week, on the calendar, with one person responsible. A steady rhythm beats bursts of effort.' });
     fixes.forEach(function (f) { if (f.rank == null) f.rank = f.gain; });
     fixes.sort(function (a, b) { return b.rank - a.rank; });
     rows.forEach(function (r) {
@@ -622,8 +652,45 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     var missingAll = PLATFORMS.filter(function (p) { return !state.sel[p.id]; }).map(function (p) { return p.name; });
     var claim = (missingAll.length && state.shared && clean(state.sharedName))
       ? 'Even where you don’t post yet, claim @' + clean(state.sharedName) + ' on ' + list(missingAll) + ' so nobody else takes it.' : '';
-    return { rows: rows, avg: avg, capped: capped, pavg: Math.round(pavg), mix: mix, label: headline(avg), lede: lede(avg), top: top, nm: nm, claim: claim, ads: adsInfo(), plan: planLines(), local: localInfo(), guide: guide(), foreign: foreignInfo(),
+    var compass = compassScores(rows, mix);
+    return { compass: compass, rows: rows, avg: avg, capped: capped, pavg: Math.round(pavg), mix: mix, label: headline(avg), lede: lede(avg), top: top, nm: nm, claim: claim, ads: adsInfo(), plan: planLines(), local: localInfo(), guide: guide(), foreign: foreignInfo(),
       date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) };
+  }
+
+  function compassScores(rows, mix) {
+    function avgPart(fn) {
+      var s = 0, t = 0; rows.forEach(function (r) { var w = r.pl.core ? 1 : 0.5; s += fn(r) * w; t += w; });
+      return t ? Math.round(s / t) : 0;
+    }
+    function part(r, i) { return r.parts[i].got / r.parts[i].max * 100; }
+    var a = state.ads, tm = state.team || {};
+    var paid = a.mode !== 'paid' ? 20 : Math.min(100, 40 + (a.how === 'boost' ? 0 : 20) + (a.result === 'yes' ? 40 : a.result === 'little' ? 20 : 0));
+    return [
+      { k: 'profiles', n: 'Profiles', v: avgPart(function (r) { return (r.parts[0].got + r.parts[1].got + r.parts[2].got) / 35 * 100; }), d: 'Bio, link and branding' },
+      { k: 'mix', n: 'Platform mix', v: mix.coverage, d: 'Audiences you can reach' },
+      { k: 'content', n: 'Content', v: avgPart(function (r) { return part(r, 3); }), d: 'How often you post' },
+      { k: 'engage', n: 'Engagement', v: avgPart(function (r) { return part(r, 4); }), d: 'Reactions per post' },
+      { k: 'community', n: 'Community', v: avgPart(function (r) { return part(r, 5); }), d: 'Replies to comments and messages' },
+      { k: 'paid', n: 'Paid reach', v: paid, d: a.mode === 'paid' ? 'How well your ads work' : 'Organic only for now' },
+      { k: 'measure', n: 'Measurement', v: tm.track === 'all' ? 100 : tm.track === 'some' ? 55 : 10, d: 'Tracking what social brings in' },
+      { k: 'team', n: 'Resources', v: tm.who === 'pro' ? 100 : tm.who === 'staff' ? 70 : tm.who === 'me' ? 40 : 10, d: 'Time and people behind it' }
+    ];
+  }
+  function compassSvg(C) {
+    var cx = 200, cy = 190, R0 = 120, n = C.length;
+    function pt(i, r) { var ang = -Math.PI / 2 + i * 2 * Math.PI / n; return [cx + r * Math.cos(ang), cy + r * Math.sin(ang)]; }
+    var rings = [25, 50, 75, 100].map(function (v) {
+      return '<polygon class="cp-ring" points="' + C.map(function (_, i) { return pt(i, R0 * v / 100).map(function (x) { return x.toFixed(1); }).join(','); }).join(' ') + '"/>';
+    }).join('');
+    var spokes = C.map(function (_, i) { var e = pt(i, R0); return '<line class="cp-spoke" x1="' + cx + '" y1="' + cy + '" x2="' + e[0].toFixed(1) + '" y2="' + e[1].toFixed(1) + '"/>'; }).join('');
+    var shape = '<polygon class="cp-shape" points="' + C.map(function (c, i) { return pt(i, R0 * Math.max(4, c.v) / 100).map(function (x) { return x.toFixed(1); }).join(','); }).join(' ') + '"/>';
+    var dots = C.map(function (c, i) { var p2 = pt(i, R0 * Math.max(4, c.v) / 100); return '<circle class="cp-dot" cx="' + p2[0].toFixed(1) + '" cy="' + p2[1].toFixed(1) + '" r="5" fill="var(--' + cls(c.v) + ')"/>'; }).join('');
+    var labels = C.map(function (c, i) {
+      var p2 = pt(i, R0 + 30), anchor = Math.abs(p2[0] - cx) < 8 ? 'middle' : p2[0] > cx ? 'start' : 'end';
+      return '<text class="cp-lab" x="' + p2[0].toFixed(1) + '" y="' + (p2[1] - 2).toFixed(1) + '" text-anchor="' + anchor + '">' + c.n + '</text>' +
+        '<text class="cp-val ' + cls(c.v) + '" x="' + p2[0].toFixed(1) + '" y="' + (p2[1] + 15).toFixed(1) + '" text-anchor="' + anchor + '">' + c.v + '</text>';
+    }).join('');
+    return '<svg class="compass" viewBox="-40 0 480 380" role="img" aria-label="Visibility compass: ' + C.map(function (c) { return c.n + ' ' + c.v; }).join(', ') + '">' + rings + spokes + shape + dots + labels + '</svg>';
   }
 
   function adsInfo() {
@@ -707,9 +774,11 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     R.mix.blocked.forEach(function (b) { L.push(b.n + ': ' + b.block); });
     if (R.local) { L.push('', 'Your local reach'); R.local.lines.forEach(function (x) { L.push(x); }); }
     R.foreign.forEach(function (f) { L.push('', f.title); f.items.forEach(function (it) { L.push('\u2022 ' + it.name + ': ' + it.ev + ' ' + it.how); }); });
+    L.push('', 'Visibility compass (out of 100)');
+    R.compass.forEach(function (c) { L.push('• ' + c.n + ': ' + c.v); });
     L.push('', 'By platform');
     R.rows.forEach(function (r) { L.push('• ' + r.pl.name + ': ' + r.total + '/100'); });
-    if (R.top.length) { L.push('', 'Three things to do first'); R.top.forEach(function (f, i) { L.push((i + 1) + '. ' + f.p + ': ' + f.tip); }); }
+    if (R.top.length) { L.push('', 'Three things to do first'); R.top.forEach(function (f, i) { L.push((i + 1) + '. [' + tlOf(f, i)[1] + '] ' + f.p + ': ' + f.tip); }); }
     if (R.nm) L.push('', R.nm);
     if (R.claim) L.push(R.claim);
     L.push('', 'Ads: ' + (R.ads.mode === 'paid' ? 'paid and organic' : 'organic only'));
@@ -833,7 +902,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       return '<button type="button" class="chip small" data-act="adon" data-v="' + p.id + '" aria-pressed="' + !!a.on[p.id] + '">' + p.name + '</button>';
     }).join('');
     return '<section class="card">' + progress(active().length + 3) +
-      '<p class="kicker">Last question</p><h2>Do you run paid ads, or grow organically?</h2>' +
+      '<p class="kicker">Last step</p><h2>Do you run paid ads, or grow organically?</h2>' +
       '<p class="sub">Boosted posts count as paid ads.</p>' +
       '<div class="big2">' + choice('organic', 'Organic only', 'Posts, stories and replies') + choice('paid', 'We run paid ads', 'Boosts or ad campaigns') + '</div>' +
       (a.mode === 'paid' ? '<div class="reveal">' +
@@ -842,15 +911,33 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
         gslider('camps', 'How many paid campaigns do you run a year?', 0, 24, 1, ['0', '24']) +
         seg('how', 'How do you usually run them?', HOW, a.how) +
         seg('result', 'Have your ads brought real growth in followers or ' + (isLocal() ? 'orders' : 'bookings') + '?', RESULT, a.result) + '</div>' : '') +
+      '<div class="teamq"><span class="lbl" style="font-size:1.05rem">Two quick ones about your team</span>' +
+      tseg('track', 'Do you track which ' + (isLocal() ? 'orders' : 'enquiries or bookings') + ' come from social media?', TRACK, state.team.track) +
+      tseg('who', 'Who looks after your social media?', WHO, state.team.who) + '</div>' +
       '<div class="actions"><button type="button" class="btn ghost" data-act="back">Back</button><button type="button" class="btn primary" data-act="next">See my report</button></div></section>';
   }
 
+  function tseg(key, label, opts, cur) {
+    return '<div><span class="lbl">' + label + '</span><div class="seg' + (opts.length > 3 ? ' seg-list' : '') + '">' + opts.map(function (o) {
+      return '<button type="button" class="chip" data-act="teamq" data-k="' + key + '" data-v="' + o[0] + '" aria-pressed="' + (cur === o[0]) + '">' + o[1] + '</button>';
+    }).join('') + '</div></div>';
+  }
   function seg(key, label, opts, cur) {
     return '<div><span class="lbl">' + label + '</span><div class="seg">' + opts.map(function (o) {
       return '<button type="button" class="chip" data-act="adq" data-k="' + key + '" data-v="' + o[0] + '" aria-pressed="' + (cur === o[0]) + '">' + o[1] + '</button>';
     }).join('') + '</div></div>';
   }
 
+  function compassSect(R) {
+    var C = R.compass, sorted = C.slice().sort(function (a, b) { return b.v - a.v; });
+    var legend = '<ul class="cp-legend">' + C.map(function (c) {
+      return '<li><i class="tl tl-' + cls(c.v) + '"></i><span><b>' + c.n + '</b><small>' + esc(c.d) + '</small></span><em class="' + cls(c.v) + '">' + c.v + '</em></li>';
+    }).join('') + '</ul>';
+    return '<div class="sect"><div class="row-h"><h3>Your visibility compass</h3><span class="tag">8 areas</span></div>' +
+      '<p class="body">Each point is scored out of 100. The further it reaches out, the stronger that area. Strongest: <b>' + sorted[0].n + '</b>. Needs the most work: <b>' + sorted[sorted.length - 1].n + '</b>.</p>' +
+      '<div class="cp-wrap">' + compassSvg(C) + legend + '</div></div>';
+  }
+  function tlOf(f, i) { var g = f.gainText ? 30 : f.gain; return g >= 20 || i === 0 ? ['bad', 'Do this week'] : g >= 10 ? ['warn', 'This month'] : ['good', 'Quick tidy-up']; }
   function viewReport() {
     var R = report(), M = R.mix;
     var c = cls(R.avg), col = 'var(--' + c + ')', circ = 2 * Math.PI * 62, dash = (R.avg / 100 * circ).toFixed(1) + ' ' + circ.toFixed(1);
@@ -859,7 +946,8 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
         '<div class="meter"><i class="bg-' + cls(r.total) + '" style="width:' + r.total + '%"></i></div><p class="why">' + esc(r.focus) + '</p></div>';
     }).join('');
     var todo = R.top.length ? '<ol class="todo">' + R.top.map(function (f, i) {
-      return '<li><span class="num">' + (i + 1) + '</span><div><b>' + esc(f.p) + '</b><p>' + esc(f.tip) + '</p><span class="gain">' + (f.gainText ? 'Opens a new audience' : '+' + f.gain + ' points') + '</span></div></li>';
+      var tl = tlOf(f, i);
+      return '<li><span class="num">' + (i + 1) + '</span><div><span class="tlpill ' + tl[0] + '"><i class="tl tl-' + tl[0] + '"></i>' + tl[1] + '</span><b>' + esc(f.p) + '</b><p>' + esc(f.tip) + '</p><span class="gain">' + (f.gainText ? 'Opens a new audience' : '+' + f.gain + ' points') + '</span></div></li>';
     }).join('') + '</ol>' : '<p class="body">No gaps found. Check again after next month’s posts.</p>';
     var stLbl = { 2: ['full', 'Reached'], 1: ['part', 'Partly'], 0: ['miss', 'Missed'] };
     var cov = '<ul class="cov">' + M.rows.map(function (r) {
@@ -900,7 +988,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       '<article class="report" id="report"><div class="mast"><span>The Health Check</span><span>' + R.date + '</span></div>' +
       '<div class="hero"><svg class="ring" viewBox="0 0 150 150" role="img" aria-label="Overall score ' + R.avg + ' out of 100"><circle class="t" cx="75" cy="75" r="62"/><circle class="a" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" stroke="' + col + '" stroke-dasharray="' + dash + '"/><text x="75" y="84" text-anchor="middle">' + R.avg + '</text><text class="s" x="75" y="104" text-anchor="middle">OUT OF 100</text></svg>' +
       '<div><p class="kicker">Report for ' + esc(who()) + '</p><h2>' + R.label + '</h2><p class="lede">' + R.lede + '</p><p class="hint">Profiles ' + R.pavg + '/100 · Platform mix ' + M.coverage + '/100' + (R.capped ? '. ' + R.capped : '') + '</p></div></div>' +
-      mixSect + localSect + foreignSect +
+      compassSect(R) + mixSect + localSect + foreignSect +
       '<div class="sect"><h3>Platform by platform</h3><div style="margin-top:14px">' + rows + '</div></div>' +
       '<div class="sect"><h3>Do these three first</h3>' + todo + '</div>' + adsSect + guideSect + extra +
       '<p class="note" style="padding-top:20px;border-top:1px solid var(--line)">Scores are friendly guides built from the numbers you entered and published 2026 benchmarks, not data pulled from the platforms.</p></article>' +
@@ -1139,6 +1227,18 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       doc.setFont('helvetica', 'normal'); doc.setFontSize(11); doc.setTextColor(29, 43, 42);
       lines.forEach(function (t) { var ln = doc.splitTextToSize((bullet ? '•  ' : '') + t, W - 2 * M); room(ln.length * 5); doc.text(ln, M, y); y += ln.length * 5 + 3; });
     }
+    head('Your visibility compass');
+    R.compass.forEach(function (c, i) {
+      var colw = (W - 2 * M - 10) / 2, x0 = M + (i % 2) * (colw + 10);
+      if (i % 2 === 0) room(12);
+      var cc = C[cls(c.v)];
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5); doc.setTextColor(29, 43, 42); doc.text(c.n, x0, y);
+      doc.setTextColor(cc[0], cc[1], cc[2]); doc.text(String(c.v), x0 + colw, y, { align: 'right' });
+      doc.setFillColor(231, 236, 234); doc.roundedRect(x0, y + 2.2, colw, 3, 1.5, 1.5, 'F');
+      doc.setFillColor(cc[0], cc[1], cc[2]); doc.roundedRect(x0, y + 2.2, Math.max(3, colw * c.v / 100), 3, 1.5, 1.5, 'F');
+      if (i % 2 === 1) y += 12;
+    });
+    y += 4;
     var mx = R.mix, rc = C[mx.riskCls];
     head('Your platform mix');
     doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(rc[0], rc[1], rc[2]); doc.text(mx.risk.toUpperCase() + '  ·  ' + mx.coverage + '% AUDIENCE COVERAGE', M, y); y += 6;
@@ -1171,7 +1271,9 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
       var ln = doc.splitTextToSize(f.tip, W - 2 * M - 14); room(14 + ln.length * 5);
       doc.setFont('helvetica', 'bold'); doc.setFontSize(24); doc.setTextColor(11, 107, 112); doc.text(String(i + 1), M, y + 6);
+      var tl = tlOf(f, i), tc = C[tl[0]];
       doc.setFontSize(9); doc.setTextColor(102, 119, 114); doc.text(f.p.toUpperCase(), M + 14, y);
+      doc.setTextColor(tc[0], tc[1], tc[2]); doc.text(tl[1].toUpperCase(), W - M, y, { align: 'right' });
       doc.setFont('helvetica', 'normal'); doc.setFontSize(11); doc.setTextColor(29, 43, 42); doc.text(ln, M + 14, y + 6);
       doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.setTextColor(11, 107, 112); doc.text(f.gainText ? 'Opens a new audience' : '+' + f.gain + ' points', M + 14, y + 6 + ln.length * 5 + 1);
       y += 12 + ln.length * 5 + 6;
@@ -1228,6 +1330,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       state.areas[v] = !state.areas[v]; t.setAttribute('aria-pressed', !!state.areas[v]);
       document.getElementById('areaNote').textContent = areaSummary();
     }
+    else if (a === 'teamq') { state.team[t.getAttribute('data-k')] = v; press('[data-act="teamq"][data-k="' + t.getAttribute('data-k') + '"]', function (b) { return b === t; }); }
     else if (a === 'adq') { state.ads[t.getAttribute('data-k')] = v; press('[data-act="adq"][data-k="' + t.getAttribute('data-k') + '"]', function (b) { return b === t; }); }
     else if (a === 'ads') { state.ads.mode = v; render(); }
     else if (a === 'adon') { state.ads.on[v] = !state.ads.on[v]; t.setAttribute('aria-pressed', !!state.ads.on[v]); }
