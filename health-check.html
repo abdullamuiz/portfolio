@@ -162,6 +162,14 @@ input[type="range"]::-moz-range-thumb { width: 24px; height: 24px; border-radius
 .dockbtn svg { width: 18px; height: 18px; flex: none; }
 .ldone-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
 .ldone-actions .btn { text-decoration: none; }
+.ldone-actions .btn svg { width: 19px; height: 19px; flex: none; }
+.ldone-actions .btn { display: inline-flex; align-items: center; gap: 9px; }
+.btn.wabtn { background: #25D366; color: #06301a; font-weight: 600; }
+.btn.sharebtn { background: #E5484D; color: #fff; font-weight: 600; }
+.wabtn:hover, .sharebtn:hover { filter: brightness(1.06); }
+.tshare .menu { left: 0; right: auto; }
+@media (min-width: 560px) { .tshare .menu { left: 0; right: auto; } }
+.mi svg { width: 20px; height: 20px; flex: none; color: var(--muted); }
 .share.docked > .btn { box-shadow: 0 12px 28px -10px var(--hl); padding: 15px 22px; background: var(--hl); color: var(--hl-ink); }
 .share.docked > .btn svg { width: 18px; height: 18px; flex: none; }
 .share.docked .menu { top: auto; left: auto; right: 0; bottom: calc(100% + 12px); max-height: calc(100vh - 120px); overflow-y: auto; }
@@ -1291,6 +1299,29 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       '<div class="dock" id="leadDock">' + dockBtn() + '</div>';
   }
 
+  var SHARE_URL = 'https://abdullamuiz.github.io/portfolio/#healthcheck';
+  var SHARE_TXT = 'Try this free 5-minute social visibility health check for Maldivian businesses';
+  var IC_WA = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 1.8a8.2 8.2 0 1 1-4.2 15.3l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 0 1 12 3.8z"/><path fill="currentColor" d="M8.6 7.2c.2 0 .4 0 .6.4l.8 1.9c.1.2.1.4 0 .6l-.4.6c-.1.2-.2.3 0 .6.5.9 1.3 1.7 2.3 2.3.2.1.4.1.6-.1l.6-.7c.2-.2.4-.2.6-.1l1.8.9c.3.1.4.3.4.5 0 .5-.2 1.2-.9 1.6-.6.4-1.5.5-2.7 0a10 10 0 0 1-4.8-4.5c-.6-1.2-.5-2.2 0-2.8.4-.5.8-.6 1.1-.6z"/></svg>';
+  var IC_SHARE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>';
+  var IC_TG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/><path d="m9 13 8-6"/></svg>';
+  var IC_MAIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>';
+  var IC_LINK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>';
+  function shareBlock() {
+    var u = encodeURIComponent(SHARE_URL), t = encodeURIComponent(SHARE_TXT), body = encodeURIComponent(SHARE_TXT + ': ' + SHARE_URL), sub = encodeURIComponent('Free 5-minute social visibility health check');
+    function mi(href, ic, label) { return '<a class="mi" href="' + href + '" target="_blank" rel="noopener">' + ic + label + '</a>'; }
+    return '<div class="share tshare"><button type="button" class="btn sharebtn" data-act="tshare" aria-haspopup="true" aria-expanded="false">' + IC_SHARE + 'Share with a friend</button>' +
+      '<div class="menu" id="tmenu" hidden>' +
+      mi('https://wa.me/?text=' + body, IC_WA, 'WhatsApp') +
+      mi('https://t.me/share/url?url=' + u + '&text=' + t, IC_TG, 'Telegram') +
+      mi('https://mail.google.com/mail/?view=cm&fs=1&su=' + sub + '&body=' + body, IC_MAIL, 'Gmail') +
+      mi('https://outlook.live.com/mail/0/deeplink/compose?subject=' + sub + '&body=' + body, IC_MAIL, 'Outlook') +
+      '<button type="button" class="mi" data-act="tcopy">' + IC_LINK + '<span>Copy link</span></button></div></div>';
+  }
+  function tShareToggle(btn, open) {
+    var m = document.getElementById('tmenu'); if (!m) return;
+    if (open === undefined) open = m.hidden;
+    m.hidden = !open; btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
   function dockBtn() {
     if (lead.state === 'sent') return '';
     return '<a class="btn primary dockbtn" href="#leadspot" data-act="tolead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email me my report</a>';
@@ -1298,8 +1329,8 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   function leadForm() {
     if (lead.state === 'sent') return '<section class="card lead done" aria-live="polite"><p class="kicker">Report on its way</p><h2>Sent! Check your inbox in a minute</h2><p class="sub">And the spam folder, just in case.' + (lead.call ? ' Muiz will message you on WhatsApp to set up your call.' : '') + '</p>' +
       '<div class="ldone-actions"><a class="btn primary" href="./#healthcheck">Back to portfolio</a>' +
-      '<a class="btn ghost" href="https://wa.me/9609902996?text=' + encodeURIComponent('Hi Muiz, I just took your 5-minute marketing test.') + '" target="_blank" rel="noopener">Chat with Muiz on WhatsApp</a>' +
-      '<a class="btn ghost" href="https://wa.me/?text=' + encodeURIComponent('Try this free 5-minute marketing test for Maldivian businesses: https://abdullamuiz.github.io/portfolio/#healthcheck') + '" target="_blank" rel="noopener">Share the test with a friend</a></div></section>';
+      '<a class="btn wabtn" href="https://wa.me/9609902996?text=' + encodeURIComponent('Hi Muiz, I just took your 5-minute marketing test.') + '" target="_blank" rel="noopener">' + IC_WA + 'Chat on WhatsApp</a>' +
+      shareBlock() + '</div></section>';
     return '<section class="card lead" aria-labelledby="leadH"><p class="kicker">Keep your results</p><h2 id="leadH">Get your full report in your inbox</h2>' +
       '<p class="sub">We\u2019ll email your PDF report. No spam, unsubscribe any time.</p>' +
       '<form id="leadForm" novalidate><div class="lgrid">' +
@@ -1706,9 +1737,27 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     var b = document.querySelector('[data-act="menu"]'); if (b) b.setAttribute('aria-expanded', 'false');
   }
   function press(sel, fn) { document.querySelectorAll(sel).forEach(function (b) { b.setAttribute('aria-pressed', fn(b)); }); }
+  document.addEventListener('click', function (e) {
+    var m = document.getElementById('tmenu'); if (!m || m.hidden) return;
+    if (!e.target.closest('.tshare')) tShareToggle(document.querySelector('[data-act="tshare"]'), false);
+    else if (e.target.closest('#tmenu a.mi')) setTimeout(function () { tShareToggle(document.querySelector('[data-act="tshare"]'), false); }, 50);
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { var b = document.querySelector('[data-act="tshare"]'); if (b) tShareToggle(b, false); } });
   app.addEventListener('click', function (e) {
     var t = e.target.closest('[data-act]'); if (!t) return;
     var a = t.getAttribute('data-act'), v = t.getAttribute('data-v');
+    if (a === 'tshare') {
+      var phone = window.matchMedia('(pointer: coarse)').matches;
+      if (phone && navigator.share) { navigator.share({ title: 'Free 5-minute social visibility health check', text: SHARE_TXT, url: SHARE_URL }).catch(function () {}); return; }
+      tShareToggle(t); return;
+    }
+    if (a === 'tcopy') {
+      var sp = t.querySelector('span');
+      var done = function () { sp.textContent = 'Link copied'; setTimeout(function () { sp.textContent = 'Copy link'; tShareToggle(document.querySelector('[data-act="tshare"]'), false); }, 1200); };
+      var fb = function () { var ta = document.createElement('textarea'); ta.value = SHARE_URL; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (x) {} ta.remove(); done(); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(SHARE_URL).then(done, fb); else fb();
+      return;
+    }
     if (a === 'plat') { var id = t.getAttribute('data-id'); state.sel[id] = !state.sel[id]; render(); }
     else if (a === 'same') { state.shared = !state.shared; render(); }
     else if (a === 'tolead') { e.preventDefault(); var ls = document.getElementById('leadspot'); if (ls) { ls.scrollIntoView({ behavior: 'smooth', block: 'center' }); var em = document.getElementById('lfEmail'); if (em) setTimeout(function () { em.focus({ preventScroll: true }); }, 500); } }
