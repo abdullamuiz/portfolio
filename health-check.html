@@ -299,6 +299,18 @@ details.assume summary { cursor: pointer; font-weight: 700; font-size: 15.5px; }
 .st.miss { border: 2px solid var(--bad); color: var(--bad); padding: 1px 9px; }
 .covbar { height: 12px; border-radius: 12px; background: var(--track); overflow: hidden; margin-top: 12px; }
 .covbar i { display: block; height: 100%; border-radius: 12px; background: var(--accent); }
+.xblock { margin-top: 18px; padding: 16px; border-radius: 18px; background: var(--chip); display: grid; gap: 14px; }
+.xblock .rec { font-style: normal; font-size: 10.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-left: 6px; }
+.xrow { display: grid; gap: 10px; padding-top: 12px; border-top: 1px solid var(--line); }
+.xnote { color: var(--ink); padding: 11px 14px; border-radius: 14px; font-size: 15px; line-height: 1.5; border: 1px solid transparent; }
+.xnote b { display: block; margin-bottom: 2px; }
+.xnote.bad { background: color-mix(in srgb, var(--hl) 12%, transparent); border-color: color-mix(in srgb, var(--hl) 40%, transparent); }
+.xnote.bad b { color: var(--hl); }
+.xnote.warn { background: color-mix(in srgb, var(--warn) 14%, transparent); border-color: color-mix(in srgb, var(--warn) 45%, transparent); }
+.xnote.warn b { color: var(--warn); }
+.xnote.good { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+.xnote.good b { color: var(--accent); }
+.xlist { margin: 8px 0 0; padding-left: 18px; font-size: 14px; color: var(--muted); }
 .warnbox { background: var(--chip); border-left: 5px solid var(--warn); border-radius: 14px; padding: 12px 16px; font-size: 15px; margin-top: 12px; }
 .cmp { display: grid; gap: 12px; }
 .cmp div { display: grid; grid-template-columns: 84px minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 15px; }
@@ -357,6 +369,21 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     { id: 'youtube', name: 'YouTube', core: false, er: 1.3, posts: 4, cpmX: null, ads: false, rough: true }
   ];
   var BY = {}; PLATFORMS.forEach(function (p) { BY[p.id] = p; });
+  // Market channels: platforms that reach guests Meta and TikTok cannot (mainland China, Russia). No ad cost model.
+  var XPF = { red: { n: 'RED (Xiaohongshu)', mk: 'cn' }, douyin: { n: 'Douyin', mk: 'cn' }, vk: { n: 'VK', mk: 'ru' }, telegram: { n: 'Telegram', mk: 'ru' } };
+  var XMK = {
+    cn: { who: 'Chinese guests', lang: 'Chinese', a: 'red', b: 'douyin',
+      none: 'Instagram, Facebook and TikTok don’t work in mainland China. Chinese travellers plan trips on RED (Xiaohongshu) and get inspired on Douyin. Add both to reach them.',
+      noA: 'You have Douyin, which inspires people, but not RED. RED is where Chinese travellers research hotels, read real guest reviews and save trips before they book. Without it you’re missing at the planning stage.',
+      noB: 'You have RED, where trips get planned, but not Douyin. Douyin’s short videos and livestreams are where Chinese travellers first discover a place, and many book straight from a livestream.',
+      done: 'You’re on RED and Douyin. Post in Chinese, or work with a Chinese content partner, so your posts feel native.' },
+    ru: { who: 'Russian guests', lang: 'Russian', a: 'vk', b: 'telegram',
+      none: 'Instagram and Facebook are blocked in Russia and Meta doesn’t sell ads there. Russian travellers are easier to reach on VK and Telegram. Add both.',
+      noA: 'You have Telegram but not VK. VK is Russia’s largest social network, where travellers browse communities, compare destinations and see ads.',
+      noB: 'You have VK but not a Telegram channel. Telegram channels are where many Russian travellers follow travel deals, tour agents and destination news. Your posts go straight to subscribers with no algorithm in the way, which makes it one of the most reliable ways to reach them.',
+      done: 'You’re on VK and Telegram. Post in Russian and share your channel with Russian tour agents, who often repost offers.' }
+  };
+  var XPOST = [['no', 'Not yet'], ['some', 'Sometimes'], ['week', 'Every week']], XLANG = [['yes', 'Yes'], ['partly', 'Partly'], ['no', 'No']];
 
   // Facebook cost per 1,000 views by guest market (midpoint of 2026 ranges). null = these platforms cannot reach that market.
   var MARKETS = [
@@ -621,7 +648,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   function fresh() {
     return { step: 0, biz: null, cat: null, btype: null, aud: {}, shared: true, sharedName: '', names: {}, sel: {}, d: blankData(), example: false, email: '',
       markets: {}, areas: {},
-      ads: { mode: 'organic', spend: 0, camps: 0, on: {}, how: 'boost', result: 'little' }, team: { track: null, who: null }, fun: [false, false, false, false, false, false, false], planInit: false,
+      ads: { mode: 'organic', spend: 0, camps: 0, on: {}, how: 'boost', result: 'little' }, team: { track: null, who: null }, fun: [false, false, false, false, false, false, false], planInit: false, xsel: {}, xd: { red: { post: 'no', f: 0 }, douyin: { post: 'no', f: 0 }, vk: { post: 'no', f: 0 }, telegram: { post: 'no', f: 0 } }, xlang: { cn: null, ru: null },
       plan: { tab: 'reach', reach: tFor(20000, RE), perAd: tFor(50, PA), adj: 100, cpf: 0.8, target: 30, org: 2, occ: { val: true, ram: true, bf: true, xmas: true, ny: true }, occBudget: tFor(200, PA), occDays: 10 } };
   }
   function example() {
@@ -654,6 +681,15 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   }
   function mixCpm() { var a = adPlatforms(); return a.reduce(function (s, p) { return s + cpmFor(p.id); }, 0) / a.length; }
   function blocked() { return hasTourist() ? MARKETS.filter(function (x) { return state.markets[x.id] && x.block; }) : []; }
+  function xMarkets() { return hasTourist() ? ['cn', 'ru'].filter(function (k) { return state.markets[k]; }) : []; }
+  function xStatus(mk) {
+    var M = XMK[mk], ha = !!state.xsel[M.a], hb = !!state.xsel[M.b], c = (ha ? 1 : 0) + (hb ? 1 : 0);
+    var cls2 = c === 2 ? 'good' : c ? 'warn' : 'bad';
+    return { mk: mk, M: M, lvl: c, cls: cls2, tag: c === 2 ? 'Covered' : c ? 'Half covered' : 'Not covered', text: c === 2 ? M.done : c ? (ha ? M.noB : M.noA) : M.none,
+      chans: [M.a, M.b].filter(function (k) { return state.xsel[k]; }).map(function (k) { var d = state.xd[k]; return { id: k, n: XPF[k].n, post: d.post, f: valOf(d.f, FOL) }; }) };
+  }
+  function xPostTxt(p) { return p === 'week' ? 'posts every week' : p === 'some' ? 'posts sometimes' : 'not posting yet'; }
+  function xLine(c) { return c.n + ': ' + xPostTxt(c.post) + ', ' + fmt(c.f) + (c.id === 'telegram' ? ' subscribers' : ' followers'); }
   function reachRate(id, followers) {
     var t = REACH_TIERS[id]; if (!t) return null;
     var k = Math.min(1, Math.max(0, (Math.log10(followers) - Math.log10(3000)) / 2));
@@ -703,6 +739,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       ids.forEach(function (id) { var v = a.s[id] || 0; if (v > best) best = v; if (v) who.push(BY[id].name); });
       return { n: a.n, lvl: best, who: who };
     });
+    xMarkets().forEach(function (mk) { var st = xStatus(mk); rows.push({ n: 'Guests from ' + (mk === 'cn' ? 'China' : 'Russia'), lvl: st.lvl, who: st.chans.map(function (c) { return c.n; }), xmk: mk }); });
     var coverage = Math.round(rows.reduce(function (s, r) { return s + r.lvl; }, 0) / (rows.length * 2) * 100);
     var risk, riskCls, riskText;
     if (core.length <= 1) {
@@ -952,6 +989,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     R.mix.missing.forEach(function (m) { L.push('Missing without ' + m.name + ': ' + m.text); });
     R.mix.blocked.forEach(function (b) { L.push(b.n + ': ' + b.block); });
     if (R.local) { L.push('', 'Your local reach'); R.local.lines.forEach(function (x) { L.push(x); }); }
+    xMarkets().map(xStatus).forEach(function (s) { L.push('', 'Market channels, ' + s.M.who + ': ' + s.tag.toLowerCase(), s.text); s.chans.forEach(function (c) { L.push('\u2022 ' + xLine(c)); }); });
     R.foreign.forEach(function (f) { L.push('', f.title); f.items.forEach(function (it) { L.push('\u2022 ' + it.name + ': ' + it.ev + ' ' + it.how); }); });
     L.push('', 'Visibility compass (out of 100)');
     R.compass.forEach(function (c) { L.push('• ' + c.n + ': ' + c.v); });
@@ -1081,13 +1119,30 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     var achips = AREAS.map(function (a) { return '<button type="button" class="chip" data-act="area" data-v="' + a.id + '" aria-pressed="' + !!state.areas[a.id] + '">' + a.n + '</button>'; }).join('');
     var localPart = '<div><span class="lbl">' + (isLocal() ? 'Where do your customers live?' : 'Where do your local customers live?') + '</span><div class="chips">' + achips + '</div>' +
       '<p class="pillnote" id="areaNote">' + areaSummary() + '</p></div>';
-    var touristPart = '<div><span class="lbl">Where do most of your guests come from?</span><div class="chips">' + mchips + '</div><div id="mktWarn">' + marketWarn() + '</div></div>';
+    var touristPart = '<div><span class="lbl">Where do most of your guests come from?</span><div class="chips">' + mchips + '</div><div id="mktWarn">' + marketWarn() + '</div><div id="xpBlock">' + xpBlock() + '</div></div>';
     return '<section class="card">' + progress(active().length + 2) +
       '<p class="kicker">' + (isLocal() ? 'Your customers' : 'Your guests') + '</p><h2>' + (isLocal() ? 'Who are you trying to reach?' : state.biz === 'both' ? 'Who are your customers and guests?' : 'Where do your guests come from?') + '</h2>' +
       '<p class="sub">' + (isLocal() ? 'We use this to size your local audience and estimate ad costs.' : 'Ad costs depend a lot on where your audience lives. Pick all that apply.') + '</p>' +
       '<div class="stack">' + (hasLocal() ? localPart : '') + (hasTourist() ? touristPart : '') + '</div>' +
       '<div class="actions"><button type="button" class="btn ghost" data-act="back">Back</button><button type="button" class="btn primary" data-act="next">Next: your funnel</button></div></section>';
   }
+
+  function xpBlock() {
+    return xMarkets().map(function (mk) {
+      var M = XMK[mk], st = xStatus(mk);
+      var chips = [M.a, M.b].map(function (k) { return '<button type="button" class="chip small" data-act="xp" data-v="' + k + '" aria-pressed="' + !!state.xsel[k] + '">' + XPF[k].n + ' <em class="rec">Recommended</em></button>'; }).join('');
+      var rowsX = [M.a, M.b].filter(function (k) { return state.xsel[k]; }).map(function (k) {
+        var d = state.xd[k];
+        return '<div class="xrow"><b>' + XPF[k].n + '</b><div class="seg">' + XPOST.map(function (o) { return '<button type="button" class="chip" data-act="xpost" data-id="' + k + '" data-v="' + o[0] + '" aria-pressed="' + (d.post === o[0]) + '">' + o[1] + '</button>'; }).join('') + '</div>' +
+          '<div class="q"><div class="top"><label for="x-' + k + '">' + (k === 'telegram' ? 'Channel subscribers' : 'Followers') + '</label><span class="val" id="xv-' + k + '">' + fmt(valOf(d.f, FOL)) + '</span></div>' +
+          '<input type="range" id="x-' + k + '" data-act="xslide" data-id="' + k + '" min="0" max="100" step="1" value="' + d.f + '" style="--p:' + d.f + '%"><div class="ticks"><span>0</span><span>1M</span></div></div></div>';
+      }).join('');
+      var lang = '<div><span class="lbl">Do you post in ' + M.lang + '?</span><div class="seg">' + XLANG.map(function (o) { return '<button type="button" class="chip" data-act="xlang" data-k="' + mk + '" data-v="' + o[0] + '" aria-pressed="' + (state.xlang[mk] === o[0]) + '">' + o[1] + '</button>'; }).join('') + '</div></div>';
+      return '<div class="xblock"><span class="lbl" style="font-size:1.05rem">Your channels for ' + M.who + '</span><div class="chips">' + chips + '</div>' +
+        '<div class="xnote ' + st.cls + '"><b>' + M.who + ': ' + st.tag.toLowerCase() + '</b> ' + esc(st.text) + '</div>' + rowsX + (st.lvl ? lang : '') + '</div>';
+    }).join('');
+  }
+  function refreshXp() { var x = document.getElementById('xpBlock'); if (x) x.innerHTML = xpBlock(); }
 
   function viewFunnel() {
     var stg = { aw: 'Found', co: 'Compared', cv: 'Booked', lo: 'Back again', ad: 'Recommended' };
@@ -1182,7 +1237,12 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
         }).join('') + '</div><p class="hint">Your followers as a share of each platform\u2019s users in ' + esc(list(LC.names)) + '.</p>' +
         LC.lines.slice(1).map(function (x) { return '<p class="body">' + esc(x) + '</p>'; }).join('') + '</div>';
     }
-    var foreignSect = R.foreign.map(function (f) {
+    var xs = xMarkets().map(xStatus);
+    var xSect = xs.length ? '<div class="sect"><div class="row-h"><h3>Market channels</h3><span class="tag">China and Russia</span></div>' + xs.map(function (s) {
+      return '<div class="xnote ' + s.cls + '" style="margin-top:12px"><b>' + s.M.who + ': ' + s.tag.toLowerCase() + '</b> ' + esc(s.text) +
+        (s.chans.length ? '<ul class="xlist">' + s.chans.map(function (c) { return '<li>' + esc(xLine(c)) + '</li>'; }).join('') + (state.xlang[s.mk] ? '<li>Posts in ' + s.M.lang + ': ' + (state.xlang[s.mk] === 'yes' ? 'yes' : state.xlang[s.mk] === 'partly' ? 'partly' : 'no, so posts may not feel native') + '</li>' : '') + '</ul>' : '') + '</div>';
+    }).join('') + '</div>' : '';
+    var foreignSect = xSect + R.foreign.map(function (f) {
       return '<div class="sect"><h3>' + f.title + '</h3><ul class="cov">' + f.items.map(function (it) {
         return '<li><span><b>' + esc(it.name) + '</b></span><span class="st part">Guide</span><small>' + esc(it.ev) + '</small><small style="color:var(--ink)">' + esc(it.how) + '</small></li>';
       }).join('') + '</ul></div>';
@@ -1394,7 +1454,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
         best.p.name + ' is the cheapest way to reach them. ' +
         (r.organic ? 'Today your organic posts on Instagram and Facebook reach about ' + fmt(r.organic) + ' people each, mostly the same followers every time. Ads are how you reach new ones.' : '') + '</p>' +
         (hasLocal() && localAud('facebook') && r.people > localAud('facebook') ? '<div class="warnbox">Your local area has only about ' + fmt(localAud('facebook')) + ' people on Facebook. ' + (isLocal() ? 'Above that, you are paying to show the same people your ad again and again.' : 'The rest of this reach has to come from your guest markets.') + '</div>' : '') +
-        (blocked().length ? '<div class="warnbox">These costs leave out ' + list(blocked().map(function (b) { return b.n; })) + ', which these platforms cannot reach.</div>' : '');
+        (blocked().length ? '<div class="warnbox">These costs leave out ' + list(blocked().map(function (b) { return b.n; })) + ', which these platforms cannot reach.' + (xMarkets().length ? ' For Chinese and Russian guests, budget separately for RED and Douyin or VK and Telegram, usually through a local agency.' : '') + '</div>' : '');
     } else if (P.tab === 'growth') {
       var g = growthCalc();
       h = '<div class="stats"><div class="stat"><div class="big">' + (g.g * 100).toFixed(1) + '%</div><span>growth needed each month</span></div>' +
@@ -1505,6 +1565,11 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     if (mx.blocked.length) para(mx.blocked.map(function (b) { return b.n + ' guests: ' + b.block; }));
     para(['Best setup: ' + mx.rec.map(function (r) { return r.name + (r.has ? ' (you have it)' : r.core ? ' (add this)' : ' (optional)'); }).join(', ') + '.']);
     if (R.local) { y += 2; head('How you do locally'); para(R.local.lines); }
+    var xsP = xMarkets().map(xStatus);
+    if (xsP.length) { y += 2; head('Market channels'); xsP.forEach(function (s) {
+      var cc = C[s.cls]; room(8); doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(cc[0], cc[1], cc[2]); doc.text((s.M.who + ': ' + s.tag).toUpperCase(), M, y); y += 6;
+      para([s.text].concat(s.chans.map(xLine)));
+    }); }
     R.foreign.forEach(function (f) { y += 2; head(f.title); para(f.items.map(function (it) { return it.name + ': ' + it.ev + ' ' + it.how; }), true); });
     y += 2; head('Platform by platform');
     R.rows.forEach(function (r) {
@@ -1576,7 +1641,11 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     else if (a === 'mkt') {
       state.markets[v] = !state.markets[v]; t.setAttribute('aria-pressed', !!state.markets[v]);
       document.getElementById('mktWarn').innerHTML = blocked().map(function (b) { return '<div class="warnbox"><b>' + b.n + '.</b> ' + b.block + '</div>'; }).join('');
+      refreshXp();
     }
+    else if (a === 'xp') { state.xsel[v] = !state.xsel[v]; refreshXp(); }
+    else if (a === 'xpost') { state.xd[t.getAttribute('data-id')].post = v; press('[data-act="xpost"][data-id="' + t.getAttribute('data-id') + '"]', function (b) { return b === t; }); }
+    else if (a === 'xlang') { state.xlang[t.getAttribute('data-k')] = v; press('[data-act="xlang"][data-k="' + t.getAttribute('data-k') + '"]', function (b) { return b === t; }); }
     else if (a === 'cat') { if (state.cat !== v) { state.cat = v; state.btype = null; } render(); }
     else if (a === 'bt') { state.btype = v; state.example = false; render(); }
     else if (a === 'aud') { state.aud[v] = !state.aud[v]; syncBiz(); render(); }
@@ -1608,6 +1677,9 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       t.style.setProperty('--p', ((t.value - t.min) / (t.max - t.min) * 100) + '%');
       document.getElementById('v-' + t.getAttribute('data-k')).textContent = g.txt();
       if (g.plan) planOut();
+    } else if (a === 'xslide') {
+      var xid = t.getAttribute('data-id'); state.xd[xid].f = +t.value; t.style.setProperty('--p', t.value + '%');
+      document.getElementById('xv-' + xid).textContent = fmt(valOf(state.xd[xid].f, FOL));
     } else if (a === 'shared') { state.sharedName = t.value; state.example = false; }
     else if (a === 'name') { state.names[t.getAttribute('data-id')] = t.value; }
     else if (a === 'email') { state.email = t.value; refreshLinks(); }
@@ -1619,7 +1691,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   try {
     var Q = new URLSearchParams(location.search);
     function L(k) { return (Q.get(k) || '').split(',').filter(Boolean); }
-    L('p').forEach(function (id) { if (BY[id]) state.sel[id] = true; });
+    L('p').forEach(function (id) { if (BY[id]) state.sel[id] = true; else if (XPF[id]) state.xsel[id] = true; });
     var bt = Q.get('bt'); if (bt && catOf(bt)) { state.btype = bt; state.cat = catOf(bt); }
     else if (Q.get('cat') && CATS.some(function (c) { return c.id === Q.get('cat'); })) state.cat = Q.get('cat');
     L('aud').forEach(function (a) { if (a === 'locals' || a === 'expats' || a === 'tourists') state.aud[a] = true; });
