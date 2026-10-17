@@ -588,9 +588,14 @@ footer a:hover{color:var(--ink)}
 .tz-plat button{border-radius:14px;padding:12px 14px;justify-content:flex-start;position:relative;min-width:0}
 .tz-plat button em{margin-left:auto;font:500 .62rem "Geist Mono",monospace;font-style:normal;letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
 .tz-plat button[aria-pressed="true"] em{background:color-mix(in srgb,var(--hl-ink) 22%,transparent);color:var(--hl-ink)}
-.tz-note{font-size:.84rem;line-height:1.5;color:var(--muted);padding:10px 12px;border-radius:12px;background:var(--hl-soft)}
-.tz-note[hidden]{display:none}
-.tz-note b{color:var(--ink)}
+.tz-notes{display:grid;gap:8px}.tz-notes[hidden]{display:none}
+.tz-note{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;font-size:.84rem;line-height:1.5;color:var(--ink);padding:11px 13px;border-radius:12px;border:1px solid transparent}
+.tz-note i{font-size:1.15rem;margin-top:1px}
+.tz-note b{display:block;margin-bottom:2px}
+.tz-note span{color:var(--muted)}
+.tz-note.bad{background:var(--hl-soft);border-color:color-mix(in srgb,var(--hl) 35%,transparent)}.tz-note.bad i{color:var(--hl)}
+.tz-note.warn{background:color-mix(in srgb,#d99a2b 16%,transparent);border-color:color-mix(in srgb,#d99a2b 45%,transparent)}.tz-note.warn i{color:#c88a1c}
+.tz-note.good{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 40%,transparent)}.tz-note.good i{color:var(--accent)}
 .tz-svg{width:100%;height:auto;display:block;overflow:visible}
 .tz-track{fill:var(--line);opacity:.55}
 .tz-track-top{fill:var(--line);opacity:.8}
@@ -938,7 +943,7 @@ footer a:hover{color:var(--ink)}
         <div class="tz-q">
           <span class="lk-step">3. Where are you active?</span>
           <div class="tz-chips tz-plat" role="group" aria-label="Platforms you use" id="tzPlat"></div>
-          <p class="tz-note" id="tzNote" hidden></p>
+          <div class="tz-notes" id="tzNote" hidden></div>
         </div>
       </div>
       <div class="tz-view">
@@ -1805,6 +1810,8 @@ var CERTS = [
   var MKS=[['cn','China'],['ru','Russia'],['it','Italy'],['uk','UK'],['de','Germany'],['in','India'],['other','Others']];
   var ISL=[['male','Malé'],['hulhu','Hulhumalé'],['villi','Villimalé'],['addu','Addu City'],['fuvah','Fuvahmulah'],['kulhu','Kulhudhuffushi'],['thina','Thinadhoo'],['islands','Other islands']];
   var PL=[['instagram','Instagram','ph-instagram-logo'],['facebook','Facebook','ph-facebook-logo'],['tiktok','TikTok','ph-tiktok-logo'],['linkedin','LinkedIn','ph-linkedin-logo']];
+  var XPL={cn:[['red','RED (Xiaohongshu)','ph-book-open-text'],['douyin','Douyin','ph-music-notes']],ru:[['vk','VK','ph-users-three'],['telegram','Telegram','ph-telegram-logo']]};
+  function plats(){var l=PL.slice(); if(S.aud.tourists){if(S.mk.cn)l=l.concat(XPL.cn); if(S.mk.ru)l=l.concat(XPL.ru);} return l;}
   var S={cat:null,bt:null,aud:{},mk:{},is:{},p:{}};
   function $(id){return document.getElementById(id);}
   function keys(o){return Object.keys(o).filter(function(k){return o[k];});}
@@ -1840,7 +1847,8 @@ var CERTS = [
     var is=$('tzIs'); is.hidden=!(S.aud.locals||S.aud.expats); is.querySelector('.tz-chips').innerHTML=ISL.map(function(m){return btn('data-is',m[0],m[1],S.is[m[0]]);}).join('');
     $('tzIsLbl').textContent=S.aud.locals&&S.aud.expats?'Where do your local and expat customers live?':S.aud.expats?'Where do your expat customers live?':'Where do your customers live?';
     var rec=recommended();
-    $('tzPlat').innerHTML=PL.map(function(p){return btn('data-p',p[0],'<span>'+p[1]+'</span>',S.p[p[0]],p[2],rec[p[0]]?'<em>Recommended</em>':'');}).join('');
+    var av={}; plats().forEach(function(p){av[p[0]]=1;}); Object.keys(S.p).forEach(function(k){if(!av[k])delete S.p[k];});
+    $('tzPlat').innerHTML=plats().map(function(p){return btn('data-p',p[0],'<span>'+p[1]+'</span>',S.p[p[0]],p[2],rec[p[0]]?'<em>Recommended</em>':'');}).join('');
   }
   function westMk(){return !S.aud.tourists?false:(!keys(S.mk).length||keys(S.mk).some(function(k){return k!=='cn'&&k!=='ru';}));}
   function recommended(){
@@ -1849,6 +1857,8 @@ var CERTS = [
     if(loc||tw) {r.instagram=1;r.facebook=1;r.tiktok=1;}
     if((stay&&S.aud.tourists&&S.bt!=='homestay')||S.bt==='tours'||S.bt==='service') r.linkedin=1;
     if(S.aud.expats&&!S.aud.tourists&&S.cat==='exp') r.linkedin=1;
+    if(S.aud.tourists&&S.mk.cn){r.red=1;r.douyin=1;}
+    if(S.aud.tourists&&S.mk.ru){r.vk=1;r.telegram=1;}
     return r;
   }
   function segments(){
@@ -1857,19 +1867,19 @@ var CERTS = [
     if(S.aud.expats) g.push(['Expats living in the Maldives',{facebook:2,instagram:1,linkedin:1}]);
     if(westMk()){g.push(['Under-30 travellers',{tiktok:2,instagram:1}]);g.push(['Couples and honeymooners',{instagram:2,tiktok:1,facebook:1}]);g.push(['Families and over-40s',{facebook:2,instagram:1}]);}
     if(S.aud.tourists&&(S.cat==='stay'||S.bt==='tours'||S.bt==='dive')) g.push(['Travel agents and tour operators',{linkedin:2,facebook:1}]);
-    if(S.aud.tourists&&S.mk.cn) g.push(['Guests from China',{},'Needs RED and Douyin']);
-    if(S.aud.tourists&&S.mk.ru) g.push(['Guests from Russia',{},'Needs VK and Telegram']);
+    if(S.aud.tourists&&S.mk.cn) g.push(['Guests from China',{},'Needs RED and Douyin',['red','douyin']]);
+    if(S.aud.tourists&&S.mk.ru) g.push(['Guests from Russia',{},'Needs VK and Telegram',['vk','telegram']]);
     return g;
   }
   function paint(){
     var segs=segments(), tot=0, leg='', ps=keys(S.p);
-    segs.forEach(function(s){var lv=0;ps.forEach(function(k){if((s[1][k]||0)>lv)lv=s[1][k];});tot+=lv;
+    segs.forEach(function(s){var lv=0;if(s[3]){var c=s[3].filter(function(k){return S.p[k];}).length;lv=c===s[3].length?2:c?1:0;}else ps.forEach(function(k){if((s[1][k]||0)>lv)lv=s[1][k];});tot+=lv;
       leg+='<li class="'+(lv===2?'':lv===1?'part':'off')+'"><i></i><span>'+s[0]+'</span><small>'+(lv===2?'Reached':lv===1?'Partly':(s[2]||'Missed'))+'</small></li>';});
     var ready=!!(S.bt&&keys(S.aud).length&&ps.length), pct=segs.length&&ps.length?Math.round(tot/(segs.length*2)*100):0;
     $('tzLegend').innerHTML=leg||'<li class="tz-empty">Pick who your customers are to see which audiences you reach.</li>';
     $('tzClipR').setAttribute('width',(420*pct/100).toFixed(1));
     var lab=$('tzAwLab'); lab.textContent='Awareness'+(ps.length&&segs.length?' · '+pct+'%':''); lab.setAttribute('class','tz-lab'+(pct>=50?' on':''));
-    var rec=recommended(), miss=keys(rec).filter(function(k){return !S.p[k];}).map(function(k){return PL.filter(function(p){return p[0]===k;})[0][1];});
+    var rec=recommended(), miss=keys(rec).filter(function(k){return !S.p[k];}).map(function(k){return plats().filter(function(p){return p[0]===k;})[0][1];});
     var risk=$('tzRisk'),t=$('tzTitle'),x=$('tzText'),core=['instagram','facebook','tiktok'].filter(function(k){return S.p[k];}).length;
     function v(cls,tag,title,text){risk.className='hcx-risk '+cls;risk.textContent=tag;t.textContent=title;x.textContent=text;}
     if(!S.bt) v('idle','Step 1','What kind of business are you?','Pick a category, then the type that fits you best.');
@@ -1878,9 +1888,23 @@ var CERTS = [
     else if(pct>=75&&!miss.length) v('good','Strong start','Most of your audience can find you','Your platforms reach about '+pct+'% of the people you sell to. The test checks whether they go on to book or buy.');
     else if(pct>=45) v('warn','Some gaps','Seen by some, missed by others','You reach about '+pct+'% of your audience.'+(miss.length?' Adding '+list(miss)+' would close the biggest gap.':'')+(core===1?' Right now one app holds everything.':''));
     else v('','High risk','Most of your audience can’t see you','You reach about '+pct+'% of the people you sell to.'+(miss.length?' Start with '+list(miss)+'.':'')+(core===1?' Everything rides on one app.':''));
-    var notes=[]; if(S.aud.tourists&&S.mk.cn) notes.push('<b>Chinese guests:</b> Instagram, Facebook and TikTok don’t work in mainland China. They plan trips on RED (Xiaohongshu) and Douyin.');
-    if(S.aud.tourists&&S.mk.ru) notes.push('<b>Russian guests:</b> Instagram and Facebook are blocked in Russia. VK and Telegram reach them better.');
-    var nt=$('tzNote'); nt.hidden=!notes.length; nt.innerHTML=notes.join('<br>');
+    var notes=[];
+    function note(lbl,a,b,why,whyA,whyB,done){
+      var ha=S.p[a[0]],hb=S.p[b[0]],cls=ha&&hb?'good':ha||hb?'warn':'bad',ic=cls==='good'?'ph-check-circle':cls==='warn'?'ph-warning-circle':'ph-warning';
+      var body=cls==='good'?done:cls==='warn'?(ha?whyB:whyA):why;
+      notes.push('<div class="tz-note '+cls+'"><i class="ph '+ic+'" aria-hidden="true"></i><div><b>'+lbl+(cls==='good'?': covered':cls==='warn'?': half covered':'')+'</b><span>'+body+'</span></div></div>');
+    }
+    if(S.aud.tourists&&S.mk.cn) note('Chinese guests',XPL.cn[0],XPL.cn[1],
+      'Instagram, Facebook and TikTok don’t work in mainland China. Chinese travellers plan trips on RED (Xiaohongshu) and get inspired on Douyin. Add both to reach them.',
+      'You have Douyin, which inspires people, but not RED. RED is where Chinese travellers research hotels, read real guest reviews and save trips before they book. Without it you’re missing at the planning stage.',
+      'You have RED, where trips get planned, but not Douyin. Douyin’s short videos and livestreams are where Chinese travellers first discover a place, and many book straight from a livestream.',
+      'You’re on RED and Douyin. Post in Chinese, or work with a Chinese content partner, so your posts feel native.');
+    if(S.aud.tourists&&S.mk.ru) note('Russian guests',XPL.ru[0],XPL.ru[1],
+      'Instagram and Facebook are blocked in Russia and Meta doesn’t sell ads there. Russian travellers are easier to reach on VK and Telegram. Add both.',
+      'You have Telegram but not VK. VK is Russia’s largest social network, where travellers browse communities, compare destinations and see ads.',
+      'You have VK but not a Telegram channel. Telegram channels are where many Russian travellers follow travel deals, tour agents and destination news. Your posts go straight to subscribers with no algorithm in the way, which makes it one of the most reliable ways to reach them.',
+      'You’re on VK and Telegram. Post in Russian and share your channel with Russian tour agents, who often repost offers.');
+    var nt=$('tzNote'); nt.hidden=!notes.length; nt.innerHTML=notes.join('');
     var q=[]; if(S.bt) q.push('bt='+S.bt); if(S.cat) q.push('cat='+S.cat);
     [['aud',S.aud],['mk',S.mk],['is',S.is],['p',S.p]].forEach(function(e){var k=keys(e[1]); if(k.length) q.push(e[0]+'='+k.join(','));});
     var go=$('tzGo'); go.href='health-check.html'+(q.length?'?'+q.join('&'):''); go.setAttribute('aria-disabled',ready?'false':'true');
