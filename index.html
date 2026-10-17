@@ -621,7 +621,6 @@ footer a:hover{color:var(--ink)}
 .hcx-risk.good{background:var(--accent-soft);color:var(--accent)}
 .hcx-risk.idle{background:var(--bg);color:var(--muted)}
 .hcx-btn{margin-top:4px;align-self:flex-start}
-.hcx-btn[aria-disabled="true"]{opacity:.55}
 .hcx-meta{font-size:.82rem;color:var(--muted)}
 @media (max-width:980px){.tz{grid-template-columns:1fr}.tz-view{position:static}}
 @media (max-width:560px){.tz-panel,.tz-view{padding:18px;border-radius:18px}.tz-cats{grid-template-columns:1fr 1fr}.tz-plat{grid-template-columns:1fr}.tz-cats button{padding:12px;font-size:.9rem;gap:10px}.tz-cats button i{width:34px;height:34px;font-size:1.3rem}.tz-legend{grid-template-columns:1fr}}
@@ -801,10 +800,12 @@ footer a:hover{color:var(--ink)}
 /* Floating test prompt */
 .tz-float{position:fixed;z-index:55;right:max(16px,calc(env(safe-area-inset-right,0px) + 16px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:6px;padding:6px 6px 6px 8px;border-radius:999px;background:var(--surface);border:1px solid var(--line);box-shadow:0 18px 40px -16px rgba(5,15,16,.45);transform:translateY(140%);opacity:0;transition:transform .45s var(--ease),opacity .3s;pointer-events:none;max-width:calc(100vw - 32px)}
 .tz-float.on{transform:none;opacity:1;pointer-events:auto}
-.tz-float a{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;background:var(--hl);color:var(--hl-ink);text-decoration:none;font:600 .92rem Geist,sans-serif;min-width:0;line-height:1.2}
-.tz-float a i{font-size:1.15rem;flex:none}
-.tz-float a span{min-width:0}
-.tz-float a small{display:block;font:500 .7rem Geist,sans-serif;opacity:.85;margin-top:2px}
+.tz-float a,.tz-pill{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;background:var(--hl);color:var(--hl-ink);text-decoration:none;font:600 .92rem Geist,sans-serif;min-width:0;max-width:100%;line-height:1.2;transition:filter .2s}
+.tz-float a:hover,.tz-pill:hover{filter:brightness(1.06)}
+.tz-float a i,.tz-pill i{font-size:1.15rem;flex:none}
+.tz-float a span,.tz-pill span{min-width:0}
+.tz-float a small,.tz-pill small{display:block;font:500 .7rem Geist,sans-serif;opacity:.85;margin-top:2px}
+.tz-pill{padding:12px 20px}
 .tz-float button{flex:none;width:34px;height:34px;border-radius:50%;border:0;background:transparent;color:var(--muted);cursor:pointer;display:grid;place-items:center;font-size:1rem}
 .tz-float button:hover{color:var(--ink);background:var(--bg)}
 @media (prefers-reduced-motion:reduce){.tz-float{transition:none}}
@@ -966,8 +967,7 @@ footer a:hover{color:var(--ink)}
           <h3 id="tzTitle">What kind of business are you?</h3>
           <p id="tzText">Pick your business to start.</p>
         </div>
-        <a class="btn btn-hl hcx-btn" id="tzGo" href="health-check.html">Take the 5-minute test <i class="ph ph-arrow-right"></i></a>
-        <span class="hcx-meta">Free &middot; No sign-up &middot; Your report as a PDF</span>
+        <a class="tz-pill hcx-btn" id="tzGo" href="health-check.html"><i class="ph ph-heartbeat" aria-hidden="true"></i><span>Free 5-minute social visibility health check<small>No sign-up · Your report as a PDF</small></span></a>
       </div>
     </div>
   </div>
@@ -1917,7 +1917,7 @@ var CERTS = [
     var nt=$('tzNote'); nt.hidden=!notes.length; nt.innerHTML=notes.join('');
     var q=[]; if(S.bt) q.push('bt='+S.bt); if(S.cat) q.push('cat='+S.cat);
     [['aud',S.aud],['mk',S.mk],['is',S.is],['p',S.p]].forEach(function(e){var k=keys(e[1]); if(k.length) q.push(e[0]+'='+k.join(','));});
-    var go=$('tzGo'); go.href='health-check.html'+(q.length?'?'+q.join('&'):''); go.setAttribute('aria-disabled',ready?'false':'true');
+    var go=$('tzGo'); go.href='health-check.html'+(q.length?'?'+q.join('&'):'');
   }
   root.addEventListener('click',function(e){
     var b=e.target.closest('button'); if(!b||!root.contains(b)) return; var d=b.dataset;
@@ -1945,8 +1945,8 @@ var CERTS = [
   var off=false; try{off=sessionStorage.getItem('tzFloatOff')==='1';}catch(e){}
   function upd(){
     if(off){f.classList.remove('on');return;}
-    var r=hc.getBoundingClientRect(), past=r.bottom<0, nearEnd=ct&&ct.getBoundingClientRect().top<window.innerHeight*0.9;
-    f.classList.toggle('on', past && !nearEnd);
+    var r=hc.getBoundingClientRect(), scrolled=window.scrollY>60, inTest=r.top<window.innerHeight*0.6&&r.bottom>window.innerHeight*0.4, nearEnd=ct&&ct.getBoundingClientRect().top<window.innerHeight*0.9;
+    f.classList.toggle('on', scrolled && !inTest && !nearEnd);
     var go=document.getElementById('tzGo'); if(go) document.getElementById('tzFloatGo').href=go.getAttribute('href');
   }
   document.getElementById('tzFloatX').addEventListener('click',function(){off=true;try{sessionStorage.setItem('tzFloatOff','1');}catch(e){} upd();});
