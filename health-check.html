@@ -10,43 +10,36 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 /* One question at a time, big touch targets, soft corners. The report page is styled like a newsletter issue.
    Embed note: self-contained apart from Google Fonts and the jsPDF script; no backend, nothing is stored. */
 :root {
-  --bg: #F6F1E9;
-  --surface: #FFFFFF;
-  --ink: #1D2B2A;
-  --muted: #667772;
-  --line: #E6DDCF;
-  --accent: #0F766E;
-  --accent-soft: #DBEFEB;
-  --accent-ink: #FFFFFF;
-  --good: #2E8B57;
-  --warn: #B87A10;
-  --bad: #D1503F;
-  --track: #EADFCF;
-  --chip: #F1EADD;
-  --shadow: 0 10px 30px rgba(60, 45, 20, 0.08);
-  --serif: "Fraunces", Georgia, "Times New Roman", serif;
-  --sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --bg: #f3f5f3; --surface: #ffffff; --ink: #10191b; --muted: #56625f; --line: #d6dddb;
+  --accent: #0b6b70; --accent-soft: #d8ebea; --accent-ink: #ffffff;
+  --hl: #e0603f; --hl-ink: #ffffff; --hl-soft: #fbe4dc;
+  --good: #2e8b57; --warn: #b87a10; --bad: #d1503f; --track: #e7ecea; --chip: #e7ecea;
+  --shadow: 0 20px 50px -24px rgba(16, 40, 44, 0.28);
+  --serif: Geist, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --sans: Geist, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #101B1A; --surface: #172625; --ink: #EDE9E0; --muted: #9DB0AC; --line: #29403D;
-    --accent: #4FD1C0; --accent-soft: #1F3D3A; --accent-ink: #07201D;
-    --good: #5CC98B; --warn: #E5B04B; --bad: #F08A7B; --track: #28403D; --chip: #1E312F;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    --bg: #0d1416; --surface: #141d20; --ink: #e8eeec; --muted: #9aa8a5; --line: #26333a;
+    --accent: #5cc5c0; --accent-soft: #16312f; --accent-ink: #06201f;
+    --hl: #f2876c; --hl-ink: #2a0d05; --hl-soft: #3a1f18;
+    --good: #5cc98b; --warn: #e5b04b; --bad: #f08a7b; --track: #1b2629; --chip: #1b2629;
+    --shadow: 0 20px 50px -24px rgba(0, 0, 0, 0.6);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #101B1A; --surface: #172625; --ink: #EDE9E0; --muted: #9DB0AC; --line: #29403D;
-  --accent: #4FD1C0; --accent-soft: #1F3D3A; --accent-ink: #07201D;
-  --good: #5CC98B; --warn: #E5B04B; --bad: #F08A7B; --track: #28403D; --chip: #1E312F;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --bg: #0d1416; --surface: #141d20; --ink: #e8eeec; --muted: #9aa8a5; --line: #26333a;
+  --accent: #5cc5c0; --accent-soft: #16312f; --accent-ink: #06201f;
+  --hl: #f2876c; --hl-ink: #2a0d05; --hl-soft: #3a1f18;
+  --good: #5cc98b; --warn: #e5b04b; --bad: #f08a7b; --track: #1b2629; --chip: #1b2629;
+  --shadow: 0 20px 50px -24px rgba(0, 0, 0, 0.6);
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -57,17 +50,18 @@ body {
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
 .wrap { max-width: 640px; margin: 0 auto; }
-h1, h2, h3 { font-family: var(--serif); margin: 0; text-wrap: balance; font-weight: 700; letter-spacing: -0.01em; }
+h1, h2, h3 { font-family: var(--serif); margin: 0; text-wrap: balance; font-weight: 700; letter-spacing: -0.025em; }
 h1 { font-size: clamp(2rem, 7vw, 2.7rem); line-height: 1.1; }
 h2 { font-size: clamp(1.55rem, 5.5vw, 2rem); line-height: 1.18; }
 h3 { font-size: 1.3rem; }
 p { margin: 0; }
-.kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--hl); margin-bottom: 10px; }
 .sub { color: var(--muted); margin-top: 10px; font-size: 18px; }
 .card { background: var(--surface); border-radius: 28px; padding: clamp(22px, 5vw, 36px); box-shadow: var(--shadow); }
 .progress { display: flex; gap: 6px; margin-bottom: 22px; }
 .progress i { flex: 1; height: 6px; border-radius: 6px; background: var(--track); }
 .progress i.on { background: var(--accent); }
+.progress i.on:last-of-type { background: var(--hl); }
 .stack { display: flex; flex-direction: column; gap: 26px; margin-top: 26px; }
 label, .lbl { font-weight: 700; font-size: 16px; display: block; }
 .field { position: relative; margin-top: 8px; }
@@ -147,7 +141,7 @@ input[type="range"]::-moz-range-thumb { width: 24px; height: 24px; border-radius
 @media (min-width: 560px) { .menu { left: auto; right: 0; } }
 /* floating send button: stays in the corner while the report scrolls */
 .share.float { position: fixed; z-index: 30; right: max(16px, calc(env(safe-area-inset-right, 0px) + 16px)); bottom: calc(18px + env(safe-area-inset-bottom, 0px)); animation: pop 0.3s ease both; }
-.share.float > .btn { box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25); padding: 15px 22px; }
+.share.float > .btn { box-shadow: 0 12px 28px -10px var(--hl); padding: 15px 22px; background: var(--hl); color: var(--hl-ink); }
 .share.float > .btn svg { width: 18px; height: 18px; flex: none; }
 .share.float .menu { top: auto; left: auto; right: 0; bottom: calc(100% + 12px); max-height: calc(100vh - 120px); overflow-y: auto; }
 @keyframes pop { from { opacity: 0; transform: translateY(14px) scale(0.96); } to { opacity: 1; transform: none; } }
@@ -262,13 +256,27 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
 </style>
 
 <style>
-.hc-back{position:fixed;z-index:31;top:calc(12px + env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:var(--card,#fff);color:inherit;text-decoration:none;font:500 14px/1 'DM Sans',system-ui,sans-serif;box-shadow:0 6px 20px -8px rgba(0,0,0,.25);border:1px solid rgba(0,0,0,.06)}
-.hc-back:hover{transform:translateY(-1px)}
-body{padding-top:44px}
+.hc-top{position:fixed;z-index:31;top:calc(12px + env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));display:flex;justify-content:space-between;pointer-events:none}
+.hc-top > *{pointer-events:auto}
+.hc-back{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border-radius:999px;background:var(--surface);color:var(--ink);border:1px solid var(--line);text-decoration:none;font:500 14px/1 var(--sans);box-shadow:var(--shadow);transition:border-color .2s,transform .2s}
+.hc-back:hover{border-color:var(--hl);transform:translateY(-1px)}
+.hc-back svg,.hc-theme svg{width:18px;height:18px}
+.hc-theme{width:42px;height:42px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer;box-shadow:var(--shadow);transition:border-color .2s}
+.hc-theme:hover{border-color:var(--hl)}
+.hc-theme .sun{display:none}
+:root[data-theme="dark"] .hc-theme .sun{display:block}:root[data-theme="dark"] .hc-theme .moon{display:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .hc-theme .sun{display:block}:root:not([data-theme="light"]) .hc-theme .moon{display:none}}
+body{padding-top:68px !important}
 </style>
 </head>
 <body>
-<a class="hc-back" href="./#growth">&larr; Back to portfolio</a>
+<div class="hc-top"><a class="hc-back" href="./#growth"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back to portfolio</a><button class="hc-theme" id="hcTheme" type="button" aria-label="Switch light or dark mode"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button></div>
+<script>
+(function(){var r=document.documentElement,mq=window.matchMedia('(prefers-color-scheme: dark)');
+try{var s=localStorage.getItem('theme');if(s)r.setAttribute('data-theme',s);}catch(e){}
+function cur(){return r.getAttribute('data-theme')||(mq.matches?'dark':'light');}
+document.getElementById('hcTheme').addEventListener('click',function(){var n=cur()==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();
+</script>
 <main class="wrap">
   <div id="app"></div>
   <div id="toast" role="status" aria-live="polite"></div>
@@ -1088,7 +1096,7 @@ body{padding-top:44px}
   function buildPdf(R) {
     var J = window.jspdf.jsPDF, doc = new J({ unit: 'mm', format: 'a4' }), W = 210, M = 18, y;
     var C = { good: [46, 139, 87], warn: [201, 138, 27], bad: [209, 80, 63] };
-    doc.setFillColor(15, 118, 110); doc.rect(0, 0, W, 58, 'F');
+    doc.setFillColor(11, 107, 112); doc.rect(0, 0, W, 58, 'F');
     doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.text('THE HEALTH CHECK  ·  ' + R.date.toUpperCase(), M, 16);
     doc.setFontSize(26); doc.text(R.label, M, 34);
     doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
@@ -1109,7 +1117,7 @@ body{padding-top:44px}
     mx.rows.forEach(function (r) {
       room(7);
       doc.setFont('helvetica', 'normal'); doc.setFontSize(10.5); doc.setTextColor(29, 43, 42); doc.text(r.n, M, y);
-      var lab = r.lvl === 2 ? 'Reached' : r.lvl === 1 ? 'Partly' : 'Missed', cc = r.lvl === 2 ? [15, 118, 110] : r.lvl === 1 ? [140, 130, 110] : C.bad;
+      var lab = r.lvl === 2 ? 'Reached' : r.lvl === 1 ? 'Partly' : 'Missed', cc = r.lvl === 2 ? [11, 107, 112] : r.lvl === 1 ? [140, 130, 110] : C.bad;
       doc.setFont('helvetica', 'bold'); doc.setTextColor(cc[0], cc[1], cc[2]); doc.text(lab, W - M, y, { align: 'right' }); y += 6.5;
     });
     y += 2;
@@ -1133,10 +1141,10 @@ body{padding-top:44px}
     R.top.forEach(function (f, i) {
       doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
       var ln = doc.splitTextToSize(f.tip, W - 2 * M - 14); room(14 + ln.length * 5);
-      doc.setFont('helvetica', 'bold'); doc.setFontSize(24); doc.setTextColor(15, 118, 110); doc.text(String(i + 1), M, y + 6);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(24); doc.setTextColor(11, 107, 112); doc.text(String(i + 1), M, y + 6);
       doc.setFontSize(9); doc.setTextColor(102, 119, 114); doc.text(f.p.toUpperCase(), M + 14, y);
       doc.setFont('helvetica', 'normal'); doc.setFontSize(11); doc.setTextColor(29, 43, 42); doc.text(ln, M + 14, y + 6);
-      doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.setTextColor(15, 118, 110); doc.text(f.gainText ? 'Opens a new audience' : '+' + f.gain + ' points', M + 14, y + 6 + ln.length * 5 + 1);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.setTextColor(11, 107, 112); doc.text(f.gainText ? 'Opens a new audience' : '+' + f.gain + ' points', M + 14, y + 6 + ln.length * 5 + 1);
       y += 12 + ln.length * 5 + 6;
     });
     if (R.nm || R.claim) { y += 2; head('Your names'); para([R.nm, R.claim].filter(Boolean)); }
