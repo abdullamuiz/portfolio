@@ -551,6 +551,30 @@ footer a:hover{color:var(--ink)}
 .funnel strong{font:700 1.45rem/1 Geist,sans-serif;letter-spacing:-.03em;color:var(--ink)}
 .funnel span{font-size:.8rem;color:var(--muted)}
 .funnel li.hl{background:var(--hl)}
+/* Social Health Check teaser */
+.hc-card{margin-top:28px;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:28px;align-items:center;padding:28px 32px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);color:var(--ink);text-decoration:none;transition:transform .3s var(--ease),border-color .3s}
+.hc-card:hover{transform:translateY(-3px);border-color:var(--accent)}
+.hc-copy{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:0}
+.hc-eyebrow{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:var(--pill);background:var(--accent-soft);color:var(--accent);font:600 .78rem Geist,sans-serif;letter-spacing:.04em;text-transform:uppercase}
+.hc-card h3{font:600 clamp(1.4rem,2.4vw,1.9rem)/1.15 Geist,sans-serif;letter-spacing:-.02em;text-wrap:balance}
+.hc-card p{color:var(--muted);max-width:52ch}
+.hc-btn{margin-top:6px}
+.hc-meta{font-size:.82rem;color:var(--muted)}
+.hc-preview{display:flex;align-items:center;gap:22px;padding:20px;border-radius:calc(var(--radius) - 4px);background:var(--surface-2);min-width:0}
+.hc-ring{position:relative;width:104px;flex:none}
+.hc-ring svg{width:100%;display:block;transform:rotate(-90deg)}
+.hc-ring circle{fill:none;stroke-width:11;stroke-linecap:round}
+.hc-track{stroke:var(--line)}
+.hc-val{stroke:var(--accent);stroke-dasharray:314;stroke-dashoffset:100}
+.hc-ring span{position:absolute;inset:0;display:flex;align-items:baseline;justify-content:center;padding-top:36px;font-family:Geist,sans-serif}
+.hc-ring b{font-size:1.9rem;letter-spacing:-.03em}
+.hc-ring small{font-size:.75rem;color:var(--muted);margin-left:2px}
+.hc-bars{list-style:none;display:flex;flex-direction:column;gap:12px;flex:1;min-width:0}
+.hc-bars li{display:flex;flex-direction:column;gap:5px;font-size:.8rem;color:var(--muted)}
+.hc-bars i{display:block;height:8px;border-radius:var(--pill);background:linear-gradient(90deg,var(--accent) var(--w),var(--line) var(--w))}
+.hc-bars i.lo{background:linear-gradient(90deg,var(--hl) var(--w),var(--line) var(--w))}
+@media (max-width:820px){.hc-card{grid-template-columns:1fr;padding:22px}.hc-preview{order:-1}}
+
 .funnel li.hl strong,.funnel li.hl span{color:var(--hl-ink)}
 @media (max-width:900px){.funnel strong{font-size:1.2rem}.funnel li{padding:10px}}
 
@@ -974,6 +998,25 @@ footer a:hover{color:var(--ink)}
         </div>
       </div>
     </div>
+
+    <!-- Social Health Check teaser -->
+    <a class="hc-card reveal" href="health-check.html" aria-label="Run the free Social Health Check">
+      <div class="hc-copy">
+        <span class="hc-eyebrow"><i class="ph ph-heartbeat"></i> Free tool</span>
+        <h3>How healthy are your socials?</h3>
+        <p>Score your Instagram, Facebook and TikTok against 2026 benchmarks for Maldivian businesses. Get a reach plan and a report you can save as a PDF.</p>
+        <span class="btn btn-primary hc-btn">Run the free check <i class="ph ph-arrow-right"></i></span>
+        <span class="hc-meta">2 minutes &middot; No sign-up &middot; PDF report</span>
+      </div>
+      <div class="hc-preview" aria-hidden="true">
+        <div class="hc-ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" class="hc-track"/><circle cx="60" cy="60" r="50" class="hc-val"/></svg><span><b>68</b><small>/100</small></span></div>
+        <ul class="hc-bars">
+          <li><span>Instagram</span><i style="--w:74%"></i></li>
+          <li><span>Facebook</span><i style="--w:58%"></i></li>
+          <li><span>TikTok</span><i class="lo" style="--w:22%"></i></li>
+        </ul>
+      </div>
+    </a>
   </div>
 </section>
 

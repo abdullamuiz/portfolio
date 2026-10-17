@@ -1,0 +1,1228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A free 2-minute social media health check for Maldivian businesses, built on 2026 benchmarks by Abdulla Muiz Fuad.">
+<meta property="og:title" content="Social Health Check · Abdulla Muiz Fuad">
+<meta property="og:description" content="Score your Instagram, Facebook and TikTok against 2026 benchmarks in 2 minutes.">
+<title>Social Health Check · Abdulla Muiz Fuad</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+/* One question at a time, big touch targets, soft corners. The report page is styled like a newsletter issue.
+   Embed note: self-contained apart from Google Fonts and the jsPDF script; no backend, nothing is stored. */
+:root {
+  --bg: #F6F1E9;
+  --surface: #FFFFFF;
+  --ink: #1D2B2A;
+  --muted: #667772;
+  --line: #E6DDCF;
+  --accent: #0F766E;
+  --accent-soft: #DBEFEB;
+  --accent-ink: #FFFFFF;
+  --good: #2E8B57;
+  --warn: #B87A10;
+  --bad: #D1503F;
+  --track: #EADFCF;
+  --chip: #F1EADD;
+  --shadow: 0 10px 30px rgba(60, 45, 20, 0.08);
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101B1A; --surface: #172625; --ink: #EDE9E0; --muted: #9DB0AC; --line: #29403D;
+    --accent: #4FD1C0; --accent-soft: #1F3D3A; --accent-ink: #07201D;
+    --good: #5CC98B; --warn: #E5B04B; --bad: #F08A7B; --track: #28403D; --chip: #1E312F;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101B1A; --surface: #172625; --ink: #EDE9E0; --muted: #9DB0AC; --line: #29403D;
+  --accent: #4FD1C0; --accent-soft: #1F3D3A; --accent-ink: #07201D;
+  --good: #5CC98B; --warn: #E5B04B; --bad: #F08A7B; --track: #28403D; --chip: #1E312F;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.55;
+  padding-block: 28px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 640px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--serif); margin: 0; text-wrap: balance; font-weight: 700; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2rem, 7vw, 2.7rem); line-height: 1.1; }
+h2 { font-size: clamp(1.55rem, 5.5vw, 2rem); line-height: 1.18; }
+h3 { font-size: 1.3rem; }
+p { margin: 0; }
+.kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.sub { color: var(--muted); margin-top: 10px; font-size: 18px; }
+.card { background: var(--surface); border-radius: 28px; padding: clamp(22px, 5vw, 36px); box-shadow: var(--shadow); }
+.progress { display: flex; gap: 6px; margin-bottom: 22px; }
+.progress i { flex: 1; height: 6px; border-radius: 6px; background: var(--track); }
+.progress i.on { background: var(--accent); }
+.stack { display: flex; flex-direction: column; gap: 26px; margin-top: 26px; }
+label, .lbl { font-weight: 700; font-size: 16px; display: block; }
+.field { position: relative; margin-top: 8px; }
+.field span { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 18px; pointer-events: none; }
+input[type="text"], input[type="email"] {
+  width: 100%; font: inherit; font-size: 18px; color: var(--ink); background: var(--bg);
+  border: 2px solid transparent; border-radius: 16px; padding: 14px 18px; min-width: 0;
+}
+.field input { padding-left: 38px; }
+input[type="text"]:focus, input[type="email"]:focus { outline: none; border-color: var(--accent); background: var(--surface); }
+button, a.btn { font: inherit; cursor: pointer; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;
+  border: 0; border-radius: 999px; padding: 15px 28px; font-weight: 700; font-size: 17px;
+  background: var(--chip); color: var(--ink); transition: transform 0.12s ease, background 0.12s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: scale(0.98); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); }
+.btn.ghost { background: transparent; color: var(--muted); padding-inline: 16px; }
+.btn[disabled] { opacity: 0.45; cursor: not-allowed; transform: none; }
+button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.actions { display: flex; gap: 10px; justify-content: space-between; align-items: center; margin-top: 34px; flex-wrap: wrap; }
+.actions .right { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* switch */
+.switch { display: flex; align-items: center; gap: 14px; background: var(--bg); border-radius: 18px; padding: 14px 18px; border: 0; width: 100%; text-align: left; color: var(--ink); }
+.switch .knob { flex: none; width: 52px; height: 30px; border-radius: 30px; background: var(--track); position: relative; transition: background 0.15s; }
+.switch .knob::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; transition: transform 0.15s; box-shadow: 0 1px 3px rgba(0,0,0,0.25); }
+.switch[aria-checked="true"] .knob { background: var(--accent); }
+.switch[aria-checked="true"] .knob::after { transform: translateX(22px); }
+.switch b { font-size: 16px; }
+
+/* chips and pills */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.chip {
+  border: 2px solid transparent; background: var(--chip); color: var(--ink); border-radius: 999px;
+  padding: 11px 20px; font-weight: 500; font-size: 17px; transition: all 0.12s ease;
+}
+.chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--ink); font-weight: 700; }
+.chip[aria-pressed="true"]::before { content: "\2713\00a0"; color: var(--accent); }
+.seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+.seg .chip { padding-inline: 8px; text-align: center; line-height: 1.25; }
+.seg .chip[aria-pressed="true"]::before { content: none; }
+.hint { font-size: 14.5px; color: var(--muted); margin-top: 8px; }
+.banner { background: var(--accent-soft); border-radius: 16px; padding: 12px 16px; font-size: 15px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
+.banner button { border: 0; background: none; color: var(--accent); font-weight: 700; font-size: 15px; text-decoration: underline; padding: 4px; cursor: pointer; }
+
+/* sliders */
+.q .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.q .val { font-family: var(--serif); font-weight: 700; font-size: 1.9rem; color: var(--accent); line-height: 1; }
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 36px; background: transparent; margin: 8px 0 0; padding: 0; cursor: pointer; }
+input[type="range"]::-webkit-slider-runnable-track { height: 12px; border-radius: 12px; background: linear-gradient(to right, var(--accent) var(--p, 0%), var(--track) var(--p, 0%)); }
+input[type="range"]::-moz-range-track { height: 12px; border-radius: 12px; background: var(--track); }
+input[type="range"]::-moz-range-progress { height: 12px; border-radius: 12px; background: var(--accent); }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 32px; height: 32px; border-radius: 50%; background: #fff; border: 4px solid var(--accent); margin-top: -10px; box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+input[type="range"]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 4px solid var(--accent); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+.ticks { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--muted); margin-top: 2px; }
+.pillnote { display: inline-block; margin-top: 8px; font-size: 14.5px; background: var(--chip); border-radius: 999px; padding: 5px 14px; color: var(--muted); }
+.togs { display: grid; gap: 10px; margin-top: 10px; }
+.togs .chip { text-align: left; border-radius: 18px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; }
+.togs .chip::before { content: "" !important; flex: none; width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--muted); background: transparent; }
+.togs .chip[aria-pressed="true"]::before { content: "\2713" !important; display: inline-grid; place-items: center; border-color: var(--accent); background: var(--accent); color: var(--accent-ink); font-size: 14px; }
+
+/* share menu */
+.share { position: relative; display: inline-block; }
+.menu {
+  position: absolute; z-index: 20; left: 0; top: calc(100% + 10px); width: min(340px, calc(100vw - 32px));
+  background: var(--surface); border-radius: 22px; padding: 14px; box-shadow: 0 18px 50px rgba(0,0,0,0.22); border: 1px solid var(--line);
+}
+.menu input { font-size: 16px; padding: 11px 14px; margin: 4px 0 10px; border-radius: 12px; }
+.mi {
+  display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; border: 0; background: none; color: var(--ink);
+  padding: 11px 10px; border-radius: 14px; font-size: 17px; font-weight: 500; text-decoration: none;
+}
+.mi:hover { background: var(--bg); }
+@media (min-width: 560px) { .menu { left: auto; right: 0; } }
+/* floating send button: stays in the corner while the report scrolls */
+.share.float { position: fixed; z-index: 30; right: max(16px, calc(env(safe-area-inset-right, 0px) + 16px)); bottom: calc(18px + env(safe-area-inset-bottom, 0px)); animation: pop 0.3s ease both; }
+.share.float > .btn { box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25); padding: 15px 22px; }
+.share.float > .btn svg { width: 18px; height: 18px; flex: none; }
+.share.float .menu { top: auto; left: auto; right: 0; bottom: calc(100% + 12px); max-height: calc(100vh - 120px); overflow-y: auto; }
+@keyframes pop { from { opacity: 0; transform: translateY(14px) scale(0.96); } to { opacity: 1; transform: none; } }
+body.float-on #toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+.float-space { height: 96px; }
+@media (prefers-reduced-motion: reduce) { .share.float { animation: none; } }
+.mi i { flex: none; width: 36px; height: 36px; border-radius: 12px; display: grid; place-items: center; font-style: normal; font-weight: 700; font-size: 15px; color: #fff; }
+.mi small { display: block; font-size: 13px; color: var(--muted); font-weight: 400; }
+.bar-actions { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; align-items: center; }
+
+/* newsletter report */
+.report { background: var(--surface); border-radius: 28px; box-shadow: var(--shadow); overflow: hidden; }
+.mast { background: var(--accent); color: var(--accent-ink); padding: 18px clamp(22px, 5vw, 36px); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.sect { padding: clamp(22px, 5vw, 34px); border-top: 1px solid var(--line); }
+.sect:first-of-type { border-top: 0; }
+.hero { display: flex; gap: 26px; align-items: center; flex-wrap: wrap; padding: clamp(24px, 5vw, 36px); }
+.ring { width: 150px; height: 150px; flex: none; }
+.ring .t { fill: none; stroke: var(--track); stroke-width: 13; }
+.ring .a { fill: none; stroke-width: 13; stroke-linecap: round; }
+.ring text { fill: var(--ink); font-family: var(--serif); font-weight: 700; font-size: 44px; }
+.ring .s { font-family: var(--sans); font-weight: 500; font-size: 12px; fill: var(--muted); }
+.hero > div { flex: 1 1 220px; min-width: 0; }
+.hero p.lede { color: var(--muted); margin-top: 8px; }
+.prow { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 4px 14px; align-items: center; padding: 14px 0; border-top: 1px solid var(--line); }
+.prow:first-of-type { border-top: 0; padding-top: 4px; }
+.badge { width: 44px; height: 44px; border-radius: 14px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-family: var(--serif); font-weight: 700; font-size: 1.3rem; grid-row: span 2; }
+.prow b { font-size: 18px; }
+.prow .n { font-family: var(--serif); font-weight: 700; font-size: 1.5rem; }
+.prow .meter { grid-column: 2 / -1; height: 10px; border-radius: 10px; background: var(--track); overflow: hidden; }
+.prow .meter i { display: block; height: 100%; border-radius: 10px; }
+.prow .why { grid-column: 2 / -1; font-size: 15px; color: var(--muted); }
+.good { color: var(--good); } .warn { color: var(--warn); } .bad { color: var(--bad); }
+.bg-good { background: var(--good); } .bg-warn { background: var(--warn); } .bg-bad { background: var(--bad); }
+.todo { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 20px; }
+.todo li { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; }
+.todo .num { font-family: var(--serif); font-weight: 700; font-size: 2.6rem; line-height: 0.9; color: var(--accent); }
+.todo b { display: block; font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.todo p { overflow-wrap: anywhere; }
+.todo .gain { color: var(--accent); font-weight: 700; font-size: 14.5px; }
+.note { font-size: 14.5px; color: var(--muted); padding: 0 clamp(22px, 5vw, 34px) clamp(22px, 5vw, 30px); }
+.sect p.body { margin-top: 10px; }
+/* ads question */
+.big2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 24px; }
+.big2 .chip { border-radius: 22px; padding: 20px 18px; text-align: left; display: flex; flex-direction: column; gap: 4px; font-size: 18px; }
+.big2 .chip::before { content: none !important; }
+.big3 { display: grid; gap: 10px; margin-top: 12px; }
+.big3 .chip { border-radius: 22px; padding: 18px 20px; text-align: left; display: flex; flex-direction: column; gap: 2px; font-size: 18px; }
+.big3 .chip::before { content: none !important; }
+.big3 .chip small, .big2 .chip small { font-weight: 400; color: var(--muted); font-size: 14.5px; }
+.big2 .chip small { font-weight: 400; color: var(--muted); font-size: 14.5px; }
+.reveal { display: flex; flex-direction: column; gap: 26px; padding: 22px; border-radius: 22px; background: var(--bg); margin-top: 16px; animation: rise 0.25s ease; }
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.row-h { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.tag { font-size: 13px; font-weight: 700; background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 5px 12px; }
+/* planner */
+.plan { margin-top: 22px; }
+.tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; background: var(--chip); padding: 5px; border-radius: 999px; margin-top: 20px; }
+.tabs button { border: 0; background: none; border-radius: 999px; padding: 11px 4px; font-weight: 700; font-size: 15.5px; color: var(--muted); }
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+.stat { background: var(--bg); border-radius: 20px; padding: 16px 18px; min-width: 0; }
+.stat .big { font-family: var(--serif); font-weight: 700; font-size: 1.9rem; line-height: 1.05; color: var(--accent); overflow-wrap: anywhere; }
+.stat span { font-size: 14px; color: var(--muted); }
+.dots { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.dots i { width: 18px; height: 18px; border-radius: 6px; background: var(--accent); opacity: 0.85; }
+.chart { width: 100%; height: auto; display: block; }
+.chart .tg { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linecap: round; }
+.chart .og { fill: none; stroke: var(--muted); stroke-width: 3; stroke-dasharray: 8 8; }
+.chart .gap { fill: var(--accent-soft); }
+.chart .grid { stroke: var(--line); stroke-width: 2; }
+.chart text { fill: var(--muted); font-size: 25px; font-family: var(--sans); }
+.chart text.lt { fill: var(--accent); font-weight: 700; }
+.months { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 4px; }
+.months span { text-align: center; font-size: 13px; padding: 12px 0; border-radius: 10px; background: var(--chip); color: var(--muted); font-weight: 500; }
+.months span.on { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+.flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+.flow li { background: var(--bg); border-radius: 18px; padding: 14px 16px; font-size: 15px; }
+.flow b { display: block; color: var(--accent); font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+details.assume { background: var(--bg); border-radius: 18px; padding: 14px 18px; }
+details.assume summary { cursor: pointer; font-weight: 700; font-size: 15.5px; }
+.seg .chip { font-size: 15.5px; }
+#toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; transition: all 0.2s ease; background: var(--ink); color: var(--bg); padding: 12px 22px; border-radius: 999px; font-size: 15px; pointer-events: none; z-index: 40; max-width: calc(100vw - 32px); text-align: center; }
+#toast.on { opacity: 1; transform: translate(-50%, 0); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+/* platform mix */
+.group-l { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 16px 0 0; }
+.risk { display: inline-block; font-size: 13px; font-weight: 700; border-radius: 999px; padding: 4px 12px; border: 2px solid currentColor; }
+.cov { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+.cov li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; background: var(--bg); border-radius: 16px; padding: 11px 14px; font-size: 15.5px; }
+.cov li small { grid-column: 1 / -1; color: var(--muted); font-size: 14px; }
+.st { font-size: 12.5px; font-weight: 700; border-radius: 999px; padding: 3px 11px; white-space: nowrap; }
+.st.full { background: var(--accent); color: var(--accent-ink); }
+.st.part { background: var(--track); color: var(--ink); }
+.st.miss { border: 2px solid var(--bad); color: var(--bad); padding: 1px 9px; }
+.covbar { height: 12px; border-radius: 12px; background: var(--track); overflow: hidden; margin-top: 12px; }
+.covbar i { display: block; height: 100%; border-radius: 12px; background: var(--accent); }
+.warnbox { background: var(--chip); border-left: 5px solid var(--warn); border-radius: 14px; padding: 12px 16px; font-size: 15px; margin-top: 12px; }
+.cmp { display: grid; gap: 12px; }
+.cmp div { display: grid; grid-template-columns: 84px minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 15px; }
+.cmp .t { height: 12px; border-radius: 12px; background: var(--track); overflow: hidden; }
+.cmp .t i { display: block; height: 100%; border-radius: 12px; background: var(--muted); opacity: 0.6; }
+.cmp .best .t i { background: var(--accent); opacity: 1; }
+.cmp .best b { color: var(--accent); }
+.cmp .off { color: var(--muted); }
+table.cpm { width: 100%; border-collapse: collapse; font-size: 14.5px; margin-top: 4px; }
+table.cpm th, table.cpm td { text-align: left; padding: 7px 4px; border-bottom: 1px solid var(--line); }
+table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+.src { font-size: 13.5px; color: var(--muted); margin: 6px 0 0; padding-left: 18px; display: grid; gap: 4px; }
+.src a { color: var(--accent); }
+.chip.small { font-size: 15px; padding: 9px 16px; }
+@media (prefers-reduced-motion: reduce) { .reveal { animation: none; } }
+</style>
+
+<style>
+.hc-back{position:fixed;z-index:31;top:calc(12px + env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:var(--card,#fff);color:inherit;text-decoration:none;font:500 14px/1 'DM Sans',system-ui,sans-serif;box-shadow:0 6px 20px -8px rgba(0,0,0,.25);border:1px solid rgba(0,0,0,.06)}
+.hc-back:hover{transform:translateY(-1px)}
+body{padding-top:44px}
+</style>
+</head>
+<body>
+<a class="hc-back" href="./#growth">&larr; Back to portfolio</a>
+<main class="wrap">
+  <div id="app"></div>
+  <div id="toast" role="status" aria-live="polite"></div>
+</main>
+
+<script>
+(function () {
+  /* =====================================================================
+     BENCHMARKS (October 2026). Every figure the scoring and planner use lives here,
+     so it can be updated in one place. Sources are listed in SOURCES below.
+     ===================================================================== */
+  var PLATFORMS = [
+    // er: typical engagement per post as % of followers. posts: healthy posts per month.
+    // cpmX: ad cost per 1,000 views relative to Facebook in the same market. ads: false = not planned for ads.
+    { id: 'instagram', name: 'Instagram', core: true, er: 0.48, posts: 16, cpmX: 1.1, ads: true },
+    { id: 'facebook', name: 'Facebook', core: true, er: 0.15, posts: 12, cpmX: 1.0, ads: true },
+    { id: 'tiktok', name: 'TikTok', core: true, er: 3.7, posts: 12, cpmX: 0.6, ads: true },
+    { id: 'linkedin', name: 'LinkedIn', core: false, er: 1.0, posts: 8, cpmX: 4.0, ads: true, rough: true },
+    { id: 'youtube', name: 'YouTube', core: false, er: 1.3, posts: 4, cpmX: null, ads: false, rough: true }
+  ];
+  var BY = {}; PLATFORMS.forEach(function (p) { BY[p.id] = p; });
+
+  // Facebook cost per 1,000 views by guest market (midpoint of 2026 ranges). null = these platforms cannot reach that market.
+  var MARKETS = [
+    { id: 'uk', n: 'UK', cpm: 11.0 },
+    { id: 'eu', n: 'Europe', cpm: 8.8 },
+    { id: 'me', n: 'Middle East', cpm: 6.9 },
+    { id: 'in', n: 'India', cpm: 1.6 },
+    { id: 'sea', n: 'Southeast Asia', cpm: 6.0 },
+    { id: 'us', n: 'USA and Australia', cpm: 12.6 },
+    { id: 'cn', n: 'China', cpm: null, block: 'Instagram, Facebook, YouTube and TikTok are not available in mainland China. Chinese travellers plan trips on Xiaohongshu (RED) and Douyin, so they need their own plan. Your report includes a guide.' },
+    { id: 'ru', n: 'Russia', cpm: null, block: 'Instagram and Facebook are blocked in Russia and Meta does not sell ads there. Russian travellers are easier to reach on VK and Telegram. Your report includes a guide.' }
+  ];
+  var FB_GLOBAL_CPM = 8.6;
+  var LOCAL_CPM = 2.0; // estimate: no published Maldives benchmark
+
+  // Local customer areas: population from Census 2022.
+  var AREAS = [
+    { id: 'male', n: 'Malé', pop: 137238 },
+    { id: 'hulhu', n: 'Hulhumalé', pop: 65714 },
+    { id: 'villi', n: 'Villimalé', pop: 6755 },
+    { id: 'addu', n: 'Addu City', pop: 25062 },
+    { id: 'islands', n: 'Other islands', pop: 280363 }
+  ];
+  // Share of the whole population each platform can reach in the Maldives (DataReportal, Digital 2026).
+  var MV_SHARE = { facebook: 0.723, instagram: 0.553, tiktok: 0.553, linkedin: 0.396 }; // TikTok: no published figure, Instagram share used as an estimate
+
+  // Organic reach as % of followers by account size (Instagram and Facebook only).
+  var REACH_TIERS = { instagram: [6.65, 3.5], facebook: [4.35, 0.5] }; // [at ~3K followers, at ~300K followers]
+
+  // Who each platform reaches best. 2 = strong, 1 = some. Sets differ by business type.
+  var AUD_T = [
+    { n: 'Under-30 travellers', s: { tiktok: 2, instagram: 2, youtube: 1 } },
+    { n: 'Couples and honeymooners', s: { instagram: 2, tiktok: 1, facebook: 1, youtube: 1 } },
+    { n: 'Families and travellers over 40', s: { facebook: 2, youtube: 1, instagram: 1 } },
+    { n: 'Local Maldivian market', s: { facebook: 2, instagram: 1, tiktok: 1 }, both: true },
+    { n: 'People who don’t follow you yet', s: { tiktok: 2, instagram: 1, youtube: 1 } },
+    { n: 'Companies, groups and travel agents', s: { linkedin: 2, facebook: 1 } },
+    { n: 'Trip researchers watching long videos', s: { youtube: 2, tiktok: 1 } }
+  ];
+  var AUD_L = [
+    { n: 'Young locals, 18 to 30', s: { tiktok: 2, instagram: 2, youtube: 1 } },
+    { n: 'Families and parents', s: { facebook: 2, instagram: 1, youtube: 1 } },
+    { n: 'Office workers and professionals', s: { instagram: 1, facebook: 1, linkedin: 2 } },
+    { n: 'Customers on other islands', s: { facebook: 2, tiktok: 1, instagram: 1 } },
+    { n: 'Expat residents and workers', s: { facebook: 2, instagram: 1 } },
+    { n: 'People who don’t follow you yet', s: { tiktok: 2, instagram: 1 } },
+    { n: 'Companies ordering for staff or events', s: { linkedin: 2, facebook: 1 } }
+  ];
+  var MISSING_T = {
+    instagram: 'Couples, honeymooners and travellers aged 18 to 34, who plan trips visually. Instagram is the favourite platform of 16 to 34 year olds.',
+    facebook: 'Travellers over 30, families and group organisers.',
+    tiktok: 'Under-30 travellers and people who don’t follow you yet. 48% of Gen Z travellers name TikTok as a source of travel inspiration.'
+  };
+  var MISSING_L = {
+    instagram: 'Young adults in Malé and Hulhumalé who find cafés, shops and services by scrolling. Instagram reaches about 71% of adults in the Maldives.',
+    facebook: 'Parents, families, expat residents and customers on other islands. Facebook reaches about 93% of adults in the Maldives, more than any other platform, and about a quarter of residents are foreign.',
+    tiktok: 'Young locals and people who don’t follow you yet. TikTok shows your videos to non-followers, which makes it one of the fastest ways for a local business to be discovered.'
+  };
+  var ROLE_T = {
+    instagram: 'Your shop window. Reels, Stories and highlights that sell the stay.',
+    facebook: 'Reach travellers over 30, families and locals, and collect reviews. Runs the same Meta ads as Instagram.',
+    tiktok: 'Discovery. Short, real videos that reach people who don’t follow you yet.',
+    linkedin: 'Extra: for corporate stays, group bookings, travel agents and hiring.',
+    youtube: 'Extra: long tours and “how to get here” videos that people find through search. Organic only, as YouTube ads are not run from the Maldives.'
+  };
+  var ROLE_L = {
+    instagram: 'Your menu and shop window. Reels, Stories and highlights that show what you sell and where to find you.',
+    facebook: 'Reach families, expat residents and other islands, run events and collect reviews. Uses the same Meta ads as Instagram.',
+    tiktok: 'Discovery. Short, real videos that reach young locals who don’t follow you yet.',
+    linkedin: 'Extra: corporate orders, office catering, partnerships and hiring.',
+    youtube: 'Extra: longer how-to or behind-the-scenes videos. Organic only, as YouTube ads are not run from the Maldives.'
+  };
+  // Guidance for markets the main platforms cannot reach.
+  var FOREIGN = {
+    cn: { title: 'Reaching Chinese guests', items: [
+      { name: 'Xiaohongshu (RED)', ev: 'About 350 million monthly users, 85% under 35. Chinese travellers use it like a search engine for destinations, hotels and things to do.',
+        how: 'Open an official brand account, post steadily and work with Chinese travel creators. Expect 6 to 12 months of regular posting timed to Chinese holidays. Most foreign businesses do this through a China-focused agency.' },
+      { name: 'Douyin', ev: 'The Chinese version of TikTok, with more than 750 million monthly users.',
+        how: 'A foreign business needs a China-based partner to verify an account (about 600 CNY a year), and links to websites outside China are restricted. Start with creator videos through a partner agency.' },
+      { name: 'Booking and contact', ev: 'China is the Maldives’ largest source market in 2026, at about 16% of arrivals.',
+        how: 'Make sure Chinese guests can book and ask questions in the apps they use: list on Trip.com and offer a WeChat contact.' }
+    ] },
+    ru: { title: 'Reaching Russian guests', items: [
+      { name: 'VK', ev: 'Russia’s largest social network, with about 95 million monthly users (Mediascope, December 2025).',
+        how: 'Open a community page in Russian and post your best photos and offers. VK ads usually need a Russian payment method, so most foreign businesses advertise through a Russian agency or partner.' },
+      { name: 'Telegram', ev: 'About 76 million monthly users in Russia in June 2026, even though Russia has largely blocked it. Many people reach it through a VPN.',
+        how: 'A Telegram channel with offers and updates costs little to run and suits repeat guests, but access inside Russia may get harder.' },
+      { name: 'Instagram', ev: 'Blocked in Russia since 2022, but many Russians still use it through a VPN.',
+        how: 'Your organic Instagram posts can still reach Russian followers. Ads cannot target Russia, so don’t count on paid Instagram for this market.' }
+    ] }
+  };
+  var SOURCES = [
+    ['Socialinsider, Social Media Benchmarks 2026 (engagement by followers)', 'https://www.socialinsider.io/social-media-benchmarks'],
+    ['MeetEdgar, Social Media Organic Reach in 2026 (Socialinsider reach data)', 'https://meetedgar.com/blog/social-media-organic-reach-benchmarks'],
+    ['Vues, Social media ad CPM benchmarks for 2026', 'https://vues.app/blog/social-media-ad-cpm-benchmarks'],
+    ['Stackmatix, Facebook Ads CPM by Country in 2026', 'https://www.stackmatix.com/blog/facebook-ads-cpm-by-country-2026'],
+    ['Darkroom, How much does TikTok advertising cost in 2026', 'https://darkroomagency.com/observatory/how-much-does-tiktok-advertising-cost-in-2026'],
+    ['Pew Research Center, Social Media Fact Sheet (2025)', 'https://www.pewresearch.org/internet/fact-sheet/social-media/'],
+    ['DataReportal, Digital 2026: Maldives', 'https://datareportal.com/reports/digital-2026-maldives'],
+    ['City Population, Maldives Census 2022', 'https://www.citypopulation.de/en/maldives/cities/'],
+    ['Euronews on TUI Musement research (August 2026)', 'https://www.euronews.com/travel/2026/08/21/i-saw-it-on-tiktok-48-of-gen-z-travellers-turn-to-the-platform-for-travel-inspiration'],
+    ['IADS, Unlocking Chinese consumer trends via Xiaohongshu (2026)', 'https://www.iads.org/member/articles-reports/iads-exclusive-unlocking-chinese-consumer-trends-via-xiaohongshu'],
+    ['Nanjing Marketing Group, How to set up Douyin outside of China', 'https://nanjingmarketinggroup.com/blog/how-to-set-up-douyin-outside-of-china'],
+    ['101 App, Top social platforms in Russia in 2026 (Mediascope data)', 'https://101-app.com/en/blog/top-social-media-russia-2026'],
+    ['Meduza, messaging app audiences in Russia (July 2026)', 'https://meduza.io/amp/en/news/2026/07/24/kommersant-foreign-messaging-app-audience-in-russia-grew-26-telegram-remains-among-leaders-despite-being-blocked'],
+    ['MMTV, Maldives top source markets 2026', 'https://en.mmtv.mv/8462']
+  ];
+
+  var FOL = { base: 50, span: 4.3 };
+  var LIK = { base: 1, span: 4.0 };
+  var SP = { base: 20, span: 3 };
+  var RE = { base: 1000, span: 3 };
+  var PA = { base: 10, span: 2.7 };
+  var FREQ = 2;
+  var REPLY = [['fast', 'Within a day'], ['slow', 'In a few days'], ['rare', 'Rarely']];
+  var MONTHS = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
+  // who: t = tourists, l = locals. Islamic dates are for 2027.
+  var OCC = [
+    { id: 'val', n: "Valentine's Day", m: [1], who: 'tl' },
+    { id: 'cny', n: 'Chinese New Year', m: [1], who: 't' },
+    { id: 'ram', n: 'Ramadan and Eid al-Fitr', m: [1, 2], who: 'tl' },
+    { id: 'adha', n: 'Eid al-Adha', m: [4], who: 'l' },
+    { id: 'ind', n: 'Independence Day', m: [6], who: 'tl' },
+    { id: 'school', n: 'School holidays', m: [5, 11], who: 'l' },
+    { id: 'sum', n: 'European summer holidays', m: [6, 7], who: 't' },
+    { id: 'bf', n: 'Black Friday', m: [10], who: 'tl' },
+    { id: 'xmas', n: 'Christmas and New Year', m: [11], who: 't' },
+    { id: 'ny', n: 'New Year', m: [11], who: 'l' }
+  ];
+  var HOW = [['boost', 'The Boost button'], ['manager', 'Ads Manager'], ['agency', 'An agency or freelancer']];
+  var RESULT = [['yes', 'Yes, clearly'], ['little', 'A little'], ['no', 'Not really']];
+  var BIZ = [
+    ['locals', 'Locals only', 'A café, shop or service for people living in the Maldives'],
+    ['both', 'Tourists and locals', 'A guesthouse, dive centre or restaurant serving both'],
+    ['tourists', 'Tourists only', 'A resort, liveaboard or tour operator']
+  ];
+
+  /* ---------- helpers ---------- */
+  var state;
+  function tFor(v, c) { return Math.round(100 * Math.log10(v / c.base) / c.span); }
+  function nice(v) { var p = Math.pow(10, Math.floor(Math.log10(v)) - 1); return Math.max(1, Math.round(v / p) * p); }
+  function valOf(t, c) { return nice(c.base * Math.pow(10, (t / 100) * c.span)); }
+  function fmt(v) {
+    if (v >= 1e6) return (v / 1e6).toFixed(1).replace('.0', '') + 'M';
+    if (v >= 1000) return (v / 1000).toFixed(v < 10000 ? 1 : 0).replace('.0', '') + 'K';
+    return String(Math.round(v));
+  }
+  function money(v) { return '$' + (v >= 1000 ? fmt(v) : v < 10 ? v.toFixed(2).replace('.00', '') : String(Math.round(v))); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function clean(s) { return String(s || '').trim().replace(/^@/, ''); }
+  function norm(s) { return clean(s).toLowerCase().replace(/[._\-\s]/g, ''); }
+  function cls(x) { return x >= 75 ? 'good' : x >= 50 ? 'warn' : 'bad'; }
+  function list(a) { return a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1]; }
+  function isLocal() { return state.biz === 'locals'; }
+  function hasLocal() { return state.biz !== 'tourists'; }
+  function hasTourist() { return state.biz !== 'locals'; }
+  function AUD() { return isLocal() ? AUD_L : AUD_T.filter(function (a) { return !a.both || state.biz === 'both'; }); }
+  function MISSING() {
+    if (isLocal()) return MISSING_L;
+    var m = Object.assign({}, MISSING_T);
+    if (state.biz === 'both') m.facebook = 'Travellers over 30, families and group organisers, plus the local market: Facebook reaches about 93% of adults in the Maldives.';
+    return m;
+  }
+  function ROLE() { return isLocal() ? ROLE_L : ROLE_T; }
+  function occList() { return OCC.filter(function (o) { return state.biz === 'both' || o.who.indexOf(isLocal() ? 'l' : 't') >= 0; }); }
+
+  function blankData() {
+    var d = {};
+    PLATFORMS.forEach(function (p) { d[p.id] = { f: tFor(500, FOL), l: tFor(10, LIK), posts: 4, bio: false, link: false, brand: false, reply: 'slow' }; });
+    return d;
+  }
+  function fresh() {
+    return { step: 0, biz: 'both', shared: true, sharedName: '', names: {}, sel: { instagram: true, facebook: true }, d: blankData(), example: false, email: '',
+      markets: { uk: true, eu: true }, areas: { male: true, hulhu: true },
+      ads: { mode: 'organic', spend: tFor(100, SP), camps: 4, on: { instagram: true, facebook: true }, how: 'boost', result: 'little' },
+      plan: { tab: 'reach', reach: tFor(20000, RE), perAd: tFor(50, PA), adj: 100, cpf: 0.8, target: 30, org: 2, occ: { val: true, ram: true, bf: true, xmas: true, ny: true }, occBudget: tFor(200, PA), occDays: 10 } };
+  }
+  function example() {
+    var s = fresh(); s.example = true; s.sharedName = 'bluepalm.maldives';
+    Object.assign(s.d.instagram, { f: tFor(1900, FOL), l: tFor(34, LIK), posts: 3, bio: true, link: true, brand: true, reply: 'slow' });
+    Object.assign(s.d.facebook, { f: tFor(12800, FOL), l: tFor(40, LIK), posts: 6, bio: false, link: false, brand: true, reply: 'slow' });
+    s.markets = { eu: true, uk: true, cn: true, ru: true };
+    s.ads = { mode: 'paid', spend: tFor(150, SP), camps: 3, on: { instagram: true, facebook: true }, how: 'boost', result: 'little' };
+    s.plan.reach = tFor(50000, RE); s.plan.occ = { val: true, ram: true, xmas: true };
+    return s;
+  }
+  function active() { return PLATFORMS.filter(function (p) { return state.sel[p.id]; }); }
+  function nameOf(id) { return clean(state.shared ? state.sharedName : state.names[id]); }
+
+  /* ---------- costs ---------- */
+  function marketCpm() {
+    var vals = [];
+    if (hasTourist()) MARKETS.forEach(function (x) { if (state.markets[x.id] && x.cpm) vals.push(x.cpm); });
+    if (hasLocal()) vals.push(LOCAL_CPM);
+    var base = vals.length ? vals.reduce(function (s, v) { return s + v; }, 0) / vals.length : FB_GLOBAL_CPM;
+    return base * state.plan.adj / 100;
+  }
+  function areaPop() { return AREAS.reduce(function (s, a) { return s + (state.areas[a.id] ? a.pop : 0); }, 0); }
+  function areaNames() { return AREAS.filter(function (a) { return state.areas[a.id]; }).map(function (a) { return a.n; }); }
+  function localAud(id) { return MV_SHARE[id] ? Math.round(areaPop() * MV_SHARE[id]) : 0; }
+  function cpmFor(id) { return BY[id].cpmX ? marketCpm() * BY[id].cpmX : null; }
+  function adPlatforms() {
+    var on = PLATFORMS.filter(function (p) { return p.ads && state.ads.on[p.id]; });
+    return on.length ? on : [BY.instagram, BY.facebook];
+  }
+  function mixCpm() { var a = adPlatforms(); return a.reduce(function (s, p) { return s + cpmFor(p.id); }, 0) / a.length; }
+  function blocked() { return hasTourist() ? MARKETS.filter(function (x) { return state.markets[x.id] && x.block; }) : []; }
+  function reachRate(id, followers) {
+    var t = REACH_TIERS[id]; if (!t) return null;
+    var k = Math.min(1, Math.max(0, (Math.log10(followers) - Math.log10(3000)) / 2));
+    return t[0] + (t[1] - t[0]) * k;
+  }
+
+  /* ---------- scoring ---------- */
+  function scorePlatform(pl) {
+    var s = state.d[pl.id], fol = valOf(s.f, FOL), lik = valOf(s.l, LIK);
+    var er = Math.min(50, lik / fol * 100), posts = s.posts, pr = posts / pl.posts;
+    var rhythm = pr >= 1 ? 25 : pr >= 0.66 ? 20 : pr >= 0.33 ? 12 : posts > 0 ? 6 : 0;
+    var ratio = er / pl.er;
+    var eng = ratio >= 1 ? 25 : ratio >= 0.6 ? 17 : ratio >= 0.3 ? 9 : er > 0 ? 4 : 0;
+    var reply = s.reply === 'fast' ? 15 : s.reply === 'slow' ? 8 : 0;
+    var perWeek = Math.round(pl.posts / 4.3);
+    var parts = [
+      { max: 15, got: s.bio ? 15 : 0, tip: 'Say what you offer in the first line of your bio.' },
+      { max: 10, got: s.link ? 10 : 0, tip: 'Add a booking or enquiry link to your bio.' },
+      { max: 10, got: s.brand ? 10 : 0, tip: 'Use the same logo and name as your website.' },
+      { max: 25, got: rhythm, tip: 'You posted ' + posts + (posts === 1 ? ' time' : ' times') + ' last month. Active brands post about ' + pl.posts + ' times a month on ' + pl.name + ', roughly ' + perWeek + ' a week.' },
+      { max: 25, got: eng, tip: 'About ' + er.toFixed(er < 1 ? 2 : 1) + '% of your followers react to a post. The typical ' + pl.name + ' figure is ' + pl.er + '%. End posts with a question and reply to every comment.' },
+      { max: 15, got: reply, tip: 'Reply to comments and messages within a day.' }
+    ];
+    var total = parts.reduce(function (a, x) { return a + x.got; }, 0);
+    return { pl: pl, total: total, er: er, ratio: ratio, parts: parts, followers: fol };
+  }
+
+  function mixInfo() {
+    var sel = active(), ids = sel.map(function (p) { return p.id; });
+    var core = sel.filter(function (p) { return p.core; });
+    var missingCore = PLATFORMS.filter(function (p) { return p.core && !state.sel[p.id]; });
+    var rows = AUD().map(function (a) {
+      var best = 0, who = [];
+      ids.forEach(function (id) { var v = a.s[id] || 0; if (v > best) best = v; if (v) who.push(BY[id].name); });
+      return { n: a.n, lvl: best, who: who };
+    });
+    var coverage = Math.round(rows.reduce(function (s, r) { return s + r.lvl; }, 0) / (rows.length * 2) * 100);
+    var risk, riskCls, riskText;
+    if (core.length <= 1) {
+      risk = 'High risk'; riskCls = 'bad';
+      riskText = 'Everything rides on ' + (core.length ? 'one app' : 'extra platforms only') + '. ' +
+        (core.length ? 'A change to the ' + core[0].name + ' algorithm, a hacked or locked account, or an outage would cut you off from ' + who2() + ' overnight.' : 'Your ' + who2() + ' are mainly on Instagram, Facebook and TikTok.');
+      if (core.length === 1 && core[0].id === 'instagram' && isLocal()) riskText += ' This is the most common setup for local businesses in the Maldives, and the main reason growth stalls: the same followers see every post, and nobody new finds you.';
+    } else if (core.length === 2) {
+      risk = 'Some risk'; riskCls = 'warn';
+      riskText = 'Two main platforms is a good base, but you are missing ' + missingCore[0].name + '’s audience.';
+      if (state.sel.instagram && state.sel.facebook) riskText += ' Instagram and Facebook are both owned by Meta, so one account problem or policy change can hit both at once.';
+    } else {
+      risk = 'Well spread'; riskCls = 'good';
+      riskText = 'You are on all three main platforms, so no single app can cut you off from ' + who2() + '.';
+    }
+    var missing = missingCore.map(function (p) { return { name: p.name, text: MISSING()[p.id] }; });
+    var rec = PLATFORMS.map(function (p) { return { name: p.name, has: !!state.sel[p.id], core: p.core, role: ROLE()[p.id] }; });
+    return { rows: rows, coverage: coverage, risk: risk, riskCls: riskCls, riskText: riskText, missing: missing, rec: rec, blocked: blocked(), missingCore: missingCore };
+  }
+
+  function who2() { return isLocal() ? 'customers' : state.biz === 'both' ? 'customers and guests' : 'guests'; }
+  function headline(avg) {
+    return avg >= 80 ? 'In great shape' : avg >= 60 ? 'Solid, with room to grow' : avg >= 40 ? 'Patchy right now' : 'Needs some love';
+  }
+  function lede(avg) {
+    return avg >= 80 ? 'Your accounts work hard for you. A few small fixes will keep it that way.'
+      : avg >= 60 ? 'The basics are in place. A handful of fixes will turn followers into enquiries.'
+      : avg >= 40 ? 'Guests can find you, but gaps are costing you enquiries. The list below is the quickest way to close them.'
+      : 'Guests and partners may be seeing quiet or unfinished profiles. Start with the three steps below.';
+  }
+  function report() {
+    var rows = active().map(scorePlatform), mix = mixInfo();
+    var wsum = 0, wtot = 0;
+    rows.forEach(function (r) { var w = r.pl.core ? 1 : 0.5; wsum += r.total * w; wtot += w; });
+    var pavg = wtot ? wsum / wtot : 0;
+    var raw = Math.round(pavg * 0.7 + mix.coverage * 0.3);
+    var coreN = active().filter(function (p) { return p.core; }).length;
+    var cap = coreN <= 1 ? 55 : coreN === 2 ? 79 : 100;
+    var avg = Math.min(raw, cap), capped = raw > cap ? (coreN <= 1 ? 'Held at ' + cap + ' because you rely on one main platform.' : 'Held at ' + cap + ' until you add a third main platform.') : '';
+    var fixes = [];
+    if (mix.missingCore.length && mix.missingCore.length < 3) {
+      var mc = mix.missingCore[0];
+      fixes.push({ p: 'Platform mix', gain: 30, gainText: 'new audience', key: 'mix',
+        tip: 'Open a ' + mc.name + ' account' + (clean(state.sharedName) && state.shared ? ' as @' + clean(state.sharedName) : '') + ' and post twice a week. ' + MISSING()[mc.id].split('.')[0] + '.' });
+    }
+    rows.forEach(function (r) {
+      var w = r.pl.core ? 1 : 0.5;
+      r.parts.forEach(function (x) { if (x.max - x.got > 0) fixes.push({ p: r.pl.name, gain: x.max - x.got, rank: (x.max - x.got) * w, tip: x.tip, key: r.pl.id }); });
+    });
+    fixes.forEach(function (f) { if (f.rank == null) f.rank = f.gain; });
+    fixes.sort(function (a, b) { return b.rank - a.rank; });
+    rows.forEach(function (r) {
+      var f = fixes.filter(function (x) { return x.key === r.pl.id; })[0];
+      r.focus = f ? f.tip : 'Nothing urgent here. Keep it up.';
+    });
+    var top = fixes.slice(0, 3);
+    var nm = '';
+    if (state.shared) {
+      nm = clean(state.sharedName) ? 'You use one username everywhere: @' + clean(state.sharedName) + '. That makes you easy to find with a single search.' : '';
+    } else {
+      var named = rows.map(function (r) { return { n: r.pl.name, u: nameOf(r.pl.id) }; }).filter(function (x) { return x.u; });
+      if (named.length > 1) {
+        var set = {}; named.forEach(function (x) { set[norm(x.u)] = 1; });
+        nm = Object.keys(set).length === 1
+          ? 'Your usernames match across platforms apart from punctuation. Guests can find you with one search.'
+          : 'Your usernames differ: ' + named.map(function (x) { return x.n + ' @' + x.u; }).join(', ') + '. Pick one name and change the others where you can.';
+      }
+    }
+    var missingAll = PLATFORMS.filter(function (p) { return !state.sel[p.id]; }).map(function (p) { return p.name; });
+    var claim = (missingAll.length && state.shared && clean(state.sharedName))
+      ? 'Even where you don’t post yet, claim @' + clean(state.sharedName) + ' on ' + list(missingAll) + ' so nobody else takes it.' : '';
+    return { rows: rows, avg: avg, capped: capped, pavg: Math.round(pavg), mix: mix, label: headline(avg), lede: lede(avg), top: top, nm: nm, claim: claim, ads: adsInfo(), plan: planLines(), local: localInfo(), guide: guide(), foreign: foreignInfo(),
+      date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) };
+  }
+
+  function adsInfo() {
+    var a = state.ads, bl = blocked(), lines;
+    if (a.mode !== 'paid') {
+      lines = ['You grow with organic posts only. A typical Instagram post reaches about 3% of followers and a Facebook post about 1%, so new people rarely see you.',
+        'A small boost around a few key dates, such as holidays and festivals, can change that.'];
+    } else {
+      var m = valOf(a.spend, SP), yr = m * 12, c = a.camps, per = c ? yr / c : yr, cpm = mixCpm();
+      var views = m / cpm * 1000, people = views / FREQ, names = adPlatforms().map(function (p) { return p.name; });
+      var tip = c === 0 ? 'Your spend is not tied to campaigns. Grouping it into a few pushes around busy dates, each with one clear offer, usually brings more ' + (isLocal() ? 'orders' : 'bookings') + '.'
+        : c <= 3 ? 'With ' + c + (c === 1 ? ' campaign' : ' campaigns') + ' a year, most months run without a push. Plan around 4 to 6 key dates, such as holidays and festivals, instead.'
+        : per < 150 ? 'Each campaign gets about ' + money(per) + ', which is thin. Fewer, bigger pushes around key dates usually work better.'
+        : 'That is a healthy rhythm. Make sure every campaign has one clear offer and a booking link.';
+      lines = ['You spend about ' + money(m) + ' a month (' + money(yr) + ' a year) on ' + list(names) + (c ? ', across ' + c + (c === 1 ? ' campaign' : ' campaigns') + ', about ' + money(per) + ' each.' : ', with no set campaigns.'),
+        (isLocal() ? 'In the Maldives that buys around ' : 'For your markets that buys around ') + fmt(views) + ' ad views a month (about ' + money(cpm) + ' per 1,000 views), reaching roughly ' + fmt(people) + ' people.'].concat(a.result === 'no' && tip.indexOf('healthy rhythm') >= 0 ? [] : [tip]);
+      if (!state.ads.on.tiktok && state.sel.tiktok) lines.push('You are on TikTok but not advertising there. TikTok views usually cost less than Meta’s, so a small Spark Ads test boosting your best video is worth trying.');
+    }
+    if (bl.length) lines.push('Ads on these platforms cannot reach guests from ' + list(bl.map(function (x) { return x.n; })) + '.');
+    if (a.mode === 'paid' && a.result === 'no') lines.push(a.how === 'boost'
+      ? 'You boost posts but haven\u2019t seen real growth. That is the most common pattern we see: boosting is quick but has few controls, so it tends to buy likes rather than customers. See \u201cRun better campaigns\u201d below.'
+      : 'Your ads haven\u2019t brought real growth yet. That usually means the goal, the audience or the offer is off. See \u201cRun better campaigns\u201d below.');
+    return { mode: a.mode, lines: lines };
+  }
+
+  /* ---------- local reach, campaign guide, foreign markets ---------- */
+  function localInfo() {
+    if (!hasLocal()) return null;
+    var pop = areaPop(), names = areaNames();
+    if (!pop) return null;
+    var rows = active().filter(function (p) { return MV_SHARE[p.id]; }).map(function (p) {
+      var aud = localAud(p.id), f = valOf(state.d[p.id].f, FOL);
+      return { name: p.name, aud: aud, fol: f, share: Math.min(100, f / aud * 100) };
+    });
+    var lines = ['About ' + fmt(pop) + ' people live in ' + list(names) + '. Roughly ' + fmt(localAud('facebook')) + ' of them are reachable on Facebook and ' + fmt(localAud('instagram')) + ' on Instagram.'];
+    rows.forEach(function (r) {
+      lines.push(r.name + ': your ' + fmt(r.fol) + ' followers equal about ' + (r.share < 1 ? r.share.toFixed(1) : Math.round(r.share)) + '% of ' + r.name + ' users in your area' + (r.share >= 100 ? ', so many of your followers live elsewhere or are tourists.' : '. Some of your followers will live elsewhere, so the real local share is lower.'));
+    });
+    var sat = null;
+    if (state.ads.mode === 'paid') {
+      var m = valOf(state.ads.spend, SP), views = m / mixCpm() * 1000, aud = Math.max(1, localAud('facebook'));
+      var perPerson = views / aud;
+      sat = { views: views, aud: aud, per: perPerson };
+      lines.push(perPerson > 4
+        ? 'Your ' + money(m) + ' a month buys about ' + fmt(views) + ' ad views, or ' + perPerson.toFixed(1) + ' per person in your area. Past 3 to 4 views a month people stop noticing, so a bigger budget will not grow you. Fresh ads and a clear offer will.'
+        : perPerson >= 1 ? 'Your ' + money(m) + ' a month buys about ' + fmt(views) + ' ad views, or ' + perPerson.toFixed(1) + ' per person in your area. That is a healthy level if you change the ad every 2 to 3 weeks.'
+        : 'Your ' + money(m) + ' a month buys about ' + fmt(views) + ' ad views, enough for about ' + Math.round(perPerson * 100) + '% of people in your area to see one ad. That is fine if your targeting is tight.');
+    }
+    return { pop: pop, names: names, rows: rows, lines: lines, sat: sat };
+  }
+  function guide() {
+    var a = state.ads, paid = a.mode === 'paid', L = isLocal(), T = !hasLocal(), area = list(areaNames()) || 'your area';
+    var mk = MARKETS.filter(function (x) { return state.markets[x.id] && x.cpm; }).map(function (x) { return x.n; });
+    var G2 = [];
+    G2.push({ t: 'Give every campaign one job', b: (paid && a.how === 'boost'
+      ? 'Boosting is quick but has few controls, so it tends to buy likes instead of customers. Use Meta Ads Manager and choose a goal that matches what you want: messages, website visits or calls.'
+      : 'Choose one goal per campaign, such as messages, ' + (L ? 'orders' : 'bookings') + ' or profile visits, and judge the campaign only on that.') });
+    G2.push({ t: 'Aim at the right people', b: (L
+      ? 'Target by location: ' + area + ', with an age range that matches your customers. Skip long lists of interests. In a small market, location and a good offer do the work.'
+      : T ? 'Target your guest markets' + (mk.length ? ' (' + list(mk) + ')' : '') + ' and people who travel abroad often. Then show a second ad to everyone who watched your videos or visited your profile.'
+      : 'Run two separate campaigns: one for locals in ' + area + ', and one for travellers in your guest markets' + (mk.length ? ' (' + list(mk) + ')' : '') + '. They need different offers, languages and budgets.') });
+    G2.push({ t: 'Lead with an offer and one next step', b: (L
+      ? 'Show the price or the deal and one action: \u201cOrder on WhatsApp\u201d, \u201cDM to book\u201d or \u201cVisit us in ' + (areaNames()[0] || 'Malé') + '\u201d. Write in Dhivehi and English.'
+      : 'Give a reason to book now, such as a package, a free transfer or a stay-longer deal, and send people to one booking page or WhatsApp.') });
+    G2.push({ t: 'Make video for the phone', b: 'Use vertical video under 15 seconds, with the point in the first 2 seconds and captions on. Change the ad every 2 to 3 weeks' + (hasLocal() ? ', because a small local audience tires of the same ad quickly.' : '.') });
+    G2.push({ t: 'Spend in bursts, not drips', b: 'Put the budget into 7 to 14 day pushes around occasions and busy weeks instead of a small amount every day. The occasions planner below shows when.' });
+    G2.push({ t: 'Count customers, not likes', b: 'Track the messages, ' + (L ? 'orders' : 'bookings') + ' or calls each ad brings. Ask new customers how they heard about you, or give each campaign its own code.' });
+    if (paid && a.how === 'agency' && a.result !== 'yes') G2.push({ t: 'Ask your agency for results', b: 'Ask for a monthly report on messages, ' + (L ? 'orders' : 'bookings') + ' and cost per result, not reach or likes.' });
+    return G2;
+  }
+  function foreignInfo() {
+    if (!hasTourist()) return [];
+    return ['cn', 'ru'].filter(function (k) { return state.markets[k]; }).map(function (k) { return FOREIGN[k]; });
+  }
+
+  function plainText(R) {
+    var L = ['Hi,', '', 'Here is my social media health check from ' + R.date + '.', '',
+      'Overall score: ' + R.avg + '/100 (' + R.label + ')' + (R.capped ? '. ' + R.capped : ''), '',
+      'Platform mix: ' + R.mix.risk + ', ' + R.mix.coverage + '% audience coverage', R.mix.riskText];
+    R.mix.missing.forEach(function (m) { L.push('Missing without ' + m.name + ': ' + m.text); });
+    R.mix.blocked.forEach(function (b) { L.push(b.n + ': ' + b.block); });
+    if (R.local) { L.push('', 'Your local reach'); R.local.lines.forEach(function (x) { L.push(x); }); }
+    R.foreign.forEach(function (f) { L.push('', f.title); f.items.forEach(function (it) { L.push('\u2022 ' + it.name + ': ' + it.ev + ' ' + it.how); }); });
+    L.push('', 'By platform');
+    R.rows.forEach(function (r) { L.push('• ' + r.pl.name + ': ' + r.total + '/100'); });
+    if (R.top.length) { L.push('', 'Three things to do first'); R.top.forEach(function (f, i) { L.push((i + 1) + '. ' + f.p + ': ' + f.tip); }); }
+    if (R.nm) L.push('', R.nm);
+    if (R.claim) L.push(R.claim);
+    L.push('', 'Ads: ' + (R.ads.mode === 'paid' ? 'paid and organic' : 'organic only'));
+    R.ads.lines.forEach(function (x) { L.push(x); });
+    L.push('', 'Run better campaigns');
+    R.guide.forEach(function (g, i) { L.push((i + 1) + '. ' + g.t + '. ' + g.b); });
+    L.push('', 'My growth plan');
+    R.plan.forEach(function (x) { L.push('• ' + x); });
+    L.push('', 'Scores and costs are rough guides based on the numbers I entered and published 2026 benchmarks.');
+    return L.join('\n');
+  }
+  function subject(R) { return 'My social media health check: ' + R.avg + '/100'; }
+  function who() { var n = state.shared ? clean(state.sharedName) : ''; return n ? '@' + n : 'your accounts'; }
+
+  /* ---------- views ---------- */
+  var app = document.getElementById('app');
+  function steps() { return active().length + 5; } // business type, accounts, platforms, customers, ads, report
+  function progress(step) {
+    var n = steps(), h = '';
+    for (var i = 0; i < n; i++) h += '<i class="' + (i <= step ? 'on' : '') + '"></i>';
+    return '<div class="progress" aria-hidden="true">' + h + '</div>';
+  }
+
+  function viewBiz() {
+    var cards = BIZ.map(function (b) {
+      return '<button type="button" class="chip" data-act="biz" data-v="' + b[0] + '" aria-pressed="' + (state.biz === b[0]) + '">' + b[1] + '<small>' + b[2] + '</small></button>';
+    }).join('');
+    return '<section class="card">' + progress(0) +
+      (state.example ? '<div class="banner"><span>Example answers are filled in. Change anything you like.</span><button type="button" data-act="clear">Start fresh</button></div>' : '') +
+      '<p class="kicker">Free health check</p><h1>How healthy is your social media?</h1>' +
+      '<p class="sub">A few taps and sliders. No logins, and nothing is saved.</p>' +
+      '<div style="margin-top:28px"><span class="lbl">First, who are your customers?</span><div class="big3">' + cards + '</div>' +
+      '<p class="hint">This shapes the rest of the check: the audiences we look at, ad costs and the advice in your report.</p></div>' +
+      '<div class="actions"><span></span><button type="button" class="btn primary" data-act="next">Start</button></div></section>';
+  }
+
+  function viewIntro() {
+    var chip = function (p) { return '<button type="button" class="chip" data-act="plat" data-id="' + p.id + '" aria-pressed="' + !!state.sel[p.id] + '">' + p.name + '</button>'; };
+    var names = '';
+    if (!state.shared) {
+      names = '<div class="stack" style="margin-top:22px;gap:16px">' + active().map(function (p) {
+        return '<div><label for="u-' + p.id + '">' + p.name + ' username</label><div class="field"><span>@</span><input type="text" id="u-' + p.id + '" data-act="name" data-id="' + p.id + '" value="' + esc(state.names[p.id] || '') + '" placeholder="yourbrand" autocomplete="off" autocapitalize="none" spellcheck="false"></div></div>';
+      }).join('') + '</div>';
+    } else {
+      names = '<div style="margin-top:22px"><label for="shared">Your username</label><div class="field"><span>@</span><input type="text" id="shared" data-act="shared" value="' + esc(state.sharedName) + '" placeholder="yourbrand" autocomplete="off" autocapitalize="none" spellcheck="false"></div></div>';
+    }
+    return '<section class="card">' + progress(1) +
+      '<p class="kicker">Your accounts</p><h2>Where are you active?</h2>' +
+      '<p class="sub">Tap every platform where you have an account.</p>' +
+      '<div class="stack">' +
+      '<div><p class="group-l" style="margin-top:0">Main platforms</p><div class="chips">' + PLATFORMS.filter(function (p) { return p.core; }).map(chip).join('') + '</div>' +
+      '<p class="group-l">Extras</p><div class="chips">' + PLATFORMS.filter(function (p) { return !p.core; }).map(chip).join('') + '</div></div>' +
+      '<div><button type="button" class="switch" role="switch" aria-checked="' + state.shared + '" data-act="same"><span class="knob"></span><span><b>Same username everywhere</b><span class="hint" style="display:block;margin:0">Turn off to enter one for each platform</span></span></button>' + names + '</div>' +
+      '</div>' +
+      '<div class="actions"><button type="button" class="btn ghost" data-act="back">Back</button><button type="button" class="btn primary" data-act="next"' + (active().length ? '' : ' disabled') + '>Next</button></div></section>';
+  }
+
+  function viewPlatform(i) {
+    var pl = active()[i], s = state.d[pl.id];
+    var nm = nameOf(pl.id);
+    var tog = function (k, label) { return '<button type="button" class="chip" data-act="tog" data-k="' + k + '" aria-pressed="' + !!s[k] + '">' + label + '</button>'; };
+    var seg = REPLY.map(function (r) { return '<button type="button" class="chip" data-act="reply" data-v="' + r[0] + '" aria-pressed="' + (s.reply === r[0]) + '">' + r[1] + '</button>'; }).join('');
+    var likeLabel = pl.id === 'youtube' ? 'Likes on a typical video' : pl.id === 'facebook' ? 'Reactions on a typical post' : 'Likes on a typical post';
+    var folLabel = pl.id === 'youtube' ? 'Subscribers' : 'Followers';
+    return '<section class="card">' + progress(i + 2) +
+      '<p class="kicker">' + pl.name + ' · ' + (i + 1) + ' of ' + active().length + '</p>' +
+      '<h2>How is ' + (nm ? '@' + esc(nm) : 'your page') + ' doing on ' + pl.name + '?</h2>' +
+      '<p class="sub">Open the profile and slide to the closest number. A rough guess is fine.</p>' +
+      '<div class="stack">' +
+      slider('f', folLabel) + slider('l', likeLabel) + slider('posts', (pl.id === 'youtube' ? 'Videos' : 'Posts') + ' in the last 30 days') +
+      '<div><span class="lbl">Your profile</span><div class="togs">' +
+      tog('bio', 'The bio says what we offer') + tog('link', 'The bio links to booking or enquiries') + tog('brand', 'Logo and name match our website') +
+      '</div></div>' +
+      '<div><span class="lbl">How fast do you reply to comments and messages?</span><div class="seg">' + seg + '</div></div>' +
+      '</div>' +
+      '<div class="actions"><button type="button" class="btn ghost" data-act="back">Back</button><button type="button" class="btn primary" data-act="next">' + (i === active().length - 1 ? (isLocal() ? 'Next: your customers' : 'Next: your guests') : 'Next platform') + '</button></div></section>';
+  }
+  function curPl() { return active()[state.step - 2]; }
+  function slider(k, label) {
+    var s = state.d[curPl().id], max = k === 'posts' ? 30 : 100, v = s[k];
+    return '<div class="q"><div class="top"><label for="s-' + k + '">' + label + '</label><span class="val" id="v-' + k + '">' + sliderText(k) + '</span></div>' +
+      '<input type="range" id="s-' + k + '" data-act="slide" data-k="' + k + '" min="0" max="' + max + '" step="1" value="' + v + '" style="--p:' + (v / max * 100) + '%">' +
+      '<div class="ticks">' + (k === 'f' ? '<span>50</span><span>1M</span>' : k === 'l' ? '<span>1</span><span>10K</span>' : '<span>0</span><span>30</span>') + '</div>' +
+      (k === 'l' ? '<span class="pillnote" id="er"></span>' : '') + '</div>';
+  }
+  function sliderText(k) {
+    var s = state.d[curPl().id];
+    if (k === 'f') return fmt(valOf(s.f, FOL));
+    if (k === 'l') return fmt(valOf(s.l, LIK));
+    return s.posts + (s.posts === 1 ? ' post' : ' posts') + ' · ' + (s.posts / 4.3).toFixed(1).replace('.0', '') + ' a week';
+  }
+  function erText() {
+    var pl = curPl(), s = state.d[pl.id];
+    var er = valOf(s.l, LIK) / valOf(s.f, FOL) * 100;
+    return 'That is ' + (er < 1 ? er.toFixed(2) : er < 10 ? er.toFixed(1) : Math.round(er)) + '% of your ' + (pl.id === 'youtube' ? 'subscribers' : 'followers') + '. Typical on ' + pl.name + ': ' + pl.er + '%.';
+  }
+
+  function areaSummary() {
+    var pop = areaPop();
+    return pop ? 'About ' + fmt(pop) + ' people live there. Roughly ' + fmt(localAud('facebook')) + ' are on Facebook and ' + fmt(localAud('instagram')) + ' on Instagram.' : 'Pick at least one area.';
+  }
+  function marketWarn() { return blocked().map(function (b) { return '<div class="warnbox"><b>' + b.n + '.</b> ' + b.block + '</div>'; }).join(''); }
+  function viewMarkets() {
+    var mchips = MARKETS.map(function (m) { return '<button type="button" class="chip" data-act="mkt" data-v="' + m.id + '" aria-pressed="' + !!state.markets[m.id] + '">' + m.n + '</button>'; }).join('');
+    var achips = AREAS.map(function (a) { return '<button type="button" class="chip" data-act="area" data-v="' + a.id + '" aria-pressed="' + !!state.areas[a.id] + '">' + a.n + '</button>'; }).join('');
+    var localPart = '<div><span class="lbl">' + (isLocal() ? 'Where do your customers live?' : 'Where do your local customers live?') + '</span><div class="chips">' + achips + '</div>' +
+      '<p class="pillnote" id="areaNote">' + areaSummary() + '</p></div>';
+    var touristPart = '<div><span class="lbl">Where do most of your guests come from?</span><div class="chips">' + mchips + '</div><div id="mktWarn">' + marketWarn() + '</div></div>';
+    return '<section class="card">' + progress(active().length + 2) +
+      '<p class="kicker">' + (isLocal() ? 'Your customers' : 'Your guests') + '</p><h2>' + (isLocal() ? 'Who are you trying to reach?' : state.biz === 'both' ? 'Who are your customers and guests?' : 'Where do your guests come from?') + '</h2>' +
+      '<p class="sub">' + (isLocal() ? 'We use this to size your local audience and estimate ad costs.' : 'Ad costs depend a lot on where your audience lives. Pick all that apply.') + '</p>' +
+      '<div class="stack">' + (hasLocal() ? localPart : '') + (hasTourist() ? touristPart : '') + '</div>' +
+      '<div class="actions"><button type="button" class="btn ghost" data-act="back">Back</button><button type="button" class="btn primary" data-act="next">Next: ads</button></div></section>';
+  }
+
+  function viewAds() {
+    var a = state.ads;
+    var choice = function (v, t, s) { return '<button type="button" class="chip" data-act="ads" data-v="' + v + '" aria-pressed="' + (a.mode === v) + '">' + t + '<small>' + s + '</small></button>'; };
+    var adChips = PLATFORMS.filter(function (p) { return p.ads; }).map(function (p) {
+      return '<button type="button" class="chip small" data-act="adon" data-v="' + p.id + '" aria-pressed="' + !!a.on[p.id] + '">' + p.name + '</button>';
+    }).join('');
+    return '<section class="card">' + progress(active().length + 3) +
+      '<p class="kicker">Last question</p><h2>Do you run paid ads, or grow organically?</h2>' +
+      '<p class="sub">Boosted posts count as paid ads.</p>' +
+      '<div class="big2">' + choice('organic', 'Organic only', 'Posts, stories and replies') + choice('paid', 'We run paid ads', 'Boosts or ad campaigns') + '</div>' +
+      (a.mode === 'paid' ? '<div class="reveal">' +
+        '<div><span class="lbl">Where do you advertise?</span><div class="chips">' + adChips + '</div><p class="hint">YouTube is left out: YouTube ads are not run from the Maldives.</p></div>' +
+        gslider('spend', 'Roughly how much do you spend on ads a month?', 0, 100, 1, ['$20', '$20K']) +
+        gslider('camps', 'How many paid campaigns do you run a year?', 0, 24, 1, ['0', '24']) +
+        seg('how', 'How do you usually run them?', HOW, a.how) +
+        seg('result', 'Have your ads brought real growth in followers or ' + (isLocal() ? 'orders' : 'bookings') + '?', RESULT, a.result) + '</div>' : '') +
+      '<div class="actions"><button type="button" class="btn ghost" data-act="back">Back</button><button type="button" class="btn primary" data-act="next">See my report</button></div></section>';
+  }
+
+  function seg(key, label, opts, cur) {
+    return '<div><span class="lbl">' + label + '</span><div class="seg">' + opts.map(function (o) {
+      return '<button type="button" class="chip" data-act="adq" data-k="' + key + '" data-v="' + o[0] + '" aria-pressed="' + (cur === o[0]) + '">' + o[1] + '</button>';
+    }).join('') + '</div></div>';
+  }
+
+  function viewReport() {
+    var R = report(), M = R.mix;
+    var c = cls(R.avg), col = 'var(--' + c + ')', circ = 2 * Math.PI * 62, dash = (R.avg / 100 * circ).toFixed(1) + ' ' + circ.toFixed(1);
+    var rows = R.rows.map(function (r) {
+      return '<div class="prow"><div class="badge" aria-hidden="true">' + r.pl.name[0] + '</div><b>' + r.pl.name + (r.pl.core ? '' : ' <span class="hint" style="font-weight:400">extra</span>') + '</b><span class="n ' + cls(r.total) + '">' + r.total + '</span>' +
+        '<div class="meter"><i class="bg-' + cls(r.total) + '" style="width:' + r.total + '%"></i></div><p class="why">' + esc(r.focus) + '</p></div>';
+    }).join('');
+    var todo = R.top.length ? '<ol class="todo">' + R.top.map(function (f, i) {
+      return '<li><span class="num">' + (i + 1) + '</span><div><b>' + esc(f.p) + '</b><p>' + esc(f.tip) + '</p><span class="gain">' + (f.gainText ? 'Opens a new audience' : '+' + f.gain + ' points') + '</span></div></li>';
+    }).join('') + '</ol>' : '<p class="body">No gaps found. Check again after next month’s posts.</p>';
+    var stLbl = { 2: ['full', 'Reached'], 1: ['part', 'Partly'], 0: ['miss', 'Missed'] };
+    var cov = '<ul class="cov">' + M.rows.map(function (r) {
+      var s = stLbl[r.lvl];
+      return '<li><span>' + esc(r.n) + '</span><span class="st ' + s[0] + '">' + s[1] + '</span></li>';
+    }).join('') + '</ul>';
+    var miss = M.missing.length && M.missing.length < 3 ? '<h3 style="margin-top:22px;font-size:1.1rem">Who you are missing</h3>' + M.missing.map(function (m) { return '<p class="body"><b>Without ' + m.name + ':</b> ' + esc(m.text) + '</p>'; }).join('') : '';
+    var rec = '<h3 style="margin-top:22px;font-size:1.1rem">The best setup for a ' + (isLocal() ? 'local Maldivian business' : 'Maldives hospitality business') + '</h3><ul class="cov">' + M.rec.map(function (r) {
+      return '<li><span><b>' + r.name + '</b></span><span class="st ' + (r.has ? 'full' : r.core ? 'miss' : 'part') + '">' + (r.has ? 'You have it' : r.core ? 'Add this' : 'Optional') + '</span><small>' + esc(r.role) + '</small></li>';
+    }).join('') + '</ul>';
+    var warns = M.blocked.map(function (b) { return '<div class="warnbox"><b>' + b.n + ' guests.</b> ' + esc(b.block) + '</div>'; }).join('');
+    var mixSect = '<div class="sect"><div class="row-h"><h3>Your platform mix</h3><span class="risk ' + M.riskCls + '">' + M.risk + '</span></div>' +
+      '<p class="body">' + esc(M.riskText) + '</p>' +
+      '<div class="covbar" role="img" aria-label="Audience coverage ' + M.coverage + '%"><i style="width:' + M.coverage + '%"></i></div>' +
+      '<p class="hint">You reach about ' + M.coverage + '% of the audiences that matter for ' + (isLocal() ? 'a local business' : 'hospitality') + '.</p>' + cov + miss + warns + rec + '</div>';
+    var adsSect = '<div class="sect"><div class="row-h"><h3>Your ads</h3><span class="tag">' + (R.ads.mode === 'paid' ? 'Paid and organic' : 'Organic only') + '</span></div>' +
+      R.ads.lines.map(function (x) { return '<p class="body">' + esc(x) + '</p>'; }).join('') + '</div>';
+    var localSect = '';
+    if (R.local) {
+      var LC = R.local;
+      localSect = '<div class="sect"><h3>How you do locally</h3><p class="body">' + esc(LC.lines[0]) + '</p>' +
+        '<div class="cmp" style="margin-top:16px">' + LC.rows.map(function (r) {
+          return '<div><span>' + r.name + '</span><span class="t"><i style="width:' + Math.max(3, Math.min(100, r.share)) + '%;background:var(--accent);opacity:1"></i></span><b>' + (r.share < 1 ? r.share.toFixed(1) : Math.round(r.share)) + '%</b></div>';
+        }).join('') + '</div><p class="hint">Your followers as a share of each platform\u2019s users in ' + esc(list(LC.names)) + '.</p>' +
+        LC.lines.slice(1).map(function (x) { return '<p class="body">' + esc(x) + '</p>'; }).join('') + '</div>';
+    }
+    var foreignSect = R.foreign.map(function (f) {
+      return '<div class="sect"><h3>' + f.title + '</h3><ul class="cov">' + f.items.map(function (it) {
+        return '<li><span><b>' + esc(it.name) + '</b></span><span class="st part">Guide</span><small>' + esc(it.ev) + '</small><small style="color:var(--ink)">' + esc(it.how) + '</small></li>';
+      }).join('') + '</ul></div>';
+    }).join('');
+    var guideSect = '<div class="sect"><h3>Run better campaigns</h3><ol class="todo">' + R.guide.map(function (g, i) {
+      return '<li><span class="num">' + (i + 1) + '</span><div><b>' + esc(g.t) + '</b><p>' + esc(g.b) + '</p></div></li>';
+    }).join('') + '</ol></div>';
+    var extra = R.nm || R.claim ? '<div class="sect"><h3>Your names</h3>' + (R.nm ? '<p class="body">' + esc(R.nm) + '</p>' : '') + (R.claim ? '<p class="body">' + esc(R.claim) + '</p>' : '') + '</div>' : '';
+    return progress(active().length + 4) +
+      '<div class="bar-actions"><button type="button" class="btn ghost" data-act="back">← Edit answers</button></div>' +
+      '<article class="report" id="report"><div class="mast"><span>The Health Check</span><span>' + R.date + '</span></div>' +
+      '<div class="hero"><svg class="ring" viewBox="0 0 150 150" role="img" aria-label="Overall score ' + R.avg + ' out of 100"><circle class="t" cx="75" cy="75" r="62"/><circle class="a" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" stroke="' + col + '" stroke-dasharray="' + dash + '"/><text x="75" y="84" text-anchor="middle">' + R.avg + '</text><text class="s" x="75" y="104" text-anchor="middle">OUT OF 100</text></svg>' +
+      '<div><p class="kicker">Report for ' + esc(who()) + '</p><h2>' + R.label + '</h2><p class="lede">' + R.lede + '</p><p class="hint">Profiles ' + R.pavg + '/100 · Platform mix ' + M.coverage + '/100' + (R.capped ? '. ' + R.capped : '') + '</p></div></div>' +
+      mixSect + localSect + foreignSect +
+      '<div class="sect"><h3>Platform by platform</h3><div style="margin-top:14px">' + rows + '</div></div>' +
+      '<div class="sect"><h3>Do these three first</h3>' + todo + '</div>' + adsSect + guideSect + extra +
+      '<p class="note" style="padding-top:20px;border-top:1px solid var(--line)">Scores are friendly guides built from the numbers you entered and published 2026 benchmarks, not data pulled from the platforms.</p></article>' +
+      '<section class="card plan" id="planner" aria-label="Plan your growth"></section><div class="float-space" aria-hidden="true"></div>' + shareMenu();
+  }
+
+  function shareMenu() {
+    return '<div class="share float"><button type="button" class="btn primary" data-act="menu" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>Send this report</button>' +
+      '<div class="menu" id="menu" hidden>' +
+      '<label for="to" style="font-size:14px;color:var(--muted);font-weight:500">Send to (optional)</label>' +
+      '<input type="email" id="to" data-act="email" value="' + esc(state.email) + '" placeholder="name@email.com" autocomplete="email">' +
+      '<a class="mi" id="m-gmail" target="_blank" rel="noopener"><i style="background:#D44638">G</i><span>Gmail<small>Opens a ready-to-send email</small></span></a>' +
+      '<a class="mi" id="m-outlook" target="_blank" rel="noopener"><i style="background:#0F6CBD">O</i><span>Outlook or Hotmail<small>Opens a ready-to-send email</small></span></a>' +
+      '<a class="mi" id="m-wa" target="_blank" rel="noopener"><i style="background:#1FA855">W</i><span>WhatsApp<small>Share the summary as a message</small></span></a>' +
+      '<button type="button" class="mi" data-act="pdf"><i style="background:var(--accent);color:var(--accent-ink)">P</i><span>Save as PDF<small>Attach it to any email</small></span></button>' +
+      '<button type="button" class="mi" data-act="copy"><i style="background:var(--muted)">C</i><span>Copy as text<small>Paste anywhere</small></span></button>' +
+      '</div></div>';
+  }
+  function refreshLinks() {
+    if (state.step !== active().length + 4) return;
+    var R = report(), t = plainText(R), s = subject(R), to = encodeURIComponent(state.email || '');
+    var g = document.getElementById('m-gmail'), o = document.getElementById('m-outlook'), w = document.getElementById('m-wa');
+    if (g) g.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + to + '&su=' + encodeURIComponent(s) + '&body=' + encodeURIComponent(t);
+    if (o) o.href = 'https://outlook.live.com/mail/0/deeplink/compose?to=' + to + '&subject=' + encodeURIComponent(s) + '&body=' + encodeURIComponent(t);
+    if (w) w.href = 'https://wa.me/?text=' + encodeURIComponent(s + '\n\n' + t);
+  }
+
+  function render() {
+    var k = active().length;
+    app.innerHTML = state.step === 0 ? viewBiz() : state.step === 1 ? viewIntro() : state.step <= k + 1 ? viewPlatform(state.step - 2)
+      : state.step === k + 2 ? viewMarkets() : state.step === k + 3 ? viewAds() : viewReport();
+    document.body.classList.toggle('float-on', state.step > k + 3);
+    if (state.step > k + 3) { renderPlan(); refreshLinks(); }
+    if (state.step >= 2 && state.step <= k + 1) updateEr();
+    window.scrollTo({ top: 0 });
+  }
+  function updateEr() { var e = document.getElementById('er'); if (e) e.textContent = erText(); }
+
+  /* ---------- generic sliders ---------- */
+  var G = {
+    spend: { get: function () { return state.ads.spend; }, set: function (v) { state.ads.spend = v; }, txt: function () { return money(valOf(state.ads.spend, SP)) + ' a month'; } },
+    camps: { get: function () { return state.ads.camps; }, set: function (v) { state.ads.camps = v; }, txt: function () { var c = state.ads.camps; return c === 0 ? 'None planned' : c + (c === 1 ? ' campaign' : ' campaigns'); } },
+    reach: { plan: 1, get: function () { return state.plan.reach; }, set: function (v) { state.plan.reach = v; }, txt: function () { return fmt(valOf(state.plan.reach, RE)) + ' people'; } },
+    perAd: { plan: 1, get: function () { return state.plan.perAd; }, set: function (v) { state.plan.perAd = v; }, txt: function () { return money(valOf(state.plan.perAd, PA)) + ' an ad'; } },
+    target: { plan: 1, get: function () { return state.plan.target; }, set: function (v) { state.plan.target = v; }, txt: function () { return fmt(growthCalc().T); } },
+    occBudget: { plan: 1, get: function () { return state.plan.occBudget; }, set: function (v) { state.plan.occBudget = v; }, txt: function () { return money(valOf(state.plan.occBudget, PA)); } },
+    occDays: { plan: 1, get: function () { return state.plan.occDays; }, set: function (v) { state.plan.occDays = v; }, txt: function () { return state.plan.occDays + ' days'; } },
+    adj: { plan: 1, get: function () { return state.plan.adj; }, set: function (v) { state.plan.adj = v; }, txt: function () { return state.plan.adj + '%'; } },
+    cpf: { plan: 1, get: function () { return state.plan.cpf; }, set: function (v) { state.plan.cpf = v; }, txt: function () { return '$' + state.plan.cpf.toFixed(2); } }
+  };
+  function gslider(k, label, min, max, step, ticks) {
+    var v = G[k].get();
+    return '<div class="q"><div class="top"><label for="g-' + k + '">' + label + '</label><span class="val" id="v-' + k + '">' + G[k].txt() + '</span></div>' +
+      '<input type="range" id="g-' + k + '" data-act="gslide" data-k="' + k + '" min="' + min + '" max="' + max + '" step="' + step + '" value="' + v + '" style="--p:' + ((v - min) / (max - min) * 100) + '%">' +
+      '<div class="ticks"><span>' + ticks[0] + '</span><span>' + ticks[1] + '</span></div></div>';
+  }
+
+  /* ---------- growth planner ---------- */
+  function totalFollowers() { return Math.max(100, active().reduce(function (s, p) { return s + valOf(state.d[p.id].f, FOL); }, 0)); }
+  function organicReach() {
+    return active().reduce(function (s, p) { var f = valOf(state.d[p.id].f, FOL), r = reachRate(p.id, f); return s + (r ? f * r / 100 : 0); }, 0);
+  }
+  function reachCalc() {
+    var P = state.plan, people = valOf(P.reach, RE), per = valOf(P.perAd, PA), cpm = mixCpm(), budget = people * FREQ / 1000 * cpm;
+    var cmp = PLATFORMS.filter(function (p) { return p.ads; }).map(function (p) { return { p: p, cost: people * FREQ / 1000 * cpmFor(p.id) }; });
+    return { people: people, per: per, cpm: cpm, budget: budget, ads: Math.max(1, Math.ceil(budget / per)), organic: Math.round(organicReach()), cmp: cmp };
+  }
+  function growthCalc() {
+    var C = totalFollowers(), T = nice(C * Math.pow(10, state.plan.target / 100)), g = Math.pow(T / C, 1 / 12) - 1;
+    var o = state.plan.org / 100, O = C * Math.pow(1 + o, 12), gap = Math.max(0, T - O);
+    return { C: C, T: T, g: g, o: o, O: O, gap: gap, cost: gap * state.plan.cpf };
+  }
+  function occCalc() {
+    var list2 = occList().filter(function (x) { return state.plan.occ[x.id]; }), b = valOf(state.plan.occBudget, PA);
+    return { list: list2, b: b, reach: b / mixCpm() * 1000 / FREQ, total: b * list2.length, daily: b / state.plan.occDays };
+  }
+  function planLines() {
+    var r = reachCalc(), g = growthCalc(), o = occCalc();
+    var L = [
+      'Reach ' + fmt(r.people) + ' people with ads on ' + list(adPlatforms().map(function (p) { return p.name; })) + ': about ' + money(r.budget) + ', or ' + r.ads + (r.ads === 1 ? ' ad' : ' ads') + ' at ' + money(r.per) + ' each.',
+      'Grow from ' + fmt(g.C) + ' to ' + fmt(g.T) + ' followers in 12 months: ' + (g.g * 100).toFixed(1) + '% growth a month' +
+        (g.gap > 0 ? ', with about ' + fmt(g.gap) + ' followers from ads (around ' + money(g.cost) + ').' : ', reachable with organic work alone.')
+    ];
+    L.push(o.list.length ? o.list.length + ' occasion promotions (' + o.list.map(function (x) { return x.n; }).join(', ') + ') at ' + money(o.b) + ' each: ' + money(o.total) + ' a year.' : 'No occasion promotions planned yet.');
+    return L;
+  }
+  function renderPlan() {
+    var el = document.getElementById('planner'); if (!el) return;
+    var P = state.plan, tab = function (v, t) { return '<button type="button" role="tab" data-act="tab" data-v="' + v + '" aria-selected="' + (P.tab === v) + '">' + t + '</button>'; };
+    if (P.tab === 'mix') P.tab = 'reach';
+    var body = '';
+    if (P.tab === 'reach') {
+      body = gslider('reach', 'How many people do you want to reach?', 0, 100, 1, ['1K', '1M']) +
+        gslider('perAd', 'How much would you put behind each ad?', 0, 100, 1, ['$10', '$5K']);
+    } else if (P.tab === 'growth') {
+      var org = [[1, 'Slow, 1%'], [2, 'Steady, 2%'], [4, 'Strong, 4%']].map(function (x) {
+        return '<button type="button" class="chip" data-act="org" data-v="' + x[0] + '" aria-pressed="' + (P.org === x[0]) + '">' + x[1] + '</button>';
+      }).join('');
+      body = gslider('target', 'Followers you want in 12 months (all platforms)', 0, 100, 1, ['Today', '10× today']) +
+        '<div><span class="lbl">How fast do you grow without ads, per month?</span><div class="seg">' + org + '</div></div>';
+    } else {
+      var chips = occList().map(function (x) { return '<button type="button" class="chip" data-act="occ" data-v="' + x.id + '" aria-pressed="' + !!P.occ[x.id] + '">' + x.n + '</button>'; }).join('');
+      body = '<div><span class="lbl">Which occasions matter to your guests?</span><div class="chips">' + chips + '</div>' +
+        '<p class="hint">In 2027, Ramadan and Eid al-Fitr fall in February and March, and Eid al-Adha in May. Islamic dates move about 11 days earlier each year.' + (hasLocal() ? ' School holiday months are approximate, so check this year\u2019s school calendar.' : '') + '</p></div>' +
+        gslider('occBudget', 'Budget for each promotion', 0, 100, 1, ['$10', '$5K']) +
+        gslider('occDays', 'How many days does each one run?', 3, 30, 1, ['3 days', '30 days']);
+    }
+    el.innerHTML = '<p class="kicker">Plan your growth</p><h2>What would it take?</h2>' +
+      '<p class="sub">Costs use 2026 ad prices for your guest markets and the platforms you advertise on.</p>' +
+      '<div class="tabs" role="tablist">' + tab('reach', 'Reach') + tab('growth', 'Growth') + tab('occ', 'Occasions') + '</div>' +
+      '<div class="stack">' + body + '<div id="plan-out" class="stack" style="margin-top:0" aria-live="polite"></div>' +
+      '<details class="assume"><summary>About these numbers</summary><div class="stack" style="margin-top:16px">' +
+      '<div id="cpmTable"></div>' +
+      gslider('adj', 'Adjust all ad costs to match your own results', 50, 200, 5, ['50%', '200%']) +
+      gslider('cpf', 'Cost per new follower from ads', 0.2, 3, 0.05, ['$0.20', '$3']) +
+      '<p class="hint" style="margin:0">Assumes each person sees an ad about twice. Organic reach uses 2026 Instagram and Facebook reach rates by account size. There is no reliable published cost per follower, so use your own figure from Ads Manager. LinkedIn and YouTube engagement figures are rough guides. TikTok ad options vary by country, so check that TikTok Ads Manager accepts a Maldives account.</p>' +
+      '<div><span class="lbl" style="font-size:15px">Sources</span><ol class="src">' + SOURCES.map(function (s) { return '<li><a href="' + s[1] + '" target="_blank" rel="noopener">' + esc(s[0]) + '</a></li>'; }).join('') + '</ol></div>' +
+      '</div></details></div>';
+    planOut();
+  }
+  function cpmTable() {
+    var rows = PLATFORMS.map(function (p) {
+      return '<tr><td>' + p.name + '</td><td>' + (p.ads ? money(cpmFor(p.id)) : 'Not used') + '</td></tr>';
+    }).join('');
+    var mk = MARKETS.filter(function (x) { return state.markets[x.id] && x.cpm; }).map(function (x) { return x.n + (x.est ? ' (estimate)' : ''); });
+    return '<span class="lbl" style="font-size:15px">Cost per 1,000 ad views for ' + (mk.length ? esc(list(mk)) : 'a global audience') + '</span>' +
+      '<table class="cpm"><thead><tr><th>Platform</th><th>Cost</th></tr></thead><tbody>' + rows + '</tbody></table>';
+  }
+  function planOut() {
+    var out = document.getElementById('plan-out'); if (!out) return;
+    var P = state.plan, h = '';
+    if (P.tab === 'reach') {
+      var r = reachCalc(), shown = Math.min(r.ads, 60), dots = '';
+      for (var i = 0; i < shown; i++) dots += '<i></i>';
+      var maxc = Math.max.apply(null, r.cmp.map(function (x) { return x.cost; }));
+      var core = r.cmp.filter(function (x) { return x.p.core; });
+      var best = core.reduce(function (a, b) { return b.cost < a.cost ? b : a; }, core[0]);
+      h = '<div class="stats"><div class="stat"><div class="big">' + money(r.budget) + '</div><span>ad budget on ' + esc(list(adPlatforms().map(function (p) { return p.name; }))) + '</span></div>' +
+        '<div class="stat"><div class="big">' + r.ads + '</div><span>' + (r.ads === 1 ? 'ad' : 'ads') + ' at ' + money(r.per) + ' each</span></div></div>' +
+        '<div class="dots" aria-hidden="true">' + dots + (r.ads > 60 ? '<span class="hint" style="margin:0 0 0 6px">+' + (r.ads - 60) + ' more</span>' : '') + '</div>' +
+        '<div><span class="lbl" style="margin-bottom:10px">The same reach on each platform</span><div class="cmp">' + r.cmp.map(function (x) {
+          return '<div class="' + (x === best ? 'best' : '') + '"><span>' + x.p.name + '</span><span class="t"><i style="width:' + Math.max(4, x.cost / maxc * 100) + '%"></i></span><b>' + money(x.cost) + '</b></div>';
+        }).join('') + '<div class="off"><span>YouTube</span><span class="hint" style="margin:0">Ads not run from the Maldives</span><span></span></div></div></div>' +
+        '<p>To reach about <b>' + fmt(r.people) + ' people</b>, each seeing your ad about twice, plan for roughly ' + money(r.budget) + '. ' +
+        best.p.name + ' is the cheapest way to reach them. ' +
+        (r.organic ? 'Today your organic posts on Instagram and Facebook reach about ' + fmt(r.organic) + ' people each, mostly the same followers every time. Ads are how you reach new ones.' : '') + '</p>' +
+        (hasLocal() && localAud('facebook') && r.people > localAud('facebook') ? '<div class="warnbox">Your local area has only about ' + fmt(localAud('facebook')) + ' people on Facebook. ' + (isLocal() ? 'Above that, you are paying to show the same people your ad again and again.' : 'The rest of this reach has to come from your guest markets.') + '</div>' : '') +
+        (blocked().length ? '<div class="warnbox">These costs leave out ' + list(blocked().map(function (b) { return b.n; })) + ', which these platforms cannot reach.</div>' : '');
+    } else if (P.tab === 'growth') {
+      var g = growthCalc();
+      h = '<div class="stats"><div class="stat"><div class="big">' + (g.g * 100).toFixed(1) + '%</div><span>growth needed each month</span></div>' +
+        '<div class="stat"><div class="big">+' + fmt(Math.max(0, (g.T - g.C) / 12)) + '</div><span>new followers a month</span></div>' +
+        '<div class="stat"><div class="big">' + (g.gap > 0 ? money(g.cost) : '$0') + '</div><span>in ads to close the gap</span></div></div>' +
+        chart(g) +
+        '<p>Growing ' + (g.o * 100) + '% a month without ads gets you to about <b>' + fmt(g.O) + '</b>. ' +
+        (g.gap > 0 ? 'The other ' + fmt(g.gap) + ' followers would come from ads, about ' + money(g.cost) + ' over the year at ' + G.cpf.txt() + ' a follower.' : 'Steady organic work gets you there without ads.') + '</p>' +
+        (state.sel.tiktok ? '' : '<div class="warnbox">Adding TikTok is often the fastest way to grow, because its feed shows your videos to people who don’t follow you yet.</div>');
+    } else {
+      var o = occCalc(), on = {};
+      o.list.forEach(function (x) { x.m.forEach(function (m) { on[m] = 1; }); });
+      var strip = MONTHS.map(function (m, i) { return '<span class="' + (on[i] ? 'on' : '') + '">' + m + '</span>'; }).join('');
+      h = '<div class="months" aria-label="Months with a promotion">' + strip + '</div>' +
+        (o.list.length ? '<div class="stats"><div class="stat"><div class="big">' + o.list.length + '</div><span>promotions a year</span></div>' +
+          '<div class="stat"><div class="big">' + money(o.total) + '</div><span>total for the year</span></div>' +
+          '<div class="stat"><div class="big">' + fmt(o.reach) + '</div><span>people reached by each</span></div>' +
+          '<div class="stat"><div class="big">' + money(o.daily) + '</div><span>a day while it runs</span></div></div>' +
+          '<ol class="flow"><li><b>3 weeks before</b>Tease it in posts and stories.</li><li><b>2 weeks before</b>Launch the offer and start the ads.</li><li><b>While it runs</b>Daily stories, and reply within a day.</li><li><b>After</b>Thank guests and share their photos.</li></ol>' +
+          (o.daily < 20 && state.ads.on.tiktok ? '<div class="warnbox">TikTok needs at least $20 a day per ad group and $50 a day per campaign, so raise the budget or shorten the run for TikTok.</div>' : '')
+          : '<p class="hint">Pick an occasion above to see the plan.</p>');
+    }
+    out.innerHTML = h;
+    var t = document.getElementById('cpmTable'); if (t) t.innerHTML = cpmTable();
+    refreshLinks();
+  }
+  function chart(g) {
+    var W = 600, H = 300, L = 6, R = 180, T = 22, B = 46, n = 12;
+    var lo = g.C * 0.96, hi = Math.max(g.T, g.O) * 1.04;
+    var x = function (m) { return L + (W - L - R) * m / n; }, y = function (v) { return T + (H - T - B) * (1 - (v - lo) / (hi - lo)); };
+    var tp = [], op = [];
+    for (var m = 0; m <= n; m++) { tp.push([x(m), y(g.C * Math.pow(1 + g.g, m))]); op.push([x(m), y(g.C * Math.pow(1 + g.o, m))]); }
+    var path = function (p) { return p.map(function (q, i) { return (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1); }).join(''); };
+    var area = g.gap > 0 ? '<path class="gap" d="' + path(tp) + op.slice().reverse().map(function (q) { return 'L' + q[0].toFixed(1) + ' ' + q[1].toFixed(1); }).join('') + 'Z"/>' : '';
+    var ty = tp[n][1], oy = op[n][1];
+    if (Math.abs(ty - oy) < 32) { var mid = (ty + oy) / 2; if (ty <= oy) { ty = mid - 16; oy = mid + 16; } else { ty = mid + 16; oy = mid - 16; } }
+    return '<svg class="chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Followers over 12 months: goal ' + fmt(g.T) + ', organic only ' + fmt(g.O) + '">' +
+      '<line class="grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + (H - B) + '" y2="' + (H - B) + '"/>' + area +
+      '<path class="og" d="' + path(op) + '"/><path class="tg" d="' + path(tp) + '"/>' +
+      '<text x="' + (W - R + 8) + '" y="' + (ty + 4) + '" class="lt">Goal ' + fmt(g.T) + '</text>' +
+      '<text x="' + (W - R + 8) + '" y="' + (oy + 4) + '">Organic ' + fmt(g.O) + '</text>' +
+      '<text x="' + L + '" y="' + (H - 8) + '">Now</text><text x="' + x(6) + '" y="' + (H - 8) + '" text-anchor="middle">6 months</text><text x="' + (W - R) + '" y="' + (H - 8) + '" text-anchor="end">12 months</text></svg>';
+  }
+
+  /* ---------- toast, copy, pdf ---------- */
+  var tt;
+  function toast(m) { var t = document.getElementById('toast'); t.textContent = m; t.classList.add('on'); clearTimeout(tt); tt = setTimeout(function () { t.classList.remove('on'); }, 2600); }
+  function copyText() {
+    var R = report(), txt = subject(R) + '\n\n' + plainText(R);
+    function fb() {
+      var ta = document.createElement('textarea'); ta.value = txt; ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0'; document.body.appendChild(ta); ta.select();
+      var ok = false; try { ok = document.execCommand('copy'); } catch (e) {} ta.remove(); toast(ok ? 'Copied. Paste it anywhere.' : 'Copy was blocked. Try Save as PDF.');
+    }
+    try { navigator.clipboard.writeText(txt).then(function () { toast('Copied. Paste it anywhere.'); }, fb); } catch (e) { fb(); }
+  }
+  function buildPdf(R) {
+    var J = window.jspdf.jsPDF, doc = new J({ unit: 'mm', format: 'a4' }), W = 210, M = 18, y;
+    var C = { good: [46, 139, 87], warn: [201, 138, 27], bad: [209, 80, 63] };
+    doc.setFillColor(15, 118, 110); doc.rect(0, 0, W, 58, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.text('THE HEALTH CHECK  ·  ' + R.date.toUpperCase(), M, 16);
+    doc.setFontSize(26); doc.text(R.label, M, 34);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
+    doc.text('Report for ' + who() + '   ·   Profiles ' + R.pavg + '/100   ·   Platform mix ' + R.mix.coverage + '/100', M, 44);
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(46); doc.text(String(R.avg), W - M, 38, { align: 'right' });
+    doc.setFontSize(9); doc.text('OUT OF 100', W - M, 46, { align: 'right' });
+    y = 74;
+    function room(h) { if (y + h > 278) { doc.addPage(); y = 24; } }
+    function head(t) { room(16); doc.setTextColor(29, 43, 42); doc.setFont('helvetica', 'bold'); doc.setFontSize(15); doc.text(t, M, y); y += 9; }
+    function para(lines, bullet) {
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(11); doc.setTextColor(29, 43, 42);
+      lines.forEach(function (t) { var ln = doc.splitTextToSize((bullet ? '•  ' : '') + t, W - 2 * M); room(ln.length * 5); doc.text(ln, M, y); y += ln.length * 5 + 3; });
+    }
+    var mx = R.mix, rc = C[mx.riskCls];
+    head('Your platform mix');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(rc[0], rc[1], rc[2]); doc.text(mx.risk.toUpperCase() + '  ·  ' + mx.coverage + '% AUDIENCE COVERAGE', M, y); y += 6;
+    para([mx.riskText]);
+    mx.rows.forEach(function (r) {
+      room(7);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(10.5); doc.setTextColor(29, 43, 42); doc.text(r.n, M, y);
+      var lab = r.lvl === 2 ? 'Reached' : r.lvl === 1 ? 'Partly' : 'Missed', cc = r.lvl === 2 ? [15, 118, 110] : r.lvl === 1 ? [140, 130, 110] : C.bad;
+      doc.setFont('helvetica', 'bold'); doc.setTextColor(cc[0], cc[1], cc[2]); doc.text(lab, W - M, y, { align: 'right' }); y += 6.5;
+    });
+    y += 2;
+    if (mx.missing.length && mx.missing.length < 3) para(mx.missing.map(function (m) { return 'Without ' + m.name + ': ' + m.text; }));
+    if (mx.blocked.length) para(mx.blocked.map(function (b) { return b.n + ' guests: ' + b.block; }));
+    para(['Best setup: ' + mx.rec.map(function (r) { return r.name + (r.has ? ' (you have it)' : r.core ? ' (add this)' : ' (optional)'); }).join(', ') + '.']);
+    if (R.local) { y += 2; head('How you do locally'); para(R.local.lines); }
+    R.foreign.forEach(function (f) { y += 2; head(f.title); para(f.items.map(function (it) { return it.name + ': ' + it.ev + ' ' + it.how; }), true); });
+    y += 2; head('Platform by platform');
+    R.rows.forEach(function (r) {
+      room(24);
+      var col = C[cls(r.total)];
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(12); doc.setTextColor(29, 43, 42); doc.text(r.pl.name, M, y);
+      doc.setTextColor(col[0], col[1], col[2]); doc.text(String(r.total), W - M, y, { align: 'right' });
+      doc.setFillColor(234, 223, 207); doc.roundedRect(M, y + 3, W - 2 * M, 3.4, 1.7, 1.7, 'F');
+      doc.setFillColor(col[0], col[1], col[2]); doc.roundedRect(M, y + 3, Math.max(3.4, (W - 2 * M) * r.total / 100), 3.4, 1.7, 1.7, 'F');
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(102, 119, 114);
+      var ln = doc.splitTextToSize(r.focus, W - 2 * M); doc.text(ln, M, y + 12); y += 14 + ln.length * 4.6 + 4;
+    });
+    y += 4; head('Do these three first');
+    R.top.forEach(function (f, i) {
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
+      var ln = doc.splitTextToSize(f.tip, W - 2 * M - 14); room(14 + ln.length * 5);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(24); doc.setTextColor(15, 118, 110); doc.text(String(i + 1), M, y + 6);
+      doc.setFontSize(9); doc.setTextColor(102, 119, 114); doc.text(f.p.toUpperCase(), M + 14, y);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(11); doc.setTextColor(29, 43, 42); doc.text(ln, M + 14, y + 6);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.setTextColor(15, 118, 110); doc.text(f.gainText ? 'Opens a new audience' : '+' + f.gain + ' points', M + 14, y + 6 + ln.length * 5 + 1);
+      y += 12 + ln.length * 5 + 6;
+    });
+    if (R.nm || R.claim) { y += 2; head('Your names'); para([R.nm, R.claim].filter(Boolean)); }
+    y += 2; head('Your ads (' + (R.ads.mode === 'paid' ? 'paid and organic' : 'organic only') + ')'); para(R.ads.lines);
+    y += 2; head('Run better campaigns'); para(R.guide.map(function (g, i) { return (i + 1) + '. ' + g.t + '. ' + g.b; }));
+    y += 2; head('Your growth plan'); para(R.plan, true);
+    var pages = doc.getNumberOfPages();
+    for (var pg = 1; pg <= pages; pg++) {
+      doc.setPage(pg); doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(120, 130, 126);
+      doc.text('Scores and costs are rough guides built from the numbers entered and published 2026 benchmarks.  Page ' + pg + ' of ' + pages, M, 290);
+    }
+    return doc;
+  }
+  async function savePdf() {
+    if (!window.jspdf) { toast('The PDF tool did not load. Try Copy as text.'); return; }
+    var blob, fname = 'social-health-check.pdf';
+    try { blob = buildPdf(report()).output('blob'); } catch (e) { toast('Could not build the PDF.'); return; }
+    var dl = null;
+    try { dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null; } catch (e) { dl = null; }
+    if (dl) {
+      try { await dl.save({ filename: fname, data: blob }); toast('PDF saved. Attach it to your email.'); }
+      catch (e) { if (!e || e.code !== 'declined') toast('Saving a PDF is not available here.'); }
+    } else {
+      var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = fname; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000); toast('Your PDF is downloading.');
+    }
+  }
+
+  /* ---------- events ---------- */
+  function closeMenu() {
+    var m = document.getElementById('menu'); if (!m) return; m.hidden = true;
+    var b = document.querySelector('[data-act="menu"]'); if (b) b.setAttribute('aria-expanded', 'false');
+  }
+  function press(sel, fn) { document.querySelectorAll(sel).forEach(function (b) { b.setAttribute('aria-pressed', fn(b)); }); }
+  app.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-act]'); if (!t) return;
+    var a = t.getAttribute('data-act'), v = t.getAttribute('data-v');
+    if (a === 'plat') { var id = t.getAttribute('data-id'); state.sel[id] = !state.sel[id]; render(); }
+    else if (a === 'same') { state.shared = !state.shared; render(); }
+    else if (a === 'clear') { state = fresh(); render(); }
+    else if (a === 'next') { state.step += 1; render(); }
+    else if (a === 'back') { state.step = Math.max(0, state.step - 1); render(); }
+    else if (a === 'tog') { var s = state.d[curPl().id], key = t.getAttribute('data-k'); s[key] = !s[key]; t.setAttribute('aria-pressed', s[key]); }
+    else if (a === 'reply') { state.d[curPl().id].reply = v; press('[data-act="reply"]', function (b) { return b === t; }); }
+    else if (a === 'mkt') {
+      state.markets[v] = !state.markets[v]; t.setAttribute('aria-pressed', !!state.markets[v]);
+      document.getElementById('mktWarn').innerHTML = blocked().map(function (b) { return '<div class="warnbox"><b>' + b.n + '.</b> ' + b.block + '</div>'; }).join('');
+    }
+    else if (a === 'biz') { state.biz = v; press('[data-act="biz"]', function (b) { return b === t; }); }
+    else if (a === 'area') {
+      state.areas[v] = !state.areas[v]; t.setAttribute('aria-pressed', !!state.areas[v]);
+      document.getElementById('areaNote').textContent = areaSummary();
+    }
+    else if (a === 'adq') { state.ads[t.getAttribute('data-k')] = v; press('[data-act="adq"][data-k="' + t.getAttribute('data-k') + '"]', function (b) { return b === t; }); }
+    else if (a === 'ads') { state.ads.mode = v; render(); }
+    else if (a === 'adon') { state.ads.on[v] = !state.ads.on[v]; t.setAttribute('aria-pressed', !!state.ads.on[v]); }
+    else if (a === 'tab') { state.plan.tab = v; renderPlan(); var tb = document.querySelector('[data-act="tab"][aria-selected="true"]'); if (tb) tb.focus(); }
+    else if (a === 'org') { state.plan.org = +v; press('[data-act="org"]', function (b) { return b === t; }); planOut(); }
+    else if (a === 'occ') { state.plan.occ[v] = !state.plan.occ[v]; t.setAttribute('aria-pressed', !!state.plan.occ[v]); planOut(); }
+    else if (a === 'menu') { var m = document.getElementById('menu'); var open = m.hidden; m.hidden = !open; t.setAttribute('aria-expanded', open); if (open) refreshLinks(); }
+    else if (a === 'pdf') { closeMenu(); savePdf(); }
+    else if (a === 'copy') { closeMenu(); copyText(); }
+  });
+  app.addEventListener('input', function (e) {
+    var t = e.target, a = t.getAttribute('data-act');
+    if (a === 'slide') {
+      var key = t.getAttribute('data-k'), s = state.d[curPl().id], max = +t.max;
+      s[key] = +t.value; t.style.setProperty('--p', (t.value / max * 100) + '%');
+      document.getElementById('v-' + key).textContent = sliderText(key);
+      if (key === 'f' || key === 'l') updateEr();
+    } else if (a === 'gslide') {
+      var g = G[t.getAttribute('data-k')]; g.set(+t.value);
+      t.style.setProperty('--p', ((t.value - t.min) / (t.max - t.min) * 100) + '%');
+      document.getElementById('v-' + t.getAttribute('data-k')).textContent = g.txt();
+      if (g.plan) planOut();
+    } else if (a === 'shared') { state.sharedName = t.value; state.example = false; }
+    else if (a === 'name') { state.names[t.getAttribute('data-id')] = t.value; }
+    else if (a === 'email') { state.email = t.value; refreshLinks(); }
+  });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.share')) closeMenu(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+
+  state = example();
+  render();
+})();
+</script>
+
+</body>
+</html>
