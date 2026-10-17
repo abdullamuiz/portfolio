@@ -809,6 +809,16 @@ footer a:hover{color:var(--ink)}
 .tz-float button{flex:none;width:34px;height:34px;border-radius:50%;border:0;background:transparent;color:var(--muted);cursor:pointer;display:grid;place-items:center;font-size:1rem}
 .tz-float button:hover{color:var(--ink);background:var(--bg)}
 @media (prefers-reduced-motion:reduce){.tz-float{transition:none}}
+.stat-case{grid-template-columns:minmax(0,1fr) minmax(0,220px)!important;align-items:center!important;gap:32px!important}
+.stat-case .cs-ad{margin:0;border-radius:16px;overflow:hidden;box-shadow:0 18px 40px -18px rgba(0,0,0,.45);transform:rotate(2deg)}
+.stat-case .cs-ad img{display:block;width:100%;height:auto}
+.cs-steps{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+.cs-more{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.cs-more li{font-size:.85rem;color:var(--muted);padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:color-mix(in srgb,var(--ink) 3%,transparent)}
+.stat.stat-case .cs-more b{color:var(--ink);font-weight:700;margin-right:3px}
+.cs-copy .cs-src{font-size:.75rem;opacity:.75;line-height:1.4}
+#results{scroll-margin-top:96px}
+@media (max-width:900px){.stat-case{grid-template-columns:1fr!important}.stat-case .cs-ad{display:none}.cs-more li{font-size:.8rem;padding:6px 10px}.cs-steps{grid-template-columns:repeat(2,minmax(0,1fr))!important}.cs-steps li:nth-child(2)::after{display:none}}
 </style>
 </head>
 <body>
@@ -876,61 +886,30 @@ footer a:hover{color:var(--ink)}
     <div class="stat stat-content reveal d1"><span class="k">Behind the camera</span><svg class="mosaic" viewBox="0 0 109 45" aria-hidden="true"><rect class="ma" x="0" y="0" width="13" height="13" rx="3"/><rect class="mb" x="16" y="0" width="13" height="13" rx="3"/><rect class="ma" x="32" y="0" width="13" height="13" rx="3"/><rect class="mc" x="48" y="0" width="13" height="13" rx="3"/><path class="mp" d="M52.5,3.5 L57.5,6.5 L52.5,9.5 Z"/><rect class="ma" x="64" y="0" width="13" height="13" rx="3"/><rect class="mb" x="80" y="0" width="13" height="13" rx="3"/><rect class="ma" x="96" y="0" width="13" height="13" rx="3"/><rect class="md" x="0" y="16" width="13" height="13" rx="3"/><rect class="ma" x="16" y="16" width="13" height="13" rx="3"/><rect class="mb" x="32" y="16" width="13" height="13" rx="3"/><path class="mp" d="M36.5,19.5 L41.5,22.5 L36.5,25.5 Z"/><rect class="mc" x="48" y="16" width="13" height="13" rx="3"/><rect class="ma" x="64" y="16" width="13" height="13" rx="3"/><rect class="mb" x="80" y="16" width="13" height="13" rx="3"/><rect class="ma" x="96" y="16" width="13" height="13" rx="3"/><rect class="md" x="0" y="32" width="13" height="13" rx="3"/><rect class="ma" x="16" y="32" width="13" height="13" rx="3"/><path class="mp" d="M20.5,35.5 L25.5,38.5 L20.5,41.5 Z"/><rect class="mb" x="32" y="32" width="13" height="13" rx="3"/><rect class="ma" x="48" y="32" width="13" height="13" rx="3"/><rect class="mc" x="64" y="32" width="13" height="13" rx="3"/><rect class="mb" x="80" y="32" width="13" height="13" rx="3"/><rect class="ma" x="96" y="32" width="13" height="13" rx="3"/></svg><b>5K+</b><span class="l">pieces of content in 15 years behind the camera</span><span class="sfoot"><em>Reels</em><em>Photo</em><em>Print</em><em>Email</em></span></div>
     <div class="stat reveal d2"><span class="k">SME HUB, BCC</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><b>23</b><span class="l">small businesses incubated</span><span class="sfoot sfoot-t">3 posts a week and daily stories for every vendor, for a year</span></div>
     <div class="stat reveal d2"><span class="k">Published research</span><b>36+</b><span class="l">citations, <i>Tourism and Hospitality Research</i>, 2021</span><a class="paper-link" href="#credentials" target="_blank" rel="noopener">Read the abstracts &#8595;</a><span class="sfoot sfoot-t">2 peer-reviewed papers on Maldivian guesthouses, 2017 and 2021</span></div>
-    <div class="stat stat-hero stat-case reveal">
+    <div class="stat stat-hero stat-case reveal" id="results">
       <div class="cs-copy">
-        <span class="k">Case in point &middot; Manta Season, off-season 2022</span>
-        <h3 class="cs-h">Views and clicks are a bill. <em>Bookings are the result.</em></h3>
-        <p class="cs-cost"><b class="c-hl">USD 500</b> (about MVR 7,700) put the ad in front of <b class="c-ac">84,688</b> people. That's roughly MVR 91 for every thousand people who scrolled past. Most ads are paid per view or per click, so every look adds to the bill, whether or not anyone buys.</p>
-        <p>Reach on its own stays in the expenses column. What counts is what the ad brings back: new enquiries, promo codes redeemed, and nights sold compared with the same month last year.</p>
-        <ol class="funnel">
+        <span class="k">Case in point &middot; Reethi Beach Resort, off-season 2022</span>
+        <h3 class="cs-h">One USD 500 ad. <em>38 direct bookings.</em></h3>
+        <p>I judge ads by bookings, not views. This Manta Season offer filled quiet off-season nights, and about half of the bookings came direct, with no agent commission.</p>
+        <ol class="funnel cs-steps">
+          <li><strong>USD 500</strong><span>ad spend</span></li>
           <li><strong>84,688</strong><span>people reached</span></li>
           <li><strong>73+</strong><span>bookings</span></li>
           <li class="hl"><strong>38</strong><span>booked direct</span></li>
         </ol>
+        <ul class="cs-more" aria-label="More results">
+          <li><b>$0.11</b> per website click on a USD 35 boost</li>
+          <li><b>12</b> influencer collaborations, incl. Miss Germany 2022</li>
+          <li><b>30+</b> prime-time TV broadcasts in Italy</li>
+          <li><b>20K</b> Facebook followers</li>
+          <li><b>HolidayCheck</b> Special Award 2022</li>
+        </ul>
+        <p class="cs-src">From Meta Ads Manager and monthly marketing reports, 2022. The resort has since changed management.</p>
       </div>
-      <div class="be" id="be">
-        <div class="be-head">
-          <span class="k">Break-even calculator</span>
-          <div class="be-toggle" role="group" aria-label="Booking channel">
-            <button type="button" data-ch="direct" aria-pressed="true">Booked direct</button>
-            <button type="button" data-ch="agent" aria-pressed="false">Through an agent</button>
-          </div>
-        </div>
-        <svg class="be-chart" id="beChart" viewBox="0 0 360 190" role="img" aria-label="Room revenue from nights sold compared with the ad spend"></svg>
-        <label class="be-slider"><span>Nights sold from the ad: <b id="beN">5</b></span><input type="range" id="beRange" min="1" max="12" step="1" value="5"></label>
-        <p class="be-out" id="beOut"></p>
-        <p class="be-note">USD 300 a night with the 40% Manta Season discount is USD 180 a night. Agent bookings assume a 25% commission.</p>
-      </div>
+      <figure class="cs-ad"><img src="images/campaigns/manta.jpg" width="1120" height="1400" alt="The Manta Season offer ad" loading="lazy"></figure>
     </div>
   </div>
 </div>
-
-<!-- ================= RESULTS ================= -->
-<section id="results" style="padding-top:40px">
-  <div class="wrap">
-    <h2 class="reveal">More results, <em>straight from the reports.</em></h2>
-    <div class="results-grid">
-      <div class="rtile rtile-hero reveal">
-        <div class="stack">
-          <span class="what">The ad behind the case above</span>
-          <b>$0.11</b>
-          <span class="how">Cost per website click on a single boosted post from the same campaign: USD 35 spent, 30,304 people reached and 325 clicks through to the booking page. Small budgets work when every dollar is pointed at people ready to book.</span>
-          <div class="mini">
-            <div><strong>30,304</strong><span>reached by one boosted post</span></div>
-            <div><strong>325</strong><span>clicks to the website</span></div>
-            <div><strong>USD 35</strong><span>total spent</span></div>
-          </div>
-        </div>
-        <figure><img src="images/campaigns/manta.jpg" width="1120" height="1400" alt="The Manta Season offer ad" loading="lazy"></figure>
-      </div>
-      <div class="rtile reveal d1"><b>12</b><span class="what">Influencer collaborations in one year</span><span class="how">Sourced, hosted and produced at Reethi Beach, including Miss Germany 2022.</span></div>
-      <div class="rtile reveal d2"><b>30+</b><span class="what">Prime-time TV broadcasts in Italy</span><span class="how">A 15-minute travel documentary hosted at the resort, scheduled across 10 Italian local channels over three months.</span></div>
-      <div class="rtile reveal d1"><b>20K</b><span class="what">Facebook followers milestone</span><span class="how">The resort's Facebook page passed 20,000 followers, celebrated with a thank-you campaign.</span></div>
-      <div class="rtile reveal d2"><b>2022</b><span class="what">HolidayCheck Special Award</span><span class="how">Recognised among the most popular hotels worldwide, announced through our social channels.</span></div>
-    </div>
-    <p class="results-note">Reach and click figures from Meta Ads Manager reports, 2022. Other figures from monthly marketing reports. The resort has since changed management and its 2022 pages were retired.</p>
-  </div>
-</section>
 
 <!-- ================= FREE MARKETING TEST ================= -->
 <section id="healthcheck" style="padding-top:24px">
