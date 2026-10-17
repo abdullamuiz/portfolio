@@ -543,7 +543,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     { id: 'ny', n: 'New Year', m: [11], who: 'l' }
   ];
   var HOW = [['boost', 'The Boost button'], ['manager', 'Ads Manager'], ['agency', 'An agency or freelancer']];
-  var RESULT = [['yes', 'Yes, clearly'], ['little', 'A little'], ['no', 'Not really']];
+  var RESULT = [['yes', 'Yes, clearly'], ['little', 'A little'], ['no', 'Not really'], ['unsure', 'Not sure']];
   var TRACK = [['all', 'Yes, every one'], ['some', 'Sometimes'], ['none', 'Not yet']];
   var WHO = [['nobody', 'Nobody really'], ['me', 'Me, when I find time'], ['staff', 'A team member, a few hours a week'], ['pro', 'A dedicated person or agency']];
   var CATS = [
@@ -890,7 +890,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     }
     function grp(r, g) { var got = 0, max = 0; r.parts.forEach(function (x) { if (x.g === g) { got += x.got; max += x.max; } }); return max ? got / max * 100 : 0; }
     var a = state.ads, tm = state.team || {};
-    var paid = a.mode !== 'paid' ? 20 : Math.min(100, 40 + (a.how === 'boost' ? 0 : 20) + (a.result === 'yes' ? 40 : a.result === 'little' ? 20 : 0));
+    var paid = a.mode !== 'paid' ? 20 : Math.min(100, 40 + (a.how === 'boost' ? 0 : 20) + (a.result === 'yes' ? 40 : a.result === 'little' ? 20 : a.result === 'unsure' ? 10 : 0));
     return [
       { k: 'profiles', c: 1, n: 'Profiles', v: avgPart(function (r) { return grp(r, 'prof'); }), d: 'Bio, link, branding and highlights' },
       { k: 'mix', c: 2, n: 'Platform mix', v: mix.coverage, d: 'Audiences you can reach' },
@@ -947,6 +947,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     if (a.mode === 'paid' && a.result === 'no') lines.push(a.how === 'boost'
       ? 'You boost posts but haven\u2019t seen real growth. That is the most common pattern we see: boosting is quick but has few controls, so it tends to buy likes rather than customers. See \u201cRun better campaigns\u201d below.'
       : 'Your ads haven\u2019t brought real growth yet. That usually means the goal, the audience or the offer is off. See \u201cRun better campaigns\u201d below.');
+    if (a.mode === 'paid' && a.result === 'unsure') lines.push('You\u2019re not sure what your ads bring in, which is very common. Before spending more, give each campaign its own promo code or tracked link and ask every new ' + (isLocal() ? 'customer' : 'guest') + ' how they found you. Then you can see which ads pay for themselves.');
     return { mode: a.mode, lines: lines };
   }
 
@@ -1205,7 +1206,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     }).join('') + '</div></div>';
   }
   function seg(key, label, opts, cur) {
-    return '<div><span class="lbl">' + label + '</span><div class="seg">' + opts.map(function (o) {
+    return '<div><span class="lbl">' + label + '</span><div class="seg' + (opts.length > 3 ? ' seg-list' : '') + '">' + opts.map(function (o) {
       return '<button type="button" class="chip" data-act="adq" data-k="' + key + '" data-v="' + o[0] + '" aria-pressed="' + (cur === o[0]) + '">' + o[1] + '</button>';
     }).join('') + '</div></div>';
   }
