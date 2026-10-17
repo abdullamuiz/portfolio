@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="A free 2-minute social media health check for Maldivian businesses, built on 2026 benchmarks by Abdulla Muiz Fuad.">
+<meta name="description" content="A free 5-minute social visibility and marketing funnel test for Maldivian businesses, built on 2026 benchmarks by Abdulla Muiz Fuad.">
 <meta property="og:title" content="Social Health Check · Abdulla Muiz Fuad">
-<meta property="og:description" content="Score your Instagram, Facebook and TikTok against 2026 benchmarks in 2 minutes.">
+<meta property="og:description" content="Score your socials and your marketing funnel against 2026 benchmarks in 5 minutes.">
 <title>Social Health Check · Abdulla Muiz Fuad</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 /* One question at a time, big touch targets, soft corners. The report page is styled like a newsletter issue.
-   Embed note: self-contained apart from Google Fonts and the jsPDF script; no backend, nothing is stored. */
+   Embed note: self-contained apart from Google Fonts and the jsPDF script; no backend; answers leave the page only if the visitor asks for the emailed report (LEAD_ENDPOINT). */
 :root {
   --bg: #f3f5f3; --surface: #ffffff; --ink: #10191b; --muted: #56625f; --line: #d6dddb;
   --accent: #0b6b70; --accent-soft: #d8ebea; --accent-ink: #ffffff;
@@ -299,6 +299,24 @@ details.assume summary { cursor: pointer; font-weight: 700; font-size: 15.5px; }
 .st.miss { border: 2px solid var(--bad); color: var(--bad); padding: 1px 9px; }
 .covbar { height: 12px; border-radius: 12px; background: var(--track); overflow: hidden; margin-top: 12px; }
 .covbar i { display: block; height: 100%; border-radius: 12px; background: var(--accent); }
+.lead { margin-top: 18px; background: radial-gradient(120% 80% at 0% 0%, color-mix(in srgb, var(--hl) 12%, transparent), transparent 60%), var(--surface); }
+.lead h2 { margin-bottom: 6px; }
+.lgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+.lf { display: grid; gap: 6px; margin-top: 4px; } .lf[hidden] { display: none; }
+.lf label { font-weight: 600; font-size: 15px; } .lf .req, .lf .opt { font-weight: 500; font-size: 12.5px; color: var(--muted); margin-left: 6px; }
+.lf input { font: inherit; padding: 13px 15px; border-radius: 14px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); width: 100%; min-width: 0; }
+.lf input:focus { outline: 2px solid var(--hl); outline-offset: 1px; border-color: transparent; }
+.lcheck { display: flex; gap: 10px; align-items: flex-start; margin: 16px 0 6px; font-size: 15px; cursor: pointer; }
+.lcheck input { width: 20px; height: 20px; accent-color: var(--hl); margin-top: 1px; flex: none; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.lerr { color: var(--bad); font-size: 14px; min-height: 1em; margin: 8px 0 0; }
+.lbtn { background: var(--hl) !important; color: var(--hl-ink) !important; margin-top: 6px; }
+.lnote { margin-top: 12px; padding: 10px 14px; border-radius: 12px; background: var(--chip); font-size: 14.5px; }
+.lconsent { margin-top: 14px; font-size: 13px; color: var(--muted); }
+.lconsent details { display: inline; } .lconsent summary { display: inline; cursor: pointer; text-decoration: underline; color: var(--accent); }
+.lconsent details[open] p { display: block; margin-top: 8px; padding: 10px 12px; border-radius: 12px; background: var(--chip); color: var(--ink); }
+.lead.done h2 { color: var(--accent); }
+@media (max-width: 560px) { .lgrid { grid-template-columns: 1fr; } }
 .xblock { margin-top: 18px; padding: 16px; border-radius: 18px; background: var(--chip); display: grid; gap: 14px; }
 .xblock .rec { font-style: normal; font-size: 10.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-left: 6px; }
 .xrow { display: grid; gap: 10px; padding-top: 12px; border-top: 1px solid var(--line); }
@@ -1015,6 +1033,9 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
 
   /* ---------- views ---------- */
   var app = document.getElementById('app');
+  // Lead capture: paste the Google Apps Script web app URL here (see tools/lead-capture.gs). Empty = PDF downloads instead.
+  var LEAD_ENDPOINT = '';
+  var lead = { name: '', email: '', call: false, wa: '', state: 'idle', msg: '' };
   function steps() { return active().length + 6; } // business, accounts, platforms, customers, funnel, ads, report
   function progress(step) {
     var n = steps(), h = '';
@@ -1033,7 +1054,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     return '<section class="card">' + progress(0) +
       (state.example ? '<div class="banner"><span>Example answers are filled in. Change anything you like.</span><button type="button" data-act="clear">Start fresh</button></div>' : '') +
       '<p class="kicker">Free 5-minute test</p><h1>How much of your funnel is working?</h1>' +
-      '<p class="sub">A few taps and sliders. No logins, and nothing is saved.</p>' +
+      '<p class="sub">A few taps and sliders. No logins. Your answers stay on this page unless you ask us to email your report.</p>' +
       '<div style="margin-top:26px"><span class="lbl">Your business</span><div class="cats">' + cats + '</div>' + subs + '</div>' +
       '<div style="margin-top:24px"><span class="lbl">Who are your customers? <span class="hint" style="font-weight:400">Pick all that apply</span></span><div class="big3 aud3">' + auds + '</div>' +
       '<p class="hint">This shapes the rest of the test: the audiences we look at, ad costs and the advice in your report.</p></div>' +
@@ -1261,10 +1282,57 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       '<div class="sect"><h3>Do these three first</h3>' + todo + '</div>' + adsSect + guideSect + extra +
       '<p class="note" style="padding-top:20px;border-top:1px solid var(--line)">Scores are friendly guides built from the numbers you entered and published 2026 benchmarks, not data pulled from the platforms.</p></article>' +
       '<section class="card plan" id="planner" aria-label="Plan your growth"></section>' +
-      '<!-- Lead capture form goes here (next task) --><div id="leadspot"></div>' +
+      '<div id="leadspot">' + leadForm() + '</div>' +
       '<div class="dock">' + shareMenu() + '</div>';
   }
 
+  function leadForm() {
+    if (lead.state === 'sent') return '<section class="card lead done" aria-live="polite"><p class="kicker">Report on its way</p><h2>Sent! Check your inbox in a minute</h2><p class="sub">And the spam folder, just in case.' + (lead.call ? ' Muiz will message you on WhatsApp to set up your call.' : '') + '</p></section>';
+    return '<section class="card lead" aria-labelledby="leadH"><p class="kicker">Keep your results</p><h2 id="leadH">Get your full report in your inbox</h2>' +
+      '<p class="sub">We\u2019ll email your PDF report. No spam, unsubscribe any time.</p>' +
+      '<form id="leadForm" novalidate><div class="lgrid">' +
+      '<div class="lf"><label for="lfEmail">Email <span class="req">required</span></label><input id="lfEmail" data-lf="email" type="email" inputmode="email" autocomplete="email" required placeholder="you@business.com" value="' + esc(lead.email) + '"></div>' +
+      '<div class="lf"><label for="lfName">First name <span class="opt">optional</span></label><input id="lfName" data-lf="name" type="text" autocomplete="given-name" placeholder="Aisha" value="' + esc(lead.name) + '"></div></div>' +
+      '<div class="hp" aria-hidden="true"><label for="lfWeb">Company website</label><input id="lfWeb" name="company_website" type="text" tabindex="-1" autocomplete="off"></div>' +
+      '<label class="lcheck"><input type="checkbox" data-lf="call"' + (lead.call ? ' checked' : '') + '><span>I\u2019d like a free 15-minute call about my results</span></label>' +
+      '<div class="lf" id="lfWaWrap"' + (lead.call ? '' : ' hidden') + '><label for="lfWa">WhatsApp number <span class="opt">optional</span></label><input id="lfWa" data-lf="wa" type="tel" inputmode="tel" autocomplete="tel" placeholder="+960 7XX XXXX" value="' + esc(lead.wa) + '"></div>' +
+      '<p class="lerr" id="lfErr" role="alert">' + (lead.state === 'error' ? esc(lead.msg) : '') + '</p>' +
+      '<button type="submit" class="btn primary lbtn" id="lfBtn"' + (lead.state === 'sending' ? ' disabled' : '') + '>' + (lead.state === 'sending' ? 'Sending\u2026' : 'Email me my report') + '</button>' +
+      (lead.state === 'fallback' ? '<p class="lnote">' + esc(lead.msg) + '</p>' : '') +
+      '<div class="lconsent">By sending, you agree to receive your report and occasional tips from Islandeative. <details><summary>See how we use your details.</summary>' +
+      '<p>We collect your email, your first name and WhatsApp number if you give them, and your test answers and scores. We use them to send your report and to follow up about your marketing. We don\u2019t sell or share them. To have your details deleted, email muiz@islandeative.com.</p></details></div>' +
+      '</form></section>';
+  }
+  function leadPayload(R) {
+    var fun = {}; R.funnel.stages.forEach(function (s) { fun[s.k] = s.v; });
+    var cmp = {}; R.compass.forEach(function (c) { cmp[c.k] = c.v; });
+    var names = state.shared ? clean(state.sharedName) : active().map(function (p) { return p.name + ': ' + clean(state.names[p.id]); }).filter(function (x) { return !/: $/.test(x); }).join('; ');
+    return { name: lead.name.trim(), email: lead.email.trim(), wantsCall: !!lead.call, whatsapp: lead.call ? lead.wa.trim() : '', usernames: names,
+      cat: state.cat || '', btype: state.btype || '', audiences: Object.keys(state.aud).filter(function (k) { return state.aud[k]; }).join(','),
+      markets: Object.keys(state.markets).filter(function (k) { return state.markets[k]; }).join(','), islands: areaNames().join(', '),
+      platforms: active().map(function (p) { return p.name; }).concat(Object.keys(state.xsel).filter(function (k) { return state.xsel[k]; }).map(function (k) { return XPF[k].n; })).join(', '),
+      score: R.avg, compass: cmp, funnel: fun, leak: R.funnel.leak ? R.funnel.leak.n : 'None',
+      topFixes: R.top.map(function (f, i) { return (i + 1) + '. ' + f.p + ': ' + f.tip; }), currency: CUR, date: R.date };
+  }
+  function blobB64(blob) { return new Promise(function (res, rej) { var r = new FileReader(); r.onload = function () { res(String(r.result).split(',')[1] || ''); }; r.onerror = rej; r.readAsDataURL(blob); }); }
+  function redrawLead() { var s = document.getElementById('leadspot'); if (s) s.innerHTML = leadForm(); }
+  async function submitLead() {
+    var hp = document.getElementById('lfWeb'), err = document.getElementById('lfErr');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(lead.email.trim())) { if (err) err.textContent = 'Please enter a valid email address.'; var em = document.getElementById('lfEmail'); if (em) em.focus(); return; }
+    if (hp && hp.value) { lead.state = 'sent'; redrawLead(); return; } // bot: pretend it worked
+    lead.state = 'sending'; redrawLead();
+    var R = report(), fname = 'social-visibility-report.pdf', blob = null;
+    try { if (window.jspdf) blob = buildPdf(R).output('blob'); } catch (e) { blob = null; }
+    if (!LEAD_ENDPOINT) {
+      if (blob) { var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = fname; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000); }
+      lead.state = 'fallback'; lead.msg = 'Email delivery isn\u2019t switched on yet, so we\u2019ve downloaded it for you.'; redrawLead(); return;
+    }
+    try {
+      var body = leadPayload(R); body.pdf_base64 = blob ? await blobB64(blob) : ''; body.pdf_filename = fname;
+      await fetch(LEAD_ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) });
+      lead.state = 'sent'; redrawLead();
+    } catch (e) { lead.state = 'error'; lead.msg = 'We couldn\u2019t send it just now. Please try again, or use Save as PDF below.'; redrawLead(); }
+  }
   function shareMenu() {
     return '<div class="share docked"><button type="button" class="btn primary" data-act="menu" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>Send this report</button>' +
       '<div class="menu" id="menu" hidden>' +
@@ -1680,10 +1748,15 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     } else if (a === 'xslide') {
       var xid = t.getAttribute('data-id'); state.xd[xid].f = +t.value; t.style.setProperty('--p', t.value + '%');
       document.getElementById('xv-' + xid).textContent = fmt(valOf(state.xd[xid].f, FOL));
+    } else if (t.dataset && t.dataset.lf) {
+      var lk2 = t.dataset.lf; if (lk2 === 'call') { lead.call = t.checked; var ww = document.getElementById('lfWaWrap'); if (ww) ww.hidden = !t.checked; } else lead[lk2] = t.value;
+      if (lk2 === 'email') { var er2 = document.getElementById('lfErr'); if (er2) er2.textContent = ''; }
     } else if (a === 'shared') { state.sharedName = t.value; state.example = false; }
     else if (a === 'name') { state.names[t.getAttribute('data-id')] = t.value; }
     else if (a === 'email') { state.email = t.value; refreshLinks(); }
   });
+  app.addEventListener('submit', function (e) { if (e.target.id === 'leadForm') { e.preventDefault(); if (lead.state !== 'sending') submitLead(); } });
+  app.addEventListener('change', function (e) { var t = e.target; if (t.dataset && t.dataset.lf === 'call') { lead.call = t.checked; var ww = document.getElementById('lfWaWrap'); if (ww) ww.hidden = !t.checked; } });
   document.addEventListener('click', function (e) { if (!e.target.closest('.share')) closeMenu(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
 
