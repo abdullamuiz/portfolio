@@ -1373,6 +1373,10 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
 
   state = fresh();
+  try {
+    var qp = new URLSearchParams(location.search).get('p');
+    if (qp) qp.split(',').forEach(function (id) { if (BY[id]) state.sel[id] = true; });
+  } catch (e) {}
   render();
 })();
 </script>
