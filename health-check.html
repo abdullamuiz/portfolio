@@ -672,7 +672,11 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     return m;
   }
   function ROLE() { return isLocal() ? ROLE_L : ROLE_T; }
-  function occList() { return OCC.filter(function (o) { return state.biz === 'both' || o.who.indexOf(isLocal() ? 'l' : 't') >= 0; }); }
+  function occList() {
+    var L = OCC.filter(function (o) { return state.biz === 'both' || o.who.indexOf(isLocal() ? 'l' : 't') >= 0; });
+    var hasX = L.some(function (o) { return o.id === 'xmas'; });
+    return hasX ? L.filter(function (o) { return o.id !== 'ny'; }) : L; // 'Christmas and New Year' already covers New Year
+  }
 
   function blankData() {
     var d = {};
@@ -1653,7 +1657,8 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     function head(t) { room(16); doc.setTextColor(29, 43, 42); doc.setFont('helvetica', 'bold'); doc.setFontSize(15); doc.text(t, M, y); y += 9; }
     function para(lines, bullet) {
       doc.setFont('helvetica', 'normal'); doc.setFontSize(11); doc.setTextColor(29, 43, 42);
-      lines.forEach(function (t) { var ln = doc.splitTextToSize((bullet ? '•  ' : '') + t, W - 2 * M); room(ln.length * 5); doc.text(ln, M, y); y += ln.length * 5 + 3; });
+      var ind = bullet ? 5 : 0;
+      lines.forEach(function (t) { var ln = doc.splitTextToSize(t, W - 2 * M - ind); room(ln.length * 5); if (bullet) doc.text('•', M + 0.5, y); doc.text(ln, M + ind, y); y += ln.length * 5 + 3; });
     }
     function poly(pts, style) {
       var d = []; for (var k = 1; k < pts.length; k++) d.push([pts[k][0] - pts[k - 1][0], pts[k][1] - pts[k - 1][1]]);
@@ -1752,6 +1757,35 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
     y += 2; head('Your ads (' + (R.ads.mode === 'paid' ? 'paid and organic' : 'organic only') + ')'); para(R.ads.lines);
     y += 2; head('Run better campaigns'); para(R.guide.map(function (g, i) { return (i + 1) + '. ' + g.t + '. ' + g.b; }));
     y += 2; head('Your growth plan'); para(R.plan, true);
+    // hand-off: thank you, free call, share
+    (function () {
+      var x = M, w = W - 2 * M;
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
+      var intro = doc.splitTextToSize('This report is your starting point. If you would like a second pair of eyes, I offer a free 20-minute call to walk through your results and agree on your first three moves.', w - 20);
+      var H = 32 + intro.length * 5 + 5 + 3 * 18 + 12;
+      if (y + H > 278) { doc.addPage(); y = 24; } else { y += 8; }
+      var top = y;
+      doc.setFillColor(11, 107, 112); doc.roundedRect(x, top, w, H, 5, 5, 'F');
+      doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.text('WHAT HAPPENS NEXT', x + 10, top + 12);
+      doc.setFontSize(19); doc.text('Thank you for taking the health check' + (lead.name ? ', ' + String(lead.name).trim().split(' ')[0] : '') + '.', x + 10, top + 23);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
+      doc.text(intro, x + 10, top + 32);
+      var ry = top + 32 + intro.length * 5 + 5;
+      function row(label, value, sub, url, fill) {
+        doc.setFillColor(fill[0], fill[1], fill[2]); doc.roundedRect(x + 10, ry, w - 20, 15, 3, 3, 'F');
+        doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); doc.text(label, x + 16, ry + 6);
+        doc.setFontSize(11.5); doc.text(value, x + 16, ry + 11.5);
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.text(sub, x + w - 16, ry + 9.2, { align: 'right' });
+        doc.link(x + 10, ry, w - 20, 15, { url: url });
+        ry += 18;
+      }
+      row('BOOK YOUR FREE CALL ON WHATSAPP', '+960 990 2996', 'Message "HEALTH CHECK"', 'https://wa.me/9609902996?text=' + encodeURIComponent('HEALTH CHECK: Hi Muiz, I got my report and would like the free 20-minute call.'), [37, 170, 90]);
+      row('OR EMAIL', 'muiz@islandeative.com', 'Reply to the report email', 'mailto:muiz@islandeative.com?subject=' + encodeURIComponent('My health check report'), [9, 86, 90]);
+      row('KNOW A BUSINESS THAT SHOULD TAKE THIS?', 'abdullamuiz.github.io/portfolio/#healthcheck', 'Share the free test', 'https://abdullamuiz.github.io/portfolio/#healthcheck', [229, 72, 77]);
+      doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text('Muiz', x + 10, top + H - 7);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.text('Abdulla Muiz Fuad  ·  Islandeative  ·  15+ years in Maldivian tourism and marketing', x + 22, top + H - 7);
+      y = top + H + 6;
+    })();
     var pages = doc.getNumberOfPages();
     for (var pg = 1; pg <= pages; pg++) {
       doc.setPage(pg); doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(120, 130, 126);
