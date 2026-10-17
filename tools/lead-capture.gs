@@ -13,6 +13,9 @@
  * account, and emails you a short notification ("Call request" when they ask for a call).
  */
 var OWNER = 'muiz@islandeative.com';
+// Your leads sheet. Using its ID means the script works whether or not it was created from inside the Sheet.
+var SHEET_ID = '1l2Hv8EZZUSXo2D0U9aWa7OKZN0whVwlOvP8Jk-etTIU';
+function book() { return SpreadsheetApp.openById(SHEET_ID); }
 var COLS = ['Timestamp', 'Name', 'Email', 'Wants call', 'WhatsApp', 'Usernames', 'Category', 'Business type',
   'Audiences', 'Markets', 'Islands', 'Platforms', 'Overall score',
   'Profiles', 'Platform mix', 'Content', 'Engagement', 'Community', 'Paid reach', 'Measurement', 'Resources',
@@ -27,7 +30,7 @@ function doPost(e) {
     var d = JSON.parse(e.postData.contents || '{}');
     if (d.company_website) return json({ ok: true }); // honeypot: bots fill hidden fields
 
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var ss = book();
     var sh = ss.getSheetByName('Leads') || ss.insertSheet('Leads');
     if (sh.getLastRow() === 0) { sh.appendRow(COLS); sh.setFrozenRows(1); }
 
@@ -66,7 +69,7 @@ function doPost(e) {
     return json({ ok: true });
   } catch (err) {
     try {
-      var ss2 = SpreadsheetApp.getActiveSpreadsheet();
+      var ss2 = book();
       var log = ss2.getSheetByName('Errors') || ss2.insertSheet('Errors');
       log.appendRow([new Date(), String(err), e && e.postData ? String(e.postData.contents).slice(0, 500) : '']);
     } catch (ignore) {}
@@ -90,4 +93,17 @@ function esc(s) {
 
 function json(o) {
   return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);
+}
+
+/**
+ * Run this once from the editor (select testLead, click Run). It asks for permissions if needed,
+ * adds a test row to Leads and emails a test notification to you. Check View > Executions for errors.
+ */
+function testLead() {
+  var res = doPost({ postData: { contents: JSON.stringify({
+    name: 'Test', email: OWNER, wantsCall: true, whatsapp: '+960 000 0000', usernames: '@test',
+    cat: 'stay', btype: 'resort', audiences: 'tourists', platforms: 'instagram,facebook', score: 66,
+    compass: {}, funnel: {}, leak: 'Loyalty', topFixes: ['Test fix'], currency: 'USD', date: 'test'
+  }) } });
+  Logger.log(res.getContent());
 }

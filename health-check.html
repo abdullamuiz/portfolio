@@ -1343,7 +1343,7 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
       var body = leadPayload(R); body.pdf_base64 = blob ? await blobB64(blob) : ''; body.pdf_filename = fname;
       await fetch(LEAD_ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) });
       lead.state = 'sent'; redrawLead();
-    } catch (e) { lead.state = 'error'; lead.msg = 'We couldn\u2019t send it just now. Please try again, or use Save as PDF below.'; redrawLead(); }
+    } catch (e) { lead.state = 'error'; lead.msg = 'We couldn\u2019t send it just now. Please try again in a moment.'; redrawLead(); }
   }
   function shareMenu() {
     return '<div class="share docked"><button type="button" class="btn primary" data-act="menu" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>Send this report</button>' +
