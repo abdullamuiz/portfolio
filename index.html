@@ -1862,7 +1862,7 @@ var CERTS = [
     if(!Object.keys(s).length){risk.className='hcx-risk';risk.textContent='Pick a platform';t.textContent='Where do people find you?';x.textContent='Tap the platforms you post on.';}
     else if(core<=1){risk.className='hcx-risk';risk.textContent='High risk';t.textContent='One app holds everything';x.textContent='An algorithm change or a locked account would cut you off overnight. '+(miss?miss+' of 6 key audiences never see you.':'');}
     else if(core===2){risk.className='hcx-risk warn';risk.textContent='Some risk';t.textContent='A good base, with gaps';x.textContent=(s.instagram&&s.facebook?'Instagram and Facebook are both Meta, so one problem can hit both. ':'')+'You reach about '+pct+'% of the audiences that matter.';}
-    else{risk.className='hcx-risk good';risk.textContent='Well spread';t.textContent='No single app can cut you off';x.textContent='Now check whether your posts actually turn into bookings.';}
+    else{risk.className='hcx-risk good';risk.textContent='Well spread';t.textContent='You\u2019re on all three main platforms';x.textContent='If one app has a problem, customers can still find you on the others. Next, check whether your posts actually bring in enquiries and sales.';}
     document.getElementById('hcxGo').href='health-check.html'+(Object.keys(s).length?'?p='+Object.keys(s).join(','):'');
   }
   btns.forEach(function(b){b.addEventListener('click',function(){b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true');paint();});});
