@@ -256,27 +256,25 @@ table.cpm td:last-child, table.cpm th:last-child { text-align: right; font-varia
 </style>
 
 <style>
-.hc-top{position:fixed;z-index:31;top:calc(12px + env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));display:flex;justify-content:space-between;pointer-events:none}
-.hc-top > *{pointer-events:auto}
-.hc-back{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border-radius:999px;background:var(--surface);color:var(--ink);border:1px solid var(--line);text-decoration:none;font:500 14px/1 var(--sans);box-shadow:var(--shadow);transition:border-color .2s,transform .2s}
-.hc-back:hover{border-color:var(--hl);transform:translateY(-1px)}
+.hc-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:-4px 0 22px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.hc-bar.out{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:10px;margin:0 0 18px;box-shadow:var(--shadow)}
+.hc-tools{display:flex;align-items:center;gap:8px}
+.hc-back{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:999px;background:transparent;color:var(--ink);border:1px solid var(--line);text-decoration:none;font:500 14px/1 var(--sans);transition:border-color .2s,color .2s}
+.hc-back:hover{border-color:var(--hl);color:var(--hl)}
 .hc-back svg,.hc-theme svg{width:18px;height:18px}
-.hc-theme{width:42px;height:42px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer;box-shadow:var(--shadow);transition:border-color .2s}
-.hc-theme:hover{border-color:var(--hl)}
+.hc-theme{width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:border-color .2s,color .2s}
+.hc-theme:hover{border-color:var(--hl);color:var(--hl)}
 .hc-theme .sun{display:none}
 :root[data-theme="dark"] .hc-theme .sun{display:block}:root[data-theme="dark"] .hc-theme .moon{display:none}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .hc-theme .sun{display:block}:root:not([data-theme="light"]) .hc-theme .moon{display:none}}
-body{padding-top:68px !important}
+.hc-cur{display:inline-flex;height:40px;padding:3px;border-radius:999px;background:var(--chip);border:1px solid var(--line)}
+.hc-cur button{border:0;background:transparent;color:var(--muted);font:600 13px/1 var(--sans);padding:0 12px;border-radius:999px;cursor:pointer;letter-spacing:.02em}
+.hc-cur button[aria-pressed="true"]{background:var(--hl);color:var(--hl-ink)}
+@media (max-width:420px){.hc-back span{display:none}.hc-back{padding:0 12px}}
 </style>
 </head>
 <body>
-<div class="hc-top"><a class="hc-back" href="./#growth"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back to portfolio</a><button class="hc-theme" id="hcTheme" type="button" aria-label="Switch light or dark mode"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button></div>
-<script>
-(function(){var r=document.documentElement,mq=window.matchMedia('(prefers-color-scheme: dark)');
-try{var s=localStorage.getItem('theme');if(s)r.setAttribute('data-theme',s);}catch(e){}
-function cur(){return r.getAttribute('data-theme')||(mq.matches?'dark':'light');}
-document.getElementById('hcTheme').addEventListener('click',function(){var n=cur()==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();
-</script>
+
 <main class="wrap">
   <div id="app"></div>
   <div id="toast" role="status" aria-live="polite"></div>
@@ -445,7 +443,19 @@ document.getElementById('hcTheme').addEventListener('click',function(){var n=cur
     if (v >= 1000) return (v / 1000).toFixed(v < 10000 ? 1 : 0).replace('.0', '') + 'K';
     return String(Math.round(v));
   }
-  function money(v) { return '$' + (v >= 1000 ? fmt(v) : v < 10 ? v.toFixed(2).replace('.00', '') : String(Math.round(v))); }
+  var MVR_RATE = 15.42, CUR = 'USD';
+  try { if (localStorage.getItem('hc-cur') === 'MVR') CUR = 'MVR'; } catch (e) {}
+  function money(v) {
+    var pre = '$';
+    if (CUR === 'MVR') { v = v * MVR_RATE; pre = 'MVR '; }
+    return pre + (v >= 1000 ? fmt(Math.round(v)) : v < 10 ? v.toFixed(2).replace('.00', '') : String(Math.round(v)));
+  }
+  function topbar(out) {
+    return '<div class="hc-bar' + (out ? ' out' : '') + '"><a class="hc-back" href="./#growth"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg><span>Back to portfolio</span></a>' +
+      '<div class="hc-tools"><div class="hc-cur" role="group" aria-label="Currency" title="Converted at MVR 15.42 to USD 1">' +
+      '<button type="button" data-hc="cur" data-v="USD" aria-pressed="' + (CUR === 'USD') + '">USD</button><button type="button" data-hc="cur" data-v="MVR" aria-pressed="' + (CUR === 'MVR') + '">MVR</button></div>' +
+      '<button class="hc-theme" type="button" data-hc="theme" aria-label="Switch light or dark mode"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button></div></div>';
+  }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function clean(s) { return String(s || '').trim().replace(/^@/, ''); }
   function norm(s) { return clean(s).toLowerCase().replace(/[._\-\s]/g, ''); }
@@ -827,7 +837,7 @@ document.getElementById('hcTheme').addEventListener('click',function(){var n=cur
       '<div class="big2">' + choice('organic', 'Organic only', 'Posts, stories and replies') + choice('paid', 'We run paid ads', 'Boosts or ad campaigns') + '</div>' +
       (a.mode === 'paid' ? '<div class="reveal">' +
         '<div><span class="lbl">Where do you advertise?</span><div class="chips">' + adChips + '</div><p class="hint">YouTube is left out: YouTube ads are not run from the Maldives.</p></div>' +
-        gslider('spend', 'Roughly how much do you spend on ads a month?', 0, 100, 1, ['$20', '$20K']) +
+        gslider('spend', 'Roughly how much do you spend on ads a month?', 0, 100, 1, [money(20), money(20000)]) +
         gslider('camps', 'How many paid campaigns do you run a year?', 0, 24, 1, ['0', '24']) +
         seg('how', 'How do you usually run them?', HOW, a.how) +
         seg('result', 'Have your ads brought real growth in followers or ' + (isLocal() ? 'orders' : 'bookings') + '?', RESULT, a.result) + '</div>' : '') +
@@ -917,10 +927,28 @@ document.getElementById('hcTheme').addEventListener('click',function(){var n=cur
     if (w) w.href = 'https://wa.me/?text=' + encodeURIComponent(s + '\n\n' + t);
   }
 
+  (function () {
+    var r = document.documentElement, mq = window.matchMedia('(prefers-color-scheme: dark)');
+    try { var s = localStorage.getItem('theme'); if (s) r.setAttribute('data-theme', s); } catch (e) {}
+    document.addEventListener('click', function (ev) {
+      var b = ev.target.closest('[data-hc]'); if (!b) return;
+      if (b.getAttribute('data-hc') === 'theme') {
+        var n = (r.getAttribute('data-theme') || (mq.matches ? 'dark' : 'light')) === 'dark' ? 'light' : 'dark';
+        r.setAttribute('data-theme', n); try { localStorage.setItem('theme', n); } catch (e) {}
+      } else if (b.getAttribute('data-hc') === 'cur') {
+        var v = b.getAttribute('data-v'); if (v === CUR) return;
+        CUR = v; try { localStorage.setItem('hc-cur', v); } catch (e) {}
+        var y = window.scrollY; render(); window.scrollTo({ top: y });
+      }
+    });
+  })();
   function render() {
     var k = active().length;
     app.innerHTML = state.step === 0 ? viewBiz() : state.step === 1 ? viewIntro() : state.step <= k + 1 ? viewPlatform(state.step - 2)
       : state.step === k + 2 ? viewMarkets() : state.step === k + 3 ? viewAds() : viewReport();
+    var firstCard = app.querySelector('section.card');
+    if (state.step > k + 3 || !firstCard) app.insertAdjacentHTML('afterbegin', topbar(true));
+    else firstCard.insertAdjacentHTML('afterbegin', topbar(false));
     document.body.classList.toggle('float-on', state.step > k + 3);
     if (state.step > k + 3) { renderPlan(); refreshLinks(); }
     if (state.step >= 2 && state.step <= k + 1) updateEr();
@@ -938,7 +966,7 @@ document.getElementById('hcTheme').addEventListener('click',function(){var n=cur
     occBudget: { plan: 1, get: function () { return state.plan.occBudget; }, set: function (v) { state.plan.occBudget = v; }, txt: function () { return money(valOf(state.plan.occBudget, PA)); } },
     occDays: { plan: 1, get: function () { return state.plan.occDays; }, set: function (v) { state.plan.occDays = v; }, txt: function () { return state.plan.occDays + ' days'; } },
     adj: { plan: 1, get: function () { return state.plan.adj; }, set: function (v) { state.plan.adj = v; }, txt: function () { return state.plan.adj + '%'; } },
-    cpf: { plan: 1, get: function () { return state.plan.cpf; }, set: function (v) { state.plan.cpf = v; }, txt: function () { return '$' + state.plan.cpf.toFixed(2); } }
+    cpf: { plan: 1, get: function () { return state.plan.cpf; }, set: function (v) { state.plan.cpf = v; }, txt: function () { return money(state.plan.cpf); } }
   };
   function gslider(k, label, min, max, step, ticks) {
     var v = G[k].get();
@@ -983,7 +1011,7 @@ document.getElementById('hcTheme').addEventListener('click',function(){var n=cur
     var body = '';
     if (P.tab === 'reach') {
       body = gslider('reach', 'How many people do you want to reach?', 0, 100, 1, ['1K', '1M']) +
-        gslider('perAd', 'How much would you put behind each ad?', 0, 100, 1, ['$10', '$5K']);
+        gslider('perAd', 'How much would you put behind each ad?', 0, 100, 1, [money(10), money(5000)]);
     } else if (P.tab === 'growth') {
       var org = [[1, 'Slow, 1%'], [2, 'Steady, 2%'], [4, 'Strong, 4%']].map(function (x) {
         return '<button type="button" class="chip" data-act="org" data-v="' + x[0] + '" aria-pressed="' + (P.org === x[0]) + '">' + x[1] + '</button>';
@@ -994,7 +1022,7 @@ document.getElementById('hcTheme').addEventListener('click',function(){var n=cur
       var chips = occList().map(function (x) { return '<button type="button" class="chip" data-act="occ" data-v="' + x.id + '" aria-pressed="' + !!P.occ[x.id] + '">' + x.n + '</button>'; }).join('');
       body = '<div><span class="lbl">Which occasions matter to your guests?</span><div class="chips">' + chips + '</div>' +
         '<p class="hint">In 2027, Ramadan and Eid al-Fitr fall in February and March, and Eid al-Adha in May. Islamic dates move about 11 days earlier each year.' + (hasLocal() ? ' School holiday months are approximate, so check this year\u2019s school calendar.' : '') + '</p></div>' +
-        gslider('occBudget', 'Budget for each promotion', 0, 100, 1, ['$10', '$5K']) +
+        gslider('occBudget', 'Budget for each promotion', 0, 100, 1, [money(10), money(5000)]) +
         gslider('occDays', 'How many days does each one run?', 3, 30, 1, ['3 days', '30 days']);
     }
     el.innerHTML = '<p class="kicker">Plan your growth</p><h2>What would it take?</h2>' +
@@ -1004,7 +1032,7 @@ document.getElementById('hcTheme').addEventListener('click',function(){var n=cur
       '<details class="assume"><summary>About these numbers</summary><div class="stack" style="margin-top:16px">' +
       '<div id="cpmTable"></div>' +
       gslider('adj', 'Adjust all ad costs to match your own results', 50, 200, 5, ['50%', '200%']) +
-      gslider('cpf', 'Cost per new follower from ads', 0.2, 3, 0.05, ['$0.20', '$3']) +
+      gslider('cpf', 'Cost per new follower from ads', 0.2, 3, 0.05, [money(0.2), money(3)]) +
       '<p class="hint" style="margin:0">Assumes each person sees an ad about twice. Organic reach uses 2026 Instagram and Facebook reach rates by account size. There is no reliable published cost per follower, so use your own figure from Ads Manager. LinkedIn and YouTube engagement figures are rough guides. TikTok ad options vary by country, so check that TikTok Ads Manager accepts a Maldives account.</p>' +
       '<div><span class="lbl" style="font-size:15px">Sources</span><ol class="src">' + SOURCES.map(function (s) { return '<li><a href="' + s[1] + '" target="_blank" rel="noopener">' + esc(s[0]) + '</a></li>'; }).join('') + '</ol></div>' +
       '</div></details></div>';
@@ -1042,7 +1070,7 @@ document.getElementById('hcTheme').addEventListener('click',function(){var n=cur
       var g = growthCalc();
       h = '<div class="stats"><div class="stat"><div class="big">' + (g.g * 100).toFixed(1) + '%</div><span>growth needed each month</span></div>' +
         '<div class="stat"><div class="big">+' + fmt(Math.max(0, (g.T - g.C) / 12)) + '</div><span>new followers a month</span></div>' +
-        '<div class="stat"><div class="big">' + (g.gap > 0 ? money(g.cost) : '$0') + '</div><span>in ads to close the gap</span></div></div>' +
+        '<div class="stat"><div class="big">' + (g.gap > 0 ? money(g.cost) : money(0)) + '</div><span>in ads to close the gap</span></div></div>' +
         chart(g) +
         '<p>Growing ' + (g.o * 100) + '% a month without ads gets you to about <b>' + fmt(g.O) + '</b>. ' +
         (g.gap > 0 ? 'The other ' + fmt(g.gap) + ' followers would come from ads, about ' + money(g.cost) + ' over the year at ' + G.cpf.txt() + ' a follower.' : 'Steady organic work gets you there without ads.') + '</p>' +
