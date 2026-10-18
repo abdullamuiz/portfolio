@@ -898,13 +898,13 @@ footer a:hover{color:var(--ink)}
     <div class="stat stat-hero stat-case reveal" id="results">
       <div class="cs-copy">
         <span class="k">Case in point &middot; Reethi Beach Resort, off-season 2022</span>
-        <h3 class="cs-h">One USD 500 ad. <em>38 direct bookings.</em></h3>
-        <p>I judge ads by conversions and revenue, not views. This Manta Season offer filled quiet off-season nights, and about half of the bookings came direct, with no OTA commission.</p>
+        <h3 class="cs-h">One USD 500 ad. <em>111 bookings in the low season.</em></h3>
+        <p>I judge ads by conversions and revenue, not views. Low-season occupancy usually fell below 10%. With this Manta Season offer at 40% off, it ran between 38% and 66% from April to November.</p>
         <ol class="funnel cs-steps">
           <li><strong>USD 500</strong><span>ad spend</span></li>
           <li><strong>84,688</strong><span>people reached</span></li>
-          <li><strong>73+</strong><span>bookings</span></li>
-          <li class="hl"><strong>38</strong><span>booked direct</span></li>
+          <li><strong>111</strong><span>bookings, 38 direct</span></li>
+          <li class="hl"><strong>38&ndash;66%</strong><span>occupancy, up from under 10%</span></li>
         </ol>
         <p class="cs-extra"><b>$0.11</b> per website click on a single USD 35 boost from the same campaign.</p>
         <p class="cs-src">From Meta Ads Manager and monthly marketing reports, 2022. The resort has since changed management.</p>
@@ -917,10 +917,10 @@ footer a:hover{color:var(--ink)}
             <button type="button" data-ch="ota" aria-pressed="false">Via OTAs</button>
           </div>
         </div>
-        <svg class="be-chart" id="beChart" viewBox="0 0 300 130" role="img" aria-label="Revenue from bookings compared with the USD 500 ad spend"></svg>
-        <label class="be-slider"><span>Bookings from the ad: <b id="beN">3</b></span><input type="range" id="beRange" min="1" max="10" step="1" value="3"></label>
+        <svg class="be-chart" id="beChart" viewBox="0 0 300 130" role="img" aria-label="Room revenue from nights sold compared with the USD 500 ad spend"></svg>
+        <label class="be-slider"><span>Nights sold from the ad: <b id="beN">3</b></span><input type="range" id="beRange" min="1" max="10" step="1" value="3"></label>
         <p class="be-out" id="beOut"></p>
-        <p class="roi-real"><b>The real campaign:</b> 38 direct bookings (USD 11,400) and 35 through OTAs (USD 8,610 after 18%) brought in about <b class="gain">USD 20,000</b> from USD 500.</p>
+        <p class="roi-real"><b>The real campaign:</b> 73 OTA and tour-operator bookings plus 38 direct, with stays of 5 to 14 nights at about USD 300 a night. At just 5 nights each, and after 18% OTA commission, that is roughly <b class="gain">USD 147,000</b> in room revenue from USD 500.</p>
       </div>
     </div>
   </div>
@@ -1729,7 +1729,7 @@ var CERTS = [
       svg.innerHTML=s; nOut.textContent=n;
       var rev=Math.round(per*n), roi=Math.round((rev-SPEND)/SPEND*100), be=Math.ceil(SPEND/per);
       out.innerHTML = rev<SPEND
-        ? '<b>USD '+rev.toLocaleString()+'</b> back. <b class="loss">USD '+(SPEND-rev).toLocaleString()+' short</b>, so the ad pays for itself at booking '+be+'.'
+        ? '<b>USD '+rev.toLocaleString()+'</b> back. <b class="loss">USD '+(SPEND-rev).toLocaleString()+' short</b>, so the ad pays for itself at night '+be+'.'
         : '<b>USD '+rev.toLocaleString()+'</b> back, a <b class="gain">'+roi+'% return</b>'+(ch==='ota'?' after 18% OTA commission':' with no commission')+'.';
     }
     r.addEventListener('input',draw);
