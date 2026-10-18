@@ -819,6 +819,12 @@ footer a:hover{color:var(--ink)}
 :root[data-theme="dark"]{--roi:#FF5F57}
 .stats-4{grid-template-columns:repeat(4,minmax(0,1fr))}
 @media (max-width:640px){.stats-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat.stat-case .cs-h b{font-family:Geist,sans-serif;font-weight:800;font-size:1em;letter-spacing:-.02em}
+.stat.stat-case .cs-h .cs-spent{color:var(--hl)}
+.stat.stat-case .cs-h .cs-won,.stat.stat-case .roi-real .gain{color:var(--won)}
+:root{--won:#1E9E57}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--won:#4ADE80}}
+:root[data-theme="dark"]{--won:#4ADE80}
 .roi{background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px}
 .roi-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .roi-k{font:800 .95rem Geist,sans-serif;color:var(--roi);letter-spacing:.01em;text-transform:uppercase}
@@ -898,7 +904,7 @@ footer a:hover{color:var(--ink)}
     <div class="stat stat-hero stat-case reveal" id="results">
       <div class="cs-copy">
         <span class="k">Case in point &middot; Reethi Beach Resort, off-season 2022</span>
-        <h3 class="cs-h">One USD 500 ad. <em>111 bookings in the low season.</em></h3>
+        <h3 class="cs-h"><b class="cs-spent">$500 ad campaign</b> resulted in <b class="cs-won">$150,000 room revenue</b>.</h3>
         <p>I judge ads by conversions and revenue, not views. Low-season occupancy usually fell below 10%. With this Manta Season offer at 40% off, it ran between 38% and 66% from April to November.</p>
         <ol class="funnel cs-steps">
           <li><strong>USD 500</strong><span>ad spend</span></li>
@@ -920,7 +926,7 @@ footer a:hover{color:var(--ink)}
         <svg class="be-chart" id="beChart" viewBox="0 0 300 130" role="img" aria-label="Room revenue from nights sold compared with the USD 500 ad spend"></svg>
         <label class="be-slider"><span>Nights sold from the ad: <b id="beN">3</b></span><input type="range" id="beRange" min="1" max="10" step="1" value="3"></label>
         <p class="be-out" id="beOut"></p>
-        <p class="roi-real"><b>The real campaign:</b> 73 OTA and tour-operator bookings plus 38 direct, with stays of 5 to 14 nights at about USD 300 a night. At just 5 nights each, and after 18% OTA commission, that is roughly <b class="gain">USD 147,000</b> in room revenue from USD 500.</p>
+        <p class="roi-real"><b>The real campaign:</b> 73 OTA and tour-operator bookings plus 38 direct, with stays of 5 to 14 nights at about USD 300 a night. At just 5 nights each, and after 18% OTA commission, that is roughly <b class="gain">USD 150,000</b> in room revenue from USD 500.</p>
       </div>
     </div>
   </div>
