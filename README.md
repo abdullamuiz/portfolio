@@ -11,3 +11,7 @@ Live site: https://abdullamuiz.github.io/portfolio/
 - `video/reethi-beach-film.mp4` (1080p, under ~20 MB)
 
 Then update the `CONTENT` list near the bottom of `index.html`.
+
+## Copyright
+© 2026 Abdulla Muiz Fuad, Islandeative. All rights reserved. See `LICENSE`.
+The code, the Social Visibility Health Check and all content may not be copied or reused without written permission.
