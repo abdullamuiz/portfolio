@@ -18,25 +18,25 @@
 <link rel="apple-touch-icon" href="images/brand/apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#FFFFFF; --card:#FFFFFF; --ink:#1E2742; --muted:#5D6478; --line:#E3E6EE; --navy:#232C4A;
   --reef:#1DBF8C; --lagoon:#0FB8C9; --sea:#1C7FE0; --deep:#14508F; --weak:#E8833A;
   --label:#087A88; --link:#232C4A; --tint:#F4F6FA; --ghost:#E8EBF3; --ghost2:#CBD3E3;
-  --bubble:#232C4A; --bubble-text:#FFFFFF; --teal:#0B8794;
+  --bubble:#232C4A; --bubble-text:#FFFFFF; --teal:#0B8794; --foot:#141B30;
   --serif:'DM Serif Display',Georgia,serif; --sans:'Poppins',system-ui,sans-serif;
   --ease:cubic-bezier(.2,.7,.2,1); --max:1180px; --gutter:clamp(16px,5vw,64px); --head:72px;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --paper:#121829; --card:#1A2238; --ink:#F1F2F6; --muted:#A3A9BA; --line:#283252;
   --reef:#2BD39E; --lagoon:#22C9D9; --label:#5FD3E0; --link:#B9C7F2; --tint:#1A2238;
-  --ghost:#1C2540; --ghost2:#222C4B; --bubble:#34437A;
+  --ghost:#1C2540; --ghost2:#222C4B; --bubble:#34437A; --foot:#0B1020;
 }}
 :root[data-theme="dark"]{
   --paper:#121829; --card:#1A2238; --ink:#F1F2F6; --muted:#A3A9BA; --line:#283252;
   --reef:#2BD39E; --lagoon:#22C9D9; --label:#5FD3E0; --link:#B9C7F2; --tint:#1A2238;
-  --ghost:#1C2540; --ghost2:#222C4B; --bubble:#34437A;
+  --ghost:#1C2540; --ghost2:#222C4B; --bubble:#34437A; --foot:#0B1020;
 }
 *{box-sizing:border-box}
 html{background:var(--paper)}
@@ -472,6 +472,44 @@ footer .socials a:hover{color:var(--ink)}
 .pv-copy li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;border-radius:2px;background:var(--reef)}
 .pv-copy li:nth-child(2)::before{background:var(--lagoon)}.pv-copy li:nth-child(3)::before{background:var(--sea)}.pv-copy li:nth-child(4)::before{background:var(--deep)}
 
+
+/* ===== the end: last page of the paper ===== */
+.endpaper{background:var(--foot);padding:0}
+.endpaper .sheet{background:var(--paper);border-radius:0 0 clamp(36px,6vw,72px) clamp(36px,6vw,72px);padding:clamp(72px,10vw,120px) 0 clamp(64px,9vw,110px);border-top:1px solid var(--line);text-align:center;position:relative;z-index:1}
+.meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);max-width:760px;margin:0 auto clamp(40px,6vw,72px)}
+.thanks{font:400 clamp(64px,11vw,140px)/.92 var(--serif);margin:0;letter-spacing:-.02em}
+.thanks span{color:var(--lagoon)}
+.thanks-sub{font:400 italic clamp(22px,3.2vw,36px)/1.2 var(--serif);margin:10px 0 0;color:var(--ink)}
+.tags-strip{display:flex;flex-direction:column;align-items:center;margin:28px 0 36px}
+.tags-strip span{display:inline-block;font:400 clamp(17px,2.2vw,24px)/1.25 var(--serif);color:#fff;padding:4px 14px}
+.tags-strip .t1{background:var(--teal);transform:rotate(-2deg)}
+.tags-strip .t2{background:var(--navy);transform:rotate(1deg);margin-top:-2px}
+:root[data-theme="dark"] .tags-strip .t2{background:#2A3560}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tags-strip .t2{background:#2A3560}}
+.end-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.endfoot{background:var(--foot);color:#E6E9F2;border-top:0;margin-top:0}
+.endfoot .wrap{display:block;padding-top:clamp(56px,8vw,96px);padding-bottom:28px;font-size:inherit;color:inherit}
+.foot-grid{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end}
+.foot-contact{display:grid;gap:16px}
+.fl{display:block;font-size:12px;color:#9AA3BC;margin-bottom:2px}
+.fv{display:inline-flex;align-items:center;gap:8px;font:500 15px var(--sans);color:#fff;text-decoration:none;background:none;border:0;padding:0;cursor:pointer}
+.fv .ic{font-size:14px;opacity:.7}
+.foot-links{display:grid;gap:4px}
+.foot-links a{color:#E6E9F2;font-size:14px;text-underline-offset:3px}
+.foot-sign{display:grid;justify-items:end;text-align:right;gap:2px}
+.regards{font:400 italic 20px var(--serif);color:#E6E9F2}
+.sig{font:400 clamp(48px,6vw,68px)/1.05 'Allura',cursive;color:#fff;margin:4px 0 2px}
+.sig-role{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#7FE3EE}
+.sitemap{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:48px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12)}
+.sitemap a{color:#C9CFDF;text-decoration:none;font-size:13.5px}
+.sitemap a:hover{color:#fff}
+.rights{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:18px;font-size:12px;color:#8A93AC}
+@media (max-width:700px){
+  .meta{font-size:11.5px}
+  .foot-grid{grid-template-columns:1fr;gap:36px}
+  .foot-sign{justify-items:start;text-align:left}
+}
+
 /* intro */
 .intro-on .fade{opacity:0}
 .intro-on .ghost-hi{visibility:hidden}
@@ -774,34 +812,47 @@ footer .socials a:hover{color:var(--ink)}
     </div>
   </section>
 
-  <!-- ================= CONTACT ================= -->
-  <section class="block" id="contact">
-    <div class="wrap contact">
-      <div class="contact-copy">
-        <span class="label reveal">Contact</span>
-        <h2 class="reveal">Tell me about your business<span>.</span></h2>
-        <p class="reveal">A short call is the easiest start. No decision needed, just a conversation about where your marketing stands.</p>
-        <div class="contact-row reveal">
+  <!-- ================= THE END: last page of the paper ================= -->
+  <section class="endpaper" id="contact">
+    <div class="sheet">
+      <div class="wrap">
+        <div class="meta reveal"><span>(Portfolio)</span><span>(2011 – 2026)</span><span>(Maldives)</span></div>
+        <h2 class="thanks reveal">Thank you<span>.</span></h2>
+        <p class="thanks-sub reveal">for taking the time to view my portfolio.</p>
+        <div class="tags-strip reveal"><span class="t1">Looking forward to</span><span class="t2">hearing about your business</span></div>
+        <div class="end-row reveal">
           <a class="btn" href="mailto:muiz@islandeative.com?subject=Call%20request">Request a call <i data-ic="upright"></i></a>
           <a class="btn btn-wa" href="https://wa.me/9609902996" target="_blank" rel="noopener"><i data-ic="whatsapp"></i> WhatsApp</a>
           <a class="btn btn-tg" href="https://t.me/muizfuad" target="_blank" rel="noopener"><i data-ic="send"></i> Telegram</a>
         </div>
-        <div class="contact-lines reveal">
-          <a href="tel:+9609902996"><i data-ic="phone"></i><span>+960 990 2996</span></a>
-          <button type="button" id="copyMail"><i data-ic="copy"></i><span>muiz@islandeative.com</span></button>
-        </div>
       </div>
-      <figure class="contact-fig reveal"><img data-src="images/muiz-contact-paper.webp" width="900" height="1194" alt="Abdulla Muiz Fuad, smiling" loading="lazy"></figure>
     </div>
   </section>
 </main>
 
-<footer><div class="wrap">
-  <span>© 2026 Abdulla Muiz Fuad · Malé, Maldives</span>
-  <div class="socials">
-    <a href="https://www.linkedin.com/in/abdullamuizfuad/" target="_blank" rel="noopener"><i data-ic="linkedin"></i> LinkedIn</a>
-    <a href="https://www.instagram.com/emyuaizee" target="_blank" rel="noopener"><i data-ic="instagram"></i> Instagram</a>
-    <a href="https://t.me/muizfuad" target="_blank" rel="noopener"><i data-ic="send"></i> Telegram</a>
+<footer class="endfoot"><div class="wrap">
+  <div class="foot-grid">
+    <div class="foot-contact">
+      <div><span class="fl">Email</span><button type="button" id="copyMail" class="fv"><span>muiz@islandeative.com</span> <i data-ic="copy"></i></button></div>
+      <div><span class="fl">Phone · WhatsApp · Telegram</span><a class="fv" href="tel:+9609902996">+960 990 2996</a></div>
+      <div class="foot-links">
+        <a href="https://www.linkedin.com/in/abdullamuizfuad/" target="_blank" rel="noopener">linkedin.com/in/abdullamuizfuad</a>
+        <a href="https://www.instagram.com/emyuaizee" target="_blank" rel="noopener">instagram.com/emyuaizee</a>
+        <a href="https://t.me/muizfuad" target="_blank" rel="noopener">t.me/muizfuad</a>
+      </div>
+    </div>
+    <div class="foot-sign">
+      <span class="regards">Warm regards,</span>
+      <span class="sig">Abdulla Muiz Fuad</span>
+      <span class="sig-role">Digital Visibility Strategist &amp; Content Creator</span>
+    </div>
+  </div>
+  <nav class="sitemap" aria-label="Site map">
+    <a href="#s1">Home</a><a href="#about">Career</a><a href="#check">Health check</a><a href="#content">Content</a><a href="#work">Work</a><a href="#approach">Approach</a><a href="#process">Process</a><a href="https://abdullamuiz.github.io/portfolio/health-check.html">Full health check</a>
+  </nav>
+  <div class="rights">
+    <span>© 2026 Abdulla Muiz Fuad. Malé, Maldives.</span>
+    <span>The Digital Visibility Health Check, its scoring and benchmarks © 2026 Islandeative. All rights reserved.</span>
     <button class="replay" id="replay" type="button" hidden aria-hidden="true" style="display:none">↺ Replay intro</button>
   </div>
 </div></footer>
