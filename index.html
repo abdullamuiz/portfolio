@@ -42,6 +42,8 @@
 html{background:var(--paper)}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 15px/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
 a{color:var(--link);text-underline-offset:3px}
+h1,h2,h3,.display,.thanks,.h3s,.tracked,.sig-role,.label,.lk-step{text-wrap:balance}
+p,li,.small,figcaption,.case-in p,.pov p,.step p,.timeline span,.card span{text-wrap:pretty}
 img{display:block;max-width:100%}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
 .label{font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--label)}
@@ -377,8 +379,9 @@ i[data-ic],i:has(>.ic){display:inline-flex;align-items:center;justify-content:ce
 @media (max-width:860px){.feature{grid-template-columns:1fr}.feature figure{aspect-ratio:4/3}.fstats{grid-template-columns:repeat(2,1fr)}.cases{grid-template-columns:1fr}}
 
 /* approach */
-.lead-quote{font:400 clamp(20px,2.4vw,28px)/1.4 var(--serif);max-width:44ch;margin:0 0 40px;color:var(--ink)}
-.lead-quote b{font-weight:400;color:var(--label)}
+.lead-quote{font:400 clamp(20px,2.4vw,28px)/1.4 var(--serif);max-width:44ch;margin:0 0 40px;color:var(--ink);display:grid;gap:14px}
+.lead-quote p{margin:0;max-width:none}
+.lead-quote .lq-b{color:var(--label)}
 .pov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .pov{border:1px solid var(--line);border-radius:14px;padding:26px;background:var(--card);display:grid;gap:12px;align-content:start}
 .pov::before{content:"";width:20px;height:4px;border-radius:2px;background:var(--tab,var(--reef))}
@@ -752,7 +755,7 @@ footer .socials a:hover{color:var(--ink)}
           <p class="muted">Marketing Manager, 2021 to 2022. Paid social, influencer programmes, broadcast and print features across European markets.</p>
           <details>
             <summary>Challenge and approach <i data-ic="plus"></i></summary>
-            <p><b>Challenge.</b> When I joined, the website was stuck in an early-2000s format with no way to book direct. Around 90% of bookings came through OTAs, and the rest through bulk-buying agents taking even higher commissions. Social media had stalled and LinkedIn wasn't on the radar. I was contracted for one year to overhaul digital marketing and leave behind a system the team could run as its standard procedure.</p>
+            <p><b>Challenge.</b> When I joined, the website was stuck in an early-2000s format with no way to book direct. Around 90% of bookings came through OTAs, and the rest through bulk-buying agents taking even higher commissions. Social media had stalled and LinkedIn wasn’t on the radar. I was contracted for one year to overhaul digital marketing and leave behind a system the team could run as its standard procedure.</p>
             <p><b>Approach.</b> Built annual social strategies by source market and ran paid campaigns on Facebook and Instagram. Hosted up to 12 influencer and creator visits a year, including Miss Germany 2022 and an Italian travel documentary crew. Produced seasonal campaigns, magazine advertorials and on-island print, sent monthly newsletters to repeat guests and represented the resort at trade fairs, with Google Analytics reporting guiding every decision.</p>
           </details>
           <div class="fstats">
@@ -785,12 +788,12 @@ footer .socials a:hover{color:var(--ink)}
     <div class="wrap">
       <div class="head reveal">
         <span class="label">Approach</span>
-        <h2>What a decade of watching the industry change taught me<span>.</span></h2>
+        <h2>What fifteen years in the industry taught me<span>.</span></h2>
       </div>
-      <p class="lead-quote reveal">Most properties hire one person for strategy, another for content and an agency for reporting. Some skip reporting altogether, so ad spend goes out with no real way to see what it brings back. <b>I work in systems: every expense is tracked, measured and accountable for its impact.</b></p>
+      <div class="lead-quote reveal"><p>Most properties hire one person for strategy, another for content and an agency for reporting. Some skip reporting altogether, so ad spend goes out with no real way to see what it brings back.</p><p class="lq-b">I work in systems: every expense is tracked, measured and accountable for its impact.</p></div>
       <div class="pov-grid">
         <article class="pov reveal" style="--tab:var(--reef)"><b class="k">18 to 35%</b><h3>OTAs made booking easier and marketing harder.</h3><p>Tour operators once briefed guests on the destination and handled problems as part of the sale. Online travel agencies replaced that with a Book now button, and properties pay 18 to 35% of every room night for it.</p><p>Big chains hire agencies to build direct channels. A guesthouse with 10 rooms or fewer can do the same, with a little consistent extra work that pays back for years.</p></article>
-        <article class="pov reveal" style="--tab:var(--sea)"><b class="k">10K ≠ 10K</b><h3>More posts don't mean more customers.</h3><p>In food and beverage, the competition is fierce and the pressure to post never stops. But 10,000 followers doesn't mean 10,000 customers in a month, or even in three.</p><p>The Maldives market is finite. Repeat customers are what keep sales from bottoming out, so that's who the content should serve.</p></article>
+        <article class="pov reveal" style="--tab:var(--sea)"><b class="k">10K ≠ 10K</b><h3>More posts don’t mean more customers.</h3><p>In food and beverage, the competition is fierce and the pressure to post never stops. But 10,000 followers doesn’t mean 10,000 customers in a month, or even in three.</p><p>The Maldives market is finite. Repeat customers are what keep sales from bottoming out, so that’s who the content should serve.</p></article>
         <article class="pov pov-navy reveal"><b class="k">Partner</b><h3>Not just another member of staff.</h3><p>Most marketers know all this. But for an employee, the job often ends at showing that content grew. Whether it turned into sales is left to the finance team.</p><p>I work differently. I judge marketing by the growth it brings to your business, and I own that result with you.</p></article>
       </div>
     </div>
@@ -802,13 +805,13 @@ footer .socials a:hover{color:var(--ink)}
       <div class="head reveal">
         <span class="label">Process</span>
         <h2>How we work together<span>.</span></h2>
-        <p class="small">Every month runs the same loop: plan, spend, measure, adjust. So every amount spent can be traced to what it brought back.</p>
+        <p class="small">Every month runs the same loop: plan, spend, measure and adjust, so every amount spent can be traced to what it brought back.</p>
       </div>
       <div class="pw">
         <figure class="pw-photo reveal"><img data-src="images/muiz-working.jpg" width="960" height="1200" alt="Muiz planning a campaign on his laptop" loading="lazy"><figcaption>One point of contact, start to finish.</figcaption></figure>
         <div class="pw-grid">
           <div class="step reveal" style="--tab:var(--reef)"><span class="ico"><i data-ic="search"></i></span><span class="n">01</span><span class="when">Weeks 1 to 2</span><h3>Audit</h3><p>Your channels, listings, competitors and current numbers, scored against the funnel.</p></div>
-          <div class="step reveal" style="--tab:var(--lagoon)"><span class="ico"><i data-ic="map"></i></span><span class="n">02</span><span class="when">Week 3</span><h3>Plan</h3><p>A 90-day plan with goals, content pillars, a calendar and the numbers we'll judge it by.</p></div>
+          <div class="step reveal" style="--tab:var(--lagoon)"><span class="ico"><i data-ic="map"></i></span><span class="n">02</span><span class="when">Week 3</span><h3>Plan</h3><p>A 90-day plan with goals, content pillars, a calendar and the numbers we’ll judge it by.</p></div>
           <div class="step reveal" style="--tab:var(--sea)"><span class="ico"><i data-ic="aperture"></i></span><span class="n">03</span><span class="when">Every month</span><h3>Create</h3><p>On-site shoots, production, scheduling and community work, all handled by me.</p></div>
           <div class="step reveal" style="--tab:var(--deep)"><span class="ico"><i data-ic="chart"></i></span><span class="n">04</span><span class="when">Month end</span><h3>Report</h3><p>One page and one call: what worked, what it brought back and what changes next.</p></div>
         </div>
