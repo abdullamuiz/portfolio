@@ -97,24 +97,36 @@ nav.links a:hover{opacity:1}
   .vert{display:none}
 }
 
-/* career + education */
+/* career pathway */
+#about{height:300vh}
+.path-head{position:absolute;top:calc(var(--head) + 4vh);left:0;right:0;z-index:2}
+.path-head .wrap{display:grid;gap:8px}
+.path-head h2{font:400 clamp(34px,4.8vw,52px)/1.05 var(--serif);margin:0}
+.path-head h2 span{color:var(--lagoon)}
+.track{--gap:360px;--cw:280px;--ly:60%;--pad:calc(var(--gutter) + 40px);position:absolute;top:0;left:0;height:100%;will-change:transform}
+.line{position:absolute;left:var(--pad);top:var(--ly);height:2px;margin-top:-1px;width:calc(var(--gap) * 8);background:var(--line)}
+.fill{height:100%;background:var(--lagoon);transform-origin:0 50%;transform:scaleX(0)}
+.stop{position:absolute;top:var(--ly);left:calc(var(--pad) + var(--i) * var(--gap));width:0;height:0}
+.node{position:absolute;left:-9px;top:-9px;width:18px;height:18px;border-radius:50%;background:var(--paper);border:2px solid var(--line);transition:background .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease),transform .35s var(--ease);z-index:1}
+.stop.on .node{background:var(--lagoon);border-color:var(--lagoon);box-shadow:0 0 0 6px rgba(15,184,201,.16)}
+.stop.now .node{width:24px;height:24px;left:-12px;top:-12px}
+.stop.now.on .node{animation:pulse 2.2s var(--ease) infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(15,184,201,.4)}70%{box-shadow:0 0 0 16px rgba(15,184,201,0)}100%{box-shadow:0 0 0 0 rgba(15,184,201,0)}}
+.arm{position:absolute;left:-1px;height:42px;border-left:2px dashed var(--line);transition:border-color .35s var(--ease)}
+.up .arm{bottom:12px}.down .arm{top:12px}
+.stop.on .arm{border-color:var(--lagoon)}
+.card{position:absolute;left:-14px;width:var(--cw);display:grid;gap:3px;opacity:.28;transform:translateY(10px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.up .card{bottom:62px}.down .card{top:62px}
+.stop.on .card{opacity:1;transform:none}
+.lg{display:block;height:var(--h);width:var(--w);background:var(--ink);-webkit-mask:var(--m) left center/contain no-repeat;mask:var(--m) left center/contain no-repeat;margin-bottom:10px}
+.card time{font:400 26px/1.15 var(--serif)}
+.card b{font-weight:600;font-size:16px;line-height:1.35}
+.card span:not(.lg){font-size:13.5px;color:var(--muted);line-height:1.45}
+@media (max-width:860px){.track{--gap:250px;--cw:200px;--ly:60%}.lg{height:calc(var(--h) * .8);width:calc(var(--w) * .8);margin-bottom:6px}.card time{font-size:19px}.card b{font-size:14px}.arm{height:34px}.up .card{bottom:52px}.down .card{top:52px}}
 section.block{padding:clamp(64px,10vw,128px) 0;border-top:1px solid var(--line)}
 .head{display:grid;gap:10px;margin-bottom:36px;max-width:640px}
 .head h2{font:400 clamp(34px,4.8vw,52px)/1.05 var(--serif);margin:0}
 .head h2 span{color:var(--lagoon)}
-.timeline{list-style:none;margin:0;padding:0;border-top:1.5px solid var(--ink)}
-.timeline li{display:grid;grid-template-columns:140px 1fr 120px;gap:20px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line)}
-.timeline time{font:400 19px/1.2 var(--serif);color:var(--ink);display:flex;align-items:center;gap:12px}
-.timeline time::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--reef);flex:none}
-.timeline li:nth-child(4n+2) time::before{background:var(--lagoon)}
-.timeline li:nth-child(4n+3) time::before{background:var(--sea)}
-.timeline li:nth-child(4n+4) time::before{background:var(--deep)}
-.timeline b{display:block;font-weight:600;font-size:15.5px}
-.timeline span{font-size:13.5px;color:var(--muted)}
-.timeline .logo{justify-self:end;height:34px;width:auto;max-width:110px;object-fit:contain}
-.timeline .logo.dk{display:none}
-@media (prefers-color-scheme:dark){.timeline .logo.lt{display:none}.timeline .logo.dk{display:block}}
-@media (max-width:640px){.timeline li{grid-template-columns:1fr auto;gap:4px 12px}.timeline time{grid-column:1/-1;font-size:16px}.timeline .logo{height:26px}}
 .edu{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .edu figure{margin:0;display:grid;gap:10px}
 .edu .ph{border-radius:10px;overflow:hidden;background:var(--tint);aspect-ratio:3/4}
@@ -223,7 +235,7 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
             <div class="about-text" id="aboutText">
               <p>I’m Abdulla Muiz Fuad, a Maldivian marketer, photographer and lecturer. I help resorts, guesthouses and small businesses get found online, and turn that attention into bookings and sales.</p>
               <p>I started in 2011, spent four years selling the Maldives at MATTA Fair in Kuala Lumpur, ran marketing at Reethi Beach Resort and led the SME HUB at Business Centre Corporation. Today I teach marketing at MNU Business School and run Islandeative.</p>
-              <span class="more">My career path below</span>
+              <span class="more">Scroll to follow my career path</span>
             </div>
           </div>
         </div>
@@ -233,24 +245,26 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
     </div>
   </section>
 
-  <!-- career + education -->
-  <section class="block" id="about">
-    <div class="wrap">
-      <div class="head reveal">
+  <!-- career pathway (horizontal, scroll-driven) -->
+  <section class="pin" id="about">
+    <div class="sticky" id="st2">
+      <div class="path-head"><div class="wrap">
         <span class="label">Career path</span>
-        <h2>Fifteen years across resorts, media and the classroom<span>.</span></h2>
+        <h2>Fifteen years, one path<span>.</span></h2>
+        <span class="small">From events and media to resorts and the classroom.</span>
+      </div></div>
+      <div class="track" id="track">
+        <div class="line"><div class="fill" id="fill"></div></div>
+        <div class="stop up" style="--i:0"><span class="node"></span><span class="arm"></span><div class="card"><span class="lg" style="--m:url(img/lg-highrise.png);--w:124px;--h:44px" role="img" aria-label="Highrise Inc. logo"></span><time>2011 – 13</time><b>Senior Marketing Executive</b><span>Highrise Inc. · Maldives Travel Awards</span></div></div>
+        <div class="stop down" style="--i:1"><span class="node"></span><span class="arm"></span><div class="card"><span class="lg" style="--m:url(img/lg-mpworld.png);--w:170px;--h:35px" role="img" aria-label="MP World Travel &amp; Tours logo"></span><time>2014 – 18</time><b>Head of Marketing and Sales, MATTA Fair</b><span>MP World Travel &amp; Tours, Kuala Lumpur</span></div></div>
+        <div class="stop up" style="--i:2"><span class="node"></span><span class="arm"></span><div class="card"><span class="lg" style="--m:url(img/lg-blazon.png);--w:74px;--h:60px" role="img" aria-label="Blazon Inc. logo"></span><time>2018 – 20</time><b>Head of Operations and Creative Director</b><span>Blazon Inc. · inflight magazines, Maldives Business Awards</span></div></div>
+        <div class="stop down" style="--i:3"><span class="node"></span><span class="arm"></span><div class="card"><span class="lg" style="--m:url(img/lg-mpl.png);--w:96px;--h:60px" role="img" aria-label="Maldives Ports Limited logo"></span><time>2020 – 21</time><b>Copywriter</b><span>Maldives Ports Limited</span></div></div>
+        <div class="stop up" style="--i:4"><span class="node"></span><span class="arm"></span><div class="card"><span class="lg" style="--m:url(img/lg-reethi.png);--w:170px;--h:30px" role="img" aria-label="Reethi Beach Resort logo"></span><time>2021 – 22</time><b>Marketing Manager</b><span>Reethi Beach Resort, Baa Atoll</span></div></div>
+        <div class="stop down" style="--i:5"><span class="node"></span><span class="arm"></span><div class="card"><span class="lg" style="--m:url(img/lg-mianz.png);--w:78px;--h:60px" role="img" aria-label="Mianz College logo"></span><time>2022 – 23</time><b>Part-time Lecturer</b><span>Mianz College · digital marketing and e-commerce</span></div></div>
+        <div class="stop up" style="--i:6"><span class="node"></span><span class="arm"></span><div class="card"><span class="lg" style="--m:url(img/lg-mbn.png);--w:92px;--h:44px" role="img" aria-label="Maldives Business Network TV logo"></span><time>2023 – 24</time><b>Sales and Marketing Manager</b><span>Maldives Business Network TV</span></div></div>
+        <div class="stop down" style="--i:7"><span class="node"></span><span class="arm"></span><div class="card"><span class="lg" style="--m:url(img/lg-bcc.png);--w:121px;--h:44px" role="img" aria-label="Business Centre Corporation logo"></span><time>2024</time><b>Manager, SME HUB</b><span>Business Centre Corporation · 23 small businesses incubated</span></div></div>
+        <div class="stop up now" style="--i:8"><span class="node"></span><span class="arm"></span><div class="card"><span class="lg" style="--m:url(img/lg-mnu.png);--w:50px;--h:61px" role="img" aria-label="MNU Business School logo"></span><time>2024 – now</time><b>Lecturer and Subject Coordinator</b><span>MNU Business School</span></div></div>
       </div>
-      <ol class="timeline reveal">
-        <li><time>2024 – now</time><div><b>Lecturer and Subject Coordinator</b><span>MNU Business School</span></div><img class="logo lt" src="img/logo-mnu.webp" alt="MNU"><img class="logo dk" src="img/logo-mnu-dark.webp" alt=""></li>
-        <li><time>2024</time><div><b>Manager, SME HUB</b><span>Business Centre Corporation · 23 small businesses incubated</span></div><img class="logo lt" src="img/logo-bcc.webp" alt="BCC"><img class="logo dk" src="img/logo-bcc-dark.webp" alt=""></li>
-        <li><time>2023 – 24</time><div><b>Sales and Marketing Manager</b><span>Maldives Business Network TV</span></div><span></span></li>
-        <li><time>2022 – 23</time><div><b>Part-time Lecturer</b><span>MI College · digital marketing and e-commerce</span></div><span></span></li>
-        <li><time>2021 – 22</time><div><b>Marketing Manager</b><span>Reethi Beach Resort, Baa Atoll</span></div><img class="logo lt" src="img/logo-reethi.webp" alt="Reethi Beach Resort"><img class="logo dk" src="img/logo-reethi-dark.webp" alt=""></li>
-        <li><time>2020 – 21</time><div><b>Copywriter</b><span>Maldives Ports Limited</span></div><span></span></li>
-        <li><time>2018 – 20</time><div><b>Head of Operations and Creative Director</b><span>Blazon Inc. · inflight magazines, Maldives Business Awards</span></div><img class="logo lt" src="img/logo-blazon.webp" alt="Blazon"><img class="logo dk" src="img/logo-blazon-dark.webp" alt=""></li>
-        <li><time>2014 – 18</time><div><b>Head of Marketing and Sales, MATTA Fair</b><span>Represented the Maldives for MP Travel, Kuala Lumpur</span></div><span></span></li>
-        <li><time>2011 – 13</time><div><b>Senior Marketing Executive</b><span>Highrise Inc. · Maldives Travel Awards</span></div><img class="logo lt" src="img/logo-highrise.webp" alt="Highrise"><img class="logo dk" src="img/logo-highrise-dark.webp" alt=""></li>
-      </ol>
     </div>
   </section>
 
@@ -349,6 +363,8 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
 
   /* scroll scenes */
   const s1 = $('s1'), st1 = $('st1'), s3 = $('s3'), st3 = $('st3');
+  const s2 = $('about'), track = $('track'), fill = $('fill'), stopsEl = [...document.querySelectorAll('.stop')];
+  let P = null;
   const copy = $('copy'), aboutText = $('aboutText'), portrait = $('portrait'), fdot = $('fdot');
   const letters = [...document.querySelectorAll('#about-g .l')];
   const fadeOut1 = [$('kick'), $('rule'), $('introP')];
@@ -358,7 +374,12 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
   const prog = sec => { const r = sec.getBoundingClientRect(); return clamp(-r.top / (r.height - innerHeight)); };
 
   function measure() {
-    [copy, aboutText, ghost, portrait, fdot, big, tool].forEach(el => el.style.transform = '');
+    [copy, aboutText, ghost, portrait, fdot, big, tool, track].forEach(el => el.style.transform = '');
+    { const cs = getComputedStyle(track), tmp = stopsEl.map(el => el.offsetLeft);
+      const lineLen = tmp[tmp.length - 1] - tmp[0], trackW = tmp[tmp.length - 1] + innerWidth * .45;
+      const dist = Math.max(0, trackW - innerWidth);
+      s2.style.height = (innerHeight + dist) + 'px';
+      P = { xs: tmp, lineLen, dist }; }
     const sr = st1.getBoundingClientRect();
     const rel = el => { const r = el.getBoundingClientRect(); return { x: r.left - sr.left, y: r.top - sr.top, w: r.width, h: r.height }; };
     const hi = rel($('hiDot')), me = rel($('meDot'));
@@ -403,6 +424,14 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
     aboutText.style.opacity = at;
     aboutText.style.transform = `translateY(${(1 - at) * 60}px)`;
     portrait.style.transform = isMobile() ? `scale(${lerp(1, .42, e)})` : `scale(${lerp(1, .8, e)})`;
+
+    /* career path: vertical scroll drives the path sideways */
+    if (P) {
+      const tx = -prog(s2) * P.dist, focus = innerWidth * .62;
+      track.style.transform = `translateX(${tx}px)`;
+      fill.style.transform = `scaleX(${clamp((focus - tx - P.xs[0]) / P.lineLen)})`;
+      stopsEl.forEach((el, i) => el.classList.toggle('on', P.xs[i] + tx <= focus));
+    }
 
     /* scene 3: bubble -> tool */
     const p3 = prog(s3);
