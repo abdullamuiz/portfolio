@@ -100,12 +100,12 @@ nav.links a:hover{opacity:1}
 .vert{position:absolute;right:calc(var(--gutter) * .35);top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);z-index:3}
 .vert i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--reef);margin:10px 0}
 @media (max-width:860px){
-  .hero{grid-template-columns:1fr;grid-template-rows:48svh auto;align-items:start;gap:4px}
-  .stage{height:48svh}
-  .portrait{height:100%;transform-origin:100% 0;margin-right:0}
-  .ghost-hi{font-size:clamp(150px,42vw,280px);left:-4%;top:-2%}
+  .hero{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;align-items:end;gap:6px}
+  .stage{height:100%;min-height:0}
+  .portrait{height:100%;transform-origin:100% 0;margin-right:-4%}
+  .ghost-hi{font-size:clamp(190px,60vw,340px);left:2%;top:3%}
   .ghost-about{font-size:clamp(78px,23vw,150px);left:-2%;top:2%}.ghost-about .row2{padding-left:.95em}
-  .copy{gap:12px;padding-bottom:20px}
+  .copy{gap:10px;padding-bottom:max(22px,env(safe-area-inset-bottom))}
   .display{font-size:clamp(44px,12.5vw,64px)}
   .intro-p{font-size:15px}
   .about-text{gap:10px;font-size:14px}
