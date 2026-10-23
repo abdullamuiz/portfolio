@@ -304,18 +304,19 @@ i[data-ic],i:has(>.ic){display:inline-flex;align-items:center;justify-content:ce
 .filters{display:flex;flex-wrap:wrap;gap:6px}
 .filters button{min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:500 13px var(--sans);cursor:pointer}
 .filters button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
-.reels{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px max(var(--gutter),calc((100vw - var(--max)) / 2 + var(--gutter))) 12px;scrollbar-width:none;overscroll-behavior-x:contain}
+.reels{display:flex;gap:16px;overflow-x:auto;padding:4px 0 12px;scrollbar-width:none;overscroll-behavior-x:contain;-webkit-mask:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
 .reels::-webkit-scrollbar{display:none}
-.reel{flex:none;width:clamp(170px,19vw,240px);aspect-ratio:9/16;border-radius:12px;overflow:hidden;position:relative;scroll-snap-align:start;border:0;padding:0;cursor:pointer;background:var(--tint)}
+.reel{flex:none;width:clamp(220px,24vw,330px);aspect-ratio:9/16;border-radius:14px;overflow:hidden;position:relative;border:0;padding:0;cursor:pointer;background:var(--tint)}
 .reel img,.reel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
 .reel:hover img{transform:scale(1.04)}
 .reel .pl{position:absolute;left:12px;bottom:12px;right:12px;display:flex;align-items:center;gap:8px;color:#fff;font:500 12.5px/1.3 var(--sans);text-align:left;z-index:1}
 .reel .pl i{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.22);font-size:13px;flex:none}
 .reel::after{content:"";position:absolute;inset:50% 0 0;background:linear-gradient(transparent,rgba(10,14,28,.7))}
 .strip-ctrl{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
-.photos{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.photos button{border:0;padding:0;cursor:pointer;border-radius:10px;overflow:hidden;aspect-ratio:4/5;background:var(--tint)}
-.photos img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.photos{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(150px,17vw,240px);gap:12px;grid-template-areas:"a a b c" "a a d e" "f g h h" "i j h h"}
+.photos button{position:relative;border:0;padding:0;cursor:pointer;border-radius:10px;overflow:hidden;background:var(--tint)}
+.photos img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease),opacity .9s var(--ease)}
+.photos img.out{opacity:0}
 .photos button:hover img{transform:scale(1.04)}
 .camps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .camp{border:0;background:none;padding:0;text-align:left;cursor:pointer;color:inherit;display:grid;gap:10px}
@@ -325,7 +326,7 @@ i[data-ic],i:has(>.ic){display:inline-flex;align-items:center;justify-content:ce
 .camp img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:3px}
 .camp b{font-weight:600;font-size:14.5px;display:block}
 .camp small{font-size:12.5px;color:var(--muted)}
-@media (max-width:860px){.photos{grid-template-columns:repeat(2,1fr);gap:8px}.camps{grid-template-columns:repeat(2,1fr);gap:14px}.film{aspect-ratio:4/5}.film-bar{padding:40px 16px 16px}}
+@media (max-width:860px){.reel{width:64vw}.photos{grid-template-columns:repeat(2,1fr);grid-auto-rows:40vw;gap:8px;grid-template-areas:"a a" "a a" "b c" "d e" "f g" "h h" "h h" "i j"}.camps{grid-template-columns:repeat(2,1fr);gap:14px}.film{aspect-ratio:4/5}.film-bar{padding:40px 16px 16px}}
 
 /* work */
 .feature{display:grid;grid-template-columns:1.15fr 1fr;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card)}
@@ -658,14 +659,11 @@ footer .socials a:hover{color:var(--ink)}
 
     <div class="wrap sub-head reveal">
       <div><span class="label">Motion · reels</span><h3 class="h3s">Reels, shot and edited for the feed<span>.</span></h3></div>
-      <div class="filters" role="group" aria-label="Filter reels" data-group="reel"><button type="button" data-filter="all" aria-pressed="true">All</button><button type="button" data-filter="resort" aria-pressed="false">Resort</button><button type="button" data-filter="fnb" aria-pressed="false">F&amp;B</button><button type="button" data-filter="lifestyle" aria-pressed="false">Lifestyle</button></div>
     </div>
     <div class="reels reveal" id="reels" aria-label="Reels"></div>
-    <div class="wrap strip-ctrl"><button class="icon-btn" id="reelPrev" type="button" aria-label="Previous reels"><i data-ic="left"></i></button><button class="icon-btn" id="reelNext" type="button" aria-label="More reels"><i data-ic="right"></i></button></div>
 
     <div class="wrap sub-head reveal">
       <div><span class="label">Static · photo</span><h3 class="h3s">Photos for posts and listings<span>.</span></h3></div>
-      <div class="filters" role="group" aria-label="Filter photos" data-group="photo"><button type="button" data-filter="all" aria-pressed="true">All</button><button type="button" data-filter="resort" aria-pressed="false">Resort</button><button type="button" data-filter="fnb" aria-pressed="false">F&amp;B</button><button type="button" data-filter="lifestyle" aria-pressed="false">Lifestyle</button></div>
     </div>
     <div class="wrap"><div class="photos reveal" id="photos"></div></div>
 
@@ -1277,33 +1275,50 @@ var CAMPS=[
   }
 
   /* reels, photos, campaigns */
-  var filt = { reel: 'all', photo: 'all' };
-  function list(type) { var src = type === 'reel' ? REELS : PHOTOS; return src.filter(function (x) { return filt[type] === 'all' || x.cat === filt[type]; }); }
-  function drawReels() {
-    document.getElementById('reels').innerHTML = list('reel').map(function (r, i) {
-      return '<button class="reel" type="button" data-lb="reel" data-i="' + i + '"><img src="' + MEDIA(r.poster) + '" alt="' + r.alt + '" loading="lazy"><span class="pl"><i>' + IC('play') + '</i>' + r.alt + '</span></button>';
-    }).join('');
+  function list(type) { return type === 'reel' ? REELS : PHOTOS; }
+
+  /* reels: a slow strip that drifts on its own; hover or touch pauses it, and people can still swipe */
+  var rs = document.getElementById('reels');
+  var reelHTML = REELS.map(function (r, i) {
+    return '<button class="reel" type="button" data-lb="reel" data-i="' + i + '"><img src="' + MEDIA(r.poster) + '" alt="' + r.alt + '" loading="lazy"><span class="pl"><i>' + IC('play') + '</i>' + r.alt + '</span></button>';
+  }).join('');
+  rs.innerHTML = reelHTML + reelHTML.replace(/<button /g, '<button aria-hidden="true" tabindex="-1" ');
+  var paused = false, last = 0, pos = 0, rmReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  ['mouseenter', 'touchstart', 'focusin'].forEach(function (ev) { rs.addEventListener(ev, function () { paused = true; }, { passive: true }); });
+  ['mouseleave', 'touchend', 'focusout'].forEach(function (ev) { rs.addEventListener(ev, function () { setTimeout(function () { paused = false; pos = rs.scrollLeft; }, ev === 'touchend' ? 1500 : 0); }, { passive: true }); });
+  var reelVisible = false;
+  new IntersectionObserver(function (es) { reelVisible = es[0].isIntersecting; }).observe(rs);
+  function drift(t) {
+    var dt = last ? Math.min(64, t - last) : 0; last = t;
+    if (!paused && reelVisible && !rmReduce) {
+      var half = rs.scrollWidth / 2;
+      pos += dt * 0.045; if (pos >= half) pos -= half;
+      rs.scrollLeft = pos;
+    } else { pos = rs.scrollLeft; if (pos >= rs.scrollWidth / 2) { pos -= rs.scrollWidth / 2; rs.scrollLeft = pos; } }
+    requestAnimationFrame(drift);
   }
-  function drawPhotos() {
-    document.getElementById('photos').innerHTML = list('photo').map(function (r, i) {
-      return '<button type="button" data-lb="photo" data-i="' + i + '"><img src="' + MEDIA(r.poster) + '" alt="' + r.alt + '" loading="lazy"></button>';
-    }).join('');
-  }
+  requestAnimationFrame(drift);
+
+  /* photos: a mosaic with two big tiles; every 4 seconds one tile cross-fades to another photo */
+  var ph = document.getElementById('photos'), AREAS = 'abcdefghij'.split(''), shown = AREAS.map(function (_, i) { return i; });
+  ph.innerHTML = AREAS.map(function (a, k) {
+    var r = PHOTOS[shown[k]];
+    return '<button type="button" style="grid-area:' + a + '" data-lb="photo" data-i="' + shown[k] + '"><img src="' + MEDIA(r.poster) + '" alt="' + r.alt + '" loading="lazy"></button>';
+  }).join('');
+  var tiles = [].slice.call(ph.children);
+  setInterval(function () {
+    if (rmReduce || document.hidden || PHOTOS.length <= AREAS.length) return;
+    var r = ph.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+    var k = Math.floor(Math.random() * tiles.length), hidden = PHOTOS.map(function (_, i) { return i; }).filter(function (i) { return shown.indexOf(i) < 0; });
+    var next = hidden[Math.floor(Math.random() * hidden.length)], tile = tiles[k], old = tile.querySelector('img');
+    var im = new Image(); im.alt = PHOTOS[next].alt; im.className = 'out'; im.src = MEDIA(PHOTOS[next].poster);
+    im.onload = function () { tile.appendChild(im); requestAnimationFrame(function () { im.classList.remove('out'); old.classList.add('out'); setTimeout(function () { old.remove(); }, 1000); }); };
+    shown[k] = next; tile.dataset.i = next;
+  }, 4000);
+
   document.getElementById('camps').innerHTML = CAMPS.map(function (c, i) {
     return '<button class="camp" type="button" data-lb="camp" data-i="' + i + '"><span class="pr"><img src="' + MEDIA(c.poster) + '" alt="' + c.t + '" loading="lazy"></span><span><b>' + c.t + '</b><small>' + c.s + '</small></span></button>';
   }).join('');
-  drawReels(); drawPhotos();
-  document.querySelectorAll('.filters').forEach(function (g) {
-    g.addEventListener('click', function (e) {
-      var b = e.target.closest('button'); if (!b) return;
-      g.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
-      filt[g.dataset.group] = b.dataset.filter;
-      g.dataset.group === 'reel' ? drawReels() : drawPhotos();
-    });
-  });
-  var rs = document.getElementById('reels');
-  document.getElementById('reelPrev').addEventListener('click', function () { rs.scrollBy({ left: -rs.clientWidth * .8, behavior: 'smooth' }); });
-  document.getElementById('reelNext').addEventListener('click', function () { rs.scrollBy({ left: rs.clientWidth * .8, behavior: 'smooth' }); });
 
   /* lightbox */
   var lb = document.getElementById('lb'), stage = document.getElementById('lbStage'), cap = document.getElementById('lbCap'), snd = document.getElementById('lbSound');
