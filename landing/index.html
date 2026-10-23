@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muiz Landing Draft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600&family=Allura&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFFFFF; --card:#FFFFFF; --ink:#1E2742; --muted:#5D6478; --line:#E3E6EE; --navy:#232C4A;
+  --reef:#1DBF8C; --lagoon:#0FB8C9; --sea:#1C7FE0; --deep:#14508F;
+  --label:#087A88; --link:#232C4A; --tint:#EEF1F7; --ghost:#E8EBF3;
+  --bubble:#232C4A; --bubble-text:#FFFFFF;
+  --serif:'DM Serif Display',Georgia,serif; --sans:'Poppins',system-ui,sans-serif; --script:'Allura',cursive;
+  --ease:cubic-bezier(.2,.7,.2,1); --max:1180px; --gutter:clamp(16px,5vw,64px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#121829; --card:#1A2238; --ink:#F1F2F6; --muted:#A3A9BA; --line:#283252;
+  --reef:#2BD39E; --lagoon:#22C9D9; --sea:#4A9BEE; --deep:#9DB4F0;
+  --label:#5FD3E0; --link:#B9C7F2; --tint:#1C2540; --ghost:#1C2540; --bubble:#34437A;
+}}
+:root[data-theme="dark"]{
+  --paper:#121829; --card:#1A2238; --ink:#F1F2F6; --muted:#A3A9BA; --line:#283252;
+  --reef:#2BD39E; --lagoon:#22C9D9; --sea:#4A9BEE; --deep:#9DB4F0;
+  --label:#5FD3E0; --link:#B9C7F2; --tint:#1C2540; --ghost:#1C2540; --bubble:#34437A;
+}
+*{box-sizing:border-box}
+html{background:var(--paper)}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 15px/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--link);text-underline-offset:3px}
+img{display:block;max-width:100%}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+.label{font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--label)}
+.tracked{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
+.small{font-size:13px;color:var(--muted)}
+.rule{width:46px;height:2px;background:var(--lagoon);border:0;margin:0}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 22px;border-radius:999px;background:var(--ink);color:var(--paper);font:500 14px var(--sans);text-decoration:none;border:0;cursor:pointer;transition:background .16s var(--ease),transform .16s var(--ease)}
+.btn:hover{background:var(--deep);color:#fff}
+.btn:active{transform:scale(.97)}
+.btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn--ghost:hover{background:var(--card);color:var(--ink);border-color:var(--ink)}
+
+/* header */
+header.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0}
+.wordmark{font:400 28px/1 var(--serif);color:var(--ink);text-decoration:none;letter-spacing:-.01em}
+.wordmark span{color:var(--lagoon)}
+nav.links{display:flex;gap:28px}
+nav.links a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;opacity:.8}
+nav.links a:hover{opacity:1}
+@media (max-width:860px){nav.links{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(24px,5vw,72px);align-items:end;min-height:calc(100svh - 90px);position:relative}
+.stage{position:relative;align-self:end;height:min(76svh,700px);display:flex;align-items:flex-end;justify-content:flex-end}
+.ghost{position:absolute;left:-20%;top:-6%;font:400 clamp(220px,31vw,450px)/.9 var(--serif);color:var(--ghost);letter-spacing:-.02em;user-select:none;pointer-events:none;z-index:0;white-space:nowrap}
+.hi{display:inline-flex;align-items:baseline}
+.hi .i{position:relative;display:inline-block}
+.hi .dot{position:absolute;left:50%;top:.1em;width:.12em;height:.12em;margin-left:-.06em;border-radius:50%;background:var(--lagoon)}
+.portrait{position:relative;z-index:1;height:92%;width:auto;max-width:none;object-fit:contain;object-position:bottom}
+.sticker{position:absolute;z-index:2;right:-3%;bottom:16%;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px 14px;box-shadow:0 1px 2px rgba(23,33,43,.06);transform:rotate(-3deg);max-width:220px}
+.sticker::before{content:"";display:block;width:20px;height:4px;border-radius:2px;background:var(--reef);margin-bottom:8px}
+.sticker b{display:block;font:400 26px/1.1 var(--serif)}
+.sticker small{font-size:12px;color:var(--muted);line-height:1.4;display:block;margin-top:4px}
+.copy{display:grid;gap:18px;padding-bottom:clamp(40px,8vh,96px);max-width:520px}
+.display{font:400 clamp(64px,9vw,120px)/.95 var(--serif);letter-spacing:-.01em;margin:0}
+.display span{color:var(--reef)}
+.copy p{margin:0;font-size:16px;max-width:46ch}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.signature{font:400 54px/1 var(--script);color:var(--deep);margin-top:2px}
+.vert{position:absolute;right:calc(var(--gutter) * -0.6);top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.vert i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--reef);margin:10px 0}
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;min-height:0;gap:8px}
+  .stage{height:54svh;min-height:400px}.portrait{height:100%}
+  .ghost{font-size:clamp(170px,50vw,320px);left:-4%;top:-2%}
+  .sticker{right:-2%;bottom:10%;max-width:170px}
+  .sticker b{font-size:22px}
+  .copy{padding-bottom:56px}
+  .vert{display:none}
+}
+
+/* sections */
+section.block{padding:clamp(56px,9vw,112px) 0;border-top:1px solid var(--line)}
+.head{display:grid;gap:10px;margin-bottom:32px}
+.head h2{font:400 clamp(32px,4.5vw,48px)/1.05 var(--serif);margin:0}
+.head h2 span{color:var(--lagoon)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.card::before{content:"";width:20px;height:4px;border-radius:2px;background:var(--tab,var(--reef))}
+.num{font:400 40px/1.05 var(--serif)}
+.work{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.work a{color:inherit;text-decoration:none;display:grid;gap:12px}
+.work .ph{border-radius:10px;overflow:hidden;aspect-ratio:4/3;background:var(--line)}
+.work img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.work a:hover img{transform:scale(1.03)}
+.work h3{font:600 17px/1.35 var(--sans);margin:0}
+.work .more{font-size:13px;font-weight:500;color:var(--link)}
+.duo{display:grid;grid-template-columns:1fr 1.4fr;gap:20px;align-items:stretch}
+.now{position:relative;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:28px 26px 24px;transform:rotate(-1.2deg)}
+.now::after{content:"";position:absolute;top:-12px;left:50%;width:96px;height:24px;margin-left:-48px;background:rgba(221,243,239,.85);transform:rotate(2deg);border-radius:2px}
+.now h3{font:400 italic 30px/1 var(--serif);margin:0 0 14px}
+.bul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.bul li{position:relative;padding-left:20px}
+.bul li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:2px;background:var(--reef)}
+.bul li:nth-child(2)::before{background:var(--lagoon)} .bul li:nth-child(3)::before{background:var(--sea)} .bul li:nth-child(4)::before{background:var(--deep)}
+.cta{display:flex;flex-direction:column;justify-content:center;gap:14px;border:1.5px solid var(--lagoon);border-radius:10px;padding:26px 28px}
+.cta .label{color:var(--deep)}
+.cta p{margin:0;max-width:52ch}
+footer{border-top:1px solid var(--line);padding:18px 0 28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:12px;color:var(--muted)}
+footer b{font:400 18px var(--serif);color:var(--label)}
+@media (max-width:860px){.stats,.work,.duo{grid-template-columns:1fr}.now{transform:none}}
+
+/* reveal for lower sections */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- intro ---------- */
+.intro-on .fade{opacity:0}
+.intro-on .ghost{visibility:hidden}
+.intro{position:fixed;inset:0;z-index:50;pointer-events:none}
+.bubble{position:absolute;left:50%;top:50%;width:min(64vw,340px);aspect-ratio:1062/1093;transform:translate(-50%,-52%) scale(0);transform-origin:50% 55%}
+.bubble svg{width:100%;height:100%;display:block}
+.bubble path{fill:var(--bubble)}
+.flyer{position:absolute;left:0;top:0;transform-origin:0 0;color:var(--bubble-text);font:400 clamp(220px,31vw,450px)/.9 var(--serif);letter-spacing:-.02em;white-space:nowrap;opacity:0}
+.flyer .dot{opacity:0}
+.skip{position:fixed;right:16px;bottom:16px;z-index:60;font:500 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:transparent;border:0;padding:12px;cursor:pointer}
+.replay{font:500 12px var(--sans);color:var(--link);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+</style>
+</head>
+<body class="intro-on">
+
+<div class="wrap">
+  <header class="top fade" data-step="0">
+    <a class="wordmark" href="#">Muiz<span>.</span></a>
+    <nav class="links" aria-label="Main">
+      <a href="#work">Work</a><a href="#">Content</a><a href="#">Approach</a><a href="#">About</a><a href="#">Contact</a>
+    </nav>
+    <a class="btn btn--ghost" href="#">Request a call</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="stage">
+        <div class="ghost hi" id="ghost" aria-hidden="true"><span>H</span><span class="i">ı<span class="dot"></span></span></div>
+        <img class="portrait fade" data-step="1" src="img/muiz-cutout.webp" alt="Abdulla Muiz Fuad, arms crossed, smiling">
+      </div>
+      <div class="copy">
+        <span class="label fade" data-step="2">Hospitality marketing · Maldives</span>
+        <h1 class="display fade" data-step="2">Muiz<span>.</span></h1>
+        <div class="tracked fade" data-step="3">Marketing consultant and content creator</div>
+        <hr class="rule fade" data-step="3">
+        <p class="fade" data-step="3">15+ years in Maldivian tourism marketing and behind the camera. I judge marketing by direct bookings and revenue, not views or likes.</p>
+        <div class="actions fade" data-step="4">
+          <a class="btn" href="#work">See my work</a>
+          <a class="btn btn--ghost" href="#">Request a call</a>
+        </div>
+        <div class="signature fade" data-step="4">Muiz</div>
+      </div>
+      <div class="vert fade" data-step="5">Resorts <i></i> Guesthouses <i></i> Restaurants</div>
+    </section>
+
+    <section class="block">
+      <div class="stats reveal">
+        <div class="card" style="--tab:var(--reef)"><span class="num">15+</span><span class="small">years in Maldivian tourism marketing</span></div>
+        <div class="card" style="--tab:var(--lagoon)"><span class="num">111</span><span class="small">bookings from one Manta Season campaign, 38 of them direct</span></div>
+        <div class="card" style="--tab:var(--sea)"><span class="num">23</span><span class="small">small businesses incubated at the SME HUB</span></div>
+      </div>
+    </section>
+
+    <section class="block" id="work">
+      <div class="head reveal">
+        <span class="label">Selected work</span>
+        <h2>Results, not just reach<span>.</span></h2>
+      </div>
+      <div class="work reveal">
+        <a href="#"><div class="ph"><img src="img/case-reethi.webp" alt="Reethi Beach Resort"></div><span class="label">Reethi Beach Resort</span><h3>Low season from under 10% to 38–66% occupancy</h3><span class="more">Read the case →</span></a>
+        <a href="#"><div class="ph"><img src="img/case-missgermany.webp" alt="Miss Germany shoot"></div><span class="label">Content</span><h3>Miss Germany in the Maldives, 30+ prime-time TV broadcasts</h3><span class="more">See the content →</span></a>
+        <a href="#"><div class="ph"><img src="img/sme-hub-bcc.webp" alt="SME HUB"></div><span class="label">SME HUB · BCC</span><h3>23 small businesses incubated and taken to market</h3><span class="more">Read the case →</span></a>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="duo reveal">
+        <div class="now">
+          <h3>Currently</h3>
+          <ul class="bul">
+            <li>Teaching marketing at MNU Business School</li>
+            <li>Building Islandeative</li>
+            <li>Brewing Dhi Brew cold brew</li>
+          </ul>
+        </div>
+        <div class="cta">
+          <span class="label">Free, 5 minutes</span>
+          <h2 style="font:400 clamp(28px,3.5vw,38px)/1.1 var(--serif);margin:0">How visible is your business<span style="color:var(--reef)">?</span></h2>
+          <p>The Social Visibility Health Check scores your socials and booking path against 2026 benchmarks.</p>
+          <div><a class="btn" href="https://abdullamuiz.github.io/portfolio/health-check.html">Run the check</a></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>Abdulla Muiz Fuad · +960 990 2996 · muiz@islandeative.com</span>
+      <button class="replay" id="replay" type="button" hidden>↺ Replay intro</button><b>Muiz.</b>
+    </footer>
+  </main>
+</div>
+
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="bubble" id="bubble">
+    <svg viewBox="8 104 1062 1093"><path d="M1053.113,545.018c3.096,10.753 12.298,46.08 13.164,59.032c5.002,74.884 -0.149,143.561 -22.603,203.397c-100.547,267.932 -422.743,386.61 -422.743,386.61c0,0 62.584,-159.911 -58.959,-161.212c-43.686,-0.468 -35.204,-1.361 -146.804,0.123c-10.397,0.138 -24.24,-0.336 -24.24,-0.336c-206.744,0 -373.14,-169.682 -373.14,-378.683c-0,-209.001 175.115,-378.683 381.859,-378.683l297.072,0c206.744,0 322.925,153.495 356.396,269.752l-0,0Z"/></svg>
+  </div>
+  <div class="flyer hi" id="flyer"><span>H</span><span class="i">ı<span class="dot"></span></span></div>
+</div>
+<button class="skip" id="skip" type="button">Skip</button>
+
+<script>
+(() => {
+  const body = document.body, ghost = document.getElementById('ghost'), flyer = document.getElementById('flyer');
+  const bubble = document.getElementById('bubble'), intro = document.getElementById('intro');
+  const skipBtn = document.getElementById('skip'), replayBtn = document.getElementById('replay');
+  const fades = [...document.querySelectorAll('.fade')];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ease = 'cubic-bezier(.2,.7,.2,1)';
+  let anims = [], timers = [], done = false;
+
+  // lower-section reveal
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  const A = (el, kf, opt) => { const a = el.animate(kf, { fill: 'both', ...opt }); anims.push(a); return a; };
+  const later = (fn, ms) => timers.push(setTimeout(fn, ms));
+
+  function revealPage(instant) {
+    body.classList.remove('intro-on');
+    fades.forEach(el => {
+      const step = +el.dataset.step || 0;
+      if (instant) return;
+      A(el, [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }],
+        { duration: 700, delay: step * 110, easing: ease, fill: 'backwards' });
+    });
+  }
+
+  function finish(instant) {
+    if (done) return; done = true;
+    anims.forEach(a => a.cancel()); anims = []; timers.forEach(clearTimeout); timers = [];
+    intro.style.display = 'none'; skipBtn.hidden = true; replayBtn.hidden = false;
+    revealPage(instant);
+  }
+
+  function play() {
+    done = false; body.classList.add('intro-on');
+    intro.style.display = ''; skipBtn.hidden = false; replayBtn.hidden = true;
+    window.scrollTo(0, 0);
+
+    // where the Hi must land (the ghost behind the portrait)
+    const g = ghost.getBoundingClientRect();
+    flyer.style.fontSize = getComputedStyle(ghost).fontSize;
+    const f = flyer.getBoundingClientRect();
+    const b = bubble.getBoundingClientRect(); // unscaled box is scale(0); compute from layout size
+    const bw = bubble.offsetWidth, bh = bubble.offsetHeight;
+    const s0 = (bw * 0.5) / f.width;                     // Hi fills ~62% of the bubble width
+    const cx = innerWidth / 2, cy = innerHeight / 2 + bh * 0.0;
+    const startX = cx - (f.width * s0) / 2, startY = cy - (f.height * s0) / 2;
+    const start = `translate(${startX}px, ${startY}px) scale(${s0})`;
+    const end = `translate(${g.left}px, ${g.top}px) scale(1)`;
+    const dot = flyer.querySelector('.dot');
+
+    // 1. bubble pops in
+    A(bubble, [
+      { transform: 'translate(-50%,-52%) scale(0)' },
+      { transform: 'translate(-50%,-52%) scale(1.08)', offset: .7 },
+      { transform: 'translate(-50%,-52%) scale(1)' }
+    ], { duration: 560, easing: 'cubic-bezier(.34,1.56,.64,1)' });
+
+    // 2. "Hı" rises inside the bubble
+    A(flyer, [{ opacity: 0, transform: start + ' translateY(30px)' }, { opacity: 1, transform: start }],
+      { duration: 420, delay: 300, easing: ease });
+
+    // 3. the teal dot drops and bounces onto the i
+    A(dot, [
+      { opacity: 0, transform: 'translateY(-260%) scale(1)', easing: 'cubic-bezier(.55,0,1,.45)' },
+      { opacity: 1, transform: 'translateY(0) scale(1.25,.75)', offset: .42, easing: 'cubic-bezier(0,.55,.45,1)' },
+      { opacity: 1, transform: 'translateY(-70%) scale(.95,1.05)', offset: .64, easing: 'cubic-bezier(.55,0,1,.45)' },
+      { opacity: 1, transform: 'translateY(0) scale(1.1,.9)', offset: .82, easing: 'cubic-bezier(0,.55,.45,1)' },
+      { opacity: 1, transform: 'translateY(-14%) scale(1)', offset: .91 },
+      { opacity: 1, transform: 'translateY(0) scale(1)' }
+    ], { duration: 820, delay: 720 });
+
+    // 4. bubble fades out, Hi slides to its place and turns pale
+    A(bubble, [{ opacity: 1 }, { opacity: 0, transform: 'translate(-50%,-52%) scale(.94)' }],
+      { duration: 420, delay: 1800, easing: ease, composite: 'replace' });
+    A(flyer, [
+      { transform: start, color: getComputedStyle(flyer).color },
+      { transform: end, color: getComputedStyle(ghost).color }
+    ], { duration: 950, delay: 1950, easing: 'cubic-bezier(.65,0,.25,1)' });
+
+    // 5. swap to the real ghost and fade the page in
+    later(() => { ghost.style.visibility = 'visible'; finish(false); }, 2900);
+  }
+
+  skipBtn.addEventListener('click', () => { ghost.style.visibility = 'visible'; finish(true); });
+  replayBtn.addEventListener('click', () => { ghost.style.visibility = ''; play(); });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !done) skipBtn.click(); });
+
+  const go = () => reduce ? (ghost.style.visibility = 'visible', finish(true)) : play();
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(go));
+})();
+</script>
+</body>
+</html>
