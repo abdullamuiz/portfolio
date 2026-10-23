@@ -207,7 +207,7 @@ section.block{padding:clamp(64px,10vw,128px) 0;border-top:1px solid var(--line)}
 .q-h h3{font:400 22px/1.15 var(--serif);margin:2px 0 0}
 .q-h p{margin:0;font-size:13px;color:var(--muted)}
 .tz-q + .tz-q{border-top:1px solid var(--line);padding-top:18px}
-@media (min-width:861px){.tz-view{position:sticky;top:-20px;align-self:start;min-height:420px;justify-content:center}}
+.tz-view{justify-content:flex-start}
 .tz-legend:empty,.hcx-verdict[hidden]{display:none}
 .tz-lbl{font-weight:500;font-size:13.5px}
 .tz-cats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -423,6 +423,42 @@ footer .socials a:hover{color:var(--ink)}
 .lb-cap{position:absolute;left:16px;right:72px;bottom:18px;margin:0;font-size:14px;opacity:.85}
 @media (max-width:640px){.lb-stage{inset:56px 8px 64px}.lb-prev,.lb-next{top:auto;bottom:10px;transform:none}.lb-prev{left:auto;right:120px}.lb-next{right:66px}.lb-cap{right:180px}}
 
+
+/* commission leak meter + report preview */
+.leak{border-top:1px solid var(--line);padding-top:16px;display:grid;gap:12px}
+.leak[hidden]{display:none}
+.leak-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.leak-h h3{font:400 20px/1.15 var(--serif);margin:3px 0 0}
+.cur{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;flex:none}
+.cur button{border:0;background:none;color:var(--muted);font:600 11.5px var(--sans);padding:5px 10px;border-radius:999px;cursor:pointer}
+.cur button[aria-pressed="true"]{background:var(--navy);color:#fff}
+.sl{display:grid;gap:6px}
+.sl > span{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:13px}
+.sl b{font-weight:500}
+.sl output{font:400 18px/1 var(--serif)}
+.sl input{width:100%;accent-color:var(--teal);height:22px}
+.leak-out{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;background:var(--tint);border-radius:10px;padding:14px 16px}
+.leak-out > b{font:400 34px/1 var(--serif);color:var(--ink)}
+.leak-out span{font-size:13px;color:var(--muted)}
+.leak-out span b{color:var(--ink);font-weight:600}
+.leak-keep{margin:0;font-size:13.5px}
+.leak-keep b{color:var(--label);font-weight:600}
+.leak .fine{margin:0;font-size:11.5px;color:var(--muted)}
+.preview{display:flex;align-items:center;gap:18px;border-top:1px solid var(--line);padding-top:16px}
+.pv-stack{position:relative;width:96px;height:84px;flex:none}
+.pv-page{position:absolute;top:0;width:60px;height:80px;background:#fff;border:1px solid var(--line);border-radius:4px;box-shadow:0 2px 6px rgba(23,33,43,.08);overflow:hidden}
+.pv-page svg{width:100%;height:100%;filter:blur(.5px)}
+.pv-page:nth-child(1){left:0;transform:rotate(-8deg)}
+.pv-page:nth-child(2){left:18px;transform:rotate(-1deg);z-index:1}
+.pv-page:nth-child(3){left:36px;transform:rotate(7deg);z-index:2}
+.preview:hover .pv-page:nth-child(1){transform:rotate(-12deg) translateX(-4px)}
+.preview:hover .pv-page:nth-child(3){transform:rotate(11deg) translateX(4px)}
+.pv-page{transition:transform .35s var(--ease)}
+.pv-copy ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:3px;font-size:13px}
+.pv-copy li{position:relative;padding-left:16px}
+.pv-copy li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;border-radius:2px;background:var(--reef)}
+.pv-copy li:nth-child(2)::before{background:var(--lagoon)}.pv-copy li:nth-child(3)::before{background:var(--sea)}.pv-copy li:nth-child(4)::before{background:var(--deep)}
+
 /* intro */
 .intro-on .fade{opacity:0}
 .intro-on .ghost-hi{visibility:hidden}
@@ -570,6 +606,26 @@ footer .socials a:hover{color:var(--ink)}
               <span class="hcx-risk" id="tzRisk">Step 1</span>
               <h3 id="tzTitle">What kind of business are you?</h3>
               <p id="tzText">Pick your business to start.</p>
+            </div>
+            <div class="leak" id="leak" hidden>
+              <div class="leak-h">
+                <div><span class="lk-step">What it may be costing you</span><h3 id="lkTitle">Commission you pay to OTAs</h3></div>
+                <div class="cur" role="group" aria-label="Currency"><button type="button" data-cur="USD" aria-pressed="true">USD</button><button type="button" data-cur="MVR" aria-pressed="false">MVR</button></div>
+              </div>
+              <label class="sl"><span><b id="lkPL">Average booking value</b><output id="lkPV"></output></span><input type="range" id="lkP"></label>
+              <label class="sl"><span><b id="lkNL">Bookings a month</b><output id="lkNV"></output></span><input type="range" id="lkN"></label>
+              <label class="sl"><span><b id="lkSL">Share booked through OTAs</b><output id="lkSV"></output></span><input type="range" id="lkS" min="0" max="100" step="5"></label>
+              <div class="leak-out"><b id="lkMonth">$0</b><span>a month in commission, about <b id="lkYear">$0</b> a year</span></div>
+              <p class="leak-keep" id="lkKeep"></p>
+              <p class="fine">A rough estimate at <span id="lkRate">18%</span> commission. Your real rate is in your contract.</p>
+            </div>
+            <div class="preview">
+              <div class="pv-stack" aria-hidden="true">
+                <span class="pv-page"><svg viewBox="0 0 60 80"><rect x="8" y="8" width="26" height="3" rx="1.5" fill="#232C4A"/><circle cx="30" cy="42" r="18" fill="none" stroke="#E3E6EE" stroke-width="1.5"/><circle cx="30" cy="42" r="10" fill="none" stroke="#E3E6EE" stroke-width="1.5"/><path d="M30 26 44 38 38 54 22 56 16 36Z" fill="rgba(15,184,201,.35)" stroke="#0FB8C9" stroke-width="1.2"/></svg></span>
+                <span class="pv-page"><svg viewBox="0 0 60 80"><rect x="8" y="8" width="30" height="3" rx="1.5" fill="#232C4A"/><rect x="8" y="22" width="44" height="3" rx="1.5" fill="#E3E6EE"/><rect x="8" y="22" width="30" height="3" rx="1.5" fill="#1DBF8C"/><rect x="8" y="34" width="44" height="3" rx="1.5" fill="#E3E6EE"/><rect x="8" y="34" width="14" height="3" rx="1.5" fill="#E8833A"/><rect x="8" y="46" width="44" height="3" rx="1.5" fill="#E3E6EE"/><rect x="8" y="46" width="22" height="3" rx="1.5" fill="#0FB8C9"/><rect x="8" y="58" width="44" height="3" rx="1.5" fill="#E3E6EE"/><rect x="8" y="58" width="36" height="3" rx="1.5" fill="#1C7FE0"/></svg></span>
+                <span class="pv-page"><svg viewBox="0 0 60 80"><rect x="8" y="8" width="28" height="3" rx="1.5" fill="#232C4A"/><text x="8" y="28" font-size="9" font-family="Georgia" fill="#0B8794">1</text><rect x="16" y="22" width="34" height="2.5" rx="1.2" fill="#C9CFDC"/><rect x="16" y="27" width="24" height="2.5" rx="1.2" fill="#E3E6EE"/><text x="8" y="46" font-size="9" font-family="Georgia" fill="#0B8794">2</text><rect x="16" y="40" width="34" height="2.5" rx="1.2" fill="#C9CFDC"/><rect x="16" y="45" width="28" height="2.5" rx="1.2" fill="#E3E6EE"/><text x="8" y="64" font-size="9" font-family="Georgia" fill="#0B8794">3</text><rect x="16" y="58" width="34" height="2.5" rx="1.2" fill="#C9CFDC"/><rect x="16" y="63" width="20" height="2.5" rx="1.2" fill="#E3E6EE"/></svg></span>
+              </div>
+              <div class="pv-copy"><span class="lk-step">Your full report includes</span><ul><li>A visibility compass across 8 areas</li><li>Platform-by-platform scores</li><li>The three fixes to do first</li><li>An ideal campaign plan with budget</li></ul></div>
             </div>
           </div>
         </div>
@@ -1062,6 +1118,7 @@ var CAMPS=[
     var rec=recommended(), miss=keys(rec).filter(function(k){return !S.p[k];}).map(function(k){return plats().filter(function(p){return p[0]===k;})[0][1];});
     var risk=$('tzRisk'),t=$('tzTitle'),x=$('tzText'),core=['instagram','facebook','tiktok'].filter(function(k){return S.p[k];}).length;
     function v(cls,tag,title,text){risk.className='hcx-risk '+cls;risk.textContent=tag;t.textContent=title;x.textContent=text;risk.parentNode.hidden=(cls==='idle');}
+    leak(S.cat);
     if(!S.bt) v('idle','Step 1','What kind of business are you?','Pick a category, then the type that fits you best.');
     else if(!keys(S.aud).length) v('idle','Step 2','Who do you sell to?','Pick locals, expats, tourists, or any mix. It changes which platforms matter.');
     else if(!ps.length) v('idle','Step 3','Where do people find you?','Tap the platforms you post on. The ones marked Recommended matter most for you.');
@@ -1101,6 +1158,37 @@ var CAMPS=[
     drawStatic(); paint();
     var f=root.querySelector('[data-'+Object.keys(d)[0].replace(/[A-Z]/g,function(m){return '-'+m.toLowerCase();})+'="'+d[Object.keys(d)[0]]+'"]'); if(f) f.focus({preventScroll:true});
   });
+
+  /* ---- commission leak meter (USD / MVR) ---- */
+  var RATE=15.42, CUR='USD';
+  try{ if(localStorage.getItem('hc-cur')==='MVR') CUR='MVR'; }catch(e){}
+  var LK={
+    stay:{t:'Commission you pay to OTAs',p:['Average booking value (whole stay)',30,2000,10,350],n:['Bookings a month',1,200,1,20],s:['Share booked through OTAs',80],r:.18,k:'OTA bookings'},
+    food:{t:'Commission you pay to delivery apps',p:['Average order value',3,100,1,15],n:['Orders a month',10,3000,10,600],s:['Share ordered through delivery apps',40],r:.2,k:'app orders',kw:'your own WhatsApp or website'},
+    exp:{t:'Commission you pay to booking platforms',p:['Average booking value',10,1000,5,90],n:['Bookings a month',1,500,1,40],s:['Share booked through platforms and agents',60],r:.25,k:'platform bookings'},
+    shop:{t:'Commission you pay to marketplaces',p:['Average order value',5,500,5,30],n:['Orders a month',10,3000,10,200],s:['Share sold through marketplaces',30],r:.15,k:'marketplace orders',kw:'your own store'}
+  };
+  var lkCat=null;
+  function money(usd){ var v=CUR==='MVR'?usd*RATE:usd; var r=v>=100?Math.round(v/10)*10:Math.round(v); return (CUR==='MVR'?'MVR ':'$')+r.toLocaleString('en-US'); }
+  function setRange(el,a){ el.min=a[1]; el.max=a[2]; el.step=a[3]; el.value=a[4]; }
+  function leak(cat){
+    var box=$('leak'); if(!cat){ box.hidden=true; lkCat=null; return; }
+    box.hidden=false;
+    if(cat!==lkCat){ var c=LK[cat]; lkCat=cat;
+      $('lkTitle').textContent=c.t; $('lkPL').textContent=c.p[0]; $('lkNL').textContent=c.n[0]; $('lkSL').textContent=c.s[0];
+      setRange($('lkP'),c.p); setRange($('lkN'),c.n); $('lkS').value=c.s[1]; $('lkRate').textContent=Math.round(c.r*100)+'%'; }
+    calc();
+  }
+  function calc(){
+    var c=LK[lkCat]; if(!c) return;
+    var P=+$('lkP').value, N=+$('lkN').value, Sh=+$('lkS').value/100, m=P*N*Sh*c.r;
+    $('lkPV').textContent=money(P); $('lkNV').textContent=N.toLocaleString('en-US'); $('lkSV').textContent=Math.round(Sh*100)+'%';
+    $('lkMonth').textContent=money(m); $('lkYear').textContent=money(m*12);
+    $('lkKeep').innerHTML='Moving 1 in 5 '+c.k+' to '+(c.kw||'direct booking')+' keeps about <b>'+money(m*.2)+' a month</b>.';
+    document.querySelectorAll('.cur button').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.cur===CUR); });
+  }
+  ['lkP','lkN','lkS'].forEach(function(id){ $(id).addEventListener('input',calc); });
+  document.querySelectorAll('.cur button').forEach(function(b){ b.addEventListener('click',function(){ CUR=b.dataset.cur; try{localStorage.setItem('hc-cur',CUR);}catch(e){} calc(); }); });
   drawStatic(); paint();
   })();
 
