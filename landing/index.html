@@ -59,7 +59,7 @@ nav.links a:hover{opacity:1}
 .pin{position:relative}
 .sticky{position:sticky;top:0;height:100svh;overflow:hidden}
 #s1{height:290vh}
-#s3{height:360vh}
+#s3{height:240vh}
 
 /* scene 1: hero -> about */
 .hero{position:absolute;top:var(--head);bottom:0;left:0;right:0;max-width:var(--max);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(24px,5vw,72px);align-items:end;grid-template-rows:minmax(0,1fr)}
@@ -159,10 +159,18 @@ section.block{padding:clamp(64px,10vw,128px) 0;border-top:1px solid var(--line)}
 .bubble-big svg{width:100%;height:100%;display:block}
 .bubble svg{fill:var(--bubble)}
 .bubble-big svg{fill:var(--teal)}
-.q{position:absolute;left:12%;right:12%;top:8%;height:62%;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--bubble-text);font:400 clamp(30px,5.4vw,58px)/1.06 var(--serif);opacity:0;margin:0}
+.q{position:absolute;left:12%;right:12%;top:6%;height:72%;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--bubble-text);font:400 clamp(30px,5.4vw,58px)/1.06 var(--serif);opacity:0;margin:0}
 .q .qm{color:#1E2742}
 .sub{position:absolute;left:50%;top:calc(46% + min(84vw,600px) * .515 + 14px);transform:translateX(-50%);width:min(90vw,520px);text-align:center;margin:0;font-size:16px;color:var(--muted);opacity:0}
 .sub b{color:var(--ink);font-weight:600}
+.bubble-big{cursor:pointer;transition:filter .2s}
+.bubble-big:hover{filter:brightness(1.06)}
+.bubble-big:focus-visible{outline:3px solid var(--lagoon);outline-offset:6px;border-radius:40px}
+.go{display:flex;align-items:center;gap:8px;margin:16px auto 0;min-height:44px;padding:0 20px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:600 14px var(--sans);cursor:pointer;transition:border-color .2s,transform .12s}
+.go:hover{border-color:var(--ink)}
+.go i{animation:nudge 1.6s var(--ease) infinite}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+@media (prefers-reduced-motion:reduce){.go i{animation:none}}
 .tool{position:absolute;left:50%;top:calc(var(--head) + 2vh);transform:translateX(-50%);width:min(1060px,calc(100% - 32px));max-height:calc(100svh - var(--head) - 4vh);overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;opacity:0;pointer-events:none;z-index:1;box-shadow:0 1px 2px rgba(23,33,43,.06)}
 .tool-head{display:grid;gap:8px;margin-bottom:22px;max-width:760px}
 .tool-head h2{font:400 clamp(26px,3.2vw,38px)/1.1 var(--serif);margin:0}
@@ -498,11 +506,11 @@ footer .socials a:hover{color:var(--ink)}
   <!-- SCENE 3: bubble -> teaser tool -->
   <section class="pin" id="s3">
     <div class="sticky" id="st3">
-      <div class="bubble-big" id="bigBubble">
+      <div class="bubble-big" id="bigBubble" role="button" tabindex="0" aria-label="Start the visibility preview">
         <svg viewBox="8 104 1062 1093" aria-hidden="true"><use href="#bub"/></svg>
         <p class="q" id="q"><span>How visible is your business digitally<span class="qm">?</span></span></p>
       </div>
-      <p class="sub" id="sub">Take <b>5 minutes</b> to discover your Digital Visibility Health Check. Start with a quick preview.</p>
+      <p class="sub" id="sub">Take <b>5 minutes</b> to discover your Digital Visibility Health Check. Start with a quick preview.<button class="go" id="goPreview" type="button">Start the preview <i data-ic="right"></i></button></p>
 
       <div class="tool" id="check">
         <div class="tool-head">
@@ -901,8 +909,8 @@ var CAMPS=[
 
     /* scene 3: bubble -> tool */
     const p3 = prog(s3);
-    const a = reduce ? (p3 > .05 ? 1 : 0) : out3(clamp(p3 / .2));
-    const m = reduce ? (p3 > .5 ? 1 : 0) : io3(clamp((p3 - .45) / .3));
+    const a = reduce ? (p3 > .05 ? 1 : 0) : out3(clamp(p3 / .16));
+    const m = reduce ? (p3 > .4 ? 1 : 0) : io3(clamp((p3 - .3) / .38));
     const tv = clamp((m - .3) / .5);
     const go = io3(clamp(m / .8)), c = clamp((m - .8) / .2);
     const s = lerp(lerp(.55, 1, a), (M.t.h * 1.25) / M.b.h, go);
@@ -910,8 +918,10 @@ var CAMPS=[
     big.style.opacity = a * (1 - c);
     big.style.visibility = c >= 1 ? 'hidden' : 'visible';
     big.style.transform = `translate(-50%,-50%) translate(${(M.t.cx - M.b.cx) * go}px, ${(M.t.cy + yOff - M.b.cy) * go + (1 - a) * 40}px) scale(${s})`;
-    q.style.opacity = clamp((p3 - .06) / .14) * (1 - clamp(m * 3));
-    sub.style.opacity = clamp((p3 - .14) / .12) * (1 - clamp(m * 3));
+    q.style.opacity = clamp((p3 - .04) / .1) * (1 - clamp(m * 3));
+    sub.style.opacity = clamp((p3 - .08) / .1) * (1 - clamp(m * 3));
+    sub.style.pointerEvents = m < .2 ? 'auto' : 'none';
+    big.style.pointerEvents = m < .5 ? 'auto' : 'none';
     tool.style.opacity = tv;
     tool.style.transform = `translateX(-50%) translateY(${yOff}px)`;
     tool.style.pointerEvents = tv > .9 ? 'auto' : 'none';
@@ -920,6 +930,12 @@ var CAMPS=[
     cta.style.transform = c >= 1 ? '' : `scale(${lerp(.22, 1, ce)}, ${lerp(1.1, 1, ce)})`;
     ctaTxt.style.opacity = clamp((c - .5) / .5);
   }
+
+  /* tapping the bubble (or the button) plays the morph by scrolling to the tool */
+  const goTool = () => { const top = s3.getBoundingClientRect().top + scrollY + (s3.offsetHeight - innerHeight) * .72; scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' }); };
+  big.addEventListener('click', goTool);
+  big.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTool(); } });
+  $('goPreview').addEventListener('click', goTool);
 
   let ticking = false;
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; update(); }); } }, { passive: true });
