@@ -468,6 +468,16 @@ footer .socials a:hover{color:var(--ink)}
 .bubble svg{width:100%;height:100%;display:block}
 .flyer{position:absolute;left:0;top:0;transform-origin:0 0;color:var(--bubble-text);font:400 200px/.9 var(--serif);letter-spacing:-.02em;white-space:nowrap;opacity:0}
 .flyer .dot{opacity:0}
+.swipe-hint{position:absolute;left:50%;top:calc(50% + min(35vw,186px));transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--muted);font:500 13px var(--sans);letter-spacing:.02em;opacity:0;transition:opacity .6s var(--ease)}
+.swipe-hint.on{opacity:1}
+.swipe-hint .mouse{width:24px;height:38px;border:2px solid currentColor;border-radius:14px;position:relative}
+.swipe-hint .mouse i{position:absolute;left:50%;top:7px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--lagoon);animation:wheel 1.6s var(--ease) infinite}
+.swipe-hint .hand{display:none;width:34px;height:34px;border-radius:50%;border:2px solid currentColor;place-items:center}
+.swipe-hint .hand svg{width:18px;height:18px;fill:none;stroke:var(--lagoon);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;animation:bob 1.4s var(--ease) infinite}
+.hint-touch{display:none}
+@keyframes wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(13px);opacity:0}100%{transform:translateY(13px);opacity:0}}
+@keyframes bob{0%,100%{transform:translateY(-3px)}50%{transform:translateY(4px)}}
+@media (hover:none){.swipe-hint .mouse,.hint-desk{display:none}.swipe-hint .hand{display:grid}.hint-touch{display:inline}}
 .skip{position:fixed;right:16px;bottom:16px;z-index:60;font:500 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:transparent;border:0;padding:12px;cursor:pointer}
 </style>
 </head>
@@ -796,6 +806,11 @@ footer .socials a:hover{color:var(--ink)}
 <div class="intro" id="intro" aria-hidden="true">
   <div class="bubble" id="bubble"><svg viewBox="8 104 1062 1093"><use href="#bub"/></svg></div>
   <div class="flyer hi" id="flyer"><span>H</span><span class="i">ı<span class="dot"></span></span></div>
+  <div class="swipe-hint" id="swipeHint" aria-hidden="true">
+    <span class="mouse"><i></i></span>
+    <span class="hand"><svg viewBox="0 0 24 24"><path d="M12 4v13M6 11l6 6 6-6"/></svg></span>
+    <span class="hint-txt hint-desk">Scroll to say hi</span><span class="hint-txt hint-touch">Swipe to say hi</span>
+  </div>
 </div>
 <button class="skip" id="skip" type="button">Skip</button>
 
@@ -1195,7 +1210,8 @@ var CAMPS=[
   })();
 
   /* intro */
-  let anims = [], timers = [], done = false;
+  let anims = [], timers = [], done = false, waiting = false, ready = false, wantGo = false, idleT = null, breathe = null, phaseB = null;
+  const hint = $('swipeHint');
   const A = (el, kf, opt) => { const a = el.animate(kf, { fill: 'both', ...opt }); anims.push(a); return a; };
 
   function revealPage(instant) {
@@ -1207,7 +1223,7 @@ var CAMPS=[
     });
   }
   function finish(instant) {
-    if (done) return; done = true; introDone = true;
+    if (done) return; done = true; introDone = true; waiting = false; hint.classList.remove('on');
     anims.forEach(a => a.cancel()); anims = []; timers.forEach(clearTimeout); timers = [];
     intro.style.display = 'none'; skipBtn.hidden = true; replayBtn.hidden = false;
     root.style.overflow = '';
@@ -1244,16 +1260,40 @@ var CAMPS=[
       { opacity: 1, transform: 'translateY(-14%) scale(1)', offset: .91 },
       { opacity: 1, transform: 'translateY(0) scale(1)' }
     ], { duration: 820, delay: 720 });
-    A(bubble, [{ opacity: 1 }, { opacity: 0, transform: 'translate(-50%,-52%) scale(.94)' }], { duration: 420, delay: 1800, easing: EASE });
-    A(flyer, [
-      { transform: start, color: getComputedStyle(flyer).color },
-      { transform: end, color: getComputedStyle(ghost).color }
-    ], { duration: 950, delay: 1950, easing: 'cubic-bezier(.65,0,.25,1)' });
-    timers.push(setTimeout(() => finish(false), 2900));
+    /* pause on "Hi": the reveal waits for the visitor (scroll, swipe, tap or a key) */
+    const cFrom = getComputedStyle(flyer).color, cTo = getComputedStyle(ghost).color;
+    waiting = true; ready = false; wantGo = false; hint.classList.remove('on');
+    phaseB = () => {
+      A(bubble, [{ opacity: 1, transform: 'translate(-50%,-52%) scale(1)' }, { opacity: 0, transform: 'translate(-50%,-52%) scale(.94)' }], { duration: 420, easing: EASE });
+      A(flyer, [{ transform: start, color: cFrom }, { transform: end, color: cTo }], { duration: 950, delay: 120, easing: 'cubic-bezier(.65,0,.25,1)' });
+      timers.push(setTimeout(() => finish(false), 1080));
+    };
+    timers.push(setTimeout(() => {
+      ready = true;
+      if (wantGo) { trigger(); return; }
+      breathe = bubble.animate([
+        { transform: 'translate(-50%,-52%) scale(1)' }, { transform: 'translate(-50%,-52%) scale(1.035)' }, { transform: 'translate(-50%,-52%) scale(1)' }
+      ], { duration: 2600, iterations: Infinity, easing: 'ease-in-out' });
+      anims.push(breathe);
+      idleT = setTimeout(() => hint.classList.add('on'), 2000); timers.push(idleT);
+    }, 1560));
   }
 
+  function trigger() {
+    if (done || !waiting) return;
+    if (!ready) { wantGo = true; return; }
+    waiting = false; clearTimeout(idleT); hint.classList.remove('on');
+    if (breathe) { breathe.cancel(); breathe = null; }
+    phaseB();
+  }
+  ['wheel', 'touchmove', 'touchstart', 'click'].forEach(ev => addEventListener(ev, e => {
+    if (e.target && e.target.closest && e.target.closest('#skip')) return;
+    trigger();
+  }, { passive: true }));
+  addEventListener('keydown', e => { if (['ArrowDown', 'PageDown', ' ', 'Spacebar', 'Enter'].includes(e.key)) trigger(); });
+
   skipBtn.addEventListener('click', () => finish(true));
-  replayBtn.addEventListener('click', play);
+  replayBtn.addEventListener('click', e => { e.stopPropagation(); play(); });
   addEventListener('keydown', e => { if (e.key === 'Escape' && !done) finish(true); });
 
   const go = () => reduce ? finish(true) : play();
