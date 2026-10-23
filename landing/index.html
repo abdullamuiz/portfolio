@@ -7,12 +7,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 <style>
 :root{
   --paper:#FFFFFF; --card:#FFFFFF; --ink:#1E2742; --muted:#5D6478; --line:#E3E6EE; --navy:#232C4A;
   --reef:#1DBF8C; --lagoon:#0FB8C9; --sea:#1C7FE0; --deep:#14508F; --weak:#E8833A;
   --label:#087A88; --link:#232C4A; --tint:#F4F6FA; --ghost:#E8EBF3; --ghost2:#CBD3E3;
-  --bubble:#232C4A; --bubble-text:#FFFFFF;
+  --bubble:#232C4A; --bubble-text:#FFFFFF; --teal:#0B8794;
   --serif:'DM Serif Display',Georgia,serif; --sans:'Poppins',system-ui,sans-serif;
   --ease:cubic-bezier(.2,.7,.2,1); --max:1180px; --gutter:clamp(16px,5vw,64px); --head:72px;
 }
@@ -46,7 +47,10 @@ img{display:block;max-width:100%}
 header.top{position:fixed;inset:0 0 auto;z-index:30;background:var(--paper)}
 header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:var(--head)}
 .mark{display:block;width:40px;height:40px;border-radius:10px}
-.mark rect{fill:var(--navy)}
+.mark rect{fill:var(--bubble)}
+.head-r{display:flex;align-items:center;gap:10px}
+.theme{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);display:grid;place-items:center;cursor:pointer;font-size:18px;transition:background .2s}
+.theme:hover{background:var(--tint)}
 nav.links{display:flex;gap:28px}
 nav.links a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;opacity:.8}
 nav.links a:hover{opacity:1}
@@ -154,42 +158,90 @@ section.block{padding:clamp(64px,10vw,128px) 0;border-top:1px solid var(--line)}
 /* scene 3: bubble -> tool */
 .bubble-big{position:absolute;left:50%;top:46%;width:min(84vw,600px);aspect-ratio:1062/1093;transform:translate(-50%,-50%);opacity:0;z-index:2;will-change:transform}
 .bubble-big svg{width:100%;height:100%;display:block}
-.bubble-big svg,.mini svg,.bubble svg{fill:var(--bubble)}
+.bubble svg{fill:var(--bubble)}
+.bubble-big svg{fill:var(--teal)}
 .q{position:absolute;left:12%;right:12%;top:8%;height:62%;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--bubble-text);font:400 clamp(30px,5.4vw,58px)/1.06 var(--serif);opacity:0;margin:0}
-.q .qm{color:var(--lagoon)}
+.q .qm{color:#1E2742}
 .sub{position:absolute;left:50%;top:calc(46% + min(84vw,600px) * .515 + 14px);transform:translateX(-50%);width:min(90vw,520px);text-align:center;margin:0;font-size:16px;color:var(--muted);opacity:0}
 .sub b{color:var(--ink);font-weight:600}
-.tool{position:absolute;left:50%;top:calc(var(--head) + 3vh);transform:translateX(-50%);width:min(940px,calc(100% - 32px));max-height:calc(100svh - var(--head) - 6vh);overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(20px,3vw,32px);opacity:0;pointer-events:none;z-index:1;box-shadow:0 1px 2px rgba(23,33,43,.06)}
-.tool-head{display:flex;gap:16px;align-items:center;margin-bottom:22px}
-.mini{width:58px;flex:none;aspect-ratio:1062/1093;visibility:hidden}
-.mini svg{width:100%;height:100%;display:block}
-.tool-head h2{font:400 clamp(24px,3vw,34px)/1.1 var(--serif);margin:0}
+.tool{position:absolute;left:50%;top:calc(var(--head) + 2vh);transform:translateX(-50%);width:min(1060px,calc(100% - 32px));max-height:calc(100svh - var(--head) - 4vh);overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;opacity:0;pointer-events:none;z-index:1;box-shadow:0 1px 2px rgba(23,33,43,.06)}
+.tool-head{display:grid;gap:8px;margin-bottom:22px;max-width:760px}
+.tool-head h2{font:400 clamp(26px,3.2vw,38px)/1.1 var(--serif);margin:0}
 .tool-head h2 span{color:var(--lagoon)}
-.tool-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:28px}
-.qs{display:grid;gap:18px}
-.qs fieldset{border:0;margin:0;padding:0;display:grid;gap:8px}
-.qs legend{font-weight:600;font-size:14px;padding:0;margin-bottom:8px}
-.qs legend small{font-weight:400;color:var(--muted)}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);font:500 13px var(--sans);cursor:pointer;transition:background .16s var(--ease),border-color .16s var(--ease),transform .12s var(--ease)}
-.chip:hover{border-color:var(--ink)}
-.chip:active{transform:scale(.96)}
-.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
-.result{background:var(--tint);border-radius:10px;padding:22px;display:grid;gap:12px;align-content:start;justify-items:start}
-.ring{position:relative;width:132px;height:132px}
-.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
-.ring .track{stroke:var(--line)}
-.ring .val{stroke:var(--lagoon);transition:stroke-dashoffset .6s var(--ease),stroke .3s}
-.ring b{position:absolute;inset:0;display:grid;place-items:center;font:400 40px/1 var(--serif)}
-.band{font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.tip{margin:0;font-size:14px;max-width:36ch}
-.result .fine{font-size:12px;color:var(--muted)}
+.tool-head p{margin:0;font-size:14px}
+.tool-head b{color:var(--ink);font-weight:600}
+.tz{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:20px;align-items:start}
+.tz-panel,.tz-view{border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:18px;min-width:0;background:var(--card)}
+.tz-panel{background:var(--tint)}
+.tz-q{display:flex;flex-direction:column;gap:10px}
+.lk-step{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--label)}
+.lk-step small{font:inherit;text-transform:none;letter-spacing:0;color:var(--muted);font-weight:400;margin-left:6px}
+.tz-lbl{font-weight:500;font-size:13.5px}
+.tz-cats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.tz-cats button{display:flex;align-items:center;gap:10px;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--ink);font:600 14px/1.2 var(--sans);padding:10px;border-radius:12px;cursor:pointer;transition:background .2s,border-color .2s}
+.tz-cats button i{font-size:20px;flex:none;width:34px;height:34px;display:grid;place-items:center;border-radius:9px;background:rgba(15,184,201,.12);color:var(--label);transition:background .2s,color .2s}
+.tz-cats button:hover{border-color:var(--ink)}
+.tz-cats button[aria-pressed="true"]{border-color:var(--navy);background:var(--card)}
+.tz-cats button[aria-pressed="true"] i{background:var(--navy);color:#fff}
+.tz-subs{display:flex;flex-wrap:wrap;gap:8px;padding:10px;border-radius:12px;background:var(--card);border:1px dashed var(--line)}
+.tz-subs[hidden],.tz-more[hidden],.tz-notes[hidden]{display:none}
+.tz-chips{display:flex;flex-wrap:wrap;gap:8px}
+.tz-subs button,.tz-chips button{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:500 13px var(--sans);padding:8px 13px;border-radius:999px;cursor:pointer;transition:background .2s,border-color .2s,color .2s,transform .12s}
+.tz-subs button:hover,.tz-chips button:hover{border-color:var(--ink)}
+.tz-subs button:active,.tz-chips button:active{transform:scale(.96)}
+.tz-subs button[aria-pressed="true"],.tz-chips button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.tz-chips button i{font-size:16px}
+.tz-sm button{padding:6px 11px;font-size:12.5px}
+.tz-more{display:flex;flex-direction:column;gap:8px;padding:10px 12px;border-radius:12px;background:var(--card)}
+.tz-plat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.tz-plat button{border-radius:10px;justify-content:flex-start;min-width:0}
+.tz-plat button em{margin-left:auto;font-style:normal;font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:rgba(15,184,201,.14);color:var(--label)}
+.tz-plat button[aria-pressed="true"] em{background:rgba(255,255,255,.18);color:#fff}
+.tz-notes{display:grid;gap:8px}
+.tz-note{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;font-size:13px;line-height:1.5;padding:10px 12px;border-radius:10px}
+.tz-note i{font-size:17px;margin-top:1px}
+.tz-note b{display:block;margin-bottom:2px}
+.tz-note span{color:var(--muted)}
+.tz-note.bad{background:rgba(232,131,58,.12)}.tz-note.bad i{color:var(--weak)}
+.tz-note.warn{background:rgba(217,154,43,.13)}.tz-note.warn i{color:#C88A1C}
+.tz-note.good{background:rgba(15,184,201,.12)}.tz-note.good i{color:var(--label)}
+.tz-funnel{max-width:330px;width:100%;margin:0 auto}
+.tz-svg{width:100%;height:auto;display:block;overflow:visible}
+.tz-track{fill:var(--line);opacity:.6}.tz-track-top{fill:var(--line);opacity:.9}
+.tz-lock{fill:var(--line);opacity:.38}.tz-lock-top{fill:var(--line);opacity:.55}
+.tz-lab{font:600 15px var(--sans);fill:var(--ink);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+.tz-lab.on{fill:#fff;stroke:rgba(8,40,42,.35);stroke-width:3px}
+.tz-sub{font:600 9.5px var(--sans);letter-spacing:.12em;text-transform:uppercase;fill:var(--muted)}
+.tz-fill{transition:width .6s var(--ease)}
+.tz-legend{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 14px;margin:0;padding:0}
+.tz-legend li{display:flex;align-items:center;gap:8px;font-size:12.5px;min-width:0}
+.tz-legend li i{width:9px;height:9px;border-radius:50%;flex:none;background:var(--lagoon)}
+.tz-legend li.part i{background:#D99A2B}
+.tz-legend li.off{color:var(--muted)}
+.tz-legend li.off i{background:transparent;border:1.5px solid var(--muted)}
+.tz-legend small{margin-left:auto;font-size:10.5px;color:var(--muted);white-space:nowrap}
+.tz-empty{grid-column:1/-1;color:var(--muted);font-size:12.5px}
+.hcx-verdict{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.hcx-verdict h3{font:400 22px/1.15 var(--serif);margin:0}
+.hcx-verdict p{margin:0;color:var(--muted);font-size:13.5px;max-width:48ch}
+.hcx-risk{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:rgba(232,131,58,.14);color:#B85F1F}
+.hcx-risk.warn{background:rgba(217,154,43,.16);color:#9A6A12}
+.hcx-risk.good{background:rgba(15,184,201,.14);color:var(--label)}
+.hcx-risk.idle{background:var(--tint);color:var(--muted)}
+.cta-wrap{position:sticky;bottom:-20px;margin:6px -20px -20px;padding:14px 20px 20px;z-index:2;background:linear-gradient(to bottom,transparent,var(--card) 26%);display:flex;flex-direction:column;align-items:flex-end;gap:8px;text-align:right}
+.cta{position:relative;display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;background:var(--teal);color:#fff;font:600 14.5px var(--sans);text-decoration:none;transform-origin:center;transition:background .2s,filter .2s;will-change:transform,opacity}
+.cta::after{content:"";position:absolute;right:26px;bottom:-8px;width:16px;height:12px;background:inherit;clip-path:polygon(0 0,100% 0,100% 100%)}
+.cta:hover{filter:brightness(1.08)}
+.cta i{font-size:18px}
+.cta-wrap .fine{font-size:11.5px;color:var(--muted)}
 @media (max-width:860px){
-  .tool-grid{grid-template-columns:1fr;gap:18px}
-  .tool-head{margin-bottom:16px}.mini{width:44px}
-  .result{grid-template-columns:auto 1fr;align-items:center;column-gap:16px;order:-1;padding:16px}
-  .ring{width:96px;height:96px;grid-row:span 2}.ring b{font-size:30px}
-  .result .tip,.result .btn,.result .fine{grid-column:1/-1}
+  .tz{grid-template-columns:1fr}
+  .tz-panel,.tz-view{padding:16px}
+  .tz-plat{grid-template-columns:1fr}
+  .tz-legend{grid-template-columns:1fr}
+  .tool-head p{display:none}
+  .cta-wrap{align-items:stretch;text-align:center}
+  .cta{justify-content:center;font-size:13.5px;padding:0 18px}
 }
 footer{border-top:1px solid var(--line)}
 footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:12px;color:var(--muted)}
@@ -220,7 +272,7 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
     <nav class="links" aria-label="Main">
       <a href="#about">About</a><a href="#">Work</a><a href="#">Content</a><a href="#check">Health check</a><a href="#">Contact</a>
     </nav>
-    <a class="btn btn--ghost" href="#">Request a call</a>
+    <div class="head-r"><button class="theme" id="theme" type="button" aria-label="Switch to dark mode"><i class="ph ph-moon" aria-hidden="true"></i></button><a class="btn btn--ghost" href="#">Request a call</a></div>
   </div>
 </header>
 
@@ -312,35 +364,41 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
 
       <div class="tool" id="check">
         <div class="tool-head">
-          <div class="mini" id="mini"><svg viewBox="8 104 1062 1093" aria-hidden="true"><use href="#bub"/></svg></div>
-          <div><h2>How visible is your business digitally<span>?</span></h2><span class="small">Four quick questions, under a minute.</span></div>
+          <h2>How visible is your business digitally<span>?</span></h2>
+          <p class="small">Marketing works like a funnel. Many people <b>see</b> you, some <b>consider</b> you, fewer <b>buy</b>, happy customers <b>come back</b>, and the best ones <b>recommend</b> you. Start here to see where yours leaks.</p>
         </div>
-        <div class="tool-grid">
-          <div class="qs">
-            <fieldset data-q="where" data-multi>
-              <legend>Where can people find you? <small>pick all</small></legend>
-              <div class="chips"><button class="chip" type="button" data-v="ig">Instagram</button><button class="chip" type="button" data-v="fb">Facebook</button><button class="chip" type="button" data-v="tt">TikTok</button><button class="chip" type="button" data-v="gm">Google Maps</button><button class="chip" type="button" data-v="ta">TripAdvisor</button><button class="chip" type="button" data-v="web">Website</button></div>
-            </fieldset>
-            <fieldset data-q="post">
-              <legend>How often do you post?</legend>
-              <div class="chips"><button class="chip" type="button" data-v="0">Rarely</button><button class="chip" type="button" data-v="1">Monthly</button><button class="chip" type="button" data-v="2">Weekly</button><button class="chip" type="button" data-v="3">3+ a week</button></div>
-            </fieldset>
-            <fieldset data-q="direct">
-              <legend>Can customers book or order with you directly?</legend>
-              <div class="chips"><button class="chip" type="button" data-v="0">Only through OTAs or apps</button><button class="chip" type="button" data-v="1">By WhatsApp or DM</button><button class="chip" type="button" data-v="2">On my own website</button></div>
-            </fieldset>
-            <fieldset data-q="rev">
-              <legend>Do you reply to reviews?</legend>
-              <div class="chips"><button class="chip" type="button" data-v="0">Never</button><button class="chip" type="button" data-v="1">Sometimes</button><button class="chip" type="button" data-v="2">Always</button></div>
-            </fieldset>
+        <div class="tz">
+          <div class="tz-panel">
+            <div class="tz-q">
+              <span class="lk-step">1. Your business</span>
+              <div class="tz-cats" role="group" aria-label="Business category" id="tzCats"></div>
+              <div class="tz-subs" role="group" aria-label="Business type" id="tzSubs" hidden></div>
+            </div>
+            <div class="tz-q">
+              <span class="lk-step">2. Who are your customers? <small>Pick all that apply</small></span>
+              <div class="tz-chips tz-aud" role="group" aria-label="Customers" id="tzAud"></div>
+              <div class="tz-more" id="tzMk" hidden><span class="tz-lbl">Where do your guests come from?</span><div class="tz-chips tz-sm" role="group" aria-label="Guest markets"></div></div>
+              <div class="tz-more" id="tzIs" hidden><span class="tz-lbl" id="tzIsLbl">Where do your customers live?</span><div class="tz-chips tz-sm" role="group" aria-label="Islands"></div></div>
+            </div>
+            <div class="tz-q">
+              <span class="lk-step">3. Where are you active?</span>
+              <div class="tz-chips tz-plat" role="group" aria-label="Platforms you use" id="tzPlat"></div>
+              <div class="tz-notes" id="tzNote" hidden></div>
+            </div>
           </div>
-          <div class="result" aria-live="polite">
-            <div class="ring"><svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52" fill="none" stroke-width="9"/><circle class="val" id="ringVal" cx="60" cy="60" r="52" fill="none" stroke-width="9" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg><b id="score">–</b></div>
-            <span class="band" id="band">Your quick score</span>
-            <p class="tip" id="tip">Answer the four questions to see where you stand.</p>
-            <a class="btn" href="https://abdullamuiz.github.io/portfolio/health-check.html">Get the full health check</a>
-            <span class="fine">Free · 5 minutes · scores your socials and booking path against 2026 benchmarks</span>
+          <div class="tz-view">
+            <div class="tz-funnel"><svg class="tz-svg" id="tzSvg" viewBox="0 0 420 330" role="img" aria-label="Your marketing funnel"></svg></div>
+            <ul class="tz-legend" id="tzLegend"></ul>
+            <div class="hcx-verdict" aria-live="polite">
+              <span class="hcx-risk" id="tzRisk">Step 1</span>
+              <h3 id="tzTitle">What kind of business are you?</h3>
+              <p id="tzText">Pick your business to start.</p>
+            </div>
           </div>
+        </div>
+        <div class="cta-wrap">
+          <a class="cta" id="tzGo" href="https://abdullamuiz.github.io/portfolio/health-check.html"><span>Let’s dive deeper and get the full report</span><i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          <span class="fine">Free · 5 minutes · no sign-up · your report as a PDF</span>
         </div>
       </div>
     </div>
@@ -369,6 +427,20 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
   const io3 = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   const out3 = t => 1 - Math.pow(1 - t, 3);
   const isMobile = () => matchMedia('(max-width:860px)').matches;
+
+  /* light / dark toggle */
+  const themeBtn = $('theme');
+  const sysDark = matchMedia('(prefers-color-scheme: dark)');
+  const current = () => root.dataset.theme || (sysDark.matches ? 'dark' : 'light');
+  const paintBtn = () => { const d = current() === 'dark'; themeBtn.innerHTML = `<i class="ph ph-${d ? 'sun' : 'moon'}" aria-hidden="true"></i>`; themeBtn.setAttribute('aria-label', d ? 'Switch to light mode' : 'Switch to dark mode'); };
+  try { const saved = localStorage.getItem('theme'); if (saved) root.dataset.theme = saved; } catch (e) {}
+  paintBtn();
+  themeBtn.addEventListener('click', () => {
+    root.dataset.theme = current() === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+    paintBtn();
+  });
+  sysDark.addEventListener('change', paintBtn);
   let introDone = false;
 
   /* reveal for normal sections */
@@ -382,13 +454,13 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
   const copy = $('copy'), aboutText = $('aboutText'), portrait = $('portrait'), fdot = $('fdot');
   const letters = [...document.querySelectorAll('#about-g .l')];
   const fadeOut1 = [$('kick'), $('rule'), $('introP')];
-  const big = $('bigBubble'), q = $('q'), sub = $('sub'), tool = $('check'), mini = $('mini');
+  const big = $('bigBubble'), q = $('q'), sub = $('sub'), tool = $('check'), cta = $('tzGo'), ctaTxt = cta.querySelector('span');
   let M = null;
 
   const prog = sec => { const r = sec.getBoundingClientRect(); return clamp(-r.top / (r.height - innerHeight)); };
 
   function measure() {
-    [copy, aboutText, ghost, portrait, fdot, big, tool, track].forEach(el => el.style.transform = '');
+    [copy, aboutText, ghost, portrait, fdot, big, tool, track, cta].forEach(el => el.style.transform = '');
     { const cs = getComputedStyle(track), tmp = stopsEl.map(el => el.offsetLeft);
       const lineLen = tmp[tmp.length - 1] - tmp[0], trackW = tmp[tmp.length - 1] + innerWidth * .45;
       const dist = Math.max(0, trackW - innerWidth);
@@ -405,11 +477,11 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
     } else {
       D = Math.max(0, a.y + a.h - (innerHeight - Math.max(48, innerHeight * .1)));
     }
-    const s3r = st3.getBoundingClientRect(), br = big.getBoundingClientRect(), mr = mini.getBoundingClientRect();
+    const s3r = st3.getBoundingClientRect(), br = big.getBoundingClientRect(), mr = cta.getBoundingClientRect();
     M = {
       hi, me, D,
-      b: { cx: br.left + br.width / 2 - s3r.left, cy: br.top + br.height / 2 - s3r.top, w: br.width },
-      t: { cx: mr.left + mr.width / 2 - s3r.left, cy: mr.top + mr.height / 2 - s3r.top, w: mr.width }
+      b: { cx: br.left + br.width / 2 - s3r.left, cy: br.top + br.height / 2 - s3r.top, w: br.width, h: br.height },
+      t: { cx: mr.left + mr.width / 2 - s3r.left, cy: mr.top + mr.height / 2 - s3r.top, w: mr.width, h: mr.height }
     };
     update();
   }
@@ -451,71 +523,154 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
     const p3 = prog(s3);
     const a = reduce ? (p3 > .05 ? 1 : 0) : out3(clamp(p3 / .2));
     const m = reduce ? (p3 > .5 ? 1 : 0) : io3(clamp((p3 - .45) / .3));
-    const s = lerp(lerp(.55, 1, a), M.t.w / M.b.w, m);
-    big.style.opacity = a;
-    big.style.visibility = m >= 1 ? 'hidden' : 'visible';
-    mini.style.visibility = m >= 1 ? 'visible' : 'hidden';
-    big.style.transform = `translate(-50%,-50%) translate(${(M.t.cx - M.b.cx) * m}px, ${(M.t.cy - M.b.cy) * m + (1 - a) * 40}px) scale(${s})`;
+    const tv = clamp((m - .3) / .5);
+    const go = io3(clamp(m / .8)), c = clamp((m - .8) / .2);
+    const s = lerp(lerp(.55, 1, a), (M.t.h * 1.25) / M.b.h, go);
+    const yOff = (1 - tv) * 40;
+    big.style.opacity = a * (1 - c);
+    big.style.visibility = c >= 1 ? 'hidden' : 'visible';
+    big.style.transform = `translate(-50%,-50%) translate(${(M.t.cx - M.b.cx) * go}px, ${(M.t.cy + yOff - M.b.cy) * go + (1 - a) * 40}px) scale(${s})`;
     q.style.opacity = clamp((p3 - .06) / .14) * (1 - clamp(m * 3));
     sub.style.opacity = clamp((p3 - .14) / .12) * (1 - clamp(m * 3));
-    const tv = clamp((m - .35) / .6);
     tool.style.opacity = tv;
-    tool.style.transform = `translateX(-50%) translateY(${(1 - tv) * 40}px)`;
+    tool.style.transform = `translateX(-50%) translateY(${yOff}px)`;
     tool.style.pointerEvents = tv > .9 ? 'auto' : 'none';
+    const ce = out3(c);
+    cta.style.opacity = c;
+    cta.style.transform = c >= 1 ? '' : `scale(${lerp(.22, 1, ce)}, ${lerp(1.1, 1, ce)})`;
+    ctaTxt.style.opacity = clamp((c - .5) / .5);
   }
 
   let ticking = false;
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; update(); }); } }, { passive: true });
   addEventListener('resize', () => requestAnimationFrame(measure));
 
-  /* teaser tool */
-  const st = { where: new Set(), post: null, direct: null, rev: null };
-  const PTS = { post: [0, 8, 16, 25], direct: [0, 12, 25], rev: [0, 10, 20] };
-  document.querySelectorAll('.qs fieldset').forEach(fs => {
-    const key = fs.dataset.q, multi = fs.hasAttribute('data-multi');
-    fs.querySelectorAll('.chip').forEach(ch => {
-      ch.setAttribute('aria-pressed', 'false');
-      ch.addEventListener('click', () => {
-        if (multi) {
-          const on = ch.getAttribute('aria-pressed') !== 'true';
-          ch.setAttribute('aria-pressed', on); on ? st.where.add(ch.dataset.v) : st.where.delete(ch.dataset.v);
-        } else {
-          fs.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c === ch));
-          st[key] = +ch.dataset.v;
-        }
-        score();
-      });
+  /* teaser tool: same logic as the portfolio's free marketing test */
+  (function(){
+  var root=document.getElementById('check'); if(!root||!document.getElementById('tzSvg')) return;
+  var CATS=[
+    {id:'stay',n:'Stay',ic:'ph-bed',subs:[['resort','Resort'],['hotel','Hotel'],['guesthouse','Guesthouse'],['homestay','Homestay'],['liveaboard','Liveaboard']]},
+    {id:'food',n:'Food & drink',ic:'ph-fork-knife',subs:[['cafe','Café'],['restaurant','Restaurant'],['takeaway','Takeaway & delivery']]},
+    {id:'exp',n:'Experiences & services',ic:'ph-waves',subs:[['dive','Dive centre'],['spa','Spa & wellness'],['tours','Excursions & tours'],['service','Other service']]},
+    {id:'shop',n:'Shops & online',ic:'ph-storefront',subs:[['shop','Shop'],['online','Online store'],['other','Other']]}
+  ];
+  var AUDS=[['locals','Locals','ph-house-line'],['expats','Expats','ph-identification-card'],['tourists','Tourists','ph-airplane-tilt']];
+  var MKS=[['cn','China'],['ru','Russia'],['it','Italy'],['uk','UK'],['de','Germany'],['in','India'],['other','Others']];
+  var ISL=[['male','Malé'],['hulhu','Hulhumalé'],['villi','Villimalé'],['addu','Addu City'],['fuvah','Fuvahmulah'],['kulhu','Kulhudhuffushi'],['thina','Thinadhoo'],['islands','Other islands']];
+  var PL=[['instagram','Instagram','ph-instagram-logo'],['facebook','Facebook','ph-facebook-logo'],['tiktok','TikTok','ph-tiktok-logo'],['linkedin','LinkedIn','ph-linkedin-logo']];
+  var XPL={cn:[['red','RED (Xiaohongshu)','ph-book-open-text'],['douyin','Douyin','ph-music-notes']],ru:[['vk','VK','ph-users-three'],['telegram','Telegram','ph-telegram-logo']]};
+  function plats(){var l=PL.slice(); if(S.aud.tourists){if(S.mk.cn)l=l.concat(XPL.cn); if(S.mk.ru)l=l.concat(XPL.ru);} return l;}
+  var S={cat:null,bt:null,aud:{},mk:{},is:{},p:{}};
+  function $(id){return document.getElementById(id);}
+  function keys(o){return Object.keys(o).filter(function(k){return o[k];});}
+  function list(a){return a.length<2?a.join(''):a.slice(0,-1).join(', ')+' and '+a[a.length-1];}
+  function btn(attr,v,label,on,icon,extra){return '<button type="button" '+attr+'="'+v+'" aria-pressed="'+(!!on)+'">'+(icon?'<i class="ph '+icon+'" aria-hidden="true"></i>':'')+label+(extra||'')+'</button>';}
+
+  /* funnel svg */
+  var ST=[['aw','Awareness','M10,18 L410,18 L377,76 A167,10.9 0 0 1 43,76 Z',210,18,200,'#0B8794','#5FD3E0'],
+          ['co','Consideration','M43,76 L377,76 L346,134 A136,10.6 0 0 1 74,134 Z',210,76,167],
+          ['cv','Conversion','M74,134 L346,134 L317,192 A107,10.2 0 0 1 103,192 Z',210,134,136],
+          ['lo','Loyalty','M103,192 L317,192 L291,250 A81,9.8 0 0 1 129,250 Z',210,192,107],
+          ['ad','Advocacy','M129,250 L291,250 L269,308 A59,9.5 0 0 1 151,308 Z',210,250,81]];
+  (function(){
+    var a=ST[0], g='<defs><clipPath id="tzClip"><rect id="tzClipR" class="tz-fill" x="0" y="0" width="0" height="90"/></clipPath></defs>';
+    g+='<path class="tz-track" d="'+a[2]+'"/><ellipse class="tz-track-top" cx="210" cy="18" rx="200" ry="13"/>';
+    g+='<g clip-path="url(#tzClip)"><path d="'+a[2]+'" fill="'+a[6]+'"/><ellipse cx="210" cy="18" rx="200" ry="13" fill="'+a[7]+'"/></g>';
+    g+='<text id="tzAwLab" class="tz-lab" x="210" y="56" text-anchor="middle">Awareness</text>';
+    ST.slice(1).forEach(function(s,i){
+      g+='<path class="tz-lock" d="'+s[2]+'"/><ellipse class="tz-lock-top" cx="'+s[3]+'" cy="'+s[4]+'" rx="'+s[5]+'" ry="13"/>'+
+         '<text class="tz-lab" x="210" y="'+(s[4]+33)+'" text-anchor="middle">'+s[1]+'</text>'+
+         '<text class="tz-sub" x="210" y="'+(s[4]+48)+'" text-anchor="middle">Unlocks in your test</text>';
     });
-  });
-  function score() {
-    const whereP = Math.min(30, st.where.size * 5);
-    const parts = { where: st.where.size ? whereP / 30 : null };
-    let total = whereP;
-    ['post', 'direct', 'rev'].forEach(k => {
-      if (st[k] == null) { parts[k] = null; return; }
-      const arr = PTS[k]; total += arr[st[k]]; parts[k] = arr[st[k]] / arr[arr.length - 1];
-    });
-    const answered = Object.values(parts).filter(v => v != null).length;
-    if (!answered) { $('score').textContent = '–'; $('ringVal').style.strokeDashoffset = 326.7; $('band').textContent = 'Your quick score'; $('tip').textContent = 'Answer the four questions to see where you stand.'; return; }
-    $('score').textContent = total;
-    $('ringVal').style.strokeDashoffset = 326.7 * (1 - total / 100);
-    $('ringVal').style.stroke = total >= 75 ? 'var(--reef)' : total >= 50 ? 'var(--lagoon)' : 'var(--weak)';
-    const tips = {
-      where: 'People can’t find you in enough places. Google Maps and TripAdvisor are often the first stop.',
-      post: 'Posting less than weekly means most of your followers never see you.',
-      direct: 'Without direct booking or ordering, you pay commission on almost every sale.',
-      rev: 'Replying to reviews builds trust and helps you rank higher.'
-    };
-    let weakest = null, low = 1;
-    Object.entries(parts).forEach(([k, v]) => { if (v != null && v < low) { low = v; weakest = k; } });
-    if (answered < 4) {
-      $('band').textContent = `${answered} of 4 answered`;
-      $('tip').textContent = weakest ? tips[weakest] : 'Keep going to see your full quick score.';
-    } else {
-      $('band').textContent = total >= 75 ? 'Strong' : total >= 50 ? 'Getting there' : 'Needs work';
-      $('tip').textContent = weakest ? tips[weakest] + ' The full check shows what to fix first.' : 'A strong base. The full check compares you platform by platform.';
-    }
+    $('tzSvg').innerHTML=g;
+  })();
+
+  function cat(){return CATS.filter(function(c){return c.id===S.cat;})[0];}
+  function drawStatic(){
+    $('tzCats').innerHTML=CATS.map(function(c){return btn('data-cat',c.id,'<span>'+c.n+'</span>',S.cat===c.id,c.ic);}).join('');
+    var c=cat(), subs=$('tzSubs');
+    if(c){subs.hidden=false;subs.innerHTML=c.subs.map(function(s){return btn('data-bt',s[0],s[1],S.bt===s[0]);}).join('');} else {subs.hidden=true;subs.innerHTML='';}
+    $('tzAud').innerHTML=AUDS.map(function(a){return btn('data-aud',a[0],a[1],S.aud[a[0]],a[2]);}).join('');
+    var mk=$('tzMk'); mk.hidden=!S.aud.tourists; mk.querySelector('.tz-chips').innerHTML=MKS.map(function(m){return btn('data-mk',m[0],m[1],S.mk[m[0]]);}).join('');
+    var is=$('tzIs'); is.hidden=!(S.aud.locals||S.aud.expats); is.querySelector('.tz-chips').innerHTML=ISL.map(function(m){return btn('data-is',m[0],m[1],S.is[m[0]]);}).join('');
+    $('tzIsLbl').textContent=S.aud.locals&&S.aud.expats?'Where do your local and expat customers live?':S.aud.expats?'Where do your expat customers live?':'Where do your customers live?';
+    var rec=recommended();
+    var av={}; plats().forEach(function(p){av[p[0]]=1;}); Object.keys(S.p).forEach(function(k){if(!av[k])delete S.p[k];});
+    $('tzPlat').innerHTML=plats().map(function(p){return btn('data-p',p[0],'<span>'+p[1]+'</span>',S.p[p[0]],p[2],rec[p[0]]?'<em>Recommended</em>':'');}).join('');
   }
+  function westMk(){return !S.aud.tourists?false:(!keys(S.mk).length||keys(S.mk).some(function(k){return k!=='cn'&&k!=='ru';}));}
+  function recommended(){
+    var r={}, loc=S.aud.locals||S.aud.expats, tw=westMk(), stay=S.cat==='stay';
+    if(!keys(S.aud).length) return r;
+    if(loc||tw) {r.instagram=1;r.facebook=1;r.tiktok=1;}
+    if((stay&&S.aud.tourists&&S.bt!=='homestay')||S.bt==='tours'||S.bt==='service') r.linkedin=1;
+    if(S.aud.expats&&!S.aud.tourists&&S.cat==='exp') r.linkedin=1;
+    if(S.aud.tourists&&S.mk.cn){r.red=1;r.douyin=1;}
+    if(S.aud.tourists&&S.mk.ru){r.vk=1;r.telegram=1;}
+    return r;
+  }
+  function segments(){
+    var g=[];
+    if(S.aud.locals){g.push(['Young locals, 18 to 30',{tiktok:2,instagram:1,facebook:1}]);g.push(['Local families and parents',{facebook:2,instagram:1}]);}
+    if(S.aud.expats) g.push(['Expats living in the Maldives',{facebook:2,instagram:1,linkedin:1}]);
+    if(westMk()){g.push(['Under-30 travellers',{tiktok:2,instagram:1}]);g.push(['Couples and honeymooners',{instagram:2,tiktok:1,facebook:1}]);g.push(['Families and over-40s',{facebook:2,instagram:1}]);}
+    if(S.aud.tourists&&(S.cat==='stay'||S.bt==='tours'||S.bt==='dive')) g.push(['Travel agents and tour operators',{linkedin:2,facebook:1}]);
+    if(S.aud.tourists&&S.mk.cn) g.push(['Guests from China',{},'Needs RED and Douyin',['red','douyin']]);
+    if(S.aud.tourists&&S.mk.ru) g.push(['Guests from Russia',{},'Needs VK and Telegram',['vk','telegram']]);
+    return g;
+  }
+  function paint(){
+    var segs=segments(), tot=0, leg='', ps=keys(S.p);
+    segs.forEach(function(s){var lv=0;if(s[3]){var c=s[3].filter(function(k){return S.p[k];}).length;lv=c===s[3].length?2:c?1:0;}else ps.forEach(function(k){if((s[1][k]||0)>lv)lv=s[1][k];});tot+=lv;
+      leg+='<li class="'+(lv===2?'':lv===1?'part':'off')+'"><i></i><span>'+s[0]+'</span><small>'+(lv===2?'Reached':lv===1?'Partly':(s[2]||'Missed'))+'</small></li>';});
+    var ready=!!(S.bt&&keys(S.aud).length&&ps.length), pct=segs.length&&ps.length?Math.round(tot/(segs.length*2)*100):0;
+    $('tzLegend').innerHTML=leg||'<li class="tz-empty">Pick who your customers are to see which audiences you reach.</li>';
+    $('tzClipR').setAttribute('width',(420*pct/100).toFixed(1));
+    var lab=$('tzAwLab'); lab.textContent='Awareness'+(ps.length&&segs.length?' · '+pct+'%':''); lab.setAttribute('class','tz-lab'+(pct>=50?' on':''));
+    var rec=recommended(), miss=keys(rec).filter(function(k){return !S.p[k];}).map(function(k){return plats().filter(function(p){return p[0]===k;})[0][1];});
+    var risk=$('tzRisk'),t=$('tzTitle'),x=$('tzText'),core=['instagram','facebook','tiktok'].filter(function(k){return S.p[k];}).length;
+    function v(cls,tag,title,text){risk.className='hcx-risk '+cls;risk.textContent=tag;t.textContent=title;x.textContent=text;}
+    if(!S.bt) v('idle','Step 1','What kind of business are you?','Pick a category, then the type that fits you best.');
+    else if(!keys(S.aud).length) v('idle','Step 2','Who do you sell to?','Pick locals, expats, tourists, or any mix. It changes which platforms matter.');
+    else if(!ps.length) v('idle','Step 3','Where do people find you?','Tap the platforms you post on. The ones marked Recommended matter most for you.');
+    else if(pct>=75&&!miss.length) v('good','Strong start','Most of your audience can find you','Your platforms reach about '+pct+'% of the people you sell to. The test checks whether they go on to book or buy.');
+    else if(pct>=45) v('warn','Some gaps','Seen by some, missed by others','You reach about '+pct+'% of your audience.'+(miss.length?' Adding '+list(miss)+' would close the biggest gap.':'')+(core===1?' Right now one app holds everything.':''));
+    else v('','High risk','Most of your audience can’t see you','You reach about '+pct+'% of the people you sell to.'+(miss.length?' Start with '+list(miss)+'.':'')+(core===1?' Everything rides on one app.':''));
+    var notes=[];
+    function note(lbl,a,b,why,whyA,whyB,done){
+      var ha=S.p[a[0]],hb=S.p[b[0]],cls=ha&&hb?'good':ha||hb?'warn':'bad',ic=cls==='good'?'ph-check-circle':cls==='warn'?'ph-warning-circle':'ph-warning';
+      var body=cls==='good'?done:cls==='warn'?(ha?whyB:whyA):why;
+      notes.push('<div class="tz-note '+cls+'"><i class="ph '+ic+'" aria-hidden="true"></i><div><b>'+lbl+(cls==='good'?': covered':cls==='warn'?': half covered':'')+'</b><span>'+body+'</span></div></div>');
+    }
+    if(S.aud.tourists&&S.mk.cn) note('Chinese guests',XPL.cn[0],XPL.cn[1],
+      'Instagram, Facebook and TikTok don’t work in mainland China. Chinese travellers plan trips on RED (Xiaohongshu) and get inspired on Douyin. Add both to reach them.',
+      'You have Douyin, which inspires people, but not RED. RED is where Chinese travellers research hotels, read real guest reviews and save trips before they book. Without it you’re missing at the planning stage.',
+      'You have RED, where trips get planned, but not Douyin. Douyin’s short videos and livestreams are where Chinese travellers first discover a place, and many book straight from a livestream.',
+      'You’re on RED and Douyin. Post in Chinese, or work with a Chinese content partner, so your posts feel native.');
+    if(S.aud.tourists&&S.mk.ru) note('Russian guests',XPL.ru[0],XPL.ru[1],
+      'Instagram and Facebook are blocked in Russia and Meta doesn’t sell ads there. Russian travellers are easier to reach on VK and Telegram. Add both.',
+      'You have Telegram but not VK. VK is Russia’s largest social network, where travellers browse communities, compare destinations and see ads.',
+      'You have VK but not a Telegram channel. Telegram channels are where many Russian travellers follow travel deals, tour agents and destination news. Your posts go straight to subscribers with no algorithm in the way, which makes it one of the most reliable ways to reach them.',
+      'You’re on VK and Telegram. Post in Russian and share your channel with Russian tour agents, who often repost offers.');
+    var nt=$('tzNote'); nt.hidden=!notes.length; nt.innerHTML=notes.join('');
+    var q=[]; if(S.bt) q.push('bt='+S.bt); if(S.cat) q.push('cat='+S.cat);
+    [['aud',S.aud],['mk',S.mk],['is',S.is],['p',S.p]].forEach(function(e){var k=keys(e[1]); if(k.length) q.push(e[0]+'='+k.join(','));});
+    var go=$('tzGo'); go.href='https://abdullamuiz.github.io/portfolio/health-check.html'+(q.length?'?'+q.join('&'):'');
+  }
+  root.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b||!root.contains(b)) return; var d=b.dataset;
+    if(d.cat){ if(S.cat!==d.cat){S.cat=d.cat;S.bt=null;} }
+    else if(d.bt) S.bt=d.bt;
+    else if(d.aud) S.aud[d.aud]=!S.aud[d.aud];
+    else if(d.mk) S.mk[d.mk]=!S.mk[d.mk];
+    else if(d.is) S.is[d.is]=!S.is[d.is];
+    else if(d.p) S.p[d.p]=!S.p[d.p];
+    else return;
+    drawStatic(); paint();
+    var f=root.querySelector('[data-'+Object.keys(d)[0].replace(/[A-Z]/g,function(m){return '-'+m.toLowerCase();})+'="'+d[Object.keys(d)[0]]+'"]'); if(f) f.focus({preventScroll:true});
+  });
+  drawStatic(); paint();
+  })();
 
   /* intro */
   let anims = [], timers = [], done = false;
