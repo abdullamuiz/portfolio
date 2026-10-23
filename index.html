@@ -519,6 +519,55 @@ footer .socials a:hover{color:var(--ink)}
 .sig-dot{fill:var(--lagoon);opacity:0;transition:opacity .3s}
 .sig.dotted .sig-dot{opacity:1}
 .sig-about{color:var(--ink);width:clamp(250px,22vw,330px);margin:18px 0 0 -8px}
+/* services */
+.svc-main{border:1px solid var(--line);border-radius:20px;background:var(--card);padding:clamp(24px,3.4vw,44px);display:grid;gap:clamp(26px,3vw,40px)}
+.svc-top{display:flex;gap:20px;align-items:flex-start}
+.svc-n{font:400 clamp(40px,4vw,56px)/1 var(--serif);color:var(--lagoon)}
+.svc-main h3,.svc-card h3{font:400 clamp(24px,2.4vw,32px)/1.12 var(--serif);margin:8px 0 8px;text-wrap:balance}
+.svc-main p,.svc-card p{margin:0;color:var(--muted);font-size:15px;max-width:58ch}
+.rail{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.rail::before{content:"";position:absolute;left:calc(100%/12);right:calc(100%/12);top:27px;height:2px;background:var(--line);border-radius:2px}
+.rail-fill{position:absolute;left:calc(100%/12);top:27px;height:2px;width:0;background:var(--lagoon);border-radius:2px;transition:width .9s var(--ease)}
+.rail-dot{position:absolute;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--lagoon);box-shadow:0 0 0 5px rgba(15,184,201,.18);transition:transform .9s var(--ease),opacity .4s;z-index:2;pointer-events:none}
+.rail li{position:relative;display:grid;justify-items:center;text-align:center;gap:6px;z-index:1}
+.rail .rn{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--card);border:2px solid var(--line);color:var(--muted);font-size:22px;transition:border-color .45s var(--ease),color .45s var(--ease),background .45s var(--ease),transform .45s var(--ease)}
+.rail li b{font:400 20px/1.1 var(--serif);margin-top:6px;color:var(--muted);transition:color .45s}
+.rail li span:not(.rn){font-size:13px;line-height:1.4;color:var(--muted);max-width:18ch}
+.rail li.lit .rn{border-color:var(--lagoon);color:var(--lagoon)}
+.rail li.lit b{color:var(--ink)}
+.rail li.now .rn{background:var(--lagoon);border-color:var(--lagoon);color:#fff;transform:scale(1.06)}
+.svc-badges{display:flex;flex-wrap:wrap;gap:10px;padding-top:22px;border-top:1px solid var(--line)}
+.svc-badges span{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:var(--tint);font-size:13.5px;font-weight:500;color:var(--ink)}
+.svc-badges .ic{font-size:16px;color:var(--teal)}
+.svc-pair{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.svc-card{border:1px solid var(--line);border-radius:20px;background:var(--card);padding:clamp(22px,3vw,36px);display:grid;gap:4px;align-content:start}
+.svc-card .svc-n{font-size:34px;margin-bottom:10px}
+.svc-cta{margin-top:18px;border-radius:20px;background:var(--foot);color:#E6E9F2;padding:clamp(28px,4vw,52px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(24px,4vw,56px);align-items:start}
+.svc-cta h3{font:400 clamp(28px,3vw,40px)/1.08 var(--serif);margin:0 0 14px;color:#fff;text-wrap:balance}
+.svc-cta p{margin:0;font-size:15px;color:#C9CFDF;max-width:44ch}
+.sc-get{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sc-get li{display:grid;grid-template-columns:44px 1fr;column-gap:14px;align-items:center;padding:14px 16px;border:1px solid rgba(255,255,255,.12);border-radius:14px}
+.sc-doc{grid-row:span 2;width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:rgba(34,201,217,.14);color:#7FE3EE;font-size:20px}
+.sc-get b{font:400 19px/1.2 var(--serif);color:#fff}
+.sc-get li span:not(.sc-doc){font-size:13px;color:#AEB6CA}
+.sc-get{grid-column:2;grid-row:1/span 2}
+.sc-go{grid-column:1;grid-row:2;align-self:end;display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-top:8px}
+.sc-go em{font-size:13px;color:#8A93AC;font-style:normal;margin-left:6px}
+.btn--light{background:#fff;color:#141B30}.btn--light:hover{background:#7FE3EE}
+.btn--line{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}.btn--line:hover{background:rgba(255,255,255,.08)}
+@media (max-width:860px){
+  .svc-top{flex-direction:column;gap:6px}
+  .rail{grid-template-columns:1fr;gap:18px;padding-left:4px}
+  .rail::before{left:27px;right:auto;top:28px;bottom:28px;width:2px;height:auto}
+  .rail-fill{left:31px;top:28px;width:2px;height:0;transition:height .9s var(--ease)}
+  .rail li{grid-template-columns:56px 1fr;justify-items:start;text-align:left;column-gap:16px;row-gap:0;align-items:center}
+  .rail .rn{grid-row:span 2}
+  .rail li b{margin:0;align-self:end}
+  .rail li span:not(.rn){max-width:none;align-self:start}
+  .svc-pair{grid-template-columns:1fr}
+  .svc-cta{grid-template-columns:1fr}
+  .sc-get,.sc-go{grid-column:auto;grid-row:auto}
+}
 /* the travelling dot */
 .guide{position:fixed;left:0;top:0;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:var(--lagoon);z-index:15;pointer-events:none;opacity:0;will-change:transform,opacity;transition:box-shadow .4s var(--ease)}
 .guide.glow{box-shadow:0 0 0 3px var(--paper),0 0 0 9px rgba(15,184,201,.28)}
@@ -571,9 +620,9 @@ footer .socials a:hover{color:var(--ink)}
       <svg class="mark" viewBox="0 0 1400 1400" aria-hidden="true"><rect width="1400" height="1400" rx="300"/><g transform="translate(182 1075)"><path fill="#fff" d="M917 -268 817 -212V-534L581 -56Q576 -45 564 -45H472Q460 -45 454 -56L219 -534V-155Q219 -115 237.0 -87.5Q255 -60 292 -60Q307 -60 307 -45V-15Q307 0 292 0H45Q30 0 30 -15V-45Q30 -60 45 -60Q82 -60 100.5 -87.5Q119 -115 119 -155V-675Q105 -683 89.5 -686.5Q74 -690 57 -690Q42 -690 42 -705V-735Q42 -750 57 -750H245Q259 -750 263 -741L518 -225L773 -741Q777 -750 791 -750H979Q994 -750 994 -735V-705Q994 -690 979 -690Q963 -690 947.0 -686.5Q931 -683 917 -675Z"/><circle cx="867" cy="-90" r="90" fill="#0FB8C9"/></g></svg>
     </a>
     <nav class="links" aria-label="Main">
-      <a href="#about">About</a><a href="#content">Content</a><a href="#work">Work</a><a href="#check">Health check</a><a href="#contact">Contact</a>
+      <a href="#about">About</a><a href="#content">Content</a><a href="#work">Work</a><a href="#check">Health check</a><a href="#services">Services</a><a href="#contact">Contact</a>
     </nav>
-    <div class="head-r"><button class="theme" id="theme" type="button" aria-label="Switch to dark mode"><i data-ic="moon"></i></button><a class="btn btn--ghost" href="#contact">Request a call</a></div>
+    <div class="head-r"><button class="theme" id="theme" type="button" aria-label="Switch to dark mode"><i data-ic="moon"></i></button><a class="btn btn--ghost" href="#start">Request a call</a></div>
   </div>
 </header>
 
@@ -845,6 +894,51 @@ footer .socials a:hover{color:var(--ink)}
     </div>
   </section>
 
+  <!-- ================= SERVICES ================= -->
+  <section class="block" id="services">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="label">Services</span>
+        <h2>Ways we can work together<span>.</span></h2>
+      </div>
+      <article class="svc-main reveal">
+        <div class="svc-top">
+          <span class="svc-n">01</span>
+          <div><span class="lk-step">Senior Marketing Partner</span><h3>Your whole marketing function, run by one senior person.</h3><p>One person plans it, shoots it, runs it and answers for it.</p></div>
+        </div>
+        <ol class="rail" id="rail">
+          <li><span class="rn"><i data-ic="calendar"></i></span><b>Plan</b><span>Weekly action and content plan</span></li>
+          <li><span class="rn"><i data-ic="aperture"></i></span><b>Create</b><span>Shoots and content production</span></li>
+          <li><span class="rn"><i data-ic="megaphone"></i></span><b>Promote</b><span>Ad placement and media buying</span></li>
+          <li><span class="rn"><i data-ic="chat"></i></span><b>Engage</b><span>Active on every platform you use</span></li>
+          <li><span class="rn"><i data-ic="star"></i></span><b>Respond</b><span>Updates and review replies</span></li>
+          <li><span class="rn"><i data-ic="chart"></i></span><b>Report</b><span>Monthly progress, in numbers</span></li>
+        </ol>
+        <div class="svc-badges"><span><i data-ic="map"></i> Weekly site visits within Malé Atoll</span><span><i data-ic="target"></i> Accountable for results, not just posts</span></div>
+      </article>
+      <div class="svc-pair">
+        <article class="svc-card reveal"><span class="svc-n">02</span><span class="lk-step">Content Strategist · Retainer</span><h3>A strategist on your team, four mornings a week.</h3><p>For businesses in and around Greater Malé. On site, in your meetings, running your outlets’ marketing day to day and raising your visibility wherever your customers look.</p></article>
+        <article class="svc-card reveal"><span class="svc-n">03</span><span class="lk-step">One-off Projects</span><h3>A launch, a brand film, a website or an audit.</h3><p>Scoped, priced and delivered as one project.</p></article>
+      </div>
+      <div class="svc-cta reveal" id="start">
+        <div class="sc-copy">
+          <h3>Not sure what you need? Start with where you stand.</h3>
+          <p>Take the free 5-minute Digital Visibility Health Check, then talk it through with me. You’ll leave with:</p>
+        </div>
+        <ul class="sc-get">
+          <li><span class="sc-doc"><i data-ic="file"></i></span><b>A status report</b><span>on your digital visibility, the one most teams never get round to producing</span></li>
+          <li><span class="sc-doc"><i data-ic="layers"></i></span><b>A 90-day outline</b><span>targets, areas of focus and first concepts</span></li>
+          <li><span class="sc-doc"><i data-ic="calendar"></i></span><b>A 7-day sample plan</b><span>the real level of work it takes to stand out from the noise</span></li>
+        </ul>
+        <div class="sc-go">
+          <a class="btn btn--light" href="health-check.html">Take the free check <i data-ic="right"></i></a>
+          <a class="btn btn--line" href="https://wa.me/9609902996?text=Hi%20Muiz%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20book%20a%20short%20call%20about%20my%20business." target="_blank" rel="noopener" data-book>Book a 30-min call</a>
+          <em>Free, with no obligation.</em>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= THE END: last page of the paper ================= -->
   <section class="endpaper" id="contact">
     <div class="sheet">
@@ -882,7 +976,7 @@ footer .socials a:hover{color:var(--ink)}
     </div>
   </div>
   <nav class="sitemap" aria-label="Site map">
-    <a href="#s1">Home</a><a href="#about">Career</a><a href="#check">Health check</a><a href="#content">Content</a><a href="#work">Work</a><a href="#approach">Approach</a><a href="#process">Process</a><a href="https://abdullamuiz.github.io/portfolio/health-check.html">Full health check</a>
+    <a href="#s1">Home</a><a href="#about">Career</a><a href="#check">Health check</a><a href="#content">Content</a><a href="#work">Work</a><a href="#approach">Approach</a><a href="#process">Process</a><a href="#services">Services</a><a href="https://abdullamuiz.github.io/portfolio/health-check.html">Full health check</a>
   </nav>
   <div class="rights">
     <span>© 2026 Abdulla Muiz Fuad. Malé, Maldives.</span>
@@ -914,6 +1008,17 @@ footer .socials a:hover{color:var(--ink)}
 <script>
 /* inline line icons (no external icon font needed) */
 window.ICP = {
+  left:'M15 18l-6-6 6-6',
+  upright:'M7 17L17 7M8 7h9v9',
+  x:'M18 6L6 18M6 6l12 12',
+  calendar:'M7 3v4M17 3v4M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1ZM8 13h3M8 16h6',
+  megaphone:'M3 11v2a1 1 0 0 0 1 1h3l6 4V6L7 10H4a1 1 0 0 0-1 1ZM17 9a4 4 0 0 1 0 6M7 14l1.5 5.5',
+  chat:'M21 12a8 8 0 0 1-11.7 7.1L4 20.5l1.4-4.6A8 8 0 1 1 21 12ZM8.5 12h.01M12 12h.01M15.5 12h.01',
+  star:'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z',
+  target:'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM12 12h.01',
+  file:'M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7ZM14 3v4h4M9 12h6M9 16h6',
+  route:'M6 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM18 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM6 15V9a4 4 0 0 1 4-4h6M18 9v6a4 4 0 0 1-4 4H8',
+  layers:'M12 3l9 5-9 5-9-5ZM3 13l9 5 9-5M3 17.5l9 5 9-5',
   bed:'M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9',
   utensils:'M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3m0 0v7',
   waves:'M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1',
@@ -1234,6 +1339,30 @@ var CAMPS=[
     return { tick };
   })();
   if (GD) requestAnimationFrame(() => GD.tick(performance.now()));
+
+  /* services rail: the dot walks the monthly loop on its own while the card is on screen */
+  (function () {
+    const rail = $('rail'); if (!rail) return;
+    const items = [...rail.children];
+    const fill = document.createElement('i'); fill.className = 'rail-fill'; rail.appendChild(fill);
+    const dot = document.createElement('i'); dot.className = 'rail-dot'; rail.appendChild(dot);
+    if (reduce) { items.forEach(li => li.classList.add('lit')); dot.style.display = 'none'; return; }
+    let i = -1, timer = 0, on = false;
+    const pos = k => { const n = items[k].querySelector('.rn'); return { x: items[k].offsetLeft + n.offsetLeft + n.offsetWidth / 2, y: items[k].offsetTop + n.offsetTop + n.offsetHeight / 2 }; };
+    function step() {
+      i = (i + 1) % (items.length + 1);
+      if (i === items.length) { dot.style.opacity = 0; timer = setTimeout(() => { items.forEach(li => li.classList.remove('lit', 'now')); fill.style.width = fill.style.height = ''; i = -1; const p = pos(0); dot.style.transition = 'none'; dot.style.transform = `translate(${p.x}px,${p.y}px)`; void dot.offsetWidth; dot.style.transition = ''; dot.style.opacity = 1; if (on) timer = setTimeout(step, 500); }, 1100); return; }
+      const p = pos(i), p0 = pos(0), vertical = isMobile();
+      dot.style.transform = `translate(${p.x}px,${p.y}px)`;
+      fill.style.left = (vertical ? p0.x - 1 : p0.x) + 'px'; fill.style.top = (vertical ? p0.y : p0.y - 1) + 'px';
+      if (vertical) fill.style.height = (p.y - p0.y) + 'px'; else fill.style.width = (p.x - p0.x) + 'px';
+      items.forEach((li, k) => { li.classList.toggle('lit', k <= i); li.classList.toggle('now', k === i); });
+      if (on) timer = setTimeout(step, i === items.length - 1 ? 2200 : 1500);
+    }
+    new IntersectionObserver(es => { on = es[0].isIntersecting; clearTimeout(timer); if (on) timer = setTimeout(step, i < 0 ? 400 : 900); }, { threshold: .45 }).observe(rail);
+    const p = pos(0); dot.style.transform = `translate(${p.x}px,${p.y}px)`;
+    addEventListener('resize', () => { if (i >= 0 && i < items.length) { const q = pos(i), q0 = pos(0); dot.style.transform = `translate(${q.x}px,${q.y}px)`; if (isMobile()) { fill.style.width = ''; fill.style.height = (q.y - q0.y) + 'px'; } else { fill.style.height = ''; fill.style.width = (q.x - q0.x) + 'px'; } } });
+  })();
 
   let ticking = false;
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; update(); }); } }, { passive: true });
