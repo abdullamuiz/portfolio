@@ -6,280 +6,516 @@
 <title>Muiz Landing Draft</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600&family=Allura&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#FFFFFF; --card:#FFFFFF; --ink:#1E2742; --muted:#5D6478; --line:#E3E6EE; --navy:#232C4A;
-  --reef:#1DBF8C; --lagoon:#0FB8C9; --sea:#1C7FE0; --deep:#14508F;
-  --label:#087A88; --link:#232C4A; --tint:#EEF1F7; --ghost:#E8EBF3;
+  --reef:#1DBF8C; --lagoon:#0FB8C9; --sea:#1C7FE0; --deep:#14508F; --weak:#E8833A;
+  --label:#087A88; --link:#232C4A; --tint:#F4F6FA; --ghost:#E8EBF3; --ghost2:#CBD3E3;
   --bubble:#232C4A; --bubble-text:#FFFFFF;
-  --serif:'DM Serif Display',Georgia,serif; --sans:'Poppins',system-ui,sans-serif; --script:'Allura',cursive;
-  --ease:cubic-bezier(.2,.7,.2,1); --max:1180px; --gutter:clamp(16px,5vw,64px);
+  --serif:'DM Serif Display',Georgia,serif; --sans:'Poppins',system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1); --max:1180px; --gutter:clamp(16px,5vw,64px); --head:72px;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --paper:#121829; --card:#1A2238; --ink:#F1F2F6; --muted:#A3A9BA; --line:#283252;
-  --reef:#2BD39E; --lagoon:#22C9D9; --sea:#4A9BEE; --deep:#9DB4F0;
-  --label:#5FD3E0; --link:#B9C7F2; --tint:#1C2540; --ghost:#1C2540; --bubble:#34437A;
+  --reef:#2BD39E; --lagoon:#22C9D9; --label:#5FD3E0; --link:#B9C7F2; --tint:#1A2238;
+  --ghost:#1C2540; --ghost2:#222C4B; --bubble:#34437A;
 }}
 :root[data-theme="dark"]{
   --paper:#121829; --card:#1A2238; --ink:#F1F2F6; --muted:#A3A9BA; --line:#283252;
-  --reef:#2BD39E; --lagoon:#22C9D9; --sea:#4A9BEE; --deep:#9DB4F0;
-  --label:#5FD3E0; --link:#B9C7F2; --tint:#1C2540; --ghost:#1C2540; --bubble:#34437A;
+  --reef:#2BD39E; --lagoon:#22C9D9; --label:#5FD3E0; --link:#B9C7F2; --tint:#1A2238;
+  --ghost:#1C2540; --ghost2:#222C4B; --bubble:#34437A;
 }
 *{box-sizing:border-box}
 html{background:var(--paper)}
-body{margin:0;background:var(--paper);color:var(--ink);font:400 15px/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 15px/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
 a{color:var(--link);text-underline-offset:3px}
 img{display:block;max-width:100%}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
 .label{font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--label)}
-.tracked{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
+.tracked{font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
 .small{font-size:13px;color:var(--muted)}
 .rule{width:46px;height:2px;background:var(--lagoon);border:0;margin:0}
-.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 22px;border-radius:999px;background:var(--ink);color:var(--paper);font:500 14px var(--sans);text-decoration:none;border:0;cursor:pointer;transition:background .16s var(--ease),transform .16s var(--ease)}
-.btn:hover{background:var(--deep);color:#fff}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 22px;border-radius:999px;background:var(--navy);color:#fff;font:500 14px var(--sans);text-decoration:none;border:0;cursor:pointer;transition:background .16s var(--ease),transform .16s var(--ease)}
+.btn:hover{background:var(--deep)}
 .btn:active{transform:scale(.97)}
 .btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.btn--ghost:hover{background:var(--card);color:var(--ink);border-color:var(--ink)}
+.btn--ghost:hover{background:var(--tint)}
 
 /* header */
-header.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0}
-.wordmark{font:400 28px/1 var(--serif);color:var(--ink);text-decoration:none;letter-spacing:-.01em}
-.wordmark span{color:var(--lagoon)}
+header.top{position:fixed;inset:0 0 auto;z-index:30;background:var(--paper)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:var(--head)}
+.mark{display:block;width:40px;height:40px;border-radius:10px}
+.mark rect{fill:var(--navy)}
 nav.links{display:flex;gap:28px}
 nav.links a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;opacity:.8}
 nav.links a:hover{opacity:1}
-@media (max-width:860px){nav.links{display:none}}
+@media (max-width:860px){nav.links{display:none} :root{--head:64px}}
 
-/* hero */
-.hero{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(24px,5vw,72px);align-items:end;min-height:calc(100svh - 90px);position:relative}
-.stage{position:relative;align-self:end;height:min(76svh,700px);display:flex;align-items:flex-end;justify-content:flex-end}
-.ghost{position:absolute;left:-20%;top:-6%;font:400 clamp(220px,31vw,450px)/.9 var(--serif);color:var(--ghost);letter-spacing:-.02em;user-select:none;pointer-events:none;z-index:0;white-space:nowrap}
+/* pinned scenes */
+.pin{position:relative}
+.sticky{position:sticky;top:0;height:100svh;overflow:hidden}
+#s1{height:290vh}
+#s3{height:360vh}
+
+/* scene 1: hero -> about */
+.hero{position:absolute;top:var(--head);bottom:0;left:0;right:0;max-width:var(--max);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(24px,5vw,72px);align-items:end;grid-template-rows:minmax(0,1fr)}
+.stage{position:relative;height:100%;display:flex;align-items:flex-end;justify-content:flex-end}
+.portrait{position:relative;z-index:2;height:92%;width:auto;max-width:none;object-fit:contain;object-position:bottom;transform-origin:100% 100%}
+.ghost-hi{position:absolute;left:-20%;top:0;font:400 clamp(220px,31vw,450px)/.9 var(--serif);color:var(--ghost);letter-spacing:-.02em;user-select:none;pointer-events:none;z-index:0;white-space:nowrap;transform-origin:20% 50%}
 .hi{display:inline-flex;align-items:baseline}
 .hi .i{position:relative;display:inline-block}
 .hi .dot{position:absolute;left:50%;top:.1em;width:.12em;height:.12em;margin-left:-.06em;border-radius:50%;background:var(--lagoon)}
-.portrait{position:relative;z-index:1;height:92%;width:auto;max-width:none;object-fit:contain;object-position:bottom}
-.sticker{position:absolute;z-index:2;right:-3%;bottom:16%;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px 14px;box-shadow:0 1px 2px rgba(23,33,43,.06);transform:rotate(-3deg);max-width:220px}
-.sticker::before{content:"";display:block;width:20px;height:4px;border-radius:2px;background:var(--reef);margin-bottom:8px}
-.sticker b{display:block;font:400 26px/1.1 var(--serif)}
-.sticker small{font-size:12px;color:var(--muted);line-height:1.4;display:block;margin-top:4px}
-.copy{display:grid;gap:18px;padding-bottom:clamp(40px,8vh,96px);max-width:520px}
-.display{font:400 clamp(64px,9vw,120px)/.95 var(--serif);letter-spacing:-.01em;margin:0}
+.ghost-hi .dot{visibility:hidden}
+.ghost-about{position:absolute;left:-12%;top:3%;font:400 clamp(120px,14vw,215px)/.86 var(--serif);color:var(--ghost2);letter-spacing:-.015em;user-select:none;pointer-events:none;z-index:1;white-space:nowrap}
+.ghost-about .l{display:inline-block;opacity:0}
+.ghost-about .row2{display:block}
+.me-dot{display:inline-block;width:.13em;height:.13em;border-radius:50%;margin-left:.04em;visibility:hidden}
+.fdot{position:absolute;left:0;top:0;width:10px;height:10px;border-radius:50%;background:var(--lagoon);z-index:4;opacity:0;will-change:transform}
+.fdot.on{opacity:1}
+.copy{position:relative;z-index:3;display:grid;gap:18px;padding-bottom:clamp(48px,10vh,110px);max-width:520px;will-change:transform}
+.display{font:400 clamp(64px,9vw,124px)/.95 var(--serif);letter-spacing:-.01em;margin:0}
 .display span{color:var(--reef)}
-.copy p{margin:0;font-size:16px;max-width:46ch}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
-.signature{font:400 54px/1 var(--script);color:var(--deep);margin-top:2px}
-.vert{position:absolute;right:calc(var(--gutter) * -0.6);top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.swap{position:relative}
+.intro-p{margin:0;font-size:16px;max-width:46ch}
+.about-text{position:absolute;left:0;top:0;width:100%;display:grid;gap:14px;opacity:0}
+.about-text p{margin:0;max-width:52ch}
+.about-text .more{font-size:13px;font-weight:500;color:var(--muted);display:flex;align-items:center;gap:8px}
+.about-text .more::before{content:"";width:18px;height:1px;background:var(--muted)}
+.vert{position:absolute;right:calc(var(--gutter) * .35);top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);z-index:3}
 .vert i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--reef);margin:10px 0}
 @media (max-width:860px){
-  .hero{grid-template-columns:1fr;min-height:0;gap:8px}
-  .stage{height:54svh;min-height:400px}.portrait{height:100%}
-  .ghost{font-size:clamp(170px,50vw,320px);left:-4%;top:-2%}
-  .sticker{right:-2%;bottom:10%;max-width:170px}
-  .sticker b{font-size:22px}
-  .copy{padding-bottom:56px}
+  .hero{grid-template-columns:1fr;grid-template-rows:44svh auto;align-items:start;gap:4px}
+  .stage{height:44svh}
+  .portrait{height:100%;transform-origin:100% 0}
+  .ghost-hi{font-size:clamp(150px,42vw,280px);left:-4%;top:-2%}
+  .ghost-about{font-size:clamp(78px,23vw,150px);left:-2%;top:2%}.ghost-about .row2{padding-left:.95em}
+  .copy{gap:12px;padding-bottom:20px}
+  .display{font-size:clamp(52px,15vw,72px)}
+  .intro-p{font-size:15px}
+  .about-text{gap:10px;font-size:14px}
   .vert{display:none}
 }
 
-/* sections */
-section.block{padding:clamp(56px,9vw,112px) 0;border-top:1px solid var(--line)}
-.head{display:grid;gap:10px;margin-bottom:32px}
-.head h2{font:400 clamp(32px,4.5vw,48px)/1.05 var(--serif);margin:0}
+/* career + education */
+section.block{padding:clamp(64px,10vw,128px) 0;border-top:1px solid var(--line)}
+.head{display:grid;gap:10px;margin-bottom:36px;max-width:640px}
+.head h2{font:400 clamp(34px,4.8vw,52px)/1.05 var(--serif);margin:0}
 .head h2 span{color:var(--lagoon)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
-.card::before{content:"";width:20px;height:4px;border-radius:2px;background:var(--tab,var(--reef))}
-.num{font:400 40px/1.05 var(--serif)}
-.work{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.work a{color:inherit;text-decoration:none;display:grid;gap:12px}
-.work .ph{border-radius:10px;overflow:hidden;aspect-ratio:4/3;background:var(--line)}
-.work img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
-.work a:hover img{transform:scale(1.03)}
-.work h3{font:600 17px/1.35 var(--sans);margin:0}
-.work .more{font-size:13px;font-weight:500;color:var(--link)}
-.duo{display:grid;grid-template-columns:1fr 1.4fr;gap:20px;align-items:stretch}
-.now{position:relative;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:28px 26px 24px;transform:rotate(-1.2deg)}
-.now::after{content:"";position:absolute;top:-12px;left:50%;width:96px;height:24px;margin-left:-48px;background:rgba(221,243,239,.85);transform:rotate(2deg);border-radius:2px}
-.now h3{font:400 italic 30px/1 var(--serif);margin:0 0 14px}
-.bul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.bul li{position:relative;padding-left:20px}
-.bul li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:2px;background:var(--reef)}
-.bul li:nth-child(2)::before{background:var(--lagoon)} .bul li:nth-child(3)::before{background:var(--sea)} .bul li:nth-child(4)::before{background:var(--deep)}
-.cta{display:flex;flex-direction:column;justify-content:center;gap:14px;border:1.5px solid var(--lagoon);border-radius:10px;padding:26px 28px}
-.cta .label{color:var(--deep)}
-.cta p{margin:0;max-width:52ch}
-footer{border-top:1px solid var(--line);padding:18px 0 28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:12px;color:var(--muted)}
-footer b{font:400 18px var(--serif);color:var(--label)}
-@media (max-width:860px){.stats,.work,.duo{grid-template-columns:1fr}.now{transform:none}}
-
-/* reveal for lower sections */
+.timeline{list-style:none;margin:0;padding:0;border-top:1.5px solid var(--ink)}
+.timeline li{display:grid;grid-template-columns:140px 1fr 120px;gap:20px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line)}
+.timeline time{font:400 19px/1.2 var(--serif);color:var(--ink);display:flex;align-items:center;gap:12px}
+.timeline time::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--reef);flex:none}
+.timeline li:nth-child(4n+2) time::before{background:var(--lagoon)}
+.timeline li:nth-child(4n+3) time::before{background:var(--sea)}
+.timeline li:nth-child(4n+4) time::before{background:var(--deep)}
+.timeline b{display:block;font-weight:600;font-size:15.5px}
+.timeline span{font-size:13.5px;color:var(--muted)}
+.timeline .logo{justify-self:end;height:34px;width:auto;max-width:110px;object-fit:contain}
+.timeline .logo.dk{display:none}
+@media (prefers-color-scheme:dark){.timeline .logo.lt{display:none}.timeline .logo.dk{display:block}}
+@media (max-width:640px){.timeline li{grid-template-columns:1fr auto;gap:4px 12px}.timeline time{grid-column:1/-1;font-size:16px}.timeline .logo{height:26px}}
+.edu{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.edu figure{margin:0;display:grid;gap:10px}
+.edu .ph{border-radius:10px;overflow:hidden;background:var(--tint);aspect-ratio:3/4}
+.edu img{width:100%;height:100%;object-fit:cover}
+.edu b{font-weight:600;font-size:14.5px;line-height:1.35;display:block}
+.edu span{font-size:12.5px;color:var(--muted)}
+@media (max-width:860px){.edu{grid-template-columns:repeat(2,1fr)}}
+.pubs{margin-top:40px;display:grid;gap:0;border-top:1px solid var(--line)}
+.pubs a{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+.pubs b{font-weight:600;display:block}
+.pubs span{font-size:13px;color:var(--muted)}
+.pubs em{font-style:normal;font-size:13px;font-weight:500;color:var(--link);white-space:nowrap}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.in{opacity:1;transform:none}
 
-/* ---------- intro ---------- */
+/* scene 3: bubble -> tool */
+.bubble-big{position:absolute;left:50%;top:46%;width:min(84vw,600px);aspect-ratio:1062/1093;transform:translate(-50%,-50%);opacity:0;z-index:2;will-change:transform}
+.bubble-big svg{width:100%;height:100%;display:block}
+.bubble-big svg,.mini svg,.bubble svg{fill:var(--bubble)}
+.q{position:absolute;left:12%;right:12%;top:8%;height:62%;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--bubble-text);font:400 clamp(30px,5.4vw,58px)/1.06 var(--serif);opacity:0;margin:0}
+.q .qm{color:var(--lagoon)}
+.sub{position:absolute;left:50%;top:calc(46% + min(84vw,600px) * .515 + 14px);transform:translateX(-50%);width:min(90vw,520px);text-align:center;margin:0;font-size:16px;color:var(--muted);opacity:0}
+.sub b{color:var(--ink);font-weight:600}
+.tool{position:absolute;left:50%;top:calc(var(--head) + 3vh);transform:translateX(-50%);width:min(940px,calc(100% - 32px));max-height:calc(100svh - var(--head) - 6vh);overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(20px,3vw,32px);opacity:0;pointer-events:none;z-index:1;box-shadow:0 1px 2px rgba(23,33,43,.06)}
+.tool-head{display:flex;gap:16px;align-items:center;margin-bottom:22px}
+.mini{width:58px;flex:none;aspect-ratio:1062/1093;visibility:hidden}
+.mini svg{width:100%;height:100%;display:block}
+.tool-head h2{font:400 clamp(24px,3vw,34px)/1.1 var(--serif);margin:0}
+.tool-head h2 span{color:var(--lagoon)}
+.tool-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:28px}
+.qs{display:grid;gap:18px}
+.qs fieldset{border:0;margin:0;padding:0;display:grid;gap:8px}
+.qs legend{font-weight:600;font-size:14px;padding:0;margin-bottom:8px}
+.qs legend small{font-weight:400;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);font:500 13px var(--sans);cursor:pointer;transition:background .16s var(--ease),border-color .16s var(--ease),transform .12s var(--ease)}
+.chip:hover{border-color:var(--ink)}
+.chip:active{transform:scale(.96)}
+.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.result{background:var(--tint);border-radius:10px;padding:22px;display:grid;gap:12px;align-content:start;justify-items:start}
+.ring{position:relative;width:132px;height:132px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .track{stroke:var(--line)}
+.ring .val{stroke:var(--lagoon);transition:stroke-dashoffset .6s var(--ease),stroke .3s}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font:400 40px/1 var(--serif)}
+.band{font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.tip{margin:0;font-size:14px;max-width:36ch}
+.result .fine{font-size:12px;color:var(--muted)}
+@media (max-width:860px){
+  .tool-grid{grid-template-columns:1fr;gap:18px}
+  .tool-head{margin-bottom:16px}.mini{width:44px}
+  .result{grid-template-columns:auto 1fr;align-items:center;column-gap:16px;order:-1;padding:16px}
+  .ring{width:96px;height:96px;grid-row:span 2}.ring b{font-size:30px}
+  .result .tip,.result .btn,.result .fine{grid-column:1/-1}
+}
+footer{border-top:1px solid var(--line)}
+footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:12px;color:var(--muted)}
+.replay{font:500 12px var(--sans);color:var(--link);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+/* intro */
 .intro-on .fade{opacity:0}
-.intro-on .ghost{visibility:hidden}
+.intro-on .ghost-hi{visibility:hidden}
 .intro{position:fixed;inset:0;z-index:50;pointer-events:none}
 .bubble{position:absolute;left:50%;top:50%;width:min(64vw,340px);aspect-ratio:1062/1093;transform:translate(-50%,-52%) scale(0);transform-origin:50% 55%}
 .bubble svg{width:100%;height:100%;display:block}
-.bubble path{fill:var(--bubble)}
-.flyer{position:absolute;left:0;top:0;transform-origin:0 0;color:var(--bubble-text);font:400 clamp(220px,31vw,450px)/.9 var(--serif);letter-spacing:-.02em;white-space:nowrap;opacity:0}
+.flyer{position:absolute;left:0;top:0;transform-origin:0 0;color:var(--bubble-text);font:400 200px/.9 var(--serif);letter-spacing:-.02em;white-space:nowrap;opacity:0}
 .flyer .dot{opacity:0}
 .skip{position:fixed;right:16px;bottom:16px;z-index:60;font:500 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:transparent;border:0;padding:12px;cursor:pointer}
-.replay{font:500 12px var(--sans);color:var(--link);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-
 </style>
 </head>
 <body class="intro-on">
 
-<div class="wrap">
-  <header class="top fade" data-step="0">
-    <a class="wordmark" href="#">Muiz<span>.</span></a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs><path id="bub" d="M1053.113,545.018c3.096,10.753 12.298,46.08 13.164,59.032c5.002,74.884 -0.149,143.561 -22.603,203.397c-100.547,267.932 -422.743,386.61 -422.743,386.61c0,0 62.584,-159.911 -58.959,-161.212c-43.686,-0.468 -35.204,-1.361 -146.804,0.123c-10.397,0.138 -24.24,-0.336 -24.24,-0.336c-206.744,0 -373.14,-169.682 -373.14,-378.683c-0,-209.001 175.115,-378.683 381.859,-378.683l297.072,0c206.744,0 322.925,153.495 356.396,269.752l-0,0Z"/></defs>
+</svg>
+
+<header class="top fade" data-step="0">
+  <div class="wrap">
+    <a href="#" aria-label="Muiz, home">
+      <svg class="mark" viewBox="0 0 1400 1400" aria-hidden="true"><rect width="1400" height="1400" rx="300"/><g transform="translate(182 1075)"><path fill="#fff" d="M917 -268 817 -212V-534L581 -56Q576 -45 564 -45H472Q460 -45 454 -56L219 -534V-155Q219 -115 237.0 -87.5Q255 -60 292 -60Q307 -60 307 -45V-15Q307 0 292 0H45Q30 0 30 -15V-45Q30 -60 45 -60Q82 -60 100.5 -87.5Q119 -115 119 -155V-675Q105 -683 89.5 -686.5Q74 -690 57 -690Q42 -690 42 -705V-735Q42 -750 57 -750H245Q259 -750 263 -741L518 -225L773 -741Q777 -750 791 -750H979Q994 -750 994 -735V-705Q994 -690 979 -690Q963 -690 947.0 -686.5Q931 -683 917 -675Z"/><circle cx="867" cy="-90" r="90" fill="#0FB8C9"/></g></svg>
+    </a>
     <nav class="links" aria-label="Main">
-      <a href="#work">Work</a><a href="#">Content</a><a href="#">Approach</a><a href="#">About</a><a href="#">Contact</a>
+      <a href="#about">About</a><a href="#">Work</a><a href="#">Content</a><a href="#check">Health check</a><a href="#">Contact</a>
     </nav>
     <a class="btn btn--ghost" href="#">Request a call</a>
-  </header>
+  </div>
+</header>
 
-  <main>
-    <section class="hero">
-      <div class="stage">
-        <div class="ghost hi" id="ghost" aria-hidden="true"><span>H</span><span class="i">ı<span class="dot"></span></span></div>
-        <img class="portrait fade" data-step="1" src="img/muiz-cutout.webp" alt="Abdulla Muiz Fuad, arms crossed, smiling">
-      </div>
-      <div class="copy">
-        <span class="label fade" data-step="2">Hospitality marketing · Maldives</span>
-        <h1 class="display fade" data-step="2">Muiz<span>.</span></h1>
-        <div class="tracked fade" data-step="3">Marketing consultant and content creator</div>
-        <hr class="rule fade" data-step="3">
-        <p class="fade" data-step="3">15+ years in Maldivian tourism marketing and behind the camera. I judge marketing by direct bookings and revenue, not views or likes.</p>
-        <div class="actions fade" data-step="4">
-          <a class="btn" href="#work">See my work</a>
-          <a class="btn btn--ghost" href="#">Request a call</a>
+<main>
+  <!-- SCENE 1: hello -> about me -->
+  <section class="pin" id="s1">
+    <div class="sticky" id="st1">
+      <div class="hero">
+        <div class="stage" id="stage">
+          <div class="ghost-hi hi" id="ghost" aria-hidden="true"><span>H</span><span class="i">ı<span class="dot" id="hiDot"></span></span></div>
+          <div class="ghost-about" id="about-g" aria-label="About me"><span class="row1"><span class="l">A</span><span class="l">b</span><span class="l">o</span><span class="l">u</span><span class="l">t</span></span><span class="row2"><span class="l">M</span><span class="l">e</span><span class="me-dot" id="meDot"></span></span></div>
+          <img class="portrait fade" data-step="1" id="portrait" src="img/muiz-cutout.webp" alt="Abdulla Muiz Fuad, arms crossed, smiling">
         </div>
-        <div class="signature fade" data-step="4">Muiz</div>
+        <div class="copy" id="copy">
+          <span class="label fade" data-step="2" id="kick">Hospitality marketing · Maldives</span>
+          <h1 class="display fade" data-step="2">Muiz<span>,</span></h1>
+          <div class="tracked fade" data-step="3">Digital Visibility Strategist &amp; Content Creator</div>
+          <hr class="rule fade" data-step="3" id="rule">
+          <div class="swap">
+            <p class="intro-p fade" data-step="3" id="introP">15+ years in Maldivian tourism marketing and behind the camera, helping hotels, guesthouses and local brands get seen by the right people.</p>
+            <div class="about-text" id="aboutText">
+              <p>I’m Abdulla Muiz Fuad, a Maldivian marketer, photographer and lecturer. I help resorts, guesthouses and small businesses get found online, and turn that attention into bookings and sales.</p>
+              <p>I started in 2011, spent four years selling the Maldives at MATTA Fair in Kuala Lumpur, ran marketing at Reethi Beach Resort and led the SME HUB at Business Centre Corporation. Today I teach marketing at MNU Business School and run Islandeative.</p>
+              <span class="more">My career path below</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="vert fade" data-step="5">Resorts <i></i> Guesthouses <i></i> Restaurants</div>
-    </section>
+      <span class="fdot" id="fdot" aria-hidden="true"></span>
+      <div class="vert fade" data-step="4">Resorts <i></i> Guesthouses <i></i> Restaurants</div>
+    </div>
+  </section>
 
-    <section class="block">
-      <div class="stats reveal">
-        <div class="card" style="--tab:var(--reef)"><span class="num">15+</span><span class="small">years in Maldivian tourism marketing</span></div>
-        <div class="card" style="--tab:var(--lagoon)"><span class="num">111</span><span class="small">bookings from one Manta Season campaign, 38 of them direct</span></div>
-        <div class="card" style="--tab:var(--sea)"><span class="num">23</span><span class="small">small businesses incubated at the SME HUB</span></div>
-      </div>
-    </section>
-
-    <section class="block" id="work">
+  <!-- career + education -->
+  <section class="block" id="about">
+    <div class="wrap">
       <div class="head reveal">
-        <span class="label">Selected work</span>
-        <h2>Results, not just reach<span>.</span></h2>
+        <span class="label">Career path</span>
+        <h2>Fifteen years across resorts, media and the classroom<span>.</span></h2>
       </div>
-      <div class="work reveal">
-        <a href="#"><div class="ph"><img src="img/case-reethi.webp" alt="Reethi Beach Resort"></div><span class="label">Reethi Beach Resort</span><h3>Low season from under 10% to 38–66% occupancy</h3><span class="more">Read the case →</span></a>
-        <a href="#"><div class="ph"><img src="img/case-missgermany.webp" alt="Miss Germany shoot"></div><span class="label">Content</span><h3>Miss Germany in the Maldives, 30+ prime-time TV broadcasts</h3><span class="more">See the content →</span></a>
-        <a href="#"><div class="ph"><img src="img/sme-hub-bcc.webp" alt="SME HUB"></div><span class="label">SME HUB · BCC</span><h3>23 small businesses incubated and taken to market</h3><span class="more">Read the case →</span></a>
-      </div>
-    </section>
+      <ol class="timeline reveal">
+        <li><time>2024 – now</time><div><b>Lecturer and Subject Coordinator</b><span>MNU Business School</span></div><img class="logo lt" src="img/logo-mnu.webp" alt="MNU"><img class="logo dk" src="img/logo-mnu-dark.webp" alt=""></li>
+        <li><time>2024</time><div><b>Manager, SME HUB</b><span>Business Centre Corporation · 23 small businesses incubated</span></div><img class="logo lt" src="img/logo-bcc.webp" alt="BCC"><img class="logo dk" src="img/logo-bcc-dark.webp" alt=""></li>
+        <li><time>2023 – 24</time><div><b>Sales and Marketing Manager</b><span>Maldives Business Network TV</span></div><span></span></li>
+        <li><time>2022 – 23</time><div><b>Part-time Lecturer</b><span>MI College · digital marketing and e-commerce</span></div><span></span></li>
+        <li><time>2021 – 22</time><div><b>Marketing Manager</b><span>Reethi Beach Resort, Baa Atoll</span></div><img class="logo lt" src="img/logo-reethi.webp" alt="Reethi Beach Resort"><img class="logo dk" src="img/logo-reethi-dark.webp" alt=""></li>
+        <li><time>2020 – 21</time><div><b>Copywriter</b><span>Maldives Ports Limited</span></div><span></span></li>
+        <li><time>2018 – 20</time><div><b>Head of Operations and Creative Director</b><span>Blazon Inc. · inflight magazines, Maldives Business Awards</span></div><img class="logo lt" src="img/logo-blazon.webp" alt="Blazon"><img class="logo dk" src="img/logo-blazon-dark.webp" alt=""></li>
+        <li><time>2014 – 18</time><div><b>Head of Marketing and Sales, MATTA Fair</b><span>Represented the Maldives for MP Travel, Kuala Lumpur</span></div><span></span></li>
+        <li><time>2011 – 13</time><div><b>Senior Marketing Executive</b><span>Highrise Inc. · Maldives Travel Awards</span></div><img class="logo lt" src="img/logo-highrise.webp" alt="Highrise"><img class="logo dk" src="img/logo-highrise-dark.webp" alt=""></li>
+      </ol>
+    </div>
+  </section>
 
-    <section class="block">
-      <div class="duo reveal">
-        <div class="now">
-          <h3>Currently</h3>
-          <ul class="bul">
-            <li>Teaching marketing at MNU Business School</li>
-            <li>Building Islandeative</li>
-            <li>Brewing Dhi Brew cold brew</li>
-          </ul>
+  <section class="block">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="label">Education and research</span>
+        <h2>Trained in marketing and tourism<span>.</span></h2>
+      </div>
+      <div class="edu reveal">
+        <figure><div class="ph"><img src="img/cert-msc.webp" alt="MSc certificate" loading="lazy"></div><figcaption><b>MSc Global Marketing Management</b><span>Asia Pacific University</span></figcaption></figure>
+        <figure><div class="ph"><img src="img/cert-ba.webp" alt="BA certificate" loading="lazy"></div><figcaption><b>BA (Hons) Tourism Management</b><span>Asia Pacific University</span></figcaption></figure>
+        <figure><div class="ph"><img src="img/cert-cth.webp" alt="CTH diploma" loading="lazy"></div><figcaption><b>Level 4 Diploma in Tourism Management</b><span>CTH, UK</span></figcaption></figure>
+        <figure><div class="ph"><img src="img/cert-abe.webp" alt="ABE diploma" loading="lazy"></div><figcaption><b>Level 4 Diploma in Human Resource Management</b><span>ABE, UK</span></figcaption></figure>
+      </div>
+      <div class="pubs reveal">
+        <a href="https://doi.org/10.1177/1467358420926688" target="_blank" rel="noopener"><div><b>The nature and challenges of guest house business in the Maldives</b><span>Tourism and Hospitality Research · SAGE · 2021 · cited 36+ times</span></div><em>Read ↗</em></a>
+        <a href="https://cgscholar.com/bookstore/works/increasing-the-visibility-of-guesthouse-operation-in-the-maldives-through-emarketing?category_id=cgrn" target="_blank" rel="noopener"><div><b>Increasing the visibility of guesthouse operation in the Maldives through e-marketing</b><span>Journal of Tourism and Leisure Studies · 2017</span></div><em>Read ↗</em></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 3: bubble -> teaser tool -->
+  <section class="pin" id="s3">
+    <div class="sticky" id="st3">
+      <div class="bubble-big" id="bigBubble">
+        <svg viewBox="8 104 1062 1093" aria-hidden="true"><use href="#bub"/></svg>
+        <p class="q" id="q"><span>How visible is your business digitally<span class="qm">?</span></span></p>
+      </div>
+      <p class="sub" id="sub">Take <b>5 minutes</b> to discover your Digital Visibility Health Check. Start with a quick taste below.</p>
+
+      <div class="tool" id="check">
+        <div class="tool-head">
+          <div class="mini" id="mini"><svg viewBox="8 104 1062 1093" aria-hidden="true"><use href="#bub"/></svg></div>
+          <div><h2>How visible is your business digitally<span>?</span></h2><span class="small">Four quick questions, under a minute.</span></div>
         </div>
-        <div class="cta">
-          <span class="label">Free, 5 minutes</span>
-          <h2 style="font:400 clamp(28px,3.5vw,38px)/1.1 var(--serif);margin:0">How visible is your business<span style="color:var(--reef)">?</span></h2>
-          <p>The Social Visibility Health Check scores your socials and booking path against 2026 benchmarks.</p>
-          <div><a class="btn" href="https://abdullamuiz.github.io/portfolio/health-check.html">Run the check</a></div>
+        <div class="tool-grid">
+          <div class="qs">
+            <fieldset data-q="where" data-multi>
+              <legend>Where can people find you? <small>pick all</small></legend>
+              <div class="chips"><button class="chip" type="button" data-v="ig">Instagram</button><button class="chip" type="button" data-v="fb">Facebook</button><button class="chip" type="button" data-v="tt">TikTok</button><button class="chip" type="button" data-v="gm">Google Maps</button><button class="chip" type="button" data-v="ta">TripAdvisor</button><button class="chip" type="button" data-v="web">Website</button></div>
+            </fieldset>
+            <fieldset data-q="post">
+              <legend>How often do you post?</legend>
+              <div class="chips"><button class="chip" type="button" data-v="0">Rarely</button><button class="chip" type="button" data-v="1">Monthly</button><button class="chip" type="button" data-v="2">Weekly</button><button class="chip" type="button" data-v="3">3+ a week</button></div>
+            </fieldset>
+            <fieldset data-q="direct">
+              <legend>Can customers book or order with you directly?</legend>
+              <div class="chips"><button class="chip" type="button" data-v="0">Only through OTAs or apps</button><button class="chip" type="button" data-v="1">By WhatsApp or DM</button><button class="chip" type="button" data-v="2">On my own website</button></div>
+            </fieldset>
+            <fieldset data-q="rev">
+              <legend>Do you reply to reviews?</legend>
+              <div class="chips"><button class="chip" type="button" data-v="0">Never</button><button class="chip" type="button" data-v="1">Sometimes</button><button class="chip" type="button" data-v="2">Always</button></div>
+            </fieldset>
+          </div>
+          <div class="result" aria-live="polite">
+            <div class="ring"><svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52" fill="none" stroke-width="9"/><circle class="val" id="ringVal" cx="60" cy="60" r="52" fill="none" stroke-width="9" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg><b id="score">–</b></div>
+            <span class="band" id="band">Your quick score</span>
+            <p class="tip" id="tip">Answer the four questions to see where you stand.</p>
+            <a class="btn" href="https://abdullamuiz.github.io/portfolio/health-check.html">Get the full health check</a>
+            <span class="fine">Free · 5 minutes · scores your socials and booking path against 2026 benchmarks</span>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
+</main>
 
-    <footer>
-      <span>Abdulla Muiz Fuad · +960 990 2996 · muiz@islandeative.com</span>
-      <button class="replay" id="replay" type="button" hidden>↺ Replay intro</button><b>Muiz.</b>
-    </footer>
-  </main>
-</div>
+<footer><div class="wrap"><span>Abdulla Muiz Fuad · +960 990 2996 · muiz@islandeative.com</span><button class="replay" id="replay" type="button" hidden>↺ Replay intro</button></div></footer>
 
 <div class="intro" id="intro" aria-hidden="true">
-  <div class="bubble" id="bubble">
-    <svg viewBox="8 104 1062 1093"><path d="M1053.113,545.018c3.096,10.753 12.298,46.08 13.164,59.032c5.002,74.884 -0.149,143.561 -22.603,203.397c-100.547,267.932 -422.743,386.61 -422.743,386.61c0,0 62.584,-159.911 -58.959,-161.212c-43.686,-0.468 -35.204,-1.361 -146.804,0.123c-10.397,0.138 -24.24,-0.336 -24.24,-0.336c-206.744,0 -373.14,-169.682 -373.14,-378.683c-0,-209.001 175.115,-378.683 381.859,-378.683l297.072,0c206.744,0 322.925,153.495 356.396,269.752l-0,0Z"/></svg>
-  </div>
+  <div class="bubble" id="bubble"><svg viewBox="8 104 1062 1093"><use href="#bub"/></svg></div>
   <div class="flyer hi" id="flyer"><span>H</span><span class="i">ı<span class="dot"></span></span></div>
 </div>
 <button class="skip" id="skip" type="button">Skip</button>
 
 <script>
 (() => {
-  const body = document.body, ghost = document.getElementById('ghost'), flyer = document.getElementById('flyer');
-  const bubble = document.getElementById('bubble'), intro = document.getElementById('intro');
-  const skipBtn = document.getElementById('skip'), replayBtn = document.getElementById('replay');
+  const $ = id => document.getElementById(id);
+  const body = document.body, root = document.documentElement;
+  const ghost = $('ghost'), flyer = $('flyer'), bubble = $('bubble'), intro = $('intro');
+  const skipBtn = $('skip'), replayBtn = $('replay');
   const fades = [...document.querySelectorAll('.fade')];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const ease = 'cubic-bezier(.2,.7,.2,1)';
-  let anims = [], timers = [], done = false;
+  const EASE = 'cubic-bezier(.2,.7,.2,1)';
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const io3 = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const out3 = t => 1 - Math.pow(1 - t, 3);
+  const isMobile = () => matchMedia('(max-width:860px)').matches;
+  let introDone = false;
 
-  // lower-section reveal
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+  /* reveal for normal sections */
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
+  /* scroll scenes */
+  const s1 = $('s1'), st1 = $('st1'), s3 = $('s3'), st3 = $('st3');
+  const copy = $('copy'), aboutText = $('aboutText'), portrait = $('portrait'), fdot = $('fdot');
+  const letters = [...document.querySelectorAll('#about-g .l')];
+  const fadeOut1 = [$('kick'), $('rule'), $('introP')];
+  const big = $('bigBubble'), q = $('q'), sub = $('sub'), tool = $('check'), mini = $('mini');
+  let M = null;
+
+  const prog = sec => { const r = sec.getBoundingClientRect(); return clamp(-r.top / (r.height - innerHeight)); };
+
+  function measure() {
+    [copy, aboutText, ghost, portrait, fdot, big, tool].forEach(el => el.style.transform = '');
+    const sr = st1.getBoundingClientRect();
+    const rel = el => { const r = el.getBoundingClientRect(); return { x: r.left - sr.left, y: r.top - sr.top, w: r.width, h: r.height }; };
+    const hi = rel($('hiDot')), me = rel($('meDot'));
+    const c = rel(copy), a = rel(aboutText), stg = rel($('stage'));
+    let D;
+    if (isMobile()) {
+      const target = stg.y + stg.h * .42 + 10;
+      D = Math.max(c.y - target, a.y + a.h - (innerHeight - 16));
+    } else {
+      D = Math.max(0, a.y + a.h - (innerHeight - Math.max(48, innerHeight * .1)));
+    }
+    const s3r = st3.getBoundingClientRect(), br = big.getBoundingClientRect(), mr = mini.getBoundingClientRect();
+    M = {
+      hi, me, D,
+      b: { cx: br.left + br.width / 2 - s3r.left, cy: br.top + br.height / 2 - s3r.top, w: br.width },
+      t: { cx: mr.left + mr.width / 2 - s3r.left, cy: mr.top + mr.height / 2 - s3r.top, w: mr.width }
+    };
+    update();
+  }
+
+  function update() {
+    if (!M) return;
+    /* scene 1: Hi -> About Me */
+    const p1 = prog(s1);
+    const t = reduce ? (p1 > .25 ? 1 : 0) : clamp((p1 - .06) / .5);
+    const e = io3(t);
+    ghost.style.opacity = 1 - clamp(t * 1.8);
+    ghost.style.transform = `scale(${1 - .2 * e})`;
+    ghost.style.filter = t > 0 && t < 1 ? `blur(${t * 10}px)` : '';
+    letters.forEach((l, i) => {
+      const lt = out3(clamp((t - .28 - i * .05) / .35));
+      l.style.opacity = lt;
+      l.style.transform = `translateY(${(1 - lt) * .3}em)`;
+      l.style.filter = lt > 0 && lt < 1 ? `blur(${(1 - lt) * 8}px)` : '';
+    });
+    const dw = lerp(M.hi.w, M.me.w, e);
+    fdot.style.width = fdot.style.height = dw + 'px';
+    fdot.style.transform = `translate(${lerp(M.hi.x, M.me.x, e)}px, ${lerp(M.hi.y, M.me.y, e) - Math.sin(e * Math.PI) * 60}px)`;
+    copy.style.transform = `translateY(${-M.D * e}px)`;
+    if (introDone) fadeOut1.forEach(el => el.style.opacity = 1 - clamp(t * 2.2));
+    const at = out3(clamp((t - .25) / .6));
+    aboutText.style.opacity = at;
+    aboutText.style.transform = `translateY(${(1 - at) * 60}px)`;
+    portrait.style.transform = isMobile() ? `scale(${lerp(1, .42, e)})` : `scale(${lerp(1, .8, e)})`;
+
+    /* scene 3: bubble -> tool */
+    const p3 = prog(s3);
+    const a = reduce ? (p3 > .05 ? 1 : 0) : out3(clamp(p3 / .2));
+    const m = reduce ? (p3 > .5 ? 1 : 0) : io3(clamp((p3 - .45) / .3));
+    const s = lerp(lerp(.55, 1, a), M.t.w / M.b.w, m);
+    big.style.opacity = a;
+    big.style.visibility = m >= 1 ? 'hidden' : 'visible';
+    mini.style.visibility = m >= 1 ? 'visible' : 'hidden';
+    big.style.transform = `translate(-50%,-50%) translate(${(M.t.cx - M.b.cx) * m}px, ${(M.t.cy - M.b.cy) * m + (1 - a) * 40}px) scale(${s})`;
+    q.style.opacity = clamp((p3 - .06) / .14) * (1 - clamp(m * 3));
+    sub.style.opacity = clamp((p3 - .14) / .12) * (1 - clamp(m * 3));
+    const tv = clamp((m - .35) / .6);
+    tool.style.opacity = tv;
+    tool.style.transform = `translateX(-50%) translateY(${(1 - tv) * 40}px)`;
+    tool.style.pointerEvents = tv > .9 ? 'auto' : 'none';
+  }
+
+  let ticking = false;
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; update(); }); } }, { passive: true });
+  addEventListener('resize', () => requestAnimationFrame(measure));
+
+  /* teaser tool */
+  const st = { where: new Set(), post: null, direct: null, rev: null };
+  const PTS = { post: [0, 8, 16, 25], direct: [0, 12, 25], rev: [0, 10, 20] };
+  document.querySelectorAll('.qs fieldset').forEach(fs => {
+    const key = fs.dataset.q, multi = fs.hasAttribute('data-multi');
+    fs.querySelectorAll('.chip').forEach(ch => {
+      ch.setAttribute('aria-pressed', 'false');
+      ch.addEventListener('click', () => {
+        if (multi) {
+          const on = ch.getAttribute('aria-pressed') !== 'true';
+          ch.setAttribute('aria-pressed', on); on ? st.where.add(ch.dataset.v) : st.where.delete(ch.dataset.v);
+        } else {
+          fs.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c === ch));
+          st[key] = +ch.dataset.v;
+        }
+        score();
+      });
+    });
+  });
+  function score() {
+    const whereP = Math.min(30, st.where.size * 5);
+    const parts = { where: st.where.size ? whereP / 30 : null };
+    let total = whereP;
+    ['post', 'direct', 'rev'].forEach(k => {
+      if (st[k] == null) { parts[k] = null; return; }
+      const arr = PTS[k]; total += arr[st[k]]; parts[k] = arr[st[k]] / arr[arr.length - 1];
+    });
+    const answered = Object.values(parts).filter(v => v != null).length;
+    if (!answered) { $('score').textContent = '–'; $('ringVal').style.strokeDashoffset = 326.7; $('band').textContent = 'Your quick score'; $('tip').textContent = 'Answer the four questions to see where you stand.'; return; }
+    $('score').textContent = total;
+    $('ringVal').style.strokeDashoffset = 326.7 * (1 - total / 100);
+    $('ringVal').style.stroke = total >= 75 ? 'var(--reef)' : total >= 50 ? 'var(--lagoon)' : 'var(--weak)';
+    const tips = {
+      where: 'People can’t find you in enough places. Google Maps and TripAdvisor are often the first stop.',
+      post: 'Posting less than weekly means most of your followers never see you.',
+      direct: 'Without direct booking or ordering, you pay commission on almost every sale.',
+      rev: 'Replying to reviews builds trust and helps you rank higher.'
+    };
+    let weakest = null, low = 1;
+    Object.entries(parts).forEach(([k, v]) => { if (v != null && v < low) { low = v; weakest = k; } });
+    if (answered < 4) {
+      $('band').textContent = `${answered} of 4 answered`;
+      $('tip').textContent = weakest ? tips[weakest] : 'Keep going to see your full quick score.';
+    } else {
+      $('band').textContent = total >= 75 ? 'Strong' : total >= 50 ? 'Getting there' : 'Needs work';
+      $('tip').textContent = weakest ? tips[weakest] + ' The full check shows what to fix first.' : 'A strong base. The full check compares you platform by platform.';
+    }
+  }
+
+  /* intro */
+  let anims = [], timers = [], done = false;
   const A = (el, kf, opt) => { const a = el.animate(kf, { fill: 'both', ...opt }); anims.push(a); return a; };
-  const later = (fn, ms) => timers.push(setTimeout(fn, ms));
 
   function revealPage(instant) {
     body.classList.remove('intro-on');
+    if (instant) return;
     fades.forEach(el => {
-      const step = +el.dataset.step || 0;
-      if (instant) return;
-      A(el, [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }],
-        { duration: 700, delay: step * 110, easing: ease, fill: 'backwards' });
+      el.animate([{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'translateY(0)' }],
+        { duration: 700, delay: (+el.dataset.step || 0) * 110, easing: EASE, fill: 'backwards' });
     });
   }
-
   function finish(instant) {
-    if (done) return; done = true;
+    if (done) return; done = true; introDone = true;
     anims.forEach(a => a.cancel()); anims = []; timers.forEach(clearTimeout); timers = [];
     intro.style.display = 'none'; skipBtn.hidden = true; replayBtn.hidden = false;
+    root.style.overflow = '';
+    fdot.classList.add('on');
     revealPage(instant);
+    measure();
   }
-
   function play() {
-    done = false; body.classList.add('intro-on');
+    done = false; introDone = false; body.classList.add('intro-on'); fdot.classList.remove('on');
+    root.style.overflow = 'hidden'; scrollTo(0, 0);
     intro.style.display = ''; skipBtn.hidden = false; replayBtn.hidden = true;
-    window.scrollTo(0, 0);
-
-    // where the Hi must land (the ghost behind the portrait)
+    measure();
     const g = ghost.getBoundingClientRect();
     flyer.style.fontSize = getComputedStyle(ghost).fontSize;
     const f = flyer.getBoundingClientRect();
-    const b = bubble.getBoundingClientRect(); // unscaled box is scale(0); compute from layout size
-    const bw = bubble.offsetWidth, bh = bubble.offsetHeight;
-    const s0 = (bw * 0.5) / f.width;                     // Hi fills ~62% of the bubble width
-    const cx = innerWidth / 2, cy = innerHeight / 2 + bh * 0.0;
-    const startX = cx - (f.width * s0) / 2, startY = cy - (f.height * s0) / 2;
-    const start = `translate(${startX}px, ${startY}px) scale(${s0})`;
+    const bw = bubble.offsetWidth;
+    const s0 = (bw * 0.5) / f.width;
+    const cx = innerWidth / 2, cy = innerHeight / 2;
+    const start = `translate(${cx - (f.width * s0) / 2}px, ${cy - (f.height * s0) / 2}px) scale(${s0})`;
     const end = `translate(${g.left}px, ${g.top}px) scale(1)`;
     const dot = flyer.querySelector('.dot');
 
-    // 1. bubble pops in
     A(bubble, [
       { transform: 'translate(-50%,-52%) scale(0)' },
       { transform: 'translate(-50%,-52%) scale(1.08)', offset: .7 },
       { transform: 'translate(-50%,-52%) scale(1)' }
     ], { duration: 560, easing: 'cubic-bezier(.34,1.56,.64,1)' });
-
-    // 2. "Hı" rises inside the bubble
-    A(flyer, [{ opacity: 0, transform: start + ' translateY(30px)' }, { opacity: 1, transform: start }],
-      { duration: 420, delay: 300, easing: ease });
-
-    // 3. the teal dot drops and bounces onto the i
+    A(flyer, [{ opacity: 0, transform: start + ' translateY(30px)' }, { opacity: 1, transform: start }], { duration: 420, delay: 300, easing: EASE });
     A(dot, [
       { opacity: 0, transform: 'translateY(-260%) scale(1)', easing: 'cubic-bezier(.55,0,1,.45)' },
       { opacity: 1, transform: 'translateY(0) scale(1.25,.75)', offset: .42, easing: 'cubic-bezier(0,.55,.45,1)' },
@@ -288,24 +524,19 @@ footer b{font:400 18px var(--serif);color:var(--label)}
       { opacity: 1, transform: 'translateY(-14%) scale(1)', offset: .91 },
       { opacity: 1, transform: 'translateY(0) scale(1)' }
     ], { duration: 820, delay: 720 });
-
-    // 4. bubble fades out, Hi slides to its place and turns pale
-    A(bubble, [{ opacity: 1 }, { opacity: 0, transform: 'translate(-50%,-52%) scale(.94)' }],
-      { duration: 420, delay: 1800, easing: ease, composite: 'replace' });
+    A(bubble, [{ opacity: 1 }, { opacity: 0, transform: 'translate(-50%,-52%) scale(.94)' }], { duration: 420, delay: 1800, easing: EASE });
     A(flyer, [
       { transform: start, color: getComputedStyle(flyer).color },
       { transform: end, color: getComputedStyle(ghost).color }
     ], { duration: 950, delay: 1950, easing: 'cubic-bezier(.65,0,.25,1)' });
-
-    // 5. swap to the real ghost and fade the page in
-    later(() => { ghost.style.visibility = 'visible'; finish(false); }, 2900);
+    timers.push(setTimeout(() => finish(false), 2900));
   }
 
-  skipBtn.addEventListener('click', () => { ghost.style.visibility = 'visible'; finish(true); });
-  replayBtn.addEventListener('click', () => { ghost.style.visibility = ''; play(); });
-  addEventListener('keydown', e => { if (e.key === 'Escape' && !done) skipBtn.click(); });
+  skipBtn.addEventListener('click', () => finish(true));
+  replayBtn.addEventListener('click', play);
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !done) finish(true); });
 
-  const go = () => reduce ? (ghost.style.visibility = 'visible', finish(true)) : play();
+  const go = () => reduce ? finish(true) : play();
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(go));
 })();
 </script>
