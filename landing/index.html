@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
 <style>
 :root{
   --paper:#FFFFFF; --card:#FFFFFF; --ink:#1E2742; --muted:#5D6478; --line:#E3E6EE; --navy:#232C4A;
@@ -247,6 +246,149 @@ footer{border-top:1px solid var(--line)}
 footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:12px;color:var(--muted)}
 .replay{font:500 12px var(--sans);color:var(--link);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 
+/* icons */
+.ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;display:block}
+i[data-ic],i:has(>.ic){display:inline-flex;align-items:center;justify-content:center;font-style:normal}
+.icon-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);display:grid;place-items:center;cursor:pointer;font-size:18px;transition:background .2s,border-color .2s,transform .12s}
+.icon-btn:hover{border-color:var(--ink)}
+.icon-btn:active{transform:scale(.94)}
+.head p.small{margin:0;max-width:60ch}
+
+/* content */
+.film{position:relative;border-radius:14px;overflow:hidden;background:#0c1220;aspect-ratio:16/9}
+.film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.film-bar{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:60px 24px 20px;background:linear-gradient(transparent,rgba(10,14,28,.78));color:#fff}
+.film-bar .label{color:#7fe3ee}
+.film-bar h3{font:400 clamp(20px,2.4vw,28px)/1.15 var(--serif);margin:4px 0 2px}
+.film-bar p{margin:0;font-size:13.5px;opacity:.85;max-width:52ch}
+.film-ctrl{display:flex;gap:8px}
+.film-ctrl .icon-btn{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3);color:#fff;backdrop-filter:none}
+.sub-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-top:clamp(56px,8vw,96px);margin-bottom:22px}
+.sub-head > div:first-child{display:grid;gap:6px}
+.h3s{font:400 clamp(24px,3vw,34px)/1.1 var(--serif);margin:0}
+.h3s span{color:var(--lagoon)}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.filters button{min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:500 13px var(--sans);cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.reels{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px max(var(--gutter),calc((100vw - var(--max)) / 2 + var(--gutter))) 12px;scrollbar-width:none;overscroll-behavior-x:contain}
+.reels::-webkit-scrollbar{display:none}
+.reel{flex:none;width:clamp(170px,19vw,240px);aspect-ratio:9/16;border-radius:12px;overflow:hidden;position:relative;scroll-snap-align:start;border:0;padding:0;cursor:pointer;background:var(--tint)}
+.reel img,.reel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.reel:hover img{transform:scale(1.04)}
+.reel .pl{position:absolute;left:12px;bottom:12px;right:12px;display:flex;align-items:center;gap:8px;color:#fff;font:500 12.5px/1.3 var(--sans);text-align:left;z-index:1}
+.reel .pl i{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.22);font-size:13px;flex:none}
+.reel::after{content:"";position:absolute;inset:50% 0 0;background:linear-gradient(transparent,rgba(10,14,28,.7))}
+.strip-ctrl{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
+.photos{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.photos button{border:0;padding:0;cursor:pointer;border-radius:10px;overflow:hidden;aspect-ratio:4/5;background:var(--tint)}
+.photos img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.photos button:hover img{transform:scale(1.04)}
+.camps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.camp{border:0;background:none;padding:0;text-align:left;cursor:pointer;color:inherit;display:grid;gap:10px}
+.camp .pr{display:block;border-radius:6px;overflow:hidden;background:var(--card);border:1px solid var(--line);padding:10px;box-shadow:0 1px 2px rgba(23,33,43,.06);transition:transform .4s var(--ease)}
+.camp:nth-child(odd) .pr{transform:rotate(-1deg)}.camp:nth-child(even) .pr{transform:rotate(1deg)}
+.camp:hover .pr{transform:rotate(0) translateY(-4px)}
+.camp img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:3px}
+.camp b{font-weight:600;font-size:14.5px;display:block}
+.camp small{font-size:12.5px;color:var(--muted)}
+@media (max-width:860px){.photos{grid-template-columns:repeat(2,1fr);gap:8px}.camps{grid-template-columns:repeat(2,1fr);gap:14px}.film{aspect-ratio:4/5}.film-bar{padding:40px 16px 16px}}
+
+/* work */
+.feature{display:grid;grid-template-columns:1.15fr 1fr;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card)}
+.feature figure{margin:0;min-height:100%}
+.feature figure img{width:100%;height:100%;object-fit:cover}
+.feature-body{padding:clamp(22px,3vw,36px);display:grid;gap:14px;align-content:start}
+.feature-body h3{font:400 clamp(26px,3vw,34px)/1.1 var(--serif);margin:0}
+.muted{color:var(--muted);margin:0}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font-size:11.5px;font-weight:500;padding:4px 10px;border-radius:999px;background:var(--tint);color:var(--label)}
+.feature details{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.feature summary{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:14px 0;font-weight:600;cursor:pointer}
+.feature summary::-webkit-details-marker{display:none}
+.feature summary i{transition:transform .3s var(--ease)}
+.feature details[open] summary i{transform:rotate(45deg)}
+.feature details p{margin:0 0 12px;font-size:14px;color:var(--muted)}
+.feature details p b{color:var(--ink)}
+.fstats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.fstats b{display:block;font:400 30px/1.05 var(--serif);color:var(--ink)}
+.fstats span{font-size:12px;color:var(--muted);line-height:1.4;display:block}
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+.case{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);display:flex;flex-direction:column}
+.case figure{margin:0;aspect-ratio:4/3;overflow:hidden;position:relative;background:var(--tint)}
+.case figure img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.case:hover figure img{transform:scale(1.04)}
+.case .dhi{background:#11206E;display:grid;place-items:center}
+.case .dhi img{width:70%;height:auto;object-fit:contain}
+.soon{position:absolute;top:12px;right:12px;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border-radius:999px;background:var(--teal);color:#fff}
+.case-in{padding:20px;display:grid;gap:10px;flex:1;align-content:start}
+.case-in h3{font:400 22px/1.15 var(--serif);margin:0}
+.case-in p{margin:0;font-size:14px;color:var(--muted)}
+.res{display:flex;align-items:baseline;gap:10px;border-top:1px solid var(--line);padding-top:12px;margin-top:auto}
+.res b{font:400 28px/1 var(--serif)}
+.res span{font-size:12.5px;color:var(--muted)}
+@media (max-width:860px){.feature{grid-template-columns:1fr}.feature figure{aspect-ratio:4/3}.fstats{grid-template-columns:repeat(2,1fr)}.cases{grid-template-columns:1fr}}
+
+/* approach */
+.lead-quote{font:400 clamp(20px,2.4vw,28px)/1.4 var(--serif);max-width:44ch;margin:0 0 40px;color:var(--ink)}
+.lead-quote b{font-weight:400;color:var(--label)}
+.pov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pov{border:1px solid var(--line);border-radius:14px;padding:26px;background:var(--card);display:grid;gap:12px;align-content:start}
+.pov::before{content:"";width:20px;height:4px;border-radius:2px;background:var(--tab,var(--reef))}
+.pov .k{font:400 clamp(38px,4vw,52px)/1 var(--serif);color:var(--ink)}
+.pov h3{font-weight:600;font-size:16px;line-height:1.35;margin:0}
+.pov p{margin:0;font-size:14px;color:var(--muted)}
+.pov-navy{background:var(--navy);border-color:var(--navy);color:#fff}
+.pov-navy::before{background:var(--lagoon)}
+.pov-navy .k{color:#fff}.pov-navy p{color:rgba(255,255,255,.78)}
+:root[data-theme="dark"] .pov-navy{background:#2A3560;border-color:#2A3560}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pov-navy{background:#2A3560;border-color:#2A3560}}
+@media (max-width:860px){.pov-grid{grid-template-columns:1fr}}
+
+/* process */
+.pw{display:grid;grid-template-columns:.85fr 2fr;gap:16px}
+.pw-photo{margin:0;position:relative;border-radius:14px;overflow:hidden;min-height:100%}
+.pw-photo img{width:100%;height:100%;object-fit:cover}
+.pw-photo figcaption{position:absolute;left:12px;right:12px;bottom:12px;padding:10px 14px;border-radius:10px;background:rgba(10,14,28,.62);color:#fff;font-size:13.5px}
+.pw-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.step{position:relative;border:1px solid var(--line);border-radius:14px;padding:22px;background:var(--card);display:grid;gap:6px;align-content:start}
+.step .ico{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;background:var(--tab);color:#fff;font-size:19px;margin-bottom:8px}
+.step .n{position:absolute;top:18px;right:20px;font:400 36px/1 var(--serif);color:var(--line)}
+.step .when{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--label)}
+.step h3{font:400 22px/1.15 var(--serif);margin:0}
+.step p{margin:0;font-size:14px;color:var(--muted)}
+@media (max-width:860px){.pw{grid-template-columns:1fr}.pw-photo{aspect-ratio:4/3}.pw-grid{grid-template-columns:1fr}}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(24px,5vw,72px);align-items:center}
+.contact-copy{display:grid;gap:16px}
+.contact-copy h2{font:400 clamp(38px,5.4vw,64px)/1.02 var(--serif);margin:0}
+.contact-copy h2 span{color:var(--lagoon)}
+.contact-copy > p{margin:0;max-width:46ch;color:var(--muted)}
+.contact-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.btn .ic{font-size:16px}
+.btn-wa{background:#1F9D57}.btn-wa:hover{background:#178248}
+.btn-tg{background:#2A9ED8}.btn-tg:hover{background:#1F86BA}
+.contact-lines{display:flex;flex-wrap:wrap;gap:8px 22px}
+.contact-lines a,.contact-lines button{display:inline-flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;font:500 14px var(--sans);background:none;border:0;padding:6px 0;cursor:pointer}
+.contact-fig{margin:0}
+.contact-fig img{width:100%;max-width:320px;margin-left:auto;transform:rotate(2deg)}
+@media (max-width:860px){.contact{grid-template-columns:1fr}.contact-fig img{max-width:260px;margin:0 auto}}
+
+footer .socials{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+footer .socials a{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none}
+footer .socials a:hover{color:var(--ink)}
+
+/* lightbox */
+.lb{border:0;padding:0;margin:0;max-width:none;max-height:none;width:100vw;height:100dvh;background:rgba(8,11,22,.94);color:#fff}
+.lb::backdrop{background:rgba(8,11,22,.6)}
+.lb-stage{position:absolute;inset:56px 64px 72px;display:grid;place-items:center}
+.lb-stage img,.lb-stage video{max-width:100%;max-height:100%;border-radius:10px;object-fit:contain}
+.lb-btn{position:absolute;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;display:grid;place-items:center;font-size:18px;cursor:pointer}
+.lb-x{top:12px;right:12px}.lb-prev{left:12px;top:50%;transform:translateY(-50%)}.lb-next{right:12px;top:50%;transform:translateY(-50%)}
+.lb-sound{bottom:14px;right:14px}
+.lb-cap{position:absolute;left:16px;right:72px;bottom:18px;margin:0;font-size:14px;opacity:.85}
+@media (max-width:640px){.lb-stage{inset:56px 8px 64px}.lb-prev,.lb-next{top:auto;bottom:10px;transform:none}.lb-prev{left:auto;right:120px}.lb-next{right:66px}.lb-cap{right:180px}}
+
 /* intro */
 .intro-on .fade{opacity:0}
 .intro-on .ghost-hi{visibility:hidden}
@@ -270,9 +412,9 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
       <svg class="mark" viewBox="0 0 1400 1400" aria-hidden="true"><rect width="1400" height="1400" rx="300"/><g transform="translate(182 1075)"><path fill="#fff" d="M917 -268 817 -212V-534L581 -56Q576 -45 564 -45H472Q460 -45 454 -56L219 -534V-155Q219 -115 237.0 -87.5Q255 -60 292 -60Q307 -60 307 -45V-15Q307 0 292 0H45Q30 0 30 -15V-45Q30 -60 45 -60Q82 -60 100.5 -87.5Q119 -115 119 -155V-675Q105 -683 89.5 -686.5Q74 -690 57 -690Q42 -690 42 -705V-735Q42 -750 57 -750H245Q259 -750 263 -741L518 -225L773 -741Q777 -750 791 -750H979Q994 -750 994 -735V-705Q994 -690 979 -690Q963 -690 947.0 -686.5Q931 -683 917 -675Z"/><circle cx="867" cy="-90" r="90" fill="#0FB8C9"/></g></svg>
     </a>
     <nav class="links" aria-label="Main">
-      <a href="#about">About</a><a href="#">Work</a><a href="#">Content</a><a href="#check">Health check</a><a href="#">Contact</a>
+      <a href="#about">About</a><a href="#content">Content</a><a href="#work">Work</a><a href="#check">Health check</a><a href="#contact">Contact</a>
     </nav>
-    <div class="head-r"><button class="theme" id="theme" type="button" aria-label="Switch to dark mode"><i class="ph ph-moon" aria-hidden="true"></i></button><a class="btn btn--ghost" href="#">Request a call</a></div>
+    <div class="head-r"><button class="theme" id="theme" type="button" aria-label="Switch to dark mode"><i data-ic="moon"></i></button><a class="btn btn--ghost" href="#contact">Request a call</a></div>
   </div>
 </header>
 
@@ -397,15 +539,170 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
           </div>
         </div>
         <div class="cta-wrap">
-          <a class="cta" id="tzGo" href="https://abdullamuiz.github.io/portfolio/health-check.html"><span>Let’s dive deeper and get the full report</span><i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          <a class="cta" id="tzGo" href="https://abdullamuiz.github.io/portfolio/health-check.html"><span>Let’s dive deeper and get the full report</span><i data-ic="right"></i></a>
           <span class="fine">Free · 5 minutes · no sign-up · your report as a PDF</span>
         </div>
       </div>
     </div>
   </section>
+  <!-- ================= CONTENT: film, reels, photos, campaigns ================= -->
+  <section class="block" id="content">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="label">Content</span>
+        <h2>Shot, directed and edited in-house<span>.</span></h2>
+        <p class="small">Fifteen years behind the camera, for resorts, restaurants and brands.</p>
+      </div>
+      <div class="film reveal">
+        <video id="film" muted loop playsinline preload="metadata" data-poster="images/brand-intro-poster.jpg"><source data-src="video/brand-intro.mp4" type="video/mp4"></video>
+        <div class="film-bar">
+          <div><span class="label">Motion · brand film</span><h3>Branding intro for a website hero</h3><p>A 50-second resort brand film for Reethi Beach Resort, cut for the top of a homepage.</p></div>
+          <div class="film-ctrl">
+            <button class="icon-btn" id="filmSound" type="button" aria-label="Turn sound on"><i data-ic="volx"></i></button>
+            <button class="icon-btn" id="filmFull" type="button" aria-label="Watch fullscreen"><i data-ic="max"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap sub-head reveal">
+      <div><span class="label">Motion · reels</span><h3 class="h3s">Reels, shot and edited for the feed<span>.</span></h3></div>
+      <div class="filters" role="group" aria-label="Filter reels" data-group="reel"><button type="button" data-filter="all" aria-pressed="true">All</button><button type="button" data-filter="resort" aria-pressed="false">Resort</button><button type="button" data-filter="fnb" aria-pressed="false">F&amp;B</button><button type="button" data-filter="lifestyle" aria-pressed="false">Lifestyle</button></div>
+    </div>
+    <div class="reels reveal" id="reels" aria-label="Reels"></div>
+    <div class="wrap strip-ctrl"><button class="icon-btn" id="reelPrev" type="button" aria-label="Previous reels"><i data-ic="left"></i></button><button class="icon-btn" id="reelNext" type="button" aria-label="More reels"><i data-ic="right"></i></button></div>
+
+    <div class="wrap sub-head reveal">
+      <div><span class="label">Static · photo</span><h3 class="h3s">Photos for posts and listings<span>.</span></h3></div>
+      <div class="filters" role="group" aria-label="Filter photos" data-group="photo"><button type="button" data-filter="all" aria-pressed="true">All</button><button type="button" data-filter="resort" aria-pressed="false">Resort</button><button type="button" data-filter="fnb" aria-pressed="false">F&amp;B</button><button type="button" data-filter="lifestyle" aria-pressed="false">Lifestyle</button></div>
+    </div>
+    <div class="wrap"><div class="photos reveal" id="photos"></div></div>
+
+    <div class="wrap sub-head reveal">
+      <div><span class="label">Campaigns · ads and print</span><h3 class="h3s">Designed, written and launched in-house<span>.</span></h3></div>
+    </div>
+    <div class="wrap"><div class="camps reveal" id="camps"></div></div>
+  </section>
+
+  <!-- ================= WORK ================= -->
+  <section class="block" id="work">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="label">Selected work</span>
+        <h2>Highlights of past projects<span>.</span></h2>
+      </div>
+      <article class="feature reveal">
+        <figure><img data-src="images/case-reethi.jpg" width="1200" height="900" alt="Reethi Beach Resort, Baa Atoll, from above" loading="lazy"></figure>
+        <div class="feature-body">
+          <div class="tags"><span>Resort</span><span>Influencers</span><span>SEO and web</span></div>
+          <h3>Reethi Beach Resort</h3>
+          <p class="muted">Marketing Manager, 2021 to 2022. Paid social, influencer programmes, broadcast and print features across European markets.</p>
+          <details>
+            <summary>Challenge and approach <i data-ic="plus"></i></summary>
+            <p><b>Challenge.</b> When I joined, the website was stuck in an early-2000s format with no way to book direct. Around 90% of bookings came through OTAs, and the rest through bulk-buying agents taking even higher commissions. Social media had stalled and LinkedIn wasn't on the radar. I was contracted for one year to overhaul digital marketing and leave behind a system the team could run as its standard procedure.</p>
+            <p><b>Approach.</b> Built annual social strategies by source market and ran paid campaigns on Facebook and Instagram. Hosted up to 12 influencer and creator visits a year, including Miss Germany 2022 and an Italian travel documentary crew. Produced seasonal campaigns, magazine advertorials and on-island print, sent monthly newsletters to repeat guests and represented the resort at trade fairs, with Google Analytics reporting guiding every decision.</p>
+          </details>
+          <div class="fstats">
+            <div><b>12</b><span>influencer collaborations a year</span></div>
+            <div><b>30+</b><span>prime-time TV broadcasts in Italy</span></div>
+            <div><b>20K</b><span>Facebook followers milestone</span></div>
+            <div><b>2022</b><span>HolidayCheck Special Award</span></div>
+          </div>
+        </div>
+      </article>
+      <div class="cases">
+        <article class="case reveal">
+          <figure><img data-src="images/case-missgermany.jpg" width="1080" height="810" alt="Miss Germany 2022 content shoot in the Maldives" loading="lazy"></figure>
+          <div class="case-in"><div class="tags"><span>Influencer</span><span>German market</span></div><h3>Miss Germany 2022 in the Maldives</h3><p>Content creation and social strategy for Domitila Barros, including coral planting and a beach birthday, aimed at the German market.</p><div class="res"><b>180K</b><span>her Instagram following at the time</span></div></div>
+        </article>
+        <article class="case reveal">
+          <figure><img data-src="images/sme-hub-bcc.jpg" width="1000" height="750" alt="Muiz at work at Business Centre Corporation" loading="lazy"></figure>
+          <div class="case-in"><div class="tags"><span>Strategy</span><span>SME growth</span></div><h3>SME HUB, Business Centre Corporation</h3><p>Brand visibility and growth campaigns for 23 incubated businesses, with market analysis, budgets and partnerships.</p><div class="res"><b>23</b><span>businesses incubated</span></div></div>
+        </article>
+        <article class="case reveal">
+          <figure class="dhi"><img data-src="images/logos/dhibrew.png" width="700" height="700" alt="Dhi Brew Lab logo" loading="lazy"><span class="soon">Brewing soon</span></figure>
+          <div class="case-in"><div class="tags"><span>F&amp;B</span><span>Brand launch</span></div><h3>Dhi Brew Lab</h3><p>My own small-batch cold brew brand in Malé, built from the ground up: identity, label design, product photography and launch content.</p><div class="res"><b>2026</b><span>launching in Malé</span></div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= APPROACH ================= -->
+  <section class="block" id="approach">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="label">Approach</span>
+        <h2>What a decade of watching the industry change taught me<span>.</span></h2>
+      </div>
+      <p class="lead-quote reveal">Most properties hire one person for strategy, another for content and an agency for reporting. Some skip reporting altogether, so ad spend goes out with no real way to see what it brings back. <b>I work in systems: every expense is tracked, measured and accountable for its impact.</b></p>
+      <div class="pov-grid">
+        <article class="pov reveal" style="--tab:var(--reef)"><b class="k">18 to 35%</b><h3>OTAs made booking easier and marketing harder.</h3><p>Tour operators once briefed guests on the destination and handled problems as part of the sale. Online travel agencies replaced that with a Book now button, and properties pay 18 to 35% of every room night for it.</p><p>Big chains hire agencies to build direct channels. A guesthouse with 10 rooms or fewer can do the same, with a little consistent extra work that pays back for years.</p></article>
+        <article class="pov reveal" style="--tab:var(--sea)"><b class="k">10K ≠ 10K</b><h3>More posts don't mean more customers.</h3><p>In food and beverage, the competition is fierce and the pressure to post never stops. But 10,000 followers doesn't mean 10,000 customers in a month, or even in three.</p><p>The Maldives market is finite. Repeat customers are what keep sales from bottoming out, so that's who the content should serve.</p></article>
+        <article class="pov pov-navy reveal"><b class="k">Partner</b><h3>Not just another member of staff.</h3><p>Most marketers know all this. But for an employee, the job often ends at showing that content grew. Whether it turned into sales is left to the finance team.</p><p>I work differently. I judge marketing by the growth it brings to your business, and I own that result with you.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROCESS ================= -->
+  <section class="block" id="process">
+    <div class="wrap">
+      <div class="head reveal">
+        <span class="label">Process</span>
+        <h2>How we work together<span>.</span></h2>
+        <p class="small">Every month runs the same loop: plan, spend, measure, adjust. So every amount spent can be traced to what it brought back.</p>
+      </div>
+      <div class="pw">
+        <figure class="pw-photo reveal"><img data-src="images/muiz-working.jpg" width="960" height="1200" alt="Muiz planning a campaign on his laptop" loading="lazy"><figcaption>One point of contact, start to finish.</figcaption></figure>
+        <div class="pw-grid">
+          <div class="step reveal" style="--tab:var(--reef)"><span class="ico"><i data-ic="search"></i></span><span class="n">01</span><span class="when">Weeks 1 to 2</span><h3>Audit</h3><p>Your channels, listings, competitors and current numbers, scored against the funnel.</p></div>
+          <div class="step reveal" style="--tab:var(--lagoon)"><span class="ico"><i data-ic="map"></i></span><span class="n">02</span><span class="when">Week 3</span><h3>Plan</h3><p>A 90-day plan with goals, content pillars, a calendar and the numbers we'll judge it by.</p></div>
+          <div class="step reveal" style="--tab:var(--sea)"><span class="ico"><i data-ic="aperture"></i></span><span class="n">03</span><span class="when">Every month</span><h3>Create</h3><p>On-site shoots, production, scheduling and community work, all handled by me.</p></div>
+          <div class="step reveal" style="--tab:var(--deep)"><span class="ico"><i data-ic="chart"></i></span><span class="n">04</span><span class="when">Month end</span><h3>Report</h3><p>One page and one call: what worked, what it brought back and what changes next.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section class="block" id="contact">
+    <div class="wrap contact">
+      <div class="contact-copy">
+        <span class="label reveal">Contact</span>
+        <h2 class="reveal">Tell me about your business<span>.</span></h2>
+        <p class="reveal">A short call is the easiest start. No decision needed, just a conversation about where your marketing stands.</p>
+        <div class="contact-row reveal">
+          <a class="btn" href="mailto:muiz@islandeative.com?subject=Call%20request">Request a call <i data-ic="upright"></i></a>
+          <a class="btn btn-wa" href="https://wa.me/9609902996" target="_blank" rel="noopener"><i data-ic="whatsapp"></i> WhatsApp</a>
+          <a class="btn btn-tg" href="https://t.me/muizfuad" target="_blank" rel="noopener"><i data-ic="send"></i> Telegram</a>
+        </div>
+        <div class="contact-lines reveal">
+          <a href="tel:+9609902996"><i data-ic="phone"></i><span>+960 990 2996</span></a>
+          <button type="button" id="copyMail"><i data-ic="copy"></i><span>muiz@islandeative.com</span></button>
+        </div>
+      </div>
+      <figure class="contact-fig reveal"><img data-src="images/muiz-contact-paper.webp" width="900" height="1194" alt="Abdulla Muiz Fuad, smiling" loading="lazy"></figure>
+    </div>
+  </section>
 </main>
 
-<footer><div class="wrap"><span>Abdulla Muiz Fuad · +960 990 2996 · muiz@islandeative.com</span><button class="replay" id="replay" type="button" hidden>↺ Replay intro</button></div></footer>
+<footer><div class="wrap">
+  <span>© 2026 Abdulla Muiz Fuad · Malé, Maldives</span>
+  <div class="socials">
+    <a href="https://www.linkedin.com/in/abdullamuizfuad/" target="_blank" rel="noopener"><i data-ic="linkedin"></i> LinkedIn</a>
+    <a href="https://www.instagram.com/emyuaizee" target="_blank" rel="noopener"><i data-ic="instagram"></i> Instagram</a>
+    <a href="https://t.me/muizfuad" target="_blank" rel="noopener"><i data-ic="send"></i> Telegram</a>
+    <button class="replay" id="replay" type="button" hidden>↺ Replay intro</button>
+  </div>
+</div></footer>
+
+<dialog class="lb" id="lb" aria-label="Media viewer">
+  <div class="lb-stage" id="lbStage"></div>
+  <button class="lb-btn lb-x" id="lbX" type="button" aria-label="Close"><i data-ic="x"></i></button>
+  <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="Previous"><i data-ic="left"></i></button>
+  <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="Next"><i data-ic="right"></i></button>
+  <button class="lb-btn lb-sound" id="lbSound" type="button" aria-label="Turn sound on" hidden><i data-ic="volx"></i></button>
+  <p class="lb-cap" id="lbCap"></p>
+</dialog>
 
 <div class="intro" id="intro" aria-hidden="true">
   <div class="bubble" id="bubble"><svg viewBox="8 104 1062 1093"><use href="#bub"/></svg></div>
@@ -413,6 +710,89 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
 </div>
 <button class="skip" id="skip" type="button">Skip</button>
 
+<script>
+/* inline line icons (no external icon font needed) */
+window.ICP = {
+  bed:'M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9',
+  utensils:'M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3m0 0v7',
+  waves:'M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1',
+  store:'M3 9l1.5-5h15L21 9M4 9v11h16V9M3 9h18M9 20v-6h6v6',
+  house:'M3 10l9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z',
+  idcard:'M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2ZM7 10h4M7 14h6M15 10h2M15 14h2',
+  plane:'M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2Z',
+  instagram:'M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5ZM16 11.4A4 4 0 1 1 12.6 8 4 4 0 0 1 16 11.4ZM17.5 6.5h.01',
+  facebook:'M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3Z',
+  tiktok:'M16 3c.3 2.3 1.8 3.8 4 4v3.2c-1.5 0-2.9-.4-4-1.2V15a6 6 0 1 1-6-6v3.3A2.8 2.8 0 1 0 12.8 15V3Z',
+  linkedin:'M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6ZM2 9h4v12H2ZM4 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4',
+  book:'M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2ZM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7Z',
+  music:'M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM21 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z',
+  users:'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8',
+  send:'M22 2 11 13M22 2l-7 20-4-9-9-4Z',
+  check:'M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0ZM8 12l3 3 5-6',
+  alert:'M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0ZM12 8v4M12 16h.01',
+  warn:'M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0ZM12 9v4M12 17h.01',
+  right:'M5 12h14M13 6l6 6-6 6', left:'M19 12H5M11 6l-6 6 6 6', upright:'M7 17 17 7M8 7h9v9',
+  moon:'M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z',
+  sun:'M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4',
+  plus:'M12 5v14M5 12h14', x:'M18 6 6 18M6 6l12 12', play:'M7 4v16l13-8Z',
+  volx:'M11 5 6 9H2v6h4l5 4ZM22 9l-6 6M16 9l6 6', vol:'M11 5 6 9H2v6h4l5 4ZM15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14',
+  max:'M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7',
+  search:'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM21 21l-4.3-4.3',
+  map:'M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2ZM9 4v14M15 6v14',
+  aperture:'M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0ZM14.3 8l5.7 9.9M9.7 8h11.5M7.4 12l5.7-9.9M9.7 16 4 6.1M14.3 16H2.8M16.6 12l-5.7 9.9',
+  chart:'M3 3v18h18M7 16v-4M12 16V8M17 16V9',
+  phone:'M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z',
+  copy:'M10 8h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2ZM4 16a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2',
+  whatsapp:'M3 21l1.6-4.6A9 9 0 1 1 8 19.6ZM9 8.8c0 3.4 2.8 6.2 6.2 6.2l1-1.3-1.9-1-1 .8a5 5 0 0 1-2.1-2.1l.8-1-1-1.9Z',
+  mail:'M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2ZM22 7l-10 6L2 7'
+};
+window.IC = function (n) { return '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="' + (window.ICP[n] || '') + '"/></svg>'; };
+window.hydrateIcons = function (root) { (root || document).querySelectorAll('[data-ic]').forEach(function (el) { el.innerHTML = window.IC(el.dataset.ic); el.removeAttribute('data-ic'); }); };
+
+hydrateIcons();
+</script>
+<script>
+/* media library (same as the live portfolio) */
+var REELS=[
+  {type:'reel', cat:'lifestyle', src:'video/reels/reel-13.mp4', poster:'images/reels/reel-13.jpg', alt:'Ocean Eyes'},
+  {type:'reel', cat:'lifestyle', src:'video/reels/reel-14.mp4', poster:'images/reels/reel-14.jpg', alt:'Swimming with mantas'},
+  {type:'reel', cat:'resort', src:'video/reels/reel-02.mp4', poster:'images/reels/reel-02.jpg', alt:'Paddleboard over a stingray'},
+  {type:'reel', cat:'resort', src:'video/reels/reel-15.mp4', poster:'images/reels/reel-15.jpg', alt:'Lagoon swing and paddleboards'},
+  {type:'reel', cat:'resort', src:'video/reels/reel-01.mp4', poster:'images/reels/reel-01.jpg', alt:'Aerial lagoon swing'},
+  {type:'reel', cat:'fnb', src:'video/reels/reel-17.mp4', poster:'images/reels/reel-17.jpg', alt:'Walking to breakfast'},
+  {type:'reel', cat:'resort', src:'video/reels/reel-05.mp4', poster:'images/reels/reel-05.jpg', alt:'HolidayCheck Special Award 2022'},
+  {type:'reel', cat:'fnb', src:'video/reels/reel-18.mp4', poster:'images/reels/reel-18.jpg', alt:'Signature blue cocktail'},
+  {type:'reel', cat:'resort', src:'video/reels/reel-16.mp4', poster:'images/reels/reel-16.jpg', alt:'Snorkel day, from above'},
+  {type:'reel', cat:'lifestyle', src:'video/reels/reel-10.mp4', poster:'images/reels/reel-10.jpg', alt:'Coral planting, underwater'},
+  {type:'reel', cat:'resort', src:'video/reels/reel-04.mp4', poster:'images/reels/reel-04.jpg', alt:'Sandbank from above'},
+  {type:'reel', cat:'lifestyle', src:'video/reels/reel-08.mp4', poster:'images/reels/reel-08.jpg', alt:'Beach birthday set-up'},
+  {type:'reel', cat:'fnb', src:'video/reels/reel-12.mp4', poster:'images/reels/reel-12.jpg', alt:'Chocolate product shoot'},
+  {type:'reel', cat:'resort', src:'video/reels/reel-07.mp4', poster:'images/reels/reel-07.jpg', alt:'Guesthouse room tour'},
+];
+var PHOTOS=[
+  {type:'photo', cat:'lifestyle', poster:'images/photos/photo-19.jpg', alt:'Beach walk'},
+  {type:'photo', cat:'fnb', poster:'images/photos/photo-02.jpg', alt:'Pad thai with spices'},
+  {type:'photo', cat:'resort', poster:'images/photos/photo-20.jpg', alt:'Turtle by the water villas'},
+  {type:'photo', cat:'fnb', poster:'images/photos/photo-04.jpg', alt:'Pumpkin dish by the lagoon'},
+  {type:'photo', cat:'lifestyle', poster:'images/photos/photo-05.jpg', alt:'Floating breakfast'},
+  {type:'photo', cat:'fnb', poster:'images/photos/photo-06.jpg', alt:'Candlelit sharing platter'},
+  {type:'photo', cat:'lifestyle', poster:'images/photos/photo-21.jpg', alt:'Snorkelling with a nurse shark'},
+  {type:'photo', cat:'fnb', poster:'images/photos/photo-12.jpg', alt:'Fruit basket in the garden'},
+  {type:'photo', cat:'resort', poster:'images/photos/photo-09.jpg', alt:'Heart dinner at night'},
+  {type:'photo', cat:'fnb', poster:'images/photos/photo-14.jpg', alt:'Fried prawns'},
+  {type:'photo', cat:'lifestyle', poster:'images/photos/photo-13.jpg', alt:'Beach wedding'},
+  {type:'photo', cat:'fnb', poster:'images/photos/photo-18.jpg', alt:'Lagoon salad'}
+];
+var CAMPS=[
+  {poster:'images/campaigns/manta.jpg', t:'Manta Season offer', s:'Paid social ad. 84,688 people reached.'},
+  {poster:'images/campaigns/20k.jpg', t:'20K milestone', s:'Facebook community thank-you post.'},
+  {poster:'images/campaigns/award.jpg', t:'HolidayCheck Special Award 2022', s:'Award announcement for social.'},
+  {poster:'images/campaigns/valentines.jpg', t:'Valentine’s Day', s:'Seasonal campaign post.'},
+  {poster:'images/campaigns/wedding.jpg', t:'Say I do the tropical way', s:'Destination weddings magazine advertorial.'},
+  {poster:'images/campaigns/xstand.jpg', t:'On-island promotion stands', s:'Print for guest events and special dinners.'}
+];
+
+</script>
 <script>
 (() => {
   const $ = id => document.getElementById(id);
@@ -432,7 +812,7 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
   const themeBtn = $('theme');
   const sysDark = matchMedia('(prefers-color-scheme: dark)');
   const current = () => root.dataset.theme || (sysDark.matches ? 'dark' : 'light');
-  const paintBtn = () => { const d = current() === 'dark'; themeBtn.innerHTML = `<i class="ph ph-${d ? 'sun' : 'moon'}" aria-hidden="true"></i>`; themeBtn.setAttribute('aria-label', d ? 'Switch to light mode' : 'Switch to dark mode'); };
+  const paintBtn = () => { const d = current() === 'dark'; themeBtn.innerHTML = '<i>' + IC(d ? 'sun' : 'moon') + '</i>'; themeBtn.setAttribute('aria-label', d ? 'Switch to light mode' : 'Switch to dark mode'); };
   try { const saved = localStorage.getItem('theme'); if (saved) root.dataset.theme = saved; } catch (e) {}
   paintBtn();
   themeBtn.addEventListener('click', () => {
@@ -549,22 +929,22 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
   (function(){
   var root=document.getElementById('check'); if(!root||!document.getElementById('tzSvg')) return;
   var CATS=[
-    {id:'stay',n:'Stay',ic:'ph-bed',subs:[['resort','Resort'],['hotel','Hotel'],['guesthouse','Guesthouse'],['homestay','Homestay'],['liveaboard','Liveaboard']]},
-    {id:'food',n:'Food & drink',ic:'ph-fork-knife',subs:[['cafe','Café'],['restaurant','Restaurant'],['takeaway','Takeaway & delivery']]},
-    {id:'exp',n:'Experiences & services',ic:'ph-waves',subs:[['dive','Dive centre'],['spa','Spa & wellness'],['tours','Excursions & tours'],['service','Other service']]},
-    {id:'shop',n:'Shops & online',ic:'ph-storefront',subs:[['shop','Shop'],['online','Online store'],['other','Other']]}
+    {id:'stay',n:'Stay',ic:'bed',subs:[['resort','Resort'],['hotel','Hotel'],['guesthouse','Guesthouse'],['homestay','Homestay'],['liveaboard','Liveaboard']]},
+    {id:'food',n:'Food & drink',ic:'utensils',subs:[['cafe','Café'],['restaurant','Restaurant'],['takeaway','Takeaway & delivery']]},
+    {id:'exp',n:'Experiences & services',ic:'waves',subs:[['dive','Dive centre'],['spa','Spa & wellness'],['tours','Excursions & tours'],['service','Other service']]},
+    {id:'shop',n:'Shops & online',ic:'store',subs:[['shop','Shop'],['online','Online store'],['other','Other']]}
   ];
-  var AUDS=[['locals','Locals','ph-house-line'],['expats','Expats','ph-identification-card'],['tourists','Tourists','ph-airplane-tilt']];
+  var AUDS=[['locals','Locals','house'],['expats','Expats','idcard'],['tourists','Tourists','plane']];
   var MKS=[['cn','China'],['ru','Russia'],['it','Italy'],['uk','UK'],['de','Germany'],['in','India'],['other','Others']];
   var ISL=[['male','Malé'],['hulhu','Hulhumalé'],['villi','Villimalé'],['addu','Addu City'],['fuvah','Fuvahmulah'],['kulhu','Kulhudhuffushi'],['thina','Thinadhoo'],['islands','Other islands']];
-  var PL=[['instagram','Instagram','ph-instagram-logo'],['facebook','Facebook','ph-facebook-logo'],['tiktok','TikTok','ph-tiktok-logo'],['linkedin','LinkedIn','ph-linkedin-logo']];
-  var XPL={cn:[['red','RED (Xiaohongshu)','ph-book-open-text'],['douyin','Douyin','ph-music-notes']],ru:[['vk','VK','ph-users-three'],['telegram','Telegram','ph-telegram-logo']]};
+  var PL=[['instagram','Instagram','instagram'],['facebook','Facebook','facebook'],['tiktok','TikTok','tiktok'],['linkedin','LinkedIn','linkedin']];
+  var XPL={cn:[['red','RED (Xiaohongshu)','book'],['douyin','Douyin','music']],ru:[['vk','VK','users'],['telegram','Telegram','send']]};
   function plats(){var l=PL.slice(); if(S.aud.tourists){if(S.mk.cn)l=l.concat(XPL.cn); if(S.mk.ru)l=l.concat(XPL.ru);} return l;}
   var S={cat:null,bt:null,aud:{},mk:{},is:{},p:{}};
   function $(id){return document.getElementById(id);}
   function keys(o){return Object.keys(o).filter(function(k){return o[k];});}
   function list(a){return a.length<2?a.join(''):a.slice(0,-1).join(', ')+' and '+a[a.length-1];}
-  function btn(attr,v,label,on,icon,extra){return '<button type="button" '+attr+'="'+v+'" aria-pressed="'+(!!on)+'">'+(icon?'<i class="ph '+icon+'" aria-hidden="true"></i>':'')+label+(extra||'')+'</button>';}
+  function btn(attr,v,label,on,icon,extra){return '<button type="button" '+attr+'="'+v+'" aria-pressed="'+(!!on)+'">'+(icon?'<i>'+IC(icon)+'</i>':'')+label+(extra||'')+'</button>';}
 
   /* funnel svg */
   var ST=[['aw','Awareness','M10,18 L410,18 L377,76 A167,10.9 0 0 1 43,76 Z',210,18,200,'#0B8794','#5FD3E0'],
@@ -638,9 +1018,9 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
     else v('','High risk','Most of your audience can’t see you','You reach about '+pct+'% of the people you sell to.'+(miss.length?' Start with '+list(miss)+'.':'')+(core===1?' Everything rides on one app.':''));
     var notes=[];
     function note(lbl,a,b,why,whyA,whyB,done){
-      var ha=S.p[a[0]],hb=S.p[b[0]],cls=ha&&hb?'good':ha||hb?'warn':'bad',ic=cls==='good'?'ph-check-circle':cls==='warn'?'ph-warning-circle':'ph-warning';
+      var ha=S.p[a[0]],hb=S.p[b[0]],cls=ha&&hb?'good':ha||hb?'warn':'bad',ic=cls==='good'?'check':cls==='warn'?'alert':'warn';
       var body=cls==='good'?done:cls==='warn'?(ha?whyB:whyA):why;
-      notes.push('<div class="tz-note '+cls+'"><i class="ph '+ic+'" aria-hidden="true"></i><div><b>'+lbl+(cls==='good'?': covered':cls==='warn'?': half covered':'')+'</b><span>'+body+'</span></div></div>');
+      notes.push('<div class="tz-note '+cls+'"><i>'+IC(ic)+'</i><div><b>'+lbl+(cls==='good'?': covered':cls==='warn'?': half covered':'')+'</b><span>'+body+'</span></div></div>');
     }
     if(S.aud.tourists&&S.mk.cn) note('Chinese guests',XPL.cn[0],XPL.cn[1],
       'Instagram, Facebook and TikTok don’t work in mainland China. Chinese travellers plan trips on RED (Xiaohongshu) and get inspired on Douyin. Add both to reach them.',
@@ -737,6 +1117,90 @@ footer .wrap{padding-top:18px;padding-bottom:28px;display:flex;flex-wrap:wrap;ju
   const go = () => reduce ? finish(true) : play();
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(go));
 })();
+</script>
+<script>
+/* ---------- media base: the branch/local copies sit one folder below the site's images ---------- */
+(function(){
+  var BASE = /\/landing(-test)?\//.test(location.pathname) ? '../' : '';
+  window.MEDIA = function (p) { return BASE + p; };
+  document.querySelectorAll('img[data-src]').forEach(function (el) { el.src = MEDIA(el.dataset.src); });
+  document.querySelectorAll('video[data-poster]').forEach(function (el) { el.poster = MEDIA(el.dataset.poster); });
+  document.querySelectorAll('source[data-src]').forEach(function (el) { el.src = MEDIA(el.dataset.src); el.parentNode.load(); });
+
+  /* film: play muted while on screen */
+  var film = document.getElementById('film');
+  if (film) {
+    new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { var p = film.play(); if (p && p.catch) p.catch(function(){}); } else film.pause(); }); }, { threshold: .35 }).observe(film);
+    var fs = document.getElementById('filmSound');
+    fs.addEventListener('click', function () { film.muted = !film.muted; fs.innerHTML = IC(film.muted ? 'volx' : 'vol'); fs.setAttribute('aria-label', film.muted ? 'Turn sound on' : 'Turn sound off'); if (!film.muted) film.play(); });
+    document.getElementById('filmFull').addEventListener('click', function () { var el = film; (el.requestFullscreen || el.webkitEnterFullscreen || el.webkitRequestFullscreen || function(){}).call(el); film.muted = false; fs.innerHTML = IC('vol'); film.play(); });
+  }
+
+  /* reels, photos, campaigns */
+  var filt = { reel: 'all', photo: 'all' };
+  function list(type) { var src = type === 'reel' ? REELS : PHOTOS; return src.filter(function (x) { return filt[type] === 'all' || x.cat === filt[type]; }); }
+  function drawReels() {
+    document.getElementById('reels').innerHTML = list('reel').map(function (r, i) {
+      return '<button class="reel" type="button" data-lb="reel" data-i="' + i + '"><img src="' + MEDIA(r.poster) + '" alt="' + r.alt + '" loading="lazy"><span class="pl"><i>' + IC('play') + '</i>' + r.alt + '</span></button>';
+    }).join('');
+  }
+  function drawPhotos() {
+    document.getElementById('photos').innerHTML = list('photo').map(function (r, i) {
+      return '<button type="button" data-lb="photo" data-i="' + i + '"><img src="' + MEDIA(r.poster) + '" alt="' + r.alt + '" loading="lazy"></button>';
+    }).join('');
+  }
+  document.getElementById('camps').innerHTML = CAMPS.map(function (c, i) {
+    return '<button class="camp" type="button" data-lb="camp" data-i="' + i + '"><span class="pr"><img src="' + MEDIA(c.poster) + '" alt="' + c.t + '" loading="lazy"></span><span><b>' + c.t + '</b><small>' + c.s + '</small></span></button>';
+  }).join('');
+  drawReels(); drawPhotos();
+  document.querySelectorAll('.filters').forEach(function (g) {
+    g.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      g.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+      filt[g.dataset.group] = b.dataset.filter;
+      g.dataset.group === 'reel' ? drawReels() : drawPhotos();
+    });
+  });
+  var rs = document.getElementById('reels');
+  document.getElementById('reelPrev').addEventListener('click', function () { rs.scrollBy({ left: -rs.clientWidth * .8, behavior: 'smooth' }); });
+  document.getElementById('reelNext').addEventListener('click', function () { rs.scrollBy({ left: rs.clientWidth * .8, behavior: 'smooth' }); });
+
+  /* lightbox */
+  var lb = document.getElementById('lb'), stage = document.getElementById('lbStage'), cap = document.getElementById('lbCap'), snd = document.getElementById('lbSound');
+  var cur = { set: [], i: 0, type: '' };
+  function show() {
+    var it = cur.set[cur.i]; stage.innerHTML = '';
+    if (cur.type === 'reel' && it.src) {
+      var v = document.createElement('video'); v.src = MEDIA(it.src); v.poster = MEDIA(it.poster); v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true;
+      stage.appendChild(v); var p = v.play(); if (p && p.catch) p.catch(function(){});
+      snd.hidden = false; snd.innerHTML = IC('volx'); snd.setAttribute('aria-label', 'Turn sound on');
+    } else {
+      var im = document.createElement('img'); im.src = MEDIA(it.poster); im.alt = it.alt || it.t || ''; stage.appendChild(im); snd.hidden = true;
+    }
+    cap.textContent = it.alt || (it.t + '. ' + it.s);
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-lb]'); if (!b) return;
+    cur.type = b.dataset.lb; cur.set = cur.type === 'camp' ? CAMPS : list(cur.type); cur.i = +b.dataset.i;
+    show(); if (lb.showModal) lb.showModal(); else lb.setAttribute('open', '');
+  });
+  function step(d) { cur.i = (cur.i + d + cur.set.length) % cur.set.length; show(); }
+  document.getElementById('lbPrev').addEventListener('click', function () { step(-1); });
+  document.getElementById('lbNext').addEventListener('click', function () { step(1); });
+  document.getElementById('lbX').addEventListener('click', function () { lb.close(); });
+  lb.addEventListener('close', function () { stage.innerHTML = ''; });
+  lb.addEventListener('click', function (e) { if (e.target === lb || e.target === stage) lb.close(); });
+  lb.addEventListener('keydown', function (e) { if (e.key === 'ArrowRight') step(1); if (e.key === 'ArrowLeft') step(-1); });
+  snd.addEventListener('click', function () { var v = stage.querySelector('video'); if (!v) return; v.muted = !v.muted; snd.innerHTML = IC(v.muted ? 'volx' : 'vol'); snd.setAttribute('aria-label', v.muted ? 'Turn sound on' : 'Turn sound off'); });
+
+  /* copy email */
+  var cm = document.getElementById('copyMail');
+  cm.addEventListener('click', function () {
+    var done = function () { cm.querySelector('span').textContent = 'Email copied'; setTimeout(function () { cm.querySelector('span').textContent = 'muiz@islandeative.com'; }, 1800); };
+    if (navigator.clipboard) navigator.clipboard.writeText('muiz@islandeative.com').then(done, done); else done();
+  });
+})();
+
 </script>
 </body>
 </html>
