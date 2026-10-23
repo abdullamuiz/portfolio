@@ -103,7 +103,8 @@ nav.links a:hover{opacity:1}
   .hero{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;align-items:end;gap:6px}
   .stage{height:100%;min-height:0}
   .portrait{height:100%;transform-origin:100% 0;margin-right:-4%}
-  .ghost-hi{font-size:clamp(250px,84vw,440px);left:-44vw;top:4%}
+  .ghost-hi{font-size:clamp(290px,100vw,520px);left:-46vw;top:3%}
+  .fdot{z-index:1}
   .ghost-about{font-size:clamp(78px,23vw,150px);left:-2%;top:2%}.ghost-about .row2{padding-left:.95em}
   .copy{gap:10px;padding-bottom:max(22px,env(safe-area-inset-bottom))}
   .display{font-size:clamp(44px,12.5vw,64px)}
@@ -494,7 +495,10 @@ footer .socials a:hover{color:var(--ink)}
 .fl{display:block;font-size:12px;color:#9AA3BC;margin-bottom:2px}
 .fv{display:inline-flex;align-items:center;gap:8px;font:500 15px var(--sans);color:#fff;text-decoration:none;background:none;border:0;padding:0;cursor:pointer}
 .fv .ic{font-size:14px;opacity:.7}
-.foot-links{display:grid;gap:4px}
+.foot-icons{display:flex;gap:10px;margin-top:4px}
+.foot-icons a{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.22);display:grid;place-items:center;color:#fff;font-size:19px;transition:background .2s,border-color .2s,transform .15s}
+.foot-icons a:hover{background:var(--teal);border-color:var(--teal)}
+.foot-icons a:active{transform:scale(.94)}
 .foot-links a{color:#E6E9F2;font-size:14px;text-underline-offset:3px}
 .foot-sign{display:grid;justify-items:end;text-align:right;gap:2px}
 .regards{font:400 italic 20px var(--serif);color:#E6E9F2}
@@ -835,10 +839,12 @@ footer .socials a:hover{color:var(--ink)}
     <div class="foot-contact">
       <div><span class="fl">Email</span><button type="button" id="copyMail" class="fv"><span>muiz@islandeative.com</span> <i data-ic="copy"></i></button></div>
       <div><span class="fl">Phone · WhatsApp · Telegram</span><a class="fv" href="tel:+9609902996">+960 990 2996</a></div>
-      <div class="foot-links">
-        <a href="https://www.linkedin.com/in/abdullamuizfuad/" target="_blank" rel="noopener">linkedin.com/in/abdullamuizfuad</a>
-        <a href="https://www.instagram.com/emyuaizee" target="_blank" rel="noopener">instagram.com/emyuaizee</a>
-        <a href="https://t.me/muizfuad" target="_blank" rel="noopener">t.me/muizfuad</a>
+      <div class="foot-icons">
+        <a href="https://www.linkedin.com/in/abdullamuizfuad/" target="_blank" rel="noopener" aria-label="LinkedIn"><i data-ic="linkedin"></i></a>
+        <a href="https://www.instagram.com/emyuaizee" target="_blank" rel="noopener" aria-label="Instagram"><i data-ic="instagram"></i></a>
+        <a href="https://wa.me/9609902996" target="_blank" rel="noopener" aria-label="WhatsApp"><i data-ic="whatsapp"></i></a>
+        <a href="https://t.me/muizfuad" target="_blank" rel="noopener" aria-label="Telegram"><i data-ic="send"></i></a>
+        <a href="mailto:muiz@islandeative.com" aria-label="Email"><i data-ic="mail"></i></a>
       </div>
     </div>
     <div class="foot-sign">
