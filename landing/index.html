@@ -59,7 +59,7 @@ nav.links a:hover{opacity:1}
 .pin{position:relative}
 .sticky{position:sticky;top:0;height:100svh;overflow:hidden}
 #s1{height:290vh}
-#s3{height:240vh}
+#s3{height:200vh}
 
 /* scene 1: hero -> about */
 .hero{position:absolute;top:var(--head);bottom:0;left:0;right:0;max-width:var(--max);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(24px,5vw,72px);align-items:end;grid-template-rows:minmax(0,1fr)}
@@ -106,6 +106,26 @@ nav.links a:hover{opacity:1}
 .path-head .wrap{display:grid;gap:8px}
 .path-head h2{font:400 clamp(34px,4.8vw,52px)/1.05 var(--serif);margin:0}
 .path-head h2 span{color:var(--lagoon)}
+.path-prog{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.path-prog > i{position:relative;width:160px;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
+.path-prog b{position:absolute;inset:0;background:var(--lagoon);transform-origin:0 50%;transform:scaleX(0)}
+.path-prog em{font-style:normal;display:inline-flex;align-items:center;gap:6px;margin-left:10px;color:var(--label);text-transform:none;letter-spacing:0;font-weight:500;font-size:13px;transition:opacity .3s}
+.path-prog em i{animation:nudge 1.6s var(--ease) infinite}
+@media (max-width:860px){
+  #about{height:auto !important}
+  #about .sticky{position:relative;height:auto;overflow:visible;padding:56px 0 40px}
+  #about .path-head{position:static;margin-bottom:32px}
+  #about .path-prog{display:none}
+  #about .track{position:relative;height:auto;transform:none !important;padding:0 var(--gutter) 0 calc(var(--gutter) + 36px)}
+  #about .line{left:calc(var(--gutter) + 8px);top:8px;bottom:40px;width:2px;height:auto;margin:0}
+  #about .fill{transform-origin:50% 0;transform:scaleY(0)}
+  #about .stop{position:relative;left:auto;top:auto;width:auto;height:auto;padding-bottom:34px}
+  #about .node{left:-36px;top:4px}
+  #about .stop.now .node{left:-39px;top:1px}
+  #about .arm{display:none}
+  #about .stop .card{position:static;width:auto;bottom:auto;top:auto}
+  #about .lg{margin-bottom:8px}
+}
 .track{--gap:360px;--cw:280px;--ly:60%;--pad:calc(var(--gutter) + 40px);position:absolute;top:0;left:0;height:100%;will-change:transform}
 .line{position:absolute;left:var(--pad);top:var(--ly);height:2px;margin-top:-1px;width:calc(var(--gap) * 8);background:var(--line)}
 .fill{height:100%;background:var(--lagoon);transform-origin:0 50%;transform:scaleX(0)}
@@ -462,6 +482,7 @@ footer .socials a:hover{color:var(--ink)}
         <span class="label">Career path</span>
         <h2>My fifteen-year journey<span>.</span></h2>
         <span class="small">From events and media to resorts and the classroom.</span>
+        <div class="path-prog" aria-hidden="true"><span>2011</span><i><b id="pathBar"></b></i><span>Today</span><em id="pathHint">Keep scrolling <i data-ic="right"></i></em></div>
       </div></div>
       <div class="track" id="track">
         <div class="line"><div class="fill" id="fill"></div></div>
@@ -837,7 +858,7 @@ var CAMPS=[
 
   /* scroll scenes */
   const s1 = $('s1'), st1 = $('st1'), s3 = $('s3'), st3 = $('st3');
-  const s2 = $('about'), track = $('track'), fill = $('fill'), stopsEl = [...document.querySelectorAll('.stop')];
+  const s2 = $('about'), track = $('track'), fill = $('fill'), stopsEl = [...document.querySelectorAll('.stop')], pathBar = $('pathBar'), pathHint = $('pathHint');
   let P = null;
   const copy = $('copy'), aboutText = $('aboutText'), portrait = $('portrait'), fdot = $('fdot');
   const letters = [...document.querySelectorAll('#about-g .l')];
@@ -849,10 +870,11 @@ var CAMPS=[
 
   function measure() {
     [copy, aboutText, ghost, portrait, fdot, big, tool, track, cta].forEach(el => el.style.transform = '');
-    { const cs = getComputedStyle(track), tmp = stopsEl.map(el => el.offsetLeft);
+    if (isMobile()) { s2.style.height = ''; P = { mobile: true }; }
+    else { const tmp = stopsEl.map(el => el.offsetLeft);
       const lineLen = tmp[tmp.length - 1] - tmp[0], trackW = tmp[tmp.length - 1] + innerWidth * .45;
       const dist = Math.max(0, trackW - innerWidth);
-      s2.style.height = (innerHeight + dist) + 'px';
+      s2.style.height = (innerHeight + dist * .5) + 'px';   /* half the scroll it used to take */
       P = { xs: tmp, lineLen, dist }; }
     const sr = st1.getBoundingClientRect();
     const rel = el => { const r = el.getBoundingClientRect(); return { x: r.left - sr.left, y: r.top - sr.top, w: r.width, h: r.height }; };
@@ -900,17 +922,25 @@ var CAMPS=[
     portrait.style.transform = isMobile() ? `scale(${lerp(1, .42, e)})` : `scale(${lerp(1, .8, e)})`;
 
     /* career path: vertical scroll drives the path sideways */
-    if (P) {
-      const tx = -prog(s2) * P.dist, focus = innerWidth * .62;
+    if (P && P.mobile) {
+      /* phones: a vertical path that lights up as each role reaches the middle of the screen */
+      const mid = innerHeight * .6, lr = track.querySelector('.line').getBoundingClientRect();
+      fill.style.transform = `scaleY(${clamp((mid - lr.top) / lr.height)})`;
+      stopsEl.forEach(el => el.classList.toggle('on', el.getBoundingClientRect().top < mid));
+    } else if (P) {
+      const pr = prog(s2), tx = -pr * P.dist, focus = innerWidth * .62;
       track.style.transform = `translateX(${tx}px)`;
       fill.style.transform = `scaleX(${clamp((focus - tx - P.xs[0]) / P.lineLen)})`;
       stopsEl.forEach((el, i) => el.classList.toggle('on', P.xs[i] + tx <= focus));
+      pathBar.style.transform = `scaleX(${pr})`;
+      pathHint.style.opacity = 1 - clamp(pr * 10);
     }
 
     /* scene 3: bubble -> tool */
     const p3 = prog(s3);
-    const a = reduce ? (p3 > .05 ? 1 : 0) : out3(clamp(p3 / .16));
-    const m = reduce ? (p3 > .4 ? 1 : 0) : io3(clamp((p3 - .3) / .38));
+    const pre = clamp(1 - s3.getBoundingClientRect().top / innerHeight);   /* bubble arrives while the section scrolls in */
+    const a = reduce ? (pre > .5 ? 1 : 0) : out3(clamp((pre - .25) / .6));
+    const m = reduce ? (p3 > .3 ? 1 : 0) : io3(clamp((p3 - .14) / .42));
     const tv = clamp((m - .3) / .5);
     const go = io3(clamp(m / .8)), c = clamp((m - .8) / .2);
     const s = lerp(lerp(.55, 1, a), (M.t.h * 1.25) / M.b.h, go);
@@ -918,8 +948,8 @@ var CAMPS=[
     big.style.opacity = a * (1 - c);
     big.style.visibility = c >= 1 ? 'hidden' : 'visible';
     big.style.transform = `translate(-50%,-50%) translate(${(M.t.cx - M.b.cx) * go}px, ${(M.t.cy + yOff - M.b.cy) * go + (1 - a) * 40}px) scale(${s})`;
-    q.style.opacity = clamp((p3 - .04) / .1) * (1 - clamp(m * 3));
-    sub.style.opacity = clamp((p3 - .08) / .1) * (1 - clamp(m * 3));
+    q.style.opacity = clamp((pre - .55) / .3) * (1 - clamp(m * 3));
+    sub.style.opacity = clamp((pre - .7) / .3) * (1 - clamp(m * 3));
     sub.style.pointerEvents = m < .2 ? 'auto' : 'none';
     big.style.pointerEvents = m < .5 ? 'auto' : 'none';
     tool.style.opacity = tv;
@@ -932,7 +962,7 @@ var CAMPS=[
   }
 
   /* tapping the bubble (or the button) plays the morph by scrolling to the tool */
-  const goTool = () => { const top = s3.getBoundingClientRect().top + scrollY + (s3.offsetHeight - innerHeight) * .72; scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' }); };
+  const goTool = () => { const top = s3.getBoundingClientRect().top + scrollY + (s3.offsetHeight - innerHeight) * .62; scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' }); };
   big.addEventListener('click', goTool);
   big.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTool(); } });
   $('goPreview').addEventListener('click', goTool);
