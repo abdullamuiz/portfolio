@@ -451,9 +451,120 @@ details.dv-d + details.dv-d { border-top: 1px solid var(--line); }
 .hc-cur button{border:0;background:transparent;color:var(--muted);font:600 13px/1 var(--sans);padding:0 12px;border-radius:999px;cursor:pointer;letter-spacing:.02em}
 .hc-cur button[aria-pressed="true"]{background:var(--hl);color:var(--hl-ink)}
 @media (max-width:420px){.hc-back span{display:none}.hc-back{padding:0 12px}}
+
+/* greeting intro (standalone link) */
+html.hci-on,html.hci-on body{overflow:hidden}
+.hci{position:fixed;inset:0;z-index:300;background:var(--bg);touch-action:none;--hb:#232C4A;--ht:#0B8794}
+:root[data-theme="dark"] .hci{--hb:#34437A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .hci{--hb:#34437A}}
+.hci-b{position:absolute;left:50%;top:42%;width:min(84vw,520px);aspect-ratio:1062/1093;transform:translate(-50%,-50%) scale(0);will-change:transform}
+.hci-b svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hci-b path{fill:var(--hb);transition:fill .7s ease}
+.hci.q .hci-b path{fill:var(--ht)}
+.hci-hi{position:absolute;left:0;right:0;top:0;height:76%;display:flex;align-items:center;justify-content:center;color:#fff;opacity:0}
+.hci-hi .hi{display:inline-flex;align-items:baseline;font:400 1em/.9 var(--serif);letter-spacing:-.02em}
+.hci-hi .i{position:relative;display:inline-block}
+.hci-hi .d{position:absolute;left:50%;top:.1em;width:.12em;height:.12em;margin-left:-.06em;visibility:hidden}
+.hci-q{position:absolute;left:11%;right:11%;top:5%;height:70%;margin:0;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;font:400 1em/1.06 var(--serif);opacity:0;text-wrap:balance}
+.hci-q .qm{color:var(--hb)}
+.hci-dot{position:fixed;left:0;top:0;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:#22C9D9;opacity:0;z-index:2;will-change:transform}
+.hci-sub{position:absolute;left:50%;top:calc(42% + min(84vw,520px) * .53 + 28px);transform:translateX(-50%);width:min(88vw,520px);text-align:center;opacity:0;display:grid;justify-items:center;gap:16px}
+.hci-sub p{margin:0;color:var(--muted);font:400 16px/1.55 var(--sans)}
+.hci-sub b{color:var(--ink);font-weight:600}
+.hci-go{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 26px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 15px var(--sans);cursor:pointer}
+.hci-go:hover{border-color:var(--hl);color:var(--hl)}
+.hci-hint{font:500 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);animation:hcib 1.8s ease-in-out infinite}
+@keyframes hcib{50%{opacity:.35}}
+.hci-skip{position:absolute;right:22px;bottom:calc(22px + env(safe-area-inset-bottom,0px));border:0;background:transparent;color:var(--muted);font:600 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;padding:10px}
+.hci.out{opacity:0;transition:opacity .45s ease}
+@media (max-height:700px){.hci-b{width:min(72vw,400px)}.hci-sub{top:calc(42% + min(72vw,400px) * .53 + 18px)}}
 </style>
 </head>
 <body>
+<div class="hci" id="hci" role="dialog" aria-label="Welcome to the Digital Visibility Health Check" hidden>
+  <div class="hci-b" id="hciB"><svg viewBox="8 104 1062 1093" aria-hidden="true"><path d="M1053.113,545.018c3.096,10.753 12.298,46.08 13.164,59.032c5.002,74.884 -0.149,143.561 -22.603,203.397c-100.547,267.932 -422.743,386.61 -422.743,386.61c0,0 62.584,-159.911 -58.959,-161.212c-43.686,-0.468 -35.204,-1.361 -146.804,0.123c-10.397,0.138 -24.24,-0.336 -24.24,-0.336c-206.744,0 -373.14,-169.682 -373.14,-378.683c-0,-209.001 175.115,-378.683 381.859,-378.683l297.072,0c206.744,0 322.925,153.495 356.396,269.752l-0,0Z"/></svg>
+    <div class="hci-hi" id="hciHi" aria-hidden="true"><span class="hi"><span>H</span><span class="i">ı<span class="d" id="hciSpot"></span></span></span></div>
+    <p class="hci-q" id="hciQ"><span>How visible is your business digitally<span class="qm">?</span></span></p>
+  </div>
+  <span class="hci-dot" id="hciDot" aria-hidden="true"></span>
+  <div class="hci-sub" id="hciSub"><p>Take <b>5 minutes</b> to discover your Digital Visibility Health Check. Free, no logins.</p><button type="button" class="hci-go" id="hciGo">Start the check <span aria-hidden="true">→</span></button><span class="hci-hint" id="hciHint">Tap anywhere to begin</span></div>
+  <button type="button" class="hci-skip" id="hciSkip">Skip</button>
+</div>
+<script>
+(function () {
+  var root = document.documentElement, el = document.getElementById('hci');
+  var params = location.search.length > 1, seen = false;
+  try { seen = sessionStorage.getItem('hci-seen') === '1'; } catch (e) {}
+  if (params || seen || !el.animate) { el.remove(); return; }
+  try { sessionStorage.setItem('hci-seen', '1'); } catch (e) {}
+  el.hidden = false; root.classList.add('hci-on');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var B = document.getElementById('hciB'), Hi = document.getElementById('hciHi'), Q = document.getElementById('hciQ'),
+      D = document.getElementById('hciDot'), Sub = document.getElementById('hciSub'), spot = document.getElementById('hciSpot');
+  var state = 0, timers = [], gone = false, E = 'cubic-bezier(.22,1,.36,1)';
+  document.getElementById('hciHint').textContent = matchMedia('(pointer: coarse)').matches ? 'Tap anywhere to begin' : 'Click or scroll to begin';
+  function size() { var w = B.offsetWidth; Hi.style.fontSize = (w * .34) + 'px'; Q.style.fontSize = Math.max(26, Math.min(54, w * .088)) + 'px'; }
+  size();
+  function tail() { var r = B.getBoundingClientRect(); return { x: r.left + r.width * .64, y: r.top + r.height * .995 }; }
+  function tf(p, s) { return 'translate(' + p.x + 'px,' + p.y + 'px) scale(' + s + ')'; }
+  addEventListener('resize', function () { size(); if (state >= 2) { D.getAnimations().forEach(function (a) { a.cancel(); }); D.style.transform = tf(tail(), .7); } });
+  function toQuestion(instant) {
+    if (state >= 2) return; state = 2; timers.forEach(clearTimeout);
+    var d = instant ? 0 : 1;
+    el.classList.add('q');
+    Hi.animate([{ opacity: 1, filter: 'blur(0)' }, { opacity: 0, filter: 'blur(10px)' }], { duration: 420 * d, fill: 'forwards' });
+    B.getAnimations().forEach(function (a) { a.commitStyles && a.commitStyles(); a.cancel(); });
+    B.animate([{ transform: B.style.transform || 'translate(-50%,-50%) scale(.64)' }, { transform: 'translate(-50%,-50%) scale(1)' }], { duration: 700 * d, easing: E, fill: 'forwards' });
+    Q.animate([{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { duration: 600 * d, delay: 300 * d, easing: E, fill: 'forwards' });
+    setTimeout(function () {
+      var p = tail(), from = D.style.transform || tf(p, 0);
+      D.getAnimations().forEach(function (a) { a.cancel(); });
+      D.style.opacity = 1; D.style.transform = tf(p, .7);
+      D.animate([{ transform: from }, { transform: tf(p, .7) }], { duration: 650 * d, easing: E });
+      Sub.animate([{ opacity: 0, transform: 'translate(-50%,12px)' }, { opacity: 1, transform: 'translate(-50%,0)' }], { duration: 600 * d, delay: 250 * d, easing: E, fill: 'forwards' });
+      setTimeout(function () { state = 3; }, 350 * d);
+    }, 720 * d);
+  }
+  function exit() {
+    if (gone) return; gone = true; timers.forEach(clearTimeout); off();
+    B.getAnimations().forEach(function (a) { a.commitStyles && a.commitStyles(); a.cancel(); });
+    B.animate([{ transform: B.style.transform || 'translate(-50%,-50%) scale(1)', opacity: 1 }, { transform: 'translate(-50%,-50%) scale(1.5)', opacity: 0 }], { duration: 520, easing: 'cubic-bezier(.5,0,.75,0)', fill: 'forwards' });
+    el.classList.add('out');
+    setTimeout(function () { el.remove(); root.classList.remove('hci-on'); scrollTo(0, 0); }, 480);
+  }
+  function onAct(e) {
+    if (e.target && e.target.id === 'hciSkip') { exit(); return; }
+    if (e.type === 'keydown' && ['ArrowDown', 'PageDown', ' ', 'Enter', 'Escape'].indexOf(e.key) < 0) return;
+    if (state < 2) { toQuestion(false); return; }
+    if (state === 3) exit();
+  }
+  var evs = ['click', 'wheel', 'touchend', 'keydown'];
+  function off() { evs.forEach(function (t) { (t === 'keydown' ? document : el).removeEventListener(t, onAct); }); }
+  evs.forEach(function (t) { (t === 'keydown' ? document : el).addEventListener(t, onAct, { passive: true }); });
+  if (reduce) { B.style.transform = 'translate(-50%,-50%) scale(1)'; toQuestion(true); return; }
+  /* 1. the bubble pops in with "Hi" */
+  B.style.transform = 'translate(-50%,-50%) scale(.64)';
+  B.animate([{ transform: 'translate(-50%,-50%) scale(0)' }, { transform: 'translate(-50%,-50%) scale(.7)', offset: .7 }, { transform: 'translate(-50%,-50%) scale(.64)' }], { duration: 620, easing: E });
+  Hi.animate([{ opacity: 0, transform: 'scale(.8)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 500, delay: 260, easing: E, fill: 'forwards' });
+  state = 1;
+  /* 2. the dot drops and bounces onto the i */
+  timers.push(setTimeout(function () {
+    if (state !== 1) return;
+    var r = spot.getBoundingClientRect(), p = { x: r.left + r.width / 2, y: r.top + r.height / 2 }, s = r.width / 20, up = function (dy) { return tf({ x: p.x, y: p.y - dy }, s); };
+    D.style.opacity = 1; D.style.transform = tf(p, s);
+    D.animate([
+      { transform: up(150), opacity: 0 },
+      { transform: up(0), opacity: 1, offset: .45, easing: 'cubic-bezier(.3,0,.7,1)' },
+      { transform: up(36), offset: .7, easing: 'cubic-bezier(.3,0,.7,1)' },
+      { transform: up(0), offset: .88 },
+      { transform: up(8), offset: .94 },
+      { transform: up(0) }
+    ], { duration: 900 });
+  }, 820));
+  /* 3. then it turns into the question on its own */
+  timers.push(setTimeout(function () { toQuestion(false); }, 2600));
+})();
+</script>
 
 <main class="wrap">
   <div id="app"></div>
