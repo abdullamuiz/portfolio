@@ -77,7 +77,7 @@ nav.links a:hover{opacity:1}
 #s3{height:200vh}
 
 /* scene 1: hero -> about */
-.hero{position:absolute;top:var(--head);bottom:0;left:0;right:0;max-width:var(--max);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(24px,5vw,72px);align-items:end;grid-template-rows:minmax(0,1fr)}
+.hero{position:absolute;top:var(--head);bottom:0;left:0;right:0;max-width:var(--max);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,72px);align-items:end;grid-template-rows:minmax(0,1fr)}
 .stage{position:relative;height:100%;display:flex;align-items:flex-end;justify-content:flex-end}
 .portrait{position:relative;z-index:2;height:97%;margin-right:-6%;width:auto;max-width:none;object-fit:contain;object-position:bottom;transform-origin:100% 100%}
 .ghost-hi{position:absolute;left:-22%;top:0;font:400 clamp(220px,31vw,450px)/.9 var(--serif);color:var(--ghost);letter-spacing:-.02em;user-select:none;pointer-events:none;z-index:0;white-space:nowrap;transform-origin:20% 50%}
@@ -91,14 +91,14 @@ nav.links a:hover{opacity:1}
 .me-dot{display:inline-block;width:.13em;height:.13em;border-radius:50%;margin-left:.04em;visibility:hidden}
 .fdot{position:absolute;left:0;top:0;width:10px;height:10px;border-radius:50%;background:var(--lagoon);z-index:4;opacity:0;will-change:transform}
 .fdot.on{opacity:1}
-.copy{position:relative;z-index:3;display:grid;gap:18px;padding-bottom:clamp(48px,10vh,110px);max-width:560px;will-change:transform}
+.copy{position:relative;z-index:3;display:grid;gap:18px;padding-bottom:clamp(48px,10vh,110px);max-width:640px;will-change:transform}
 .display{font:400 clamp(56px,6.6vw,100px)/.95 var(--serif);white-space:nowrap;letter-spacing:-.01em;margin:0}
-.display span{color:var(--reef)}
+.display span{color:var(--lagoon)}
 .swap{position:relative}
 .intro-p{margin:0;font-size:16px;max-width:46ch}
 .about-text{position:absolute;left:0;top:0;width:100%;display:grid;gap:14px;opacity:0}
-.about-text p{margin:0;max-width:60ch;font-size:15px;line-height:1.65}
-.about-text .lead{font:400 clamp(21px,1.75vw,25px)/1.3 var(--serif);color:var(--ink);max-width:none;margin-bottom:4px}
+.about-text p{margin:0;max-width:62ch;font-size:17px;line-height:1.7}
+.about-text .lead{font:400 clamp(23px,2vw,29px)/1.28 var(--serif);color:var(--ink);max-width:none;margin-bottom:4px}
 .about-text .last em{display:block;margin-top:14px;font:400 italic clamp(22px,1.9vw,27px)/1.25 var(--serif);color:var(--ink);text-wrap:balance}
 .mk.reading{-webkit-mask-image:linear-gradient(to bottom,transparent var(--mt,-99px),#000 calc(var(--mt,-99px) + 56px),#000 calc(var(--mb,9999px) - 40px),transparent var(--mb,9999px));mask-image:linear-gradient(to bottom,transparent var(--mt,-99px),#000 calc(var(--mt,-99px) + 56px),#000 calc(var(--mb,9999px) - 40px),transparent var(--mb,9999px))}
 .about-text .more{font-size:13px;font-weight:500;color:var(--muted);display:flex;align-items:center;gap:8px}
@@ -116,8 +116,8 @@ nav.links a:hover{opacity:1}
   .display{font-size:clamp(44px,12.5vw,64px)}
   .intro-p{font-size:15px}
   .about-text{gap:10px;font-size:14px}
-  .about-text p{font-size:14.5px;line-height:1.6}
-  .about-text .lead{font-size:19px}
+  .about-text p{font-size:16px;line-height:1.65}
+  .about-text .lead{font-size:21px}
   .about-text .last em{font-size:21px}
   .vert{display:none}
 }
@@ -386,9 +386,9 @@ i[data-ic],i:has(>.ic){display:inline-flex;align-items:center;justify-content:ce
 @media (max-width:860px){.feature{grid-template-columns:1fr}.feature figure{aspect-ratio:4/3}.fstats{grid-template-columns:repeat(2,1fr)}.cases{grid-template-columns:1fr}}
 
 /* approach */
-.lead-quote{font:400 clamp(20px,2.4vw,28px)/1.4 var(--serif);max-width:44ch;margin:0 0 40px;color:var(--ink);display:grid;gap:14px}
+.lead-quote{font:400 clamp(18px,1.7vw,22px)/1.55 var(--sans);max-width:52ch;margin:0 0 40px;color:var(--ink);display:grid;gap:14px}
 .lead-quote p{margin:0;max-width:none}
-.lead-quote .lq-b{color:var(--label)}
+.lead-quote .lq-b{color:var(--label);font-weight:500}
 .pov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .pov{border:1px solid var(--line);border-radius:14px;padding:26px;background:var(--card);display:grid;gap:12px;align-content:start}
 .pov::before{content:"";width:20px;height:4px;border-radius:2px;background:var(--tab,var(--reef))}
@@ -519,6 +519,40 @@ footer .socials a:hover{color:var(--ink)}
 .sig-dot{fill:var(--lagoon);opacity:0;transition:opacity .3s}
 .sig.dotted .sig-dot{opacity:1}
 .sig-about{color:var(--ink);width:clamp(250px,22vw,330px);margin:18px 0 0 -8px}
+/* philosophy loop */
+.loop{display:grid;grid-template-columns:minmax(0,1fr) clamp(300px,34vw,420px) minmax(0,1fr);grid-template-areas:"start t0 ." "t3 ring t1" ". t2 .";column-gap:clamp(20px,3vw,44px);row-gap:18px;align-items:center}
+.lp-ring{grid-area:ring;position:relative;aspect-ratio:1}
+.lp-track{position:absolute;inset:0;border-radius:50%;border:2px solid var(--line)}
+.lp-spin{position:absolute;inset:0;border-radius:50%;animation:lpspin 16s linear infinite;animation-play-state:paused}
+.lp-spin i{position:absolute;left:50%;top:-8px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:var(--lagoon);box-shadow:0 0 0 6px rgba(15,184,201,.18)}
+.loop.on .lp-spin,.loop.on .lp-node{animation-play-state:running}
+@keyframes lpspin{to{transform:rotate(360deg)}}
+.lp-core{position:absolute;inset:21%;margin:0;border-radius:50%;overflow:hidden;background:var(--tint)}
+.lp-core img{width:100%;height:100%;object-fit:cover}
+.lp-every{position:absolute;left:50%;bottom:13.5%;transform:translateX(-50%);padding:6px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--label);white-space:nowrap}
+.lp-node{position:absolute;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:#fff;font-size:30px;box-shadow:0 0 0 7px var(--paper);animation:lplit 16s linear infinite;animation-play-state:paused;z-index:1}
+.lp-node.n0{left:50%;top:0}.lp-node.n1{left:100%;top:50%;animation-delay:4s}.lp-node.n2{left:50%;top:100%;animation-delay:8s}.lp-node.n3{left:0;top:50%;animation-delay:12s}
+@keyframes lplit{0%,9%{transform:scale(1.14)}15%,100%{transform:scale(1)}}
+.lp-t{display:grid;gap:6px}
+.lp-t b{display:flex;align-items:center;gap:10px;font:400 clamp(24px,2.3vw,30px)/1.1 var(--serif)}
+.lp-t b em{font:600 12px/1 var(--sans);font-style:normal;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);color:var(--label);flex:none}
+.lp-t p{margin:0;font-size:15.5px;line-height:1.55;color:var(--muted);max-width:30ch}
+.t0{grid-area:t0;justify-items:center;text-align:center;padding-bottom:30px}.t0 p{max-width:34ch}
+.t2{grid-area:t2;justify-items:center;text-align:center;padding-top:30px}.t2 p{max-width:34ch}
+.t1{grid-area:t1;padding-left:26px}
+.t3{grid-area:t3;justify-items:end;text-align:right;padding-right:26px}.t3 b{flex-direction:row-reverse}
+.lp-start{grid-area:start;align-self:start;display:grid;gap:8px;max-width:30ch}
+.lp-pill{display:inline-flex;align-items:center;gap:8px;justify-self:start;padding:8px 16px;border-radius:999px;background:var(--tint);font-size:13.5px;font-weight:600;color:var(--ink)}
+.lp-pill .ic{font-size:16px;color:var(--teal)}
+.lp-start p{margin:0;font-size:14px;color:var(--muted)}
+@media (max-width:860px){
+  .loop{grid-template-columns:1fr;grid-template-areas:"start" "ring" "t0" "t1" "t2" "t3";row-gap:20px}
+  .lp-ring{width:min(78vw,330px);justify-self:center;margin:44px 0}
+  .lp-node{width:60px;height:60px;margin:-30px 0 0 -30px;font-size:24px}
+  .lp-t,.t0,.t1,.t2,.t3{justify-items:start;text-align:left;padding:0}
+  .t3 b{flex-direction:row}
+  .lp-t p,.t0 p,.t2 p{max-width:none}
+}
 /* services */
 .svc-main{border:1px solid var(--line);border-radius:20px;background:var(--card);padding:clamp(24px,3.4vw,44px);display:grid;gap:clamp(26px,3vw,40px)}
 .svc-top{display:flex;gap:20px;align-items:flex-start}
@@ -546,10 +580,10 @@ footer .socials a:hover{color:var(--ink)}
 .svc-cta h3{font:400 clamp(28px,3vw,40px)/1.08 var(--serif);margin:0 0 14px;color:#fff;text-wrap:balance}
 .svc-cta p{margin:0;font-size:15px;color:#C9CFDF;max-width:44ch}
 .sc-get{list-style:none;margin:0;padding:0;display:grid;gap:12px}
-.sc-get li{display:grid;grid-template-columns:44px 1fr;column-gap:14px;align-items:center;padding:14px 16px;border:1px solid rgba(255,255,255,.12);border-radius:14px}
-.sc-doc{grid-row:span 2;width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:rgba(34,201,217,.14);color:#7FE3EE;font-size:20px}
-.sc-get b{font:400 19px/1.2 var(--serif);color:#fff}
-.sc-get li span:not(.sc-doc){font-size:13px;color:#AEB6CA}
+.sc-get li{display:grid;grid-template-columns:60px 1fr;column-gap:18px;align-items:center;padding:18px 20px;border:1px solid rgba(255,255,255,.12);border-radius:14px}
+.sc-doc{grid-row:span 2;width:60px;height:60px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(140deg,#22C9D9,#14508F);color:#fff;font-size:28px;box-shadow:0 10px 24px -12px rgba(34,201,217,.7)}
+.sc-get b{font:400 clamp(22px,2vw,26px)/1.15 var(--serif);color:#fff}
+.sc-get li span:not(.sc-doc){font-size:15px;line-height:1.45;color:#B9C1D4}
 .sc-get{grid-column:2;grid-row:1/span 2}
 .sc-go{grid-column:1;grid-row:2;align-self:end;display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-top:8px}
 .sc-go em{font-size:13px;color:#8A93AC;font-style:normal;margin-left:6px}
@@ -878,18 +912,26 @@ footer .socials a:hover{color:var(--ink)}
   <section class="block" id="process">
     <div class="wrap">
       <div class="head reveal">
-        <span class="label">Process</span>
-        <h2>How we work together<span>.</span></h2>
-        <p class="small">Every month runs the same loop: plan, spend, measure and adjust, so every amount spent can be traced to what it brought back.</p>
+        <span class="label">Philosophy</span>
+        <h2>My work philosophy<span>.</span></h2>
+        <p class="small">Most teams measure work in tasks done. I measure it in growth. Every month runs the same loop, so every amount spent can be traced to what it brought back. Placing 365 ads a year is a checklist. Two well-planned seasonal campaigns that bring in a year’s sales is a system.</p>
       </div>
-      <div class="pw">
-        <figure class="pw-photo reveal"><img data-src="images/muiz-working.jpg" width="960" height="1200" alt="Muiz planning a campaign on his laptop" loading="lazy"><figcaption>One point of contact, start to finish.</figcaption></figure>
-        <div class="pw-grid">
-          <div class="step reveal" style="--tab:var(--reef)"><span class="ico"><i data-ic="search"></i></span><span class="n">01</span><span class="when">Weeks 1 to 2</span><h3>Audit</h3><p>Your channels, listings, competitors and current numbers, scored against the funnel.</p></div>
-          <div class="step reveal" style="--tab:var(--lagoon)"><span class="ico"><i data-ic="map"></i></span><span class="n">02</span><span class="when">Week 3</span><h3>Plan</h3><p>A 90-day plan with goals, content pillars, a calendar and the numbers we’ll judge it by.</p></div>
-          <div class="step reveal" style="--tab:var(--sea)"><span class="ico"><i data-ic="aperture"></i></span><span class="n">03</span><span class="when">Every month</span><h3>Create</h3><p>On-site shoots, production, scheduling and community work, all handled by me.</p></div>
-          <div class="step reveal" style="--tab:var(--deep)"><span class="ico"><i data-ic="chart"></i></span><span class="n">04</span><span class="when">Month end</span><h3>Report</h3><p>One page and one call: what worked, what it brought back and what changes next.</p></div>
+      <div class="loop reveal" id="loop">
+        <div class="lp-start"><span class="lp-pill"><i data-ic="search"></i> Start: Audit</span><p>Weeks 1 to 2. Your channels, listings, competitors and numbers, scored against the funnel.</p></div>
+        <div class="lp-ring">
+          <span class="lp-track"></span>
+          <span class="lp-spin"><i></i></span>
+          <figure class="lp-core"><img data-src="images/muiz-working.jpg" width="960" height="1200" alt="Muiz planning a campaign on his laptop" loading="lazy"></figure>
+          <span class="lp-node n0" style="--c:var(--reef)"><i data-ic="map"></i></span>
+          <span class="lp-node n1" style="--c:var(--lagoon)"><i data-ic="aperture"></i></span>
+          <span class="lp-node n2" style="--c:var(--sea)"><i data-ic="chart"></i></span>
+          <span class="lp-node n3" style="--c:var(--deep)"><i data-ic="route"></i></span>
+          <span class="lp-every">Every month</span>
         </div>
+        <div class="lp-t t0"><b><em>1</em>Plan</b><p>Goals, content pillars, a calendar and the numbers we’ll judge it by.</p></div>
+        <div class="lp-t t1"><b><em>2</em>Create and spend</b><p>Shoots, production, ads and community work, all handled by me.</p></div>
+        <div class="lp-t t2"><b><em>3</em>Measure</b><p>One page and one call: what worked and what it brought back.</p></div>
+        <div class="lp-t t3"><b><em>4</em>Adjust</b><p>Cut what didn’t work, do more of what did, then plan the next month.</p></div>
       </div>
     </div>
   </section>
@@ -918,7 +960,7 @@ footer .socials a:hover{color:var(--ink)}
       </article>
       <div class="svc-pair">
         <article class="svc-card reveal"><span class="svc-n">02</span><span class="lk-step">Content Strategist · Retainer</span><h3>A strategist on your team, four mornings a week.</h3><p>For businesses in and around Greater Malé. On site, in your meetings, running your outlets’ marketing day to day and raising your visibility wherever your customers look.</p></article>
-        <article class="svc-card reveal"><span class="svc-n">03</span><span class="lk-step">One-off Projects</span><h3>A launch, a brand film, a website or an audit.</h3><p>Scoped, priced and delivered as one project.</p></article>
+        <article class="svc-card reveal"><span class="svc-n">03</span><span class="lk-step">Project Lead · One-off projects</span><h3>A launch event, a brand film, a website or a business plan.</h3><p>Business development and operational plans included. Each one is scoped, priced and delivered as a single project: I run it from start to finish, then hand over the results and clear next steps.</p></article>
       </div>
       <div class="svc-cta reveal" id="start">
         <div class="sc-copy">
@@ -1206,7 +1248,7 @@ var CAMPS=[
     const at = out3(clamp((t - .25) / .6));
     aboutText.style.opacity = at;
     aboutText.style.transform = `translateY(${(1 - at) * 60}px)`;
-    portrait.style.transform = isMobile() ? `scale(${lerp(1, .42, e)})` : `scale(${lerp(1, .8, e)})`;
+    portrait.style.transform = isMobile() ? `scale(${lerp(1, .42, e)})` : `scale(${lerp(1, .74, e)})`;
 
     /* career path: vertical scroll drives the path sideways */
     if (P && P.mobile) {
@@ -1340,6 +1382,7 @@ var CAMPS=[
   })();
   if (GD) requestAnimationFrame(() => GD.tick(performance.now()));
 
+  (function () { const lp = $('loop'); if (!lp || reduce) return; new IntersectionObserver(es => lp.classList.toggle('on', es[0].isIntersecting), { threshold: .3 }).observe(lp); })();
   /* services rail: the dot walks the monthly loop on its own while the card is on screen */
   (function () {
     const rail = $('rail'); if (!rail) return;
