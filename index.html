@@ -74,7 +74,7 @@ nav.links a:hover{opacity:1}
 .pin{position:relative}
 .sticky{position:sticky;top:0;height:100svh;overflow:hidden}
 #s1{height:290vh}
-#s3{height:200vh}
+#s3{height:160vh}
 
 /* scene 1: hero -> about */
 .hero{position:absolute;top:var(--head);bottom:0;left:0;right:0;max-width:var(--max);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,72px);align-items:end;grid-template-rows:minmax(0,1fr)}
@@ -531,6 +531,19 @@ footer .socials a:hover{color:var(--ink)}
 .sig-dot{fill:var(--lagoon);opacity:0;transition:opacity .3s}
 .sig.dotted .sig-dot{opacity:1}
 .sig-about{color:var(--ink);width:clamp(250px,22vw,330px);margin:18px 0 0 -8px}
+/* one style for every invitation to the check, with a slow breathing glow */
+:root{--cta:#0B8794}
+:root[data-theme="dark"]{--cta:#13A6B5}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--cta:#13A6B5}}
+.cta{background:var(--cta)}
+.btn--cta{background:var(--cta);color:#fff}.btn--cta:hover{background:var(--cta);filter:brightness(1.08)}
+.glow{animation:breathe 3s ease-in-out infinite}
+@keyframes breathe{0%,100%{box-shadow:0 0 0 0 rgba(34,201,217,0),0 6px 18px -6px rgba(19,166,181,.45)}50%{box-shadow:0 0 0 7px rgba(34,201,217,.14),0 8px 34px 2px rgba(34,201,217,.42)}}
+@media (prefers-reduced-motion:reduce){.glow{animation:none}}
+.keepgo{align-self:stretch;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px;padding-top:12px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.45;color:var(--muted);text-decoration:none;text-align:center}
+.keepgo:hover{color:var(--ink)}
+.keepgo .ic{flex:none;font-size:15px;color:var(--lagoon);animation:nudgeDown 1.6s ease-in-out infinite}
+@keyframes nudgeDown{50%{transform:translateY(4px)}}
 /* philosophy loop */
 .loop{display:grid;grid-template-columns:minmax(0,1fr) clamp(300px,34vw,420px) minmax(0,1fr);grid-template-areas:"start t0 ." "t3 ring t1" ". t2 .";column-gap:clamp(20px,3vw,44px);row-gap:18px;align-items:center}
 .lp-ring{grid-area:ring;position:relative;aspect-ratio:1}
@@ -825,8 +838,9 @@ footer .socials a:hover{color:var(--ink)}
           </div>
         </div>
         <div class="cta-wrap">
-          <a class="cta" id="tzGo" href="https://abdullamuiz.github.io/portfolio/health-check.html"><span>Let’s dive deeper and get the full report</span><i data-ic="right"></i></a>
-          <span class="fine">Free · 5 minutes · no sign-up · your report as a PDF</span>
+          <a class="cta glow" id="tzGo" href="https://abdullamuiz.github.io/portfolio/health-check.html"><span>Get my free report</span><i data-ic="right"></i></a>
+          <span class="fine">Digital Visibility Health Check · 5 minutes · no sign-up</span>
+          <a class="keepgo" href="#content">Not ready yet? Keep scrolling to see my work. Your answers are saved for when you come back. <i data-ic="down"></i></a>
         </div>
       </div>
     </div>
@@ -990,9 +1004,9 @@ footer .socials a:hover{color:var(--ink)}
           <li><span class="sc-doc"><i data-ic="calendar"></i></span><b>A 7-day sample plan</b><span>the real level of work it takes to stand out from the noise</span></li>
         </ul>
         <div class="sc-go">
-          <a class="btn btn--light" href="health-check.html">Take the free check <i data-ic="right"></i></a>
+          <a class="btn btn--cta glow" href="health-check.html">Get my free report <i data-ic="right"></i></a>
           <a class="btn btn--line" href="https://wa.me/9609902996?text=Hi%20Muiz%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20book%20a%20short%20call%20about%20my%20business." target="_blank" rel="noopener" data-book>Book a 30-min call</a>
-          <em>Free, with no obligation.</em>
+          <em>Digital Visibility Health Check · 5 minutes · no sign-up</em>
         </div>
       </div>
     </div>
@@ -1067,6 +1081,7 @@ footer .socials a:hover{color:var(--ink)}
 <script>
 /* inline line icons (no external icon font needed) */
 window.ICP = {
+  down:'M12 5v14M6 13l6 6 6-6',
   cap:'M2 9l10-5 10 5-10 5ZM6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5M22 9v6',
   left:'M15 18l-6-6 6-6',
   upright:'M7 17L17 7M8 7h9v9',
@@ -1287,7 +1302,8 @@ var CAMPS=[
     const p3 = prog(s3);
     const pre = clamp(1 - s3.getBoundingClientRect().top / innerHeight);   /* bubble arrives while the section scrolls in */
     const a = reduce ? (pre > .5 ? 1 : 0) : out3(clamp((pre - .25) / .6));
-    const m = reduce ? (p3 > .3 ? 1 : 0) : io3(clamp((p3 - .14) / .42));
+    const px3 = -s3.getBoundingClientRect().top, R3 = innerHeight;   /* timings in screen heights, so the pin lets go as soon as the tool is ready */
+    const m = reduce ? (px3 > R3 * .3 ? 1 : 0) : io3(clamp((px3 - R3 * .1) / (R3 * .42)));
     const tv = clamp((m - .3) / .5);
     const go = io3(clamp(m / .8)), c = clamp((m - .8) / .2);
     const s = lerp(lerp(.55, 1, a), (M.t.h * 1.25) / M.b.h, go);
@@ -1312,7 +1328,7 @@ var CAMPS=[
   var GD = null; var G3 = { m: 0, a: 0 };
 
   /* tapping the bubble (or the button) plays the morph by scrolling to the tool */
-  const goTool = () => { const top = s3.getBoundingClientRect().top + scrollY + (s3.offsetHeight - innerHeight) * .62; scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' }); };
+  const goTool = () => { const top = s3.getBoundingClientRect().top + scrollY + innerHeight * .56; scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' }); };
   big.addEventListener('click', goTool);
   big.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTool(); } });
   $('goPreview').addEventListener('click', goTool);
