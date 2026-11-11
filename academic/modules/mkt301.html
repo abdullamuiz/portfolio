@@ -1377,6 +1377,7 @@ body.subpage main{padding-top:var(--head)}
 @keyframes breathe{0%,100%{box-shadow:0 0 0 0 rgba(15,184,201,0),0 6px 18px -10px rgba(15,184,201,.4)}50%{box-shadow:0 0 0 7px rgba(15,184,201,.14),0 10px 32px -6px rgba(15,184,201,.55)}}
 @media (prefers-reduced-motion:reduce){.back-home{animation:none;box-shadow:0 0 0 4px rgba(15,184,201,.16)}}
 .backbar{padding:0 0 clamp(8px,2vw,16px)}.subpage main > .block:last-of-type{padding-bottom:clamp(40px,5vw,64px)}
+.ev-n{font-style:normal;font-size:11.5px;font-weight:600;color:var(--label);margin-top:2px}
 
 </style>
 </head>
@@ -1636,7 +1637,7 @@ hydrateIcons();
       var s = r[sec], d = s[0] - s[1], cls = d >= 0 ? 'up' : 'down';
       var tip = r.t + ': ' + s[0].toFixed(2) + ' (Business School ' + s[1].toFixed(2) + ', university ' + s[2].toFixed(2) + ')';
       var det = r.detail && sec === 'b' ? '<details class="ev-det"><summary>What made up ' + r.t + '</summary><ul>' + r.detail.map(function (x) { return '<li><span>' + x[0] + '</span><b>' + x[1].toFixed(1) + '</b><em>faculty ' + x[2].toFixed(1) + '</em></li>'; }).join('') + '</ul></details>' : '';
-      return '<div class="ev-row" style="--rd:' + (i * .08) + 's"><div class="ev-l"><b>' + r.t + '</b><span>' + r.m + '</span></div>' +
+      return '<div class="ev-row" style="--rd:' + (i * .08) + 's"><div class="ev-l"><b>' + r.t + '</b><span>' + r.m + '</span>' + (r.n ? '<em class="ev-n">About ' + r.n + ' respondents</em>' : '<em class="ev-n">Respondents not reported</em>') + '</div>' +
         '<div class="ev-track" title="' + esc(tip) + '" tabindex="0" aria-label="' + esc(tip) + '"><i class="grid"></i>' +
         '<i class="m-mnu" style="left:' + X(s[2]) + '"></i><i class="m-fac" style="left:' + X(s[1]) + '"></i>' +
         '<i class="m-gap" style="left:' + X(Math.min(s[0], s[1])) + ';width:calc(' + X(Math.max(s[0], s[1])) + ' - ' + X(Math.min(s[0], s[1])) + ')"></i>' +
@@ -1645,8 +1646,8 @@ hydrateIcons();
         (r.note ? '<p class="ev-note">' + r.note + '</p>' : '') + det + '</div>';
     }).join('');
     var t = $('evTable');
-    if (t) t.innerHTML = '<thead><tr><th>Term</th><th>Score</th><th>Mine</th><th>Business School</th><th>University</th></tr></thead><tbody>' +
-      D.ev.map(function (r) { return ['a', 'b'].map(function (k) { var s = r[k]; return '<tr><td>' + r.t + '</td><td>' + (k === 'a' ? 'Subject' : 'Teaching') + '</td><td>' + s[0].toFixed(2) + '</td><td>' + s[1].toFixed(2) + '</td><td>' + s[2].toFixed(2) + '</td></tr>'; }).join(''); }).join('') + '</tbody>';
+    if (t) t.innerHTML = '<thead><tr><th>Term</th><th>Score</th><th>Mine</th><th>Business School</th><th>University</th><th>Respondents (est.)</th></tr></thead><tbody>' +
+      D.ev.map(function (r) { return ['a', 'b'].map(function (k) { var s = r[k]; return '<tr><td>' + r.t + '</td><td>' + (k === 'a' ? 'Subject' : 'Teaching') + '</td><td>' + s[0].toFixed(2) + '</td><td>' + s[1].toFixed(2) + '</td><td>' + s[2].toFixed(2) + '</td><td>' + (r.n ? 'about ' + r.n : 'not reported') + '</td></tr>'; }).join(''); }).join('') + '</tbody>';
   }
   document.querySelectorAll('.seg button').forEach(function (b) {
     b.addEventListener('click', function () { document.querySelectorAll('.seg button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); drawEv(b.dataset.sec); });

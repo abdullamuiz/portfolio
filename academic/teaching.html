@@ -1377,6 +1377,7 @@ body.subpage main{padding-top:var(--head)}
 @keyframes breathe{0%,100%{box-shadow:0 0 0 0 rgba(15,184,201,0),0 6px 18px -10px rgba(15,184,201,.4)}50%{box-shadow:0 0 0 7px rgba(15,184,201,.14),0 10px 32px -6px rgba(15,184,201,.55)}}
 @media (prefers-reduced-motion:reduce){.back-home{animation:none;box-shadow:0 0 0 4px rgba(15,184,201,.16)}}
 .backbar{padding:0 0 clamp(8px,2vw,16px)}.subpage main > .block:last-of-type{padding-bottom:clamp(40px,5vw,64px)}
+.ev-n{font-style:normal;font-size:11.5px;font-weight:600;color:var(--label);margin-top:2px}
 
 </style>
 </head>
@@ -1489,7 +1490,7 @@ body.subpage main{padding-top:var(--head)}
         </div>
         <div class="ev-rows" id="evRows"></div>
         <div class="ev-axis" aria-hidden="true"><span>75</span><span>80</span><span>85</span><span>90</span><span>95</span><span>100</span></div>
-        <p class="src">Source: MNU Subject and Teaching Evaluation reports, Term 2 2024 to Term 1 2026, as reported (the reports don’t state the scale). The axis starts at 75 so the differences are visible.</p>
+        <p class="src">Source: MNU Subject and Teaching Evaluation reports, Term 2 2024 to Term 1 2026, as reported (the reports don’t state the scale). The axis starts at 75 so the differences are visible. Respondent numbers are estimates: every student who sits a final exam completes the evaluation, so I count students in my modules with a final exam (MNU workload forms for Term 2 2025 and Term 1 2026; marksheets for Term 1 2025). MKT303 has no final exam and isn’t counted.</p>
         <details class="ev-table"><summary>Show as a table</summary><div class="tbl-wrap"><table id="evTable"></table></div></details>
       </div>
 
@@ -1638,10 +1639,10 @@ body.subpage main{padding-top:var(--head)}
  {"c":"MKT217","n":"Advertising &amp; Promotion","l":"Level 200","terms":[["Term 1 2025",null],["Term 2 2025",11]],"mid":["Term 2 2025",3,"Agree or strongly agree on every item","I don’t like strict lectures. That said, be a little just tiny bit strict sir. Hehe."]}
 ],
 "ev":[
- {"t":"Term 2 2024","m":"Modules not named in the report","a":[100,83.72,83.61],"b":[93.83,84.86,83.63],"note":"The report doesn’t give the number of respondents, so this may reflect very few students."},
- {"t":"Term 1 2025","m":"BUS301 · MKT213 · MKT215 · MKT217","a":[87.89,85.37,83.86],"b":[84.17,84.83,83.69]},
- {"t":"Term 2 2025","m":"BUS107 · BUS301 · MKT217 · MKT301","a":[82.64,84.19,84.37],"b":[81.63,84.58,84.5],"note":"My hardest term: four modules, two of them new to me, and 18 contact hours a week."},
- {"t":"Term 1 2026","m":"MKT101 · MKT301 · MKT303 · MKT309","a":[88.37,84.24,83.72],"b":[87.17,84.02,83.65],"detail":[["Planning and preparation",85.52,83.94],["Teaching and learning",88.08,83.54],["Interaction and responsiveness",87.92,84.57],["Subject resources",88.44,83.71]]}
+ {"t":"Term 2 2024","m":"Modules not named in the report","a":[100,83.72,83.61],"b":[93.83,84.86,83.63],"note":"The report doesn’t give the number of respondents, and I have no class lists for this term, so this may reflect very few students."},
+ {"t":"Term 1 2025","m":"BUS301 · MKT213 · MKT215 · MKT217","n":59,"a":[87.89,85.37,83.86],"b":[84.17,84.83,83.69]},
+ {"t":"Term 2 2025","m":"BUS107 · BUS301 · MKT217 · MKT301","n":99,"a":[82.64,84.19,84.37],"b":[81.63,84.58,84.5],"note":"My hardest term: four modules, two of them new to me, and 18 contact hours a week."},
+ {"t":"Term 1 2026","m":"MKT101 · MKT301 · MKT303 · MKT309","n":90,"a":[88.37,84.24,83.72],"b":[87.17,84.02,83.65],"detail":[["Planning and preparation",85.52,83.94],["Teaching and learning",88.08,83.54],["Interaction and responsiveness",87.92,84.57],["Subject resources",88.44,83.71]]}
 ],
 "loads":[["Term 2 2025",[["BUS107",40],["BUS301",28],["MKT301",20],["MKT217",11]]],["Term 1 2026",[["MKT101",55],["MKT303",31],["MKT301",21],["MKT309",14]]],["Term 2 2026",[["MKT101",57],["MKT301",32],["MKT303",12]]]],
 "full":1,
@@ -1818,7 +1819,7 @@ hydrateIcons();
       var s = r[sec], d = s[0] - s[1], cls = d >= 0 ? 'up' : 'down';
       var tip = r.t + ': ' + s[0].toFixed(2) + ' (Business School ' + s[1].toFixed(2) + ', university ' + s[2].toFixed(2) + ')';
       var det = r.detail && sec === 'b' ? '<details class="ev-det"><summary>What made up ' + r.t + '</summary><ul>' + r.detail.map(function (x) { return '<li><span>' + x[0] + '</span><b>' + x[1].toFixed(1) + '</b><em>faculty ' + x[2].toFixed(1) + '</em></li>'; }).join('') + '</ul></details>' : '';
-      return '<div class="ev-row" style="--rd:' + (i * .08) + 's"><div class="ev-l"><b>' + r.t + '</b><span>' + r.m + '</span></div>' +
+      return '<div class="ev-row" style="--rd:' + (i * .08) + 's"><div class="ev-l"><b>' + r.t + '</b><span>' + r.m + '</span>' + (r.n ? '<em class="ev-n">About ' + r.n + ' respondents</em>' : '<em class="ev-n">Respondents not reported</em>') + '</div>' +
         '<div class="ev-track" title="' + esc(tip) + '" tabindex="0" aria-label="' + esc(tip) + '"><i class="grid"></i>' +
         '<i class="m-mnu" style="left:' + X(s[2]) + '"></i><i class="m-fac" style="left:' + X(s[1]) + '"></i>' +
         '<i class="m-gap" style="left:' + X(Math.min(s[0], s[1])) + ';width:calc(' + X(Math.max(s[0], s[1])) + ' - ' + X(Math.min(s[0], s[1])) + ')"></i>' +
@@ -1827,8 +1828,8 @@ hydrateIcons();
         (r.note ? '<p class="ev-note">' + r.note + '</p>' : '') + det + '</div>';
     }).join('');
     var t = $('evTable');
-    if (t) t.innerHTML = '<thead><tr><th>Term</th><th>Score</th><th>Mine</th><th>Business School</th><th>University</th></tr></thead><tbody>' +
-      D.ev.map(function (r) { return ['a', 'b'].map(function (k) { var s = r[k]; return '<tr><td>' + r.t + '</td><td>' + (k === 'a' ? 'Subject' : 'Teaching') + '</td><td>' + s[0].toFixed(2) + '</td><td>' + s[1].toFixed(2) + '</td><td>' + s[2].toFixed(2) + '</td></tr>'; }).join(''); }).join('') + '</tbody>';
+    if (t) t.innerHTML = '<thead><tr><th>Term</th><th>Score</th><th>Mine</th><th>Business School</th><th>University</th><th>Respondents (est.)</th></tr></thead><tbody>' +
+      D.ev.map(function (r) { return ['a', 'b'].map(function (k) { var s = r[k]; return '<tr><td>' + r.t + '</td><td>' + (k === 'a' ? 'Subject' : 'Teaching') + '</td><td>' + s[0].toFixed(2) + '</td><td>' + s[1].toFixed(2) + '</td><td>' + s[2].toFixed(2) + '</td><td>' + (r.n ? 'about ' + r.n : 'not reported') + '</td></tr>'; }).join(''); }).join('') + '</tbody>';
   }
   document.querySelectorAll('.seg button').forEach(function (b) {
     b.addEventListener('click', function () { document.querySelectorAll('.seg button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); drawEv(b.dataset.sec); });
