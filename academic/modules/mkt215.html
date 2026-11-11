@@ -1331,6 +1331,53 @@ body.subpage main{padding-top:var(--head)}
 /* assessment weights in narrow columns: one row per component */
 .mp .wbar,.assess .wbar{display:grid;gap:6px;height:auto}
 .mp .wbar span,.assess .wbar span,.mp .wbar span:nth-child(2),.assess .wbar span:nth-child(2){padding:9px 12px;font-size:13px;background:linear-gradient(90deg,rgba(15,184,201,.32) calc(var(--w) * 1%),rgba(15,184,201,.08) 0)}
+/* ---------- the CV document ---------- */
+.cv-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:880px;margin:0 auto 14px}
+.cvdoc{max-width:880px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:clamp(24px,5vw,56px) clamp(20px,5.5vw,64px);font-size:14.5px;line-height:1.6}
+.cv-top{padding-bottom:16px;border-bottom:2px solid var(--navy);margin-bottom:6px}
+:root[data-theme="dark"] .cv-top{border-color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cv-top{border-color:var(--ink)}}
+.cv-name{font:400 clamp(34px,5vw,48px)/1.05 var(--serif);margin:0}
+.cv-name span,.cv-sec h2 span{color:var(--lagoon)}
+.cv-role{margin:8px 0 6px;font-weight:600;color:var(--label);font-size:15px}
+.cv-contact{display:flex;flex-wrap:wrap;gap:4px 0;margin:0;font-size:13px;color:var(--muted)}
+.cv-contact span:not(:last-child)::after{content:"·";margin:0 10px;color:var(--lagoon)}
+.cvdoc a{color:var(--label);text-decoration:none;overflow-wrap:anywhere}
+.cvdoc a:hover{text-decoration:underline}
+.cv-sec h2{font:400 22px/1.2 var(--serif);margin:26px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.cv-sec p{margin:6px 0}
+.cv-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:12px;break-after:avoid}
+.cv-row b{font-size:15px;font-weight:600}
+.cv-d{font-size:12.5px;font-weight:600;color:var(--label);white-space:nowrap}
+.cv-org{font-size:13px;color:var(--muted)}
+.cvdoc ul{margin:5px 0 4px;padding-left:20px}
+.cvdoc li{margin:3px 0}
+.cvdoc li::marker{color:var(--lagoon)}
+.cv-sign{margin-top:36px;display:grid;justify-items:start;gap:2px;break-inside:avoid}
+.cv-sign .regards{font:italic 400 18px var(--serif)}
+.cv-sign .sig{width:clamp(220px,34vw,330px);margin:6px 0 4px -6px}
+.cv-sign-role{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--label)}
+@media (max-width:560px){.cv-row{flex-direction:column;gap:0}}
+.cv-sign .regards{color:var(--ink)}
+.cv-sign{border:0 !important;padding:0 !important}
+.cv-sign .sig-dot{transform-box:fill-box;transform-origin:center;transform:scale(2.4);opacity:1}
+/* intro line and lead paragraph in Poppins, easier to read than the serif */
+.role{font-family:var(--sans);font-weight:400;font-size:clamp(17px,1.4vw,20px);line-height:1.5;letter-spacing:0}
+.about-text .lead{font-family:var(--sans);font-weight:500;font-size:clamp(18px,1.5vw,21px);line-height:1.55;letter-spacing:0}
+@media (max-width:860px){.role{font-size:16px}.about-text .lead{font-size:17px}}
+/* smaller closing line */
+.thanks{font-size:clamp(48px,7.2vw,96px)}
+.thanks-sub{font-size:clamp(18px,2.2vw,26px)}
+@media (max-width:560px){.thanks{font-size:clamp(42px,13vw,56px)}.thanks-sub{font-size:17px}}
+/* back to the portfolio, before the closing page */
+.backbar{padding:clamp(40px,6vw,72px) 0 clamp(8px,2vw,16px);text-align:center}
+.back-home{gap:10px;min-height:52px;padding:0 28px;font-size:15px;animation:breathe 3.2s ease-in-out infinite}
+.back-home svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s var(--ease)}
+.back-home:hover svg{transform:translateX(-3px)}
+@keyframes breathe{0%,100%{box-shadow:0 0 0 0 rgba(15,184,201,0),0 6px 18px -10px rgba(15,184,201,.4)}50%{box-shadow:0 0 0 7px rgba(15,184,201,.14),0 10px 32px -6px rgba(15,184,201,.55)}}
+@media (prefers-reduced-motion:reduce){.back-home{animation:none;box-shadow:0 0 0 4px rgba(15,184,201,.16)}}
+.backbar{padding:0 0 clamp(8px,2vw,16px)}.subpage main > .block:last-of-type{padding-bottom:clamp(40px,5vw,64px)}
+.ev-n{font-style:normal;font-size:11.5px;font-weight:600;color:var(--label);margin-top:2px}
 
 </style>
 </head>
@@ -1350,7 +1397,7 @@ body.subpage main{padding-top:var(--head)}
     <nav class="links" id="nav" aria-label="Main">
       <a href="../../academic/teaching.html" data-pg="teaching">Teaching</a><a href="../../academic/modules.html" data-pg="modules">Modules</a><a href="../../academic/tools.html" data-pg="tools">Student tools</a><a href="../../academic/research.html" data-pg="research">Research</a><a href="../../academic/cv.html" data-pg="cv">CV</a><a href="#contact" data-spy="contact">Contact</a><a class="only-m" href="../.././">Industry portfolio ↗</a>
     </nav>
-    <div class="head-r"><a class="xlink" href="../.././">Industry portfolio <i data-ic="upright"></i></a><button class="theme" id="theme" type="button" aria-label="Switch to dark mode"><i data-ic="moon"></i></button><button class="btn btn--sm is-todo" type="button" data-todo="CV PDF file">Academic CV <i data-ic="download"></i></button><button class="theme menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><i data-ic="menu"></i></button></div>
+    <div class="head-r"><a class="xlink" href="../.././">Industry portfolio <i data-ic="upright"></i></a><button class="theme" id="theme" type="button" aria-label="Switch to dark mode"><i data-ic="moon"></i></button><a class="btn btn--sm" href="../../academic/Muiz_Fuad_CV.pdf" download="Muiz_Fuad_CV.pdf">Academic CV <i data-ic="download"></i></a><button class="theme menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><i data-ic="menu"></i></button></div>
   </div>
   <i class="read-bar" id="readBar" aria-hidden="true"></i>
 </header>
@@ -1374,6 +1421,7 @@ body.subpage main{padding-top:var(--head)}
     </div>
   </section>
 
+  <div class="backbar"><div class="wrap"><a class="btn back-home" href="../../academic.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to portfolio</a></div></div>
   <section class="endpaper" id="contact">
     <div class="sheet">
       <div class="wrap">
@@ -1382,12 +1430,11 @@ body.subpage main{padding-top:var(--head)}
         <div class="tags-strip reveal"><span class="t1">Let’s talk about</span><span class="t2">teaching and research</span></div>
         <p class="end-line reveal">Open to lecturer appointments, visiting lectures, curriculum collaboration and joint research in tourism and small-business marketing.</p>
         <div class="end-row reveal">
-          <a class="btn" href="mailto:muiz@islandeative.com?subject=Invitation%20to%20give%20a%20demo%20lecture">Invite me to give a demo lecture <i data-ic="mail"></i></a>
-          <button class="btn btn--ghost is-todo" type="button" data-todo="CV PDF file">Download academic CV <i data-ic="download"></i></button>
+          <a class="btn" href="mailto:abdullamuizfuad@gmail.com?subject=Invitation%20to%20give%20a%20demo%20lecture">Invite me to give a demo lecture <i data-ic="mail"></i></a>
+          <a class="btn btn--ghost" href="../../academic/Muiz_Fuad_CV.pdf" download="Muiz_Fuad_CV.pdf">Download academic CV <i data-ic="download"></i></a>
         </div>
         <div class="end-small reveal">
           <span>Referees available on request. Based in Malé, Maldives.</span>
-          <span class="todo">[TODO: CV PDF file]</span>
           <span class="todo">[TODO: confirm “open to relocating to Kuala Lumpur”]</span>
         </div>
       </div>
@@ -1398,13 +1445,13 @@ body.subpage main{padding-top:var(--head)}
 <footer class="endfoot"><div class="wrap">
   <div class="foot-grid">
     <div class="foot-contact">
-      <div><span class="fl">Email</span><button type="button" id="copyMail" class="fv"><span>muiz@islandeative.com</span> <i data-ic="copy"></i></button><br><span class="todo" style="margin-top:6px">[TODO: which address for academic use]</span></div>
+      <div><span class="fl">Email</span><button type="button" id="copyMail" class="fv"><span>abdullamuizfuad@gmail.com</span> <i data-ic="copy"></i></button></div>
       <div><span class="fl">Phone</span><a class="fv" href="tel:+9609902996">+960 990 2996</a></div>
       <div class="foot-icons">
         <a href="https://www.linkedin.com/in/abdullamuizfuad/" target="_blank" rel="noopener" aria-label="LinkedIn"><i data-ic="linkedin"></i></a>
-        <a href="mailto:muiz@islandeative.com" aria-label="Email"><i data-ic="mail"></i></a>
+        <a href="mailto:abdullamuizfuad@gmail.com" aria-label="Email"><i data-ic="mail"></i></a>
       </div>
-      <div class="foot-links"><a class="orcid orcid-foot" href="https://orcid.org/0009-0003-5812-6693" target="_blank" rel="noopener"><svg class="orcid-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#A6CE39"/><path fill="#fff" d="M8.1 17.6H6.6V7.1h1.5v10.5Zm3-10.5h4c3.8 0 5.5 2.7 5.5 5.3 0 2.8-2.2 5.3-5.5 5.3h-4V7.1Zm1.5 9.2h2.3c3.3 0 4.1-2.5 4.1-3.9 0-2.3-1.5-3.9-4.2-3.9h-2.2v7.8ZM8.3 5.1c0 .5-.4 1-1 1s-1-.5-1-1 .4-1 1-1 1 .5 1 1Z"/></svg><span>ORCID 0009-0003-5812-6693</span></a><span class="todo">[TODO: Google Scholar]</span></div>
+      <div class="foot-links"><a class="orcid orcid-foot" href="https://orcid.org/0009-0003-5812-6693" target="_blank" rel="noopener"><svg class="orcid-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#A6CE39"/><path fill="#fff" d="M8.1 17.6H6.6V7.1h1.5v10.5Zm3-10.5h4c3.8 0 5.5 2.7 5.5 5.3 0 2.8-2.2 5.3-5.5 5.3h-4V7.1Zm1.5 9.2h2.3c3.3 0 4.1-2.5 4.1-3.9 0-2.3-1.5-3.9-4.2-3.9h-2.2v7.8ZM8.3 5.1c0 .5-.4 1-1 1s-1-.5-1-1 .4-1 1-1 1 .5 1 1Z"/></svg><span>ORCID 0009-0003-5812-6693</span></a><a class="orcid orcid-foot" href="https://iocdrp.s.gy/fuad-a-m" target="_blank" rel="noopener"><svg class="orcid-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#4285F4"/><path fill="#fff" d="M12 5 4.5 10.6h3.1a4.5 4.5 0 1 0 8.8 0h3.1L12 5Zm0 11.3a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2Z"/></svg><span><b>Google Scholar</b> Fuad, A. M.</span></a></div>
     </div>
     <div class="foot-sign">
       <span class="regards">Warm regards,</span>
@@ -1590,7 +1637,7 @@ hydrateIcons();
       var s = r[sec], d = s[0] - s[1], cls = d >= 0 ? 'up' : 'down';
       var tip = r.t + ': ' + s[0].toFixed(2) + ' (Business School ' + s[1].toFixed(2) + ', university ' + s[2].toFixed(2) + ')';
       var det = r.detail && sec === 'b' ? '<details class="ev-det"><summary>What made up ' + r.t + '</summary><ul>' + r.detail.map(function (x) { return '<li><span>' + x[0] + '</span><b>' + x[1].toFixed(1) + '</b><em>faculty ' + x[2].toFixed(1) + '</em></li>'; }).join('') + '</ul></details>' : '';
-      return '<div class="ev-row" style="--rd:' + (i * .08) + 's"><div class="ev-l"><b>' + r.t + '</b><span>' + r.m + '</span></div>' +
+      return '<div class="ev-row" style="--rd:' + (i * .08) + 's"><div class="ev-l"><b>' + r.t + '</b><span>' + r.m + '</span>' + (r.n ? '<em class="ev-n">About ' + r.n + ' respondents</em>' : '<em class="ev-n">Respondents not reported</em>') + '</div>' +
         '<div class="ev-track" title="' + esc(tip) + '" tabindex="0" aria-label="' + esc(tip) + '"><i class="grid"></i>' +
         '<i class="m-mnu" style="left:' + X(s[2]) + '"></i><i class="m-fac" style="left:' + X(s[1]) + '"></i>' +
         '<i class="m-gap" style="left:' + X(Math.min(s[0], s[1])) + ';width:calc(' + X(Math.max(s[0], s[1])) + ' - ' + X(Math.min(s[0], s[1])) + ')"></i>' +
@@ -1599,8 +1646,8 @@ hydrateIcons();
         (r.note ? '<p class="ev-note">' + r.note + '</p>' : '') + det + '</div>';
     }).join('');
     var t = $('evTable');
-    if (t) t.innerHTML = '<thead><tr><th>Term</th><th>Score</th><th>Mine</th><th>Business School</th><th>University</th></tr></thead><tbody>' +
-      D.ev.map(function (r) { return ['a', 'b'].map(function (k) { var s = r[k]; return '<tr><td>' + r.t + '</td><td>' + (k === 'a' ? 'Subject' : 'Teaching') + '</td><td>' + s[0].toFixed(2) + '</td><td>' + s[1].toFixed(2) + '</td><td>' + s[2].toFixed(2) + '</td></tr>'; }).join(''); }).join('') + '</tbody>';
+    if (t) t.innerHTML = '<thead><tr><th>Term</th><th>Score</th><th>Mine</th><th>Business School</th><th>University</th><th>Respondents (est.)</th></tr></thead><tbody>' +
+      D.ev.map(function (r) { return ['a', 'b'].map(function (k) { var s = r[k]; return '<tr><td>' + r.t + '</td><td>' + (k === 'a' ? 'Subject' : 'Teaching') + '</td><td>' + s[0].toFixed(2) + '</td><td>' + s[1].toFixed(2) + '</td><td>' + s[2].toFixed(2) + '</td><td>' + (r.n ? 'about ' + r.n : 'not reported') + '</td></tr>'; }).join(''); }).join('') + '</tbody>';
   }
   document.querySelectorAll('.seg button').forEach(function (b) {
     b.addEventListener('click', function () { document.querySelectorAll('.seg button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); drawEv(b.dataset.sec); });
