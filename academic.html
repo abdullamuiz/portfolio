@@ -1128,6 +1128,7 @@ nav.links{gap:clamp(14px,1.6vw,24px)}
 @media (max-width:640px){.more-ev > :not(summary){margin-left:12px;margin-right:12px}}
 @media (max-width:560px){.stat-clock{grid-template-columns:1fr}.clock{grid-column:1;grid-row:auto;width:90px;height:90px}.clock i{height:34px}}
 .arena-voices{grid-column:1/-1;display:grid;gap:12px;border-top:1px solid var(--line);padding-top:18px}.arena-voices .quotes{margin-top:0}
+.md-w{height:auto;min-height:52px}.md-w span{flex-direction:column;align-items:flex-start;justify-content:center;padding:8px 10px;font-size:11px}
 
 </style>
 </head>
@@ -1734,6 +1735,7 @@ nav.links{gap:clamp(14px,1.6vw,24px)}
 ],
 "loads":[["Term 2 2025",[["BUS107",40],["BUS301",28],["MKT301",20],["MKT217",11]]],["Term 1 2026",[["MKT101",55],["MKT303",31],["MKT301",21],["MKT309",14]]],["Term 2 2026",[["MKT101",57],["MKT301",32],["MKT303",12]]]],
 "full":1,
+"asg":{"BUS301": ["Term 2 2025", [["Individual written", 15], ["Group written", 25], ["Group presentation", 10], ["Final exam", 50]]], "MKT101": ["Term 1 2026", [["Group written", 20], ["Group presentation", 10], ["Midterm exam", 20], ["Final exam", 50]]], "MKT213": ["Term 1 2026", [["Group assignment+presentation", 35], ["Midterm exam", 15], ["Final exam", 50]]], "MKT215": ["Term 1 2026", [["Group written", 25], ["Group presentation", 15], ["Final exam", 60]]], "MKT217": ["Term 2 2025", [["Individual written", 15], ["Group written", 25], ["Group presentation", 10], ["Final exam", 50]]], "BUS107": ["Term 2 2025", [["Individual written", 15], ["Group presentation", 10], ["Group written", 20], ["Tutorial participation", 5], ["Final exam", 50]]], "MKT301": ["Term 1 2026", [["Group written", 35], ["Group presentation", 15], ["Final exam", 50]]], "MKT303": ["Term 1 2026", [["Group written", 30], ["Individual presentation", 20], ["Individual written", 50]]], "MKT309": ["Term 1 2026", [["Group written", 35], ["Group presentation", 15], ["Final exam", 50]]]},
 "out":{"db":[["BUS107 · T2 2025",70.7,38.5],["BUS301 · T1 2025",81.4,62.7],["MKT213 · T1 2025",92.8,72.4],["BUS301 · T2 2025",78.6,57.5],["MKT301 · T2 2025",78.5,55.7],["MKT101 · T2 2025",72.9,53.9],["MKT215 · T1 2025",91.7,75.3],["MKT215 · T1 2026",89.0,72.8],["MKT301 · T1 2026",72.5,54.7],["MKT217 · T1 2025",84.0,71.0],["MKT101 · T1 2025",54.3,42.1],["MKT217 · T2 2025",82.0,70.1],["MKT213 · T1 2026",80.2,71.3],["MKT309 · T1 2026",73.5,68.4],["MKT101 · T1 2026",47.3,46.8]],"att":[["85% or more",325,86.8],["70 to 84%",81,66.7],["50 to 69%",12,0],["Under 50%",23,0]]}
 }
 </script>
@@ -2289,7 +2291,8 @@ hydrateIcons();
     var h = '<div class="md-sec"><span class="label">Terms taught</span><ul class="md-terms">' + m.terms.map(function (t) { return '<li>' + t[0] + (D.full && t[1] ? '<b>' + t[1] + ' students</b>' : '') + '</li>'; }).join('') + '</ul></div>';
     if (m.lt) h += '<p><span class="todo">[TODO: confirm the level]</span></p>';
     h += '<div class="md-sec"><span class="label">Learning outcomes</span><span class="todo">[TODO: course learning outcomes from the module descriptor]</span></div>';
-    h += '<div class="md-sec"><span class="label">Assessment</span><span class="todo">[TODO: assessment types and weights from the module descriptor]</span></div>';
+    var A = D.asg && D.asg[m.c];
+    h += '<div class="md-sec"><span class="label">Assessment' + (A ? ' · as delivered, ' + A[0] : '') + '</span>' + (A ? '<div class="wbar md-w">' + A[1].map(function (x) { return '<span style="--w:' + x[1] + '">' + x[0] + ' <b>' + x[1] + '</b></span>'; }).join('') + '</div>' : '<span class="todo">[TODO: assessment types and weights]</span>') + '</div>';
     if (m.app) h += '<div class="md-sec"><span class="label">What students use</span><a class="more-link" href="' + m.app[1] + '" target="_blank" rel="noopener">' + m.app[0] + ' ' + IC('upright') + '</a></div>';
     if (m.demo) h += '<div class="md-sec"><span class="label">Sample lesson</span><a class="more-link" href="#lesson" data-close>Found, Chosen, Booked ' + IC('down') + '</a></div>';
     if (D.full && m.mid) h += '<div class="md-sec md-mid"><span class="label">Midterm check-in · ' + m.mid[0] + ' · ' + m.mid[1] + ' respondent' + (m.mid[1] > 1 ? 's' : '') + '</span><p>' + m.mid[2] + '.</p><blockquote>“' + m.mid[3] + '”</blockquote></div>';
