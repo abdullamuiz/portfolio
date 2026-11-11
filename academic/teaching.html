@@ -1378,6 +1378,205 @@ body.subpage main{padding-top:var(--head)}
 @media (prefers-reduced-motion:reduce){.back-home{animation:none;box-shadow:0 0 0 4px rgba(15,184,201,.16)}}
 .backbar{padding:0 0 clamp(8px,2vw,16px)}.subpage main > .block:last-of-type{padding-bottom:clamp(40px,5vw,64px)}
 .ev-n{font-style:normal;font-size:11.5px;font-weight:600;color:var(--label);margin-top:2px}
+/* ---------- class activity dashboard ---------- */
+.ca .ca-head h2 .dot,.ca .ca-card h2 .dot{color:var(--lagoon)}
+.ca svg{display:block;width:100%;height:auto}
+.ca svg text{font-family:var(--sans);fill:var(--muted)}
+.ca .ca-jump{top:var(--head)}
+
+.ca{max-width:1100px;margin:0 auto;padding:clamp(24px,5vw,56px) clamp(16px,5vw,48px) 48px}
+
+.ca-eyebrow{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--label);font-weight:600;display:flex;align-items:center;gap:10px}
+
+.ca-eyebrow::before{content:"";width:28px;height:2px;background:var(--lagoon)}
+
+.ca-lede{max-width:64ch;color:var(--muted)}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 6px}
+
+.tab{font:inherit;font-size:13px;font-weight:500;padding:7px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+
+.tab[aria-pressed="true"]{background:var(--cta);border-color:var(--cta);color:#fff}
+
+.ca-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:18px}
+
+.ca-kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+
+.ca-kpi b{display:block;font-family:var(--serif);font-weight:400;font-size:2rem;line-height:1.1;color:var(--ink)}
+
+.ca-kpi span{font-size:.82rem;color:var(--muted)}
+
+.ca-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:820px){.ca-grid{grid-template-columns:1fr}}
+
+.ca-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px 16px;min-width:0}
+
+.ca-card.ca-wide{grid-column:1/-1}
+
+.ca-card h2{font-family:var(--serif);font-weight:400;font-size:1.3rem;margin:0 0 2px}
+
+.ca-card p.ca-sub{font-size:.82rem;color:var(--muted);margin:0 0 12px}
+
+.ca-leg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.78rem;color:var(--muted);margin-top:8px}
+
+.ca-leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+.ca-jump{position:sticky;top:0;z-index:5;display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 0;padding:10px 0;background:var(--paper)}
+
+.ca-jump a{font-size:13px;font-weight:500;padding:6px 14px;border-radius:999px;border:1px solid var(--line);color:var(--ink);text-decoration:none}
+
+.ca-jump a:hover{border-color:var(--cta);color:var(--cta)}
+
+.ca-sec{padding-top:34px;scroll-margin-top:56px}
+
+.ca-sec+.ca-sec{margin-top:24px;border-top:1px solid var(--line)}
+
+.ca-head .ca-code{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--label);font-weight:600}
+
+.ca-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,3.4vw,2rem);line-height:1.15;margin:4px 0 4px}
+
+.ca-head p{color:var(--muted);font-size:.9rem;max-width:70ch}
+
+.ca-note{margin-top:22px;font-size:.8rem;color:var(--muted);max-width:80ch}
+
+.ca-note b{color:var(--ink);font-weight:600}
+:root[data-theme="dark"] .ca{--deep:#6EA8F0;--cta:#13A6B5;--sea:#4FA3F0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ca{--deep:#6EA8F0;--cta:#13A6B5;--sea:#4FA3F0}}
+.guest-row .btn{font-size:13.5px}
+/* ---------- evidence explorer and charts ---------- */
+#evidence,.evx-wrap{--me:#0B9BAD;--fac:#6250d6;--mnu:#d9548a;--g1:#2a78d6;--g2:#008300;--g3:#c0459b}
+:root[data-theme="dark"] #evidence,:root[data-theme="dark"] .evx-wrap{--me:#13A6B5;--fac:#9085e9;--mnu:#d55181;--g1:#3987e5;--g2:#2a9d4a;--g3:#cf5aa6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #evidence,:root:not([data-theme="light"]) .evx-wrap{--me:#13A6B5;--fac:#9085e9;--mnu:#d55181;--g1:#3987e5;--g2:#2a9d4a;--g3:#cf5aa6}}
+.evx{gap:18px}
+.evx-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.vz-key{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--muted)}
+.vz-key li{display:flex;align-items:center;gap:7px}
+.vk-me{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--me)}
+.vk-fac{display:inline-block;width:3px;height:14px;border-radius:2px;background:var(--fac)}
+.vk-mnu{display:inline-block;width:10px;height:10px;border-radius:50%;border:2px solid var(--mnu)}
+.vk-g{display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--c)}
+.vk-cw{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--ink)}
+.vk-ex{display:inline-block;width:12px;height:12px;border-radius:50%;border:2px solid var(--ink);box-sizing:border-box}
+.evx-terms{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.evx-term{display:grid;gap:4px;justify-items:start;text-align:left;padding:14px 16px 13px;border:1px solid var(--line);border-radius:14px;background:transparent;color:var(--ink);font:inherit;cursor:pointer;position:relative;transition:border-color .2s var(--ease),background .2s var(--ease),transform .2s var(--ease)}
+.evx-term:hover{border-color:var(--me);transform:translateY(-1px)}
+.evx-term.on{border-color:var(--me);background:color-mix(in srgb,var(--me) 9%,transparent)}
+.evx-term.on::after{content:"";position:absolute;right:12px;top:12px;width:9px;height:9px;border-radius:50%;background:var(--lagoon);box-shadow:0 0 0 4px color-mix(in srgb,var(--lagoon) 22%,transparent)}
+.evx-tn{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--label)}
+.evx-sc{font:400 34px/1 var(--serif);font-variant-numeric:tabular-nums}
+.evx-d{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+.evx-d small{font-weight:400;color:var(--muted);font-size:11px}
+.evx-d.up,.evx-nums .up{color:var(--label)}
+.evx-d.down,.evx-nums .down{color:var(--muted)}
+.evx-n{font-size:11.5px;color:var(--muted)}
+.evx-plot{position:relative}
+.evx-chart{display:grid;gap:2px;margin-top:4px}
+.evx-row{display:grid;grid-template-columns:70px 1fr;align-items:center;gap:14px;border:0;background:transparent;padding:6px 8px;border-radius:10px;cursor:pointer;font:inherit;color:var(--muted);opacity:.6;transition:opacity .25s var(--ease),background .25s var(--ease)}
+.evx-row:hover{opacity:.9}
+.evx-row.on{opacity:1;background:color-mix(in srgb,var(--me) 7%,transparent);color:var(--ink)}
+.evx-rl{font-size:12px;font-weight:600;text-align:left}
+.evx-track{position:relative;height:40px}
+.evx-track > i{position:absolute;top:60%}
+.evx-track .grid{left:0;right:0;height:2px;margin-top:-1px;background:var(--line);border-radius:2px}
+.mk-gap{height:4px;margin-top:-2px;border-radius:2px;background:color-mix(in srgb,var(--me) 35%,transparent)}
+.mk-fac{width:3px;height:22px;margin:-11px 0 0 -1.5px;border-radius:2px;background:var(--fac)}
+.mk-mnu{width:13px;height:13px;margin:-6.5px 0 0 -6.5px;border-radius:50%;border:2.5px solid var(--mnu);background:var(--card);box-sizing:border-box}
+.mk-me{width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:var(--me);box-shadow:0 0 0 2px var(--card)}
+.mk-me b{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);font:600 13px var(--sans);color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.evx-row:not(.on) .mk-me b{font-weight:500;color:var(--muted)}
+.evx-row.on .mk-me{background:transparent;box-shadow:none}
+/* the iconic dot travels to the chosen term */
+.evx-iconic{position:absolute;left:0;top:0;width:22px;height:22px;margin:-11px 0 0 -11px;pointer-events:none;opacity:0;transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.evx-iconic.on{opacity:1}
+.evx-iconic i{position:absolute;inset:0;border-radius:50%;background:var(--lagoon);box-shadow:0 0 0 3px var(--card),0 4px 14px -2px color-mix(in srgb,var(--lagoon) 60%,transparent)}
+.evx-iconic::before{content:"";position:absolute;inset:-7px;border-radius:50%;background:color-mix(in srgb,var(--lagoon) 30%,transparent);animation:evxPulse 2.6s ease-in-out infinite}
+@keyframes evxPulse{0%,100%{transform:scale(.6);opacity:0}45%{opacity:.9}70%{transform:scale(1.15);opacity:0}}
+.evx-axis{display:flex;justify-content:space-between;margin-left:92px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.evx-spot{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px;padding:22px;border-radius:16px;background:var(--tint);animation:evxIn .45s var(--ease)}
+:root[data-theme="dark"] .evx-spot{background:rgba(34,201,217,.06)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .evx-spot{background:rgba(34,201,217,.06)}}
+@keyframes evxIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.evx-sl h3{font:400 clamp(24px,2.6vw,30px)/1.12 var(--serif);margin:6px 0 8px}
+.evx-sl h3 span,.vz h3 span{color:var(--lagoon)}
+.evx-sl p{margin:0;font-size:14.5px}
+.evx-facts{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.evx-facts li{font-size:12px;font-weight:500;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--card)}
+.evx-facts li.mod{font-weight:600;letter-spacing:.04em;display:inline-flex;align-items:center;gap:6px}
+.evx-facts li.mod::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--c)}
+.evx-nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:16px 0 0}
+.evx-nums div{display:grid;gap:2px}
+.evx-nums dt{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:6px}
+.evx-nums dd{margin:0;font:400 22px/1.1 var(--serif);font-variant-numeric:tabular-nums}
+.evx-nums dd.up,.evx-nums dd.down{font:600 20px/1.2 var(--sans)}
+.evx-sr{display:grid;gap:10px;align-content:start}
+.evx-q{margin:0;display:grid;gap:8px}
+.evx-q blockquote{margin:0;font:400 italic 21px/1.35 var(--serif)}
+.evx-q figcaption{font-size:12.5px;color:var(--muted)}
+.evx-caution{margin:0;font-size:14.5px}
+/* chart grid */
+.vz-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+.vz-wide{grid-column:1/-1}
+.vz{margin:0;gap:14px}
+.vz figcaption{display:grid;gap:4px}
+.vz h3{font:400 clamp(21px,2.2vw,25px)/1.15 var(--serif);margin:0}
+.vz figcaption p{margin:0;font-size:13.5px;color:var(--muted)}
+/* rings */
+.rings{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.ring{display:grid;justify-items:center;text-align:center;gap:2px;outline-offset:4px}
+.ring svg{width:100%;max-width:104px;height:auto}
+.rg-bg{fill:none;stroke:var(--line);stroke-width:8}
+.rg-me{fill:none;stroke:var(--me);stroke-width:8;stroke-linecap:round;animation:rgIn 1.2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rgIn{from{stroke-dasharray:0 999}}
+.rg-fac{stroke:var(--fac);stroke-width:3;stroke-linecap:round}
+.ring b{font:400 20px/1 var(--serif);font-variant-numeric:tabular-nums;margin-top:-64px;margin-bottom:36px}
+.ring em{font-style:normal;font-size:12px;font-weight:600;color:var(--label)}
+.ring span{font-size:12px;line-height:1.3;color:var(--muted);max-width:14ch}
+/* stacked bars */
+.stk{display:grid;gap:14px}
+.stk-row{display:grid;grid-template-columns:86px 1fr 34px;align-items:center;gap:10px}
+.stk-t{font-size:12.5px;font-weight:600}
+.stk-bar{display:flex;gap:2px;height:44px}
+.stk-bar span{background:var(--c);border-radius:4px;color:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 7px;min-width:0;overflow:hidden;transition:filter .2s}
+.stk-bar span:hover,.stk-bar span:focus{filter:brightness(1.12)}
+.stk-bar b{font-size:10.5px;font-weight:600;letter-spacing:.04em;white-space:nowrap}
+.stk-bar em{font-style:normal;font-size:11px;opacity:.9}
+.stk-n{font:400 18px var(--serif);text-align:right;font-variant-numeric:tabular-nums}
+/* dumbbell */
+.db2{display:grid;gap:2px}
+.db2-row{display:grid;grid-template-columns:150px 1fr 44px;align-items:center;gap:12px;padding:3px 6px;border-radius:8px;outline-offset:2px}
+.db2-row:hover,.db2-row:focus{background:var(--tint)}
+.db2-l{font-size:12px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.db2-l i{width:8px;height:8px;border-radius:2px;background:var(--c);flex:none}
+.db2-t{position:relative;height:20px}
+.db2-t::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--line)}
+.db2-t i{position:absolute;top:50%}
+.db2-line{height:3px;margin-top:-1.5px;background:color-mix(in srgb,var(--c) 45%,transparent);border-radius:2px}
+.db2-cw{width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--c);box-shadow:0 0 0 2px var(--card)}
+.db2-ex{width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;border:2.5px solid var(--c);background:var(--card);box-sizing:border-box}
+.db2-g{font-size:12px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.db2-axis{position:relative;height:16px;margin:4px 62px 0 174px;font-size:11px;color:var(--muted)}
+.db2-axis span{position:absolute;transform:translateX(-50%)}
+/* attendance */
+.att2{display:grid;gap:12px}
+.att2-row{display:grid;grid-template-columns:110px 1fr 42px;align-items:center;gap:10px}
+.att2-l{font-size:12.5px;font-weight:600;display:grid}
+.att2-l small{font-weight:400;color:var(--muted);font-size:11px}
+.att2-t{height:14px;background:var(--tint);border-radius:4px;overflow:hidden}
+.att2-t i{display:block;height:100%;background:var(--me);border-radius:4px}
+.att2-row b{font:400 18px var(--serif);text-align:right}
+.vz-tiles{display:grid;gap:12px;align-content:stretch}
+.evx-tile{border:1px solid var(--line);border-radius:16px;background:var(--card);padding:16px 18px;display:grid;gap:4px;align-content:center}
+.evx-tile b{font:400 30px/1 var(--serif);font-variant-numeric:tabular-nums}
+.evx-tile span{font-size:13px;color:var(--muted)}
+@media (max-width:860px){.evx-terms{grid-template-columns:repeat(2,minmax(0,1fr))}.evx-spot{grid-template-columns:1fr;padding:18px}.evx-nums{grid-template-columns:repeat(2,minmax(0,1fr))}.vz-grid{grid-template-columns:1fr}.rings{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.evx-row{grid-template-columns:52px 1fr;gap:8px}.evx-axis{margin-left:68px}.evx-sc{font-size:28px}.db2-row{grid-template-columns:104px 1fr 36px;gap:8px}.db2-l{font-size:11px}.db2-axis{margin:4px 50px 0 124px}.stk-row{grid-template-columns:64px 1fr 30px}.stk-bar b{font-size:9.5px}}
+@media (prefers-reduced-motion:reduce){.evx-spot,.rg-me{animation:none}.evx-iconic,.evx-term,.evx-row{transition:none}.evx-iconic::before{animation:none;opacity:0}}
+.vz-grid > *,.vz{min-width:0}
+.stk-row{row-gap:6px}
+.stk-bar span.sm b,.stk-bar span.sm em{visibility:hidden}
+.stk-list{grid-column:2/-1;margin:0;display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.stk-list span{display:inline-flex;align-items:center;gap:5px}
+.stk-list i{width:8px;height:8px;border-radius:2px;background:var(--c)}
 
 </style>
 </head>
@@ -1478,28 +1677,127 @@ body.subpage main{padding-top:var(--head)}
   <section class="block" id="evidence">
     <div class="wrap">
       <div class="head wide reveal"><span class="label">Teaching evidence</span><h2>What students say<span>.</span></h2><p>Every term I’ve taught at MNU, against the Business School and university averages. The good terms and the hard one.</p></div>
-
-      <div class="panel ev-chart reveal" id="evChart">
-        <div class="ev-top">
+      <div class="evx panel reveal" id="evx">
+        <div class="evx-top">
           <div class="seg" role="group" aria-label="Which score">
-            <button type="button" data-sec="b" aria-pressed="true">My teaching</button><button type="button" data-sec="a" aria-pressed="false">The subject</button>
+            <button type="button" data-k="b" aria-pressed="true">My teaching</button><button type="button" data-k="a" aria-pressed="false">The subject</button>
           </div>
-          <ul class="ev-key" aria-label="Legend">
-            <li><i class="k-me"></i>My score</li><li><i class="k-fac"></i>Business School average</li><li><i class="k-mnu"></i>University average</li>
+          <ul class="vz-key" aria-label="Legend">
+            <li><i class="vk-me"></i>My score</li><li><i class="vk-fac"></i>Business School average</li><li><i class="vk-mnu"></i>University average</li>
           </ul>
         </div>
-        <div class="ev-rows" id="evRows"></div>
-        <div class="ev-axis" aria-hidden="true"><span>75</span><span>80</span><span>85</span><span>90</span><span>95</span><span>100</span></div>
+        <div class="evx-terms" role="tablist" aria-label="Choose a term" id="evxTerms"></div>
+        <div class="evx-plot">
+          <div class="evx-chart" id="evxChart"></div>
+          <span class="evx-iconic" id="evxDot" aria-hidden="true"><i></i></span>
+        </div>
+        <div class="evx-axis" aria-hidden="true"><span>75</span><span>80</span><span>85</span><span>90</span><span>95</span><span>100</span></div>
+        <article class="evx-spot" id="evxSpot" role="tabpanel" aria-live="polite"></article>
         <p class="src">Source: MNU Subject and Teaching Evaluation reports, Term 2 2024 to Term 1 2026, as reported (the reports don’t state the scale). The axis starts at 75 so the differences are visible. Respondent numbers are estimates: every student who sits a final exam completes the evaluation, so I count students in my modules with a final exam (MNU workload forms for Term 2 2025 and Term 1 2026; marksheets for Term 1 2025). MKT303 has no final exam and isn’t counted.</p>
-        <details class="ev-table"><summary>Show as a table</summary><div class="tbl-wrap"><table id="evTable"></table></div></details>
       </div>
 
-      <div class="sub-head reveal"><div><span class="label">In their words</span><h3 class="h3s">Student voices<span>.</span></h3></div></div>
-      <div class="quotes">
-        <figure class="quote reveal"><blockquote>But sir why do you not use social media but knows so much about it. I’m just fascinated</blockquote><figcaption><span class="av">215</span><span>Student, MKT215 Direct Marketing<br><small>Midterm evaluation, Term 1 2025</small></span></figcaption></figure>
-        <figure class="quote reveal" style="--rd:.08s"><blockquote>I don’t like strict lectures. That said, be a little just tiny bit strict sir. Hehe.</blockquote><figcaption><span class="av">217</span><span>Student, MKT217 Advertising and Promotion<br><small>Midterm evaluation, Term 2 2025</small></span></figcaption></figure>
-        <figure class="quote reveal" style="--rd:.16s"><span class="todo">[TODO: student quote from the Google Form, with consent; photo only if the student agrees]</span><figcaption><span class="av">?</span><span>First name I.<br><small>Programme, module, year</small></span></figcaption></figure>
+      <div class="vz-grid">
+        <figure class="panel vz reveal" id="vzAreas">
+          <figcaption><span class="label">Term 1 2026 · teaching evaluation</span><h3>Ahead in all four areas<span>.</span></h3><p>Each ring is out of 100. The ring fills to my score; the violet tick marks the Business School average.</p></figcaption>
+          <div class="rings" id="rings"></div>
+        </figure>
+        <figure class="panel vz reveal" style="--rd:.08s" id="vzLoads">
+          <figcaption><span class="label">Workload</span><h3>Students I taught each term<span>.</span></h3><p>By module, coloured by area of the curriculum.</p></figcaption>
+          <ul class="vz-key"><li><i class="vk-g" style="--c:var(--g1)"></i>Foundations</li><li><i class="vk-g" style="--c:var(--g2)"></i>Marketing communications</li><li><i class="vk-g" style="--c:var(--g3)"></i>Strategy, brand and digital</li></ul>
+          <div class="stk" id="stk"></div>
+          <p class="src">Source: MNU workload forms, Term 2 2025 to Term 2 2026.</p>
+        </figure>
+        <figure class="panel vz vz-wide reveal" id="vzGap">
+          <figcaption><span class="label">Student outcomes</span><h3>Coursework beat the final exam in every cohort<span>.</span></h3><p>Average coursework and final-exam percentage for each cohort with a final exam, Term 1 2025 to Term 1 2026, sorted by the size of the gap. The median gap is 16.4 points.</p></figcaption>
+          <ul class="vz-key"><li><i class="vk-cw"></i>Coursework</li><li><i class="vk-ex"></i>Final exam</li><li><i class="vk-g" style="--c:var(--g1)"></i>Foundations</li><li><i class="vk-g" style="--c:var(--g2)"></i>Communications</li><li><i class="vk-g" style="--c:var(--g3)"></i>Strategy, brand and digital</li></ul>
+          <div class="db2" id="db2"></div>
+          <div class="db2-axis" id="db2axis" aria-hidden="true"></div>
+        </figure>
+        <figure class="panel vz reveal" id="vzAtt">
+          <figcaption><span class="label">Attendance</span><h3>Students who came, passed<span>.</span></h3><p>Pass rate by share of sessions attended. An association, not a cause.</p></figcaption>
+          <div class="att2" id="att2"></div>
+        </figure>
+        <div class="vz-tiles reveal" style="--rd:.08s">
+          <div class="evx-tile"><b>447</b><span>enrolments across 16 cohorts, Term 1 2025 to Term 1 2026</span></div>
+          <div class="evx-tile"><b>86.0%</b><span>of students who sat every assessment passed</span></div>
+          <div class="evx-tile"><b>96.6%</b><span>pass rate in the upper-level marketing electives, 118 students</span></div>
+        </div>
       </div>
+      <p class="src reveal" style="margin-top:14px">Outcomes: MNU Business School marksheets, Term 1 2025 to Term 1 2026, aggregated and anonymised. Groups under 15 students are indicative. <span class="todo">[TODO: confirm which cohorts you taught or coordinated]</span></p>
+<script>
+(function(){
+  var T=[
+    {t:'Term 2 2024',s:'T2 2024',m:[],mt:'Modules not named in the report',n:null,a:[100,83.72,83.61],b:[93.83,84.86,83.63],
+     h:'My first term at MNU.',p:'The report doesn’t give the number of respondents, and I have no class lists for this term, so this score may reflect very few students.',facts:['Respondents not reported']},
+    {t:'Term 1 2025',s:'T1 2025',m:['BUS301','MKT213','MKT215','MKT217'],n:59,a:[87.89,85.37,83.86],b:[84.17,84.83,83.69],
+     h:'Four modules, and no cancelled classes.',p:'The term our new dean challenged the department to get through without cancelling a class. I took it on, and kept going into 2026.',facts:[],
+     q:['But sir why do you not use social media but knows so much about it. I’m just fascinated','Student, MKT215 Direct Marketing · midterm evaluation']},
+    {t:'Term 2 2025',s:'T2 2025',m:['BUS107','BUS301','MKT217','MKT301'],n:99,a:[82.64,84.19,84.37],b:[81.63,84.58,84.5],
+     h:'My hardest term.',p:'Four modules, two of them new to me, and 18 contact hours a week, above my required load. I also added classes and tutorial hours so graduating students could finish that semester.',facts:['2 new to me','18 contact hours a week'],
+     q:['I don’t like strict lectures. That said, be a little just tiny bit strict sir. Hehe.','Student, MKT217 Advertising and Promotion · midterm evaluation']},
+    {t:'Term 1 2026',s:'T1 2026',m:['MKT101','MKT301','MKT303','MKT309'],n:90,a:[88.37,84.24,83.72],b:[87.17,84.02,83.65],
+     h:'Above the Business School in every area.',hs:'Back above the Business School average.',p:'Back above the Business School average, with all four areas of the teaching evaluation ahead of it.',facts:['Levels 100 and 300']}
+  ];
+  var AREAS=[['Planning and preparation',85.52,83.94],['Teaching and learning',88.08,83.54],['Interaction and responsiveness',87.92,84.57],['Subject resources',88.44,83.71]];
+  var GRP={MKT101:1,BUS107:1,BUS301:1,MKT213:2,MKT215:2,MKT217:2,MKT301:3,MKT303:3,MKT309:3};
+  var LOADS=[['Term 2 2025',[['BUS107',40],['BUS301',28],['MKT301',20],['MKT217',11]]],['Term 1 2026',[['MKT101',55],['MKT303',31],['MKT301',21],['MKT309',14]]],['Term 2 2026',[['MKT101',57],['MKT301',32],['MKT303',12]]]];
+  var DB=[["BUS107 · T2 2025",70.7,38.5],["BUS301 · T1 2025",81.4,62.7],["MKT213 · T1 2025",92.8,72.4],["BUS301 · T2 2025",78.6,57.5],["MKT301 · T2 2025",78.5,55.7],["MKT101 · T2 2025",72.9,53.9],["MKT215 · T1 2025",91.7,75.3],["MKT215 · T1 2026",89.0,72.8],["MKT301 · T1 2026",72.5,54.7],["MKT217 · T1 2025",84.0,71.0],["MKT101 · T1 2025",54.3,42.1],["MKT217 · T2 2025",82.0,70.1],["MKT213 · T1 2026",80.2,71.3],["MKT309 · T1 2026",73.5,68.4],["MKT101 · T1 2026",47.3,46.8]];
+  var ATT=[["85% or more",325,86.8],["70 to 84%",81,66.7],["50 to 69%",12,0],["Under 50%",23,0]];
+  var K='b',I=3,MIN=75,MAX=100;
+  var $=function(id){return document.getElementById(id)};
+  var X=function(v,a,b){a=a==null?MIN:a;b=b==null?MAX:b;return ((Math.max(a,Math.min(b,v))-a)/(b-a)*100).toFixed(2)+'%'};
+  var f1=function(v){return (Math.round(v*10)/10).toFixed(1)};
+  var dlt=function(r){return r[K][0]-r[K][1]};
+  var sg=function(d){return (d>=0?'+':'−')+f1(Math.abs(d))};
+  var esc=function(s){return String(s).replace(/"/g,'&quot;')};
+
+  /* term explorer */
+  function terms(){$('evxTerms').innerHTML=T.map(function(r,i){var d=dlt(r);
+    return '<button type="button" role="tab" class="evx-term'+(i===I?' on':'')+'" aria-selected="'+(i===I)+'" data-i="'+i+'"><span class="evx-tn">'+r.t+'</span><b class="evx-sc">'+f1(r[K][0])+'</b><span class="evx-d '+(d>=0?'up':'down')+'">'+sg(d)+' <small>vs Business School</small></span><span class="evx-n">'+(r.n?'About '+r.n+' respondents':'Respondents not reported')+'</span></button>'}).join('')}
+  function chart(){$('evxChart').innerHTML=T.map(function(r,i){var s=r[K],tip=r.t+': mine '+f1(s[0])+', Business School '+f1(s[1])+', university '+f1(s[2]);
+    return '<button type="button" tabindex="-1" class="evx-row'+(i===I?' on':'')+'" data-i="'+i+'" title="'+esc(tip)+'"><span class="evx-rl">'+r.s+'</span><span class="evx-track"><i class="grid"></i>'+
+      '<i class="mk-gap" style="left:'+X(Math.min(s[0],s[1]))+';width:calc('+X(Math.max(s[0],s[1]))+' - '+X(Math.min(s[0],s[1]))+')"></i>'+
+      '<i class="mk-mnu" style="left:'+X(s[2])+'"></i><i class="mk-fac" style="left:'+X(s[1])+'"></i><i class="mk-me" style="left:'+X(s[0])+'"><b>'+f1(s[0])+'</b></i></span></button>'}).join('');
+    requestAnimationFrame(place)}
+  function place(){var on=$('evxChart').querySelector('.evx-row.on .mk-me'),pl=document.querySelector('.evx-plot');if(!on||!pl)return;
+    var a=on.getBoundingClientRect(),b=pl.getBoundingClientRect(),d=$('evxDot');d.style.transform='translate('+(a.left+a.width/2-b.left)+'px,'+(a.top+a.height/2-b.top)+'px)';d.classList.add('on')}
+  function spot(){var r=T[I],s=r[K],d=dlt(r),hd=(K==='a'&&r.hs)?r.hs:r.h,pp=(K==='a'&&I===3)?'How students rated the module as a whole, not just my teaching.':r.p,h='';
+    h+='<div class="evx-sl"><span class="label">'+r.t+' · '+(K==='b'?'my teaching':'the subject')+'</span><h3>'+hd.replace(/\.$/,'')+'<span>.</span></h3><p>'+pp+'</p><ul class="evx-facts">'+
+      (r.m.length?r.m.map(function(m){return '<li class="mod" style="--c:var(--g'+GRP[m]+')">'+m+'</li>'}).join(''):'<li>'+r.mt+'</li>')+(r.n?'<li>About '+r.n+' respondents</li>':'')+r.facts.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>'+
+      '<dl class="evx-nums"><div><dt><i class="vk-me"></i>Mine</dt><dd>'+f1(s[0])+'</dd></div><div><dt><i class="vk-fac"></i>Business School</dt><dd>'+f1(s[1])+'</dd></div><div><dt><i class="vk-mnu"></i>University</dt><dd>'+f1(s[2])+'</dd></div><div><dt>Difference</dt><dd class="'+(d>=0?'up':'down')+'">'+sg(d)+'</dd></div></dl></div><div class="evx-sr">';
+    if(r.q)h+='<span class="label">In their words</span><figure class="evx-q"><blockquote>“'+r.q[0]+'”</blockquote><figcaption>'+r.q[1]+'</figcaption></figure>';
+    else if(I===3)h+='<span class="label">The four areas</span><p class="evx-caution">'+(K==='b'?'All four areas of the teaching evaluation came in above the Business School average. The rings below show each one.':'The report breaks down the teaching score only. Switch to “My teaching” to see it.')+'</p>';
+    else h+='<span class="label">Reading this score</span><p class="evx-caution">A strong score, but read it with care: the number of students behind it is unknown.</p>';
+    $('evxSpot').innerHTML=h+'</div>'}
+  function all(){terms();chart();spot()}
+  function pick(i){I=+i;all()}
+  document.addEventListener('click',function(e){var b=e.target.closest('#evx [data-i]');if(b){pick(b.dataset.i);return}
+    var k=e.target.closest('#evx .seg button');if(k){K=k.dataset.k;document.querySelectorAll('#evx .seg button').forEach(function(x){x.setAttribute('aria-pressed',x===k)});all()}});
+  $('evxTerms').addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();pick((I+(e.key==='ArrowRight'?1:3))%4);var f=$('evxTerms').querySelector('[data-i="'+I+'"]');if(f)f.focus()}});
+  addEventListener('resize',function(){requestAnimationFrame(place)});
+  all();
+
+  /* rings: the four areas, out of 100 */
+  var R=34,C=2*Math.PI*R;
+  $('rings').innerHTML=AREAS.map(function(a){var me=a[1]/100*C,ang=a[2]/100*360-90,rad=ang*Math.PI/180,x1=44+(R-7)*Math.cos(rad),y1=44+(R-7)*Math.sin(rad),x2=44+(R+7)*Math.cos(rad),y2=44+(R+7)*Math.sin(rad),tip=a[0]+': mine '+f1(a[1])+', Business School '+f1(a[2]);
+    return '<div class="ring" title="'+esc(tip)+'" tabindex="0" aria-label="'+esc(tip)+'"><svg viewBox="0 0 88 88" aria-hidden="true"><circle cx="44" cy="44" r="'+R+'" class="rg-bg"/><circle cx="44" cy="44" r="'+R+'" class="rg-me" stroke-dasharray="'+me.toFixed(1)+' '+C.toFixed(1)+'" transform="rotate(-90 44 44)"/><line x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'" class="rg-fac"/></svg><b>'+f1(a[1])+'</b><em>+'+f1(a[1]-a[2])+'</em><span>'+a[0]+'</span></div>'}).join('');
+
+  /* stacked bars: students per term, by module */
+  var mx=Math.max.apply(null,LOADS.map(function(t){return t[1].reduce(function(s,m){return s+m[1]},0)}));
+  $('stk').innerHTML=LOADS.map(function(t){var tot=t[1].reduce(function(s,m){return s+m[1]},0);
+    return '<div class="stk-row"><span class="stk-t">'+t[0]+'</span><div class="stk-bar" style="width:'+(tot/mx*100).toFixed(1)+'%">'+t[1].map(function(m){var w=m[1]/mx;return '<span class="'+(w<.2?'sm':'')+'" style="flex:'+m[1]+';--c:var(--g'+GRP[m[0]]+')" title="'+m[0]+': '+m[1]+' students" tabindex="0"><b>'+m[0]+'</b><em>'+m[1]+'</em></span>'}).join('')+'</div><span class="stk-n">'+tot+'</span>'+
+      '<p class="stk-list">'+t[1].map(function(m){return '<span><i style="--c:var(--g'+GRP[m[0]]+')"></i>'+m[0]+' '+m[1]+'</span>'}).join('')+'</p></div>'}).join('');
+
+  /* dumbbell: coursework against exam, coloured by module group */
+  var Xp=function(v){return X(v,30,100)};
+  $('db2').innerHTML=DB.slice().sort(function(a,b){return (b[1]-b[2])-(a[1]-a[2])}).map(function(r){var g=GRP[r[0].slice(0,6)],gap=(r[1]-r[2]).toFixed(1),tip=r[0]+': coursework '+r[1]+'%, final exam '+r[2]+'%, gap '+gap;
+    return '<div class="db2-row" title="'+esc(tip)+'" tabindex="0" aria-label="'+esc(tip)+'"><span class="db2-l"><i style="--c:var(--g'+g+')"></i>'+r[0]+'</span><span class="db2-t"><i class="db2-line" style="--c:var(--g'+g+');left:'+Xp(r[2])+';width:calc('+Xp(r[1])+' - '+Xp(r[2])+')"></i><i class="db2-ex" style="--c:var(--g'+g+');left:'+Xp(r[2])+'"></i><i class="db2-cw" style="--c:var(--g'+g+');left:'+Xp(r[1])+'"></i></span><span class="db2-g">'+gap+'</span></div>'}).join('');
+  $('db2axis').innerHTML=[30,50,70,90].map(function(v){return '<span style="left:'+Xp(v)+'">'+v+'%</span>'}).join('');
+
+  /* attendance */
+  $('att2').innerHTML=ATT.map(function(r){return '<div class="att2-row" title="'+esc(r[0]+' attendance: '+r[1]+' students, '+r[2]+'% passed')+'"><span class="att2-l">'+r[0]+'<small>'+r[1]+' students</small></span><span class="att2-t"><i style="width:'+Math.max(r[2],.6)+'%"></i></span><b>'+Math.round(r[2])+'%</b></div>'}).join('');
+})();
+</script>
 
       <div class="ev2">
         <div class="panel reveal">
@@ -1524,32 +1822,7 @@ body.subpage main{padding-top:var(--head)}
           <span class="todo">[TODO: what you changed in response to each]</span>
         </div>
       </div>
-      <details class="more-ev reveal" open><summary><span>Student outcomes</span><small>Pass rates, attendance and the exam gap</small></summary>
 
-      <div class="sub-head reveal"><div><span class="label">Student outcomes</span><h3 class="h3s">What students achieved.</h3></div><span class="todo">[TODO: confirm which cohorts below you taught or coordinated]</span></div>
-      <div class="oc-tiles reveal">
-        <div><b>447</b><span>enrolments across 16 cohorts, Term 1 2025 to Term 1 2026</span></div>
-        <div><b>86.0%</b><span>of students who sat every assessment passed (75.6% of all enrolments)</span></div>
-        <div><b>96.6%</b><span>pass rate in the upper-level marketing electives, 118 students</span></div>
-      </div>
-      <div class="oc-grid">
-        <figure class="panel oc-fig reveal">
-          <figcaption><span class="label">Where marks are lost</span><h4>Coursework beat the final exam in all 15 cohorts with an exam.</h4><p>Average coursework and final-exam percentage per cohort. Median gap: 16.4 points.</p></figcaption>
-          <ul class="oc-key"><li><i class="k-cw"></i>Coursework</li><li><i class="k-ex"></i>Final exam</li></ul>
-          <div class="db" id="ocDumb"></div>
-          <div class="db-axis" aria-hidden="true"><span>30%</span><span>50%</span><span>70%</span><span>90%</span></div>
-        </figure>
-        <figure class="panel oc-fig reveal" style="--rd:.08s">
-          <figcaption><span class="label">Attendance</span><h4>Students attending 85% or more passed at 87%.</h4><p>Pass rate by share of sessions attended. Association, not cause: students who stop attending often stop submitting too.</p></figcaption>
-          <div class="ab" id="ocAtt"></div>
-          <div class="oc-note"><span class="label">MKT101, the largest course</span><p>Between 78% and 91% of MKT101 students who completed every assessment passed, in all three terms. The overall pass rate (60% to 77%) is pulled down by students who missed components or stopped attending.</p></div>
-        </figure>
-      </div>
-      <div class="note-line reveal"><span>A third of all fails (35 of 105) were students whose total mark reached a pass but whose exam marks fell under 50%. That gap is where I want to improve next.</span><span class="todo">[TODO: what you are doing about it, for example mock papers or exam-style practice]</span></div>
-      <p class="src reveal">Source: MNU Business School marksheets, Term 1 2025 to Term 1 2026, aggregated and anonymised. Groups under 15 students are indicative. These figures describe cohorts; they have no entry data, so they show outcomes, not value added.</p>
-      </details>
-
-      </div>
     </div>
   </section>
   <section class="block" id="beyond">
@@ -1557,11 +1830,6 @@ body.subpage main{padding-top:var(--head)}
       <div class="head wide reveal"><span class="label">Beyond the classroom</span><h2>Workload and service<span>.</span></h2></div>
       <div class="also">
         <div class="panel reveal">
-          <span class="label">Students per term</span>
-          <div class="loads" id="loads"></div>
-          <p class="src">Source: MNU workload forms, 2025 to 2026.</p>
-        </div>
-        <div class="panel reveal" style="--rd:.08s">
           <span class="label">Beyond the classroom</span>
           <ul class="duties">
             <li><i data-ic="cap"></i><b>Applied-project supervision</b><span>1 student completed in 2025; 2 and 3 allocated in the 2026 terms</span></li>
