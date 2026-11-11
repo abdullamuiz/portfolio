@@ -1361,6 +1361,10 @@ body.subpage main{padding-top:var(--head)}
 .cv-sign .regards{color:var(--ink)}
 .cv-sign{border:0 !important;padding:0 !important}
 .cv-sign .sig-dot{transform-box:fill-box;transform-origin:center;transform:scale(2.4);opacity:1}
+/* intro line and lead paragraph in Poppins, easier to read than the serif */
+.role{font-family:var(--sans);font-weight:400;font-size:clamp(17px,1.4vw,20px);line-height:1.5;letter-spacing:0}
+.about-text .lead{font-family:var(--sans);font-weight:500;font-size:clamp(18px,1.5vw,21px);line-height:1.55;letter-spacing:0}
+@media (max-width:860px){.role{font-size:16px}.about-text .lead{font-size:17px}}
 
 </style>
 </head>
