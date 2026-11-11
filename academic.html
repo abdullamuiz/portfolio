@@ -1130,6 +1130,76 @@ nav.links{gap:clamp(14px,1.6vw,24px)}
 .arena-voices{grid-column:1/-1;display:grid;gap:12px;border-top:1px solid var(--line);padding-top:18px}.arena-voices .quotes{margin-top:0}
 .md-w{height:auto;min-height:52px}.md-w span{flex-direction:column;align-items:flex-start;justify-content:center;padding:8px 10px;font-size:11px}
 
+/* teaching wheel: eight principles (inline, scoped to .tw) */
+.tw{--hub:#232C4A;--hubtxt:#FFFFFF;--hubsub:#9FD8DF;--ease2:cubic-bezier(.2,.7,.2,1);margin-top:clamp(36px,5vw,64px)}
+:root[data-theme="dark"] .tw{--hub:#0B1020;--hubtxt:#F1F2F6;--hubsub:#5FD3E0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tw{--hub:#0B1020;--hubtxt:#F1F2F6;--hubsub:#5FD3E0}}
+.tw-head h3{font-family:var(--serif,'DM Serif Display',Georgia,serif);font-weight:400;font-size:clamp(1.5rem,3.4vw,2.2rem);line-height:1.15;margin:8px 0 10px;color:var(--ink)}
+.tw-head h3 em{font-style:italic;color:var(--lagoon)}
+.tw-head p{max-width:62ch;color:var(--muted)}
+.tw-filters{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tw-filters .tw-lbl{font-size:.82rem;color:var(--muted);margin-right:4px}
+.tw-chip{font:inherit;font-size:13px;font-weight:500;padding:7px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;transition:background .2s,color .2s,border-color .2s,transform .15s;touch-action:manipulation}
+.tw-chip:hover{border-color:var(--lagoon)}.tw-chip:active{transform:scale(.96)}
+.tw-chip[aria-pressed="true"]{background:var(--cta);color:#fff;border-color:var(--cta)}
+.tw-stage{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(20px,4vw,56px);align-items:center;margin-top:24px}
+@media(max-width:900px){.tw-stage{grid-template-columns:1fr}}
+.tw-wheelbox{position:relative;width:100%;max-width:600px;margin:0 auto}
+.tw svg{display:block;width:100%;height:auto;overflow:visible}
+.tw-seg{cursor:pointer;outline:none;transform-box:fill-box;transition:transform .35s var(--ease2),opacity .3s}
+.tw-seg path{fill:var(--tint);stroke:var(--paper);stroke-width:3;transition:fill .3s}
+.tw-seg .tw-num{font-family:var(--serif,'DM Serif Display',Georgia,serif);font-size:16px;fill:var(--lagoon);transition:fill .3s}
+.tw-seg .tw-t{font-family:var(--sans,'Poppins',system-ui,sans-serif);font-weight:500;font-size:16px;fill:var(--ink);transition:fill .3s;pointer-events:none}
+.tw-seg:hover,.tw-seg:focus-visible{transform:translate(var(--tx),var(--ty))}
+.tw-seg:hover path{fill:var(--ghost2)}
+.tw-seg:focus-visible path{stroke:var(--lagoon);stroke-width:4}
+.tw-seg.tw-sel{transform:translate(calc(var(--tx)*1.4),calc(var(--ty)*1.4))}
+.tw-seg.tw-sel path{fill:var(--cta)}
+.tw-seg.tw-sel .tw-t,.tw-seg.tw-sel .tw-num{fill:#fff}
+.tw-seg.tw-dim{opacity:.3}
+.tw-seg.tw-in{animation:twpop .7s var(--ease2) both;animation-delay:calc(var(--i)*70ms)}
+@keyframes twpop{from{opacity:0;transform:scale(.6) rotate(-12deg)}to{opacity:1}}
+.tw-hub circle.tw-core{fill:var(--hub)}
+.tw-hub .tw-ring{fill:none;stroke:var(--lagoon);stroke-width:1.5;stroke-dasharray:3 9;transform-origin:300px 300px;animation:twspin 40s linear infinite}
+@keyframes twspin{to{transform:rotate(360deg)}}
+.tw-hub text{text-anchor:middle;fill:var(--hubtxt);font-family:var(--serif,'DM Serif Display',Georgia,serif)}
+.tw-hub .tw-big{font-size:48px;fill:var(--reef)}
+.tw-hub .tw-sm{font-size:11px;font-family:var(--sans,'Poppins',system-ui,sans-serif);font-weight:600;letter-spacing:.16em;text-transform:uppercase;fill:var(--hubsub)}
+.tw-hub .tw-nm{font-size:20px}
+.tw-hint{text-align:center;font-size:.8rem;color:var(--muted);margin-top:10px}
+.tw-panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(22px,3vw,36px) clamp(22px,3vw,36px) clamp(26px,3vw,38px);box-shadow:0 20px 50px -30px rgba(11,16,32,.45);position:relative;overflow:hidden}
+.tw-panel::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--reef),var(--lagoon),var(--sea))}
+.tw-pbody.tw-swap{animation:twswap .45s var(--ease2)}
+@keyframes twswap{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.tw-pnum{font-size:11.5px;color:var(--label);font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+.tw-ptitle{font-family:var(--serif,'DM Serif Display',Georgia,serif);font-weight:400;font-size:clamp(1.4rem,3vw,1.9rem);line-height:1.18;color:var(--ink);margin:8px 0 12px}
+.tw-belief{font-family:var(--serif,'DM Serif Display',Georgia,serif);font-style:italic;font-size:1.12rem;line-height:1.45;color:var(--ink);border-left:3px solid var(--lagoon);padding-left:14px;margin:0 0 18px}
+.tw-h{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--label);font-weight:600;margin:18px 0 6px}
+.tw-how{color:var(--ink);margin:0}
+.tw-proof{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.tw-proof li{display:flex;gap:10px;font-size:.9rem;color:var(--ink);background:var(--tint);border-radius:12px;padding:10px 12px}
+.tw-proof li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--reef);margin-top:8px}
+.tw-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tw-tag{font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:999px;background:var(--ghost);color:var(--label);letter-spacing:.04em}
+.tw-nav{display:flex;justify-content:space-between;align-items:center;margin-top:22px;gap:12px}
+.tw-dots{display:flex;gap:6px;flex-wrap:nowrap;justify-content:center;min-width:0}
+@media(max-width:420px){.tw-btn{padding:0 14px}.tw-dots{gap:5px}}
+.tw-dot{width:9px;height:9px;border-radius:50%;background:var(--ghost2);border:0;padding:0;cursor:pointer;transition:background .25s,transform .25s}
+.tw-dot.tw-on{background:var(--lagoon);transform:scale(1.35)}
+.tw-btn{white-space:nowrap;flex:none;font:inherit;font-weight:500;font-size:14px;height:40px;border:1px solid var(--line);background:transparent;color:var(--ink);padding:0 20px;border-radius:999px;cursor:pointer;transition:background .2s,transform .15s;touch-action:manipulation}
+.tw-btn:hover{background:var(--tint)}.tw-btn:active{transform:scale(.96)}
+.tw-btn.tw-pri{background:var(--cta);color:#fff;border-color:var(--cta);font-weight:600}
+.tw-btn.tw-pri:hover{filter:brightness(1.08)}
+.tw-auto{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:16px;font-size:.8rem;color:var(--muted)}
+.tw-link{font:inherit;font-size:.8rem;font-weight:600;color:var(--label);background:none;border:0;padding:2px 4px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.tw-bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--ghost)}
+.tw-bar i{display:block;height:100%;width:0;background:var(--cta)}
+@media(prefers-reduced-motion:reduce){.tw *{animation:none!important;transition:none!important}}
+
+.tw-orb{transform-origin:300px 300px;transition:transform .9s cubic-bezier(.65,0,.25,1)}
+.tw-orb circle{fill:var(--lagoon);stroke:var(--paper);stroke-width:4}
+@media (prefers-reduced-motion:reduce){.tw-orb{transition:none}}
+
 </style>
 </head>
 <body class="intro-on">
@@ -1204,23 +1274,31 @@ nav.links{gap:clamp(14px,1.6vw,24px)}
         <p>I came from industry. In marketing management roles I sat on the other side of the desk, interviewing graduates. The knowledge was there, but when a real question came there was no reference point, and minds went blank. So I teach students to meet that manager, and surprise them.</p>
         <p class="phil-tag">Theory and application are worth more to an employer than academia or experience alone.</p>
       </div>
-      <div class="loop reveal" id="loop">
-        <div class="lp-start"><span class="lp-pill"><i data-ic="users"></i> Start: the manager’s question</span><p>I teach students to meet that manager, and surprise them.</p></div>
-        <div class="lp-ring">
-          <span class="lp-track"></span>
-          <span class="lp-spin"><i></i></span>
-          <figure class="lp-core"><img src="images/muiz-working.jpg" width="960" height="1200" alt="Muiz preparing a lesson on his laptop" loading="lazy"></figure>
-          <span class="lp-node n0" style="--c:var(--reef)"><span class="lp-ic"><i data-ic="map"></i></span><small>Local cases</small></span>
-          <span class="lp-node n1" style="--c:var(--lagoon)"><span class="lp-ic"><i data-ic="route"></i></span><small>Apply</small></span>
-          <span class="lp-node n2" style="--c:var(--sea)"><span class="lp-ic"><i data-ic="chat"></i></span><small>Practise</small></span>
-          <span class="lp-node n3" style="--c:var(--deep)"><span class="lp-ic"><i data-ic="chart"></i></span><small>Listen</small></span>
+      <!-- teaching wheel: eight principles -->
+      <div class="tw" id="teach-wheel">
+        <div class="tw-head reveal">
+          <span class="label">Eight ideas I teach by</span>
+          <h3>Eight ideas I teach by, and <em>where you can see them</em>.</h3>
+          <p>Fifteen years in Maldivian marketing and tourism taught me what works on the ground. Teaching is how I hand it on. Tap a segment to see the principle, how it shows up in class, and the evidence behind it.</p>
         </div>
-        <div class="lp-t t0"><b><em>1</em>Real local cases</b><p>Maldivian firms like Ruka, not distant examples.</p><a class="more-link" href="#work">See the cases <i data-ic="right"></i></a></div>
-        <div class="lp-t t1"><b><em>2</em>Theory to application</b><p>Every concept ends in a decision for a real business.</p><a class="more-link" href="#tools">See the tools <i data-ic="right"></i></a></div>
-        <div class="lp-t t2"><b><em>3</em>Practise the hard question</b><p>Rehearse the manager’s question until the answer comes.</p><a class="more-link" href="#lesson">See a lesson <i data-ic="right"></i></a></div>
-        <div class="lp-t t3"><b><em>4</em>Listen and adjust</b><p>I use evaluation feedback to change how I teach.</p><a class="more-link" href="#evidence">See the evidence <i data-ic="right"></i></a></div>
+        <div class="tw-filters" id="twFilters" role="group" aria-label="Filter principles by course"><span class="tw-lbl">See it in:</span></div>
+        <div class="tw-stage">
+          <div class="tw-wheelbox">
+            <svg id="twWheel" viewBox="0 0 600 600" role="group" aria-label="Teaching wheel with eight principles"></svg>
+            <p class="tw-hint">Tap a segment to read it. The wheel carries on by itself after 7 seconds without a tap.</p>
+          </div>
+          <article class="tw-panel" aria-live="polite">
+            <div class="tw-pbody" id="twBody"></div>
+            <div class="tw-nav">
+              <button type="button" class="tw-btn" id="twPrev" aria-label="Previous principle">&larr; Prev</button>
+              <div class="tw-dots" id="twDots"></div>
+              <button type="button" class="tw-btn tw-pri" id="twNext" aria-label="Next principle">Next &rarr;</button>
+            </div>
+            <div class="tw-auto"><span id="twStatus">Auto-playing</span><button type="button" class="tw-link" id="twToggle" aria-label="Pause or resume auto-play">Pause</button></div>
+            <div class="tw-bar"><i id="twFill"></i></div>
+          </article>
+        </div>
       </div>
-      <p class="credit reveal">Steps 1 to 3 come from my teaching philosophy. Step 4 follows Tomáška (2025), <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12635050/" target="_blank" rel="noopener">“Making the first moves as a university teacher”</a>, <i>EMBO Reports</i>: reflect on your teaching, ask for feedback, and adjust.</p>
       <article class="pride reveal">
         <span class="pride-tag"><i data-ic="star"></i> A moment of pride</span>
         <h3>Zero cancelled classes.</h3>
@@ -2334,6 +2412,156 @@ hydrateIcons();
   var ax=document.querySelector('.db-axis'); if(ax) ax.innerHTML=[30,50,70,90].map(function(v){return '<span style="left:'+X(v)+'">'+v+'%</span>'}).join('');
   var ab=document.getElementById('ocAtt');
   if(ab) ab.innerHTML=o.att.map(function(r){return '<div class="ab-row"><span class="ab-l">'+r[0]+'<small>'+r[1]+' students</small></span><span class="ab-t"><i style="width:'+Math.max(r[2],.5)+'%"></i></span><b>'+Math.round(r[2])+'%</b></div>'}).join('');
+})();
+</script>
+<script>
+/* teaching wheel (inline) */
+(function(){if(!document.getElementById('twWheel'))return;
+const COURSES=['MKT101','MKT301','MKT303','MKT309'];
+const ALL=COURSES;
+const items=[
+ {k:'Industry first',t:'Start from the industry floor',
+  b:'A concept is only useful once you have seen the decision it supports.',
+  how:'I came to the classroom from resort marketing, SME incubation and event sales, so lectures begin with a real marketing decision and work back to the theory that explains it.',
+  proof:['Marketing Manager at Reethi Beach Resort: European and Asian source markets, influencers, SEO, website redesign','Manager of SME HUB: incubation programme for 23 small businesses','Team Lead, Maldives Promotions, MATTA Fair, Kuala Lumpur (2014–2018)'],
+  c:ALL},
+ {k:'Real cases',t:'Cases students can walk into',
+  b:'A case should feel like a business you could visit, not a page you must read.',
+  how:'I write my own teaching cases around local businesses and publish them as interactive pages students open on their phones. MKT303 runs on one continuous case instead of unrelated examples.',
+  proof:['ICETO Gelato: interactive teaching case for MKT301, with more cases in the same format on the way','Kandu Stay, a 12-room local-island guesthouse, is the running case through MKT303'],
+  c:['MKT301','MKT303']},
+ {k:'Build as you learn',t:'Every week adds a piece of the real thing',
+  b:'Students learn marketing fastest when each lecture produces something they can use.',
+  how:'Weekly tutorials are tied to the lecture chapter and to the group assignment, so the marketing plan for a Maldivian brand grows a section at a time instead of arriving as a last-minute scramble.',
+  proof:['MKT101 tutorials map each chapter (e.g. marketing research, buyer behaviour) to a part of the group marketing plan','A marketing-plan skeleton gives groups a clear structure to build into'],
+  c:['MKT101']},
+ {k:'Plain words',t:'Clear English, rigorous thinking',
+  b:'Difficulty should come from the ideas, never from the wording.',
+  how:'Many of my students study in their second language. I write lectures and exam questions in simple, direct English and ask for what I want to see: “give an example”, “describe”, “explain why”.',
+  proof:['Exam questions reviewed for plain wording and avoiding terms that imply a diagram or model is required','Technical trade detail kept out of questions that test marketing understanding'],
+  c:['MKT101','MKT301']},
+ {k:'Fair by design',t:'Assessment I can defend and improve',
+  b:'An exam should measure what was taught, and I change it when the evidence says it isn’t.',
+  how:'Papers follow a table of specifications so every question maps to a learning outcome and a thinking level. When I saw students running out of time, I restructured the paper instead of blaming the students.',
+  proof:['MKT301 Final and Resit built from one specification, with different cases and limited overlap','Section B changed to “answer any 5 of 6” focused on Understand, Apply and Analyse'],
+  c:['MKT101','MKT301']},
+ {k:'Practice first',t:'Practise before the pressure',
+  b:'Students should meet the exam format long before the exam does.',
+  how:'I am building a study portal where students practise a randomised set of questions, see how to build a strong answer, then compare with a model answer, while essays are still practised on paper under real conditions.',
+  proof:['MKT101 portal: large MCQ bank, 30 random questions per practice session','Guidance and model answers for the longer questions, designed to sit beside a notepad on a phone'],
+  c:['MKT101']},
+ {k:'Theory with Trend',t:'Pair every theory with a trend',
+  b:'A framework earns its place when students can see it working in today’s market.',
+  how:'I teach the established models first, then test them against what is changing right now, such as AI search and Generative Engine Optimisation in MKT303, so students learn ideas that hold up as platforms shift.',
+  proof:['Peer-reviewed paper in Tourism and Hospitality Research (2021), 36+ citations','Journal article on guesthouse e-marketing, Common Ground (2017)','MKT303 deck suite rebuilt around current texts, with GEO connected to the curriculum'],
+  c:['MKT303']},
+ {k:'Build Confidence',t:'Leave students able, and willing',
+  b:'Confidence comes from doing the work successfully before it counts for marks.',
+  how:'Small wins come first: plain explanations, weekly builds toward the group plan, and practice papers with model answers. Students walk into assessments having already done the work once, and they can see a real path into the Maldivian industry.',
+  proof:['Weekly tutorials turn the assignment into steady progress instead of one big task','Practice portal lets students attempt questions, then compare with model answers before the real exam','Teaching is a step I always wanted to take, driven by a passion for passing knowledge to the next generation'],
+  c:ALL}
+];
+
+const svg=document.getElementById('twWheel'),NS='http://www.w3.org/2000/svg';
+const cx=300,cy=300,R=288,r=122,N=items.length,step=2*Math.PI/N,gap=.012;
+const pt=(a,rad)=>[cx+rad*Math.cos(a),cy+rad*Math.sin(a)];
+let sel=0,filter=null;
+const segs=[];
+items.forEach((it,i)=>{
+  const a0=-Math.PI/2-step/2+i*step+gap, a1=a0+step-2*gap, mid=(a0+a1)/2;
+  const [x0,y0]=pt(a0,R),[x1,y1]=pt(a1,R),[x2,y2]=pt(a1,r),[x3,y3]=pt(a0,r);
+  const d=`M${x0} ${y0}A${R} ${R} 0 0 1 ${x1} ${y1}L${x2} ${y2}A${r} ${r} 0 0 0 ${x3} ${y3}Z`;
+  const g=document.createElementNS(NS,'g');
+  g.setAttribute('class','tw-seg tw-in');g.setAttribute('role','button');g.setAttribute('tabindex','0');
+  g.setAttribute('aria-label',`${i+1}. ${it.t}`);
+  g.style.setProperty('--i',i);
+  g.style.setProperty('--tx',(Math.cos(mid)*7).toFixed(2)+'px');
+  g.style.setProperty('--ty',(Math.sin(mid)*7).toFixed(2)+'px');
+  const [lx,ly]=pt(mid,(R+r)/2+2);
+  g.innerHTML=`<path d="${d}"/><text class="tw-num" x="${lx}" y="${ly-14}" text-anchor="middle">0${i+1}</text><text class="tw-t" x="${lx}" y="${ly+8}" text-anchor="middle">${wrap(it.k)}</text>`;
+  g.addEventListener('click',()=>select(i));
+  g.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();select(i)}
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();select(i+1,true)}
+    if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();select(i-1,true)}
+  });
+  svg.appendChild(g);segs.push(g);
+});
+function wrap(s){
+  const w=s.split(' ');
+  if(w.length<2||s.length<10)return s;
+  const m=Math.ceil(w.length/2);
+  return `<tspan>${w.slice(0,m).join(' ')}</tspan><tspan data-x="1" dy="19">${w.slice(m).join(' ')}</tspan>`;
+}
+// fix tspan x for wrapped labels
+segs.forEach(g=>{
+  const t=g.querySelector('.tw-t'),x=t.getAttribute('x');
+  t.querySelectorAll('tspan').forEach(s=>{if(s.hasAttribute('data-x')){s.setAttribute('x',x);s.removeAttribute('data-x')}});
+  if(t.querySelectorAll('tspan').length>1){t.setAttribute('y',+t.getAttribute('y')-6)}
+});
+// hub
+const hub=document.createElementNS(NS,'g');hub.setAttribute('class','tw-hub');
+hub.innerHTML=`<circle class="tw-core" cx="300" cy="300" r="104"/><circle class="tw-ring" cx="300" cy="300" r="112"/>
+<text class="tw-sm" x="300" y="262">How I teach</text><text class="tw-big" id="twHubnum" x="300" y="318">01</text><text class="tw-nm" x="300" y="348">Muiz Fuad</text>`;
+svg.appendChild(hub);
+const orb=document.createElementNS(NS,'g');orb.setAttribute('class','tw-orb');orb.innerHTML='<circle cx="300" cy="-4" r="9"/>';svg.appendChild(orb);let orbA=0;
+
+// filters
+const fbox=document.getElementById('twFilters');
+function mkChip(label,val){
+  const b=document.createElement('button');b.className='tw-chip';b.textContent=label;b.setAttribute('aria-pressed','false');
+  b.onclick=()=>{filter=(filter===val?null:val);[...fbox.querySelectorAll('.tw-chip')].forEach(c=>c.setAttribute('aria-pressed',String(c.dataset.v===String(filter))));
+    segs.forEach((g,i)=>g.classList.toggle('tw-dim',!!filter&&!items[i].c.includes(filter)));
+    if(filter&&!items[sel].c.includes(filter)){const n=items.findIndex(x=>x.c.includes(filter));if(n>-1)select(n)}};
+  b.dataset.v=val;fbox.appendChild(b);
+}
+COURSES.forEach(c=>mkChip(c,c));
+
+// panel
+const body=document.getElementById('twBody'),dots=document.getElementById('twDots');
+items.forEach((_,i)=>{const d=document.createElement('button');d.className='tw-dot';d.setAttribute('aria-label','Go to principle '+(i+1));d.onclick=()=>select(i);dots.appendChild(d)});
+function select(i,focus,auto){
+  if(!auto)userPause();
+  sel=(i+N)%N;const it=items[sel];
+  segs.forEach((g,j)=>{g.classList.remove('tw-in');g.style.animation='none';g.classList.toggle('tw-sel',j===sel);g.setAttribute('aria-pressed',String(j===sel))});
+  [...dots.children].forEach((d,j)=>d.classList.toggle('tw-on',j===sel));
+  document.getElementById('twHubnum').textContent='0'+(sel+1);
+  {let t=sel*360/N,d=((t-orbA)%360+540)%360-180;orbA+=d;orb.style.transform='rotate('+orbA+'deg)';}
+  body.classList.remove('tw-swap');void body.offsetWidth;body.classList.add('tw-swap');
+  body.innerHTML=`<div class="tw-pnum">PRINCIPLE 0${sel+1} / 0${N}</div>
+  <h4 class="tw-ptitle">${it.t}</h4>
+  <p class="tw-belief">${it.b}</p>
+  <div class="tw-h">How it looks in my classroom</div><p class="tw-how">${it.how}</p>
+  <div class="tw-h">Evidence</div><ul class="tw-proof">${it.proof.map(p=>`<li>${p}</li>`).join('')}</ul>
+  <div class="tw-tags">${it.c.length===COURSES.length?'<span class="tw-tag">All courses</span>':it.c.map(c=>`<span class="tw-tag">${c}</span>`).join('')}</div>`;
+  if(focus)segs[sel].focus();
+}
+const ok=i=>!filter||items[i].c.includes(filter);
+function stepTo(dir){let n=sel;for(let k=0;k<N;k++){n=(n+dir+N)%N;if(ok(n))return n}return sel}
+document.getElementById('twPrev').onclick=()=>select(stepTo(-1));
+document.getElementById('twNext').onclick=()=>select(stepTo(1));
+
+// auto-play: advance every 7s; a tap pauses it, and it carries on after 7s without a tap
+const SHOW=7000,RESUME=7000,TICK=100;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let mode=reduce?'hold':'play',elapsed=0,left=RESUME,visible=true;
+const status=document.getElementById('twStatus'),toggle=document.getElementById('twToggle'),fill=document.getElementById('twFill');
+function paint(){
+  if(mode==='play'){status.textContent='Auto-playing · tap anything to pause';toggle.textContent='Pause';fill.style.width=(elapsed/SHOW*100)+'%';fill.style.background='var(--cta)'}
+  else if(mode==='pause'){status.textContent='Paused · resumes in '+Math.ceil(left/1000)+'s';toggle.textContent='Play now';fill.style.width=((RESUME-left)/RESUME*100)+'%';fill.style.background='var(--weak)'}
+  else{status.textContent='Paused';toggle.textContent='Play';fill.style.width='0%'}
+}
+function userPause(){if(mode==='hold')return;mode='pause';left=RESUME;paint()}
+['pointerdown','keydown','wheel','touchstart'].forEach(ev=>document.getElementById('teach-wheel').addEventListener(ev,()=>{if(mode==='pause')left=RESUME},{passive:true}));
+toggle.onclick=()=>{if(mode==='play'){mode='hold'}else{mode='play';elapsed=0}paint()};
+setInterval(()=>{
+  if(!visible||document.hidden)return;
+  if(mode==='play'){elapsed+=TICK;if(elapsed>=SHOW){elapsed=0;select(stepTo(1),false,true)}paint()}
+  else if(mode==='pause'){left-=TICK;if(left<=0){mode='play';elapsed=0}paint()}
+},TICK);
+// only run while the wheel is on screen (matters when embedded lower on a page)
+new IntersectionObserver(e=>{visible=e[0].isIntersecting},{threshold:.25}).observe(document.querySelector('.tw-stage'));
+select(0,false,true);paint();
 })();
 </script>
 </body>
