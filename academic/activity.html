@@ -1578,6 +1578,19 @@ body.subpage main{padding-top:var(--head)}
 .stk-list span{display:inline-flex;align-items:center;gap:5px}
 .stk-list i{width:8px;height:8px;border-radius:2px;background:var(--c)}
 
+/* MTVO research panel */
+.mtvo h3 span{color:var(--lagoon)}
+.mtvo-steps{list-style:none;margin:4px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;counter-reset:st}
+.mtvo-steps li{display:grid;gap:4px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--tint);counter-increment:st}
+.mtvo-steps b{font:400 20px/1.1 var(--serif)}
+.mtvo-steps b::before{content:counter(st) " ";color:var(--lagoon)}
+.mtvo-steps span{font-size:13px;color:var(--muted)}
+.mtvo-int{border-top:1px solid var(--line);padding-top:10px}
+@media (max-width:700px){.mtvo-steps{grid-template-columns:1fr}}
+.mtvo-steps{grid-template-columns:1fr;gap:8px}
+.mtvo-steps li{grid-template-columns:96px 1fr;align-items:baseline;align-content:start;gap:12px;padding:12px 14px}
+@media (max-width:480px){.mtvo-steps li{grid-template-columns:1fr;gap:4px}}
+
 </style>
 </head>
 <body class="subpage" data-pg="activity">
