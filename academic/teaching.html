@@ -1604,6 +1604,16 @@ body.subpage main{padding-top:var(--head)}
 .why-r .why-lead{font:400 clamp(19px,2vw,22px)/1.45 var(--serif)}
 @media (max-width:820px){.why{grid-template-columns:1fr}}
 .why-r .why-lead{font:500 clamp(16.5px,1.6vw,18.5px)/1.6 var(--sans)}
+/* class activity: scroll motion */
+.ca-motion .ca-card,.ca-motion .ca-kpi{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.ca-motion .ca-card.ca-in,.ca-motion .ca-kpis.ca-in .ca-kpi{opacity:1;transform:none}
+.ca-motion .ca-kpis.ca-in .ca-kpi:nth-child(2){transition-delay:.06s}.ca-motion .ca-kpis.ca-in .ca-kpi:nth-child(3){transition-delay:.12s}.ca-motion .ca-kpis.ca-in .ca-kpi:nth-child(4){transition-delay:.18s}.ca-motion .ca-kpis.ca-in .ca-kpi:nth-child(5){transition-delay:.24s}.ca-motion .ca-kpis.ca-in .ca-kpi:nth-child(6){transition-delay:.3s}
+.ca-motion svg rect.gv{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.ca-motion svg rect.gh{transform-box:fill-box;transform-origin:0 50%;transform:scaleX(0);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.ca-motion .ca-in svg rect.gv,.ca-motion .ca-in svg rect.gh{transform:none}
+.ca-motion svg polyline.gl{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1) .35s}
+.ca-motion .ca-in svg polyline.gl{stroke-dashoffset:0}
+.tools-ca .head{margin-bottom:8px}
 
 </style>
 </head>
@@ -1651,7 +1661,7 @@ body.subpage main{padding-top:var(--head)}
           <span class="label">Why I teach</span>
           <h3>Why first-years matter to me<span>.</span></h3>
           <ul class="why-chips"><li>Voluntary moderation · MKT101</li><li>First-year subjects · MKT101 and BUS107</li></ul>
-          <a class="more-link" href="../academic/activity.html">Two weeks of class activity <i data-ic="right"></i></a>
+          <a class="more-link" href="../academic/tools.html#class-activity">Two weeks of class activity <i data-ic="right"></i></a>
         </div>
         <div class="why-r">
           <p class="why-lead">I give MKT101 special care. I moderate it voluntarily because it is where students first meet marketing, and a first-year subject that fails to interest them can set the tone for the rest of their degree. Students who do poorly early are the ones most likely to slacken off or leave.</p>
