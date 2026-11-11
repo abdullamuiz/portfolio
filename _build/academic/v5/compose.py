@@ -1,0 +1,332 @@
+"""Compose the v5 page bodies from body.html (v4 single page) plus new fragments.
+Writes v5/out/<name>.html body fragments; build5.py wraps them into full pages."""
+import re, json, os
+H = os.path.dirname(os.path.abspath(__file__))
+P = lambda *a: os.path.join(H, *a)
+src = open(P('..', 'body.v4.html'), encoding='utf-8').read()
+rd = lambda n: open(P(n), encoding='utf-8').read()
+
+# ---------- facts from the CV (Muiz_Fuad_CV, Nov 2026) ----------
+SCH = 'https://iocdrp.s.gy/fuad-a-m'
+SCHOLAR = '<a class="orcid" href="%s" target="_blank" rel="noopener"><svg class="orcid-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#4285F4"/><path fill="#fff" d="M12 5 4.5 10.6h3.1a4.5 4.5 0 1 0 8.8 0h3.1L12 5Zm0 11.3a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2Z"/></svg><span><b>Google Scholar</b> Fuad, A. M.</span></a>' % SCH
+FIX = [
+ ('<span class="todo">[TODO: Google Scholar link]</span>', SCHOLAR),
+ ('Chia, K. W. and Muiz, A. · <i style="font-style:italic">Tourism and Hospitality Research</i>, SAGE · cited 36+ times', 'Chia, K. W. and Fuad, A. M. · <i style="font-style:italic">Tourism and Hospitality Research</i>, 21(1), 3–14 · SAGE · cited 36 times'),
+ ('Pappayah, P. P. C. M., Muiz, A. and Jinus, D. J. · Common Ground</span><span class="todo">[TODO: confirm journal name on the CG Scholar page: Journal of Tourism and Leisure Studies, or The International Journal of Tourism and Hospitality Administration]</span>',
+  'Pappayah, P. C. M. and Fuad, A. M. · <i style="font-style:italic">The International Journal of Tourism and Hospitality Administration</i>, 13(2), 15–29</span>'),
+ ('<span class="bk-j">Common Ground</span>', '<span class="bk-j">Int. J. of Tourism &amp; Hospitality Admin.</span>'),
+ ('<time>2011 – 2013</time><b>Senior Marketing Executive</b>', '<time>2011 – 2013</time><b>Marketing Officer</b>'),
+ ('<b>Team Lead, Maldives Promotions</b><span>MATTA Fair, Kuala Lumpur · MP World Travel &amp; Tours</span>', '<b>Head of Marketing and Sales</b><span>MATTA Fair, Kuala Lumpur · MP Travel and Tours</span>'),
+ ('<span class="label">Team Lead, Maldives Promotions · 2014 to 2018</span>', '<span class="label">Promoter to Head of Marketing and Sales · 2014 to 2018</span>'),
+ ('I started as a junior sales host and went on to lead the sales team for Maldives packages, grouping packages by type of traveller and designing the sales conversation.',
+  'I started as a promoter in 2014 and was Head of Marketing and Sales for MP Travel and Tours by 2017, grouping packages by type of traveller and designing the sales conversation.'),
+ ('aria-label="Mianz College logo"></span><time>2022 – 2023</time><b>Part-time Lecturer</b><span>Mianz College</span>', 'aria-label="MI College logo"></span><time>2022 – 2023</time><b>Part-time Lecturer</b><span>MI College</span>'),
+ ('I started teaching part-time at Mianz College in 2022', 'I started teaching part-time at MI College in 2022'),
+ ('<h3>Mianz College</h3><p class="ink">Part-time lecturer, 2022 to 2023.</p>', '<h3>MI College</h3><p class="ink">Part-time lecturer, 2022 to 2023, for master’s and undergraduate cohorts.</p>'),
+ ('<ul class="subj"><li>Digital marketing</li><li>E-commerce</li></ul>', '<ul class="subj"><li>E-commerce</li><li>Digital marketing</li><li>Supply chain management</li></ul>'),
+ ('\n        <span class="todo">[TODO: confirm the subjects taught there, and whether the name should read “Mianz International College”]</span>', ''),
+ ('<p>Working title: “From Friction to Flow”. <span class="todo">[TODO: keep or change]</span></p>', '<p>Working title: “From Friction to Flow”, a longitudinal study planned for 2027 to 2030.</p>'),
+ ('"note":"The report doesn’t give the number of respondents, so this may reflect very few students."', '"note":"The report doesn’t give the number of respondents, and I have no class lists for this term, so this may reflect very few students."'),
+ ('{"t":"Term 1 2025","m":"BUS301 · MKT213 · MKT215 · MKT217",', '{"t":"Term 1 2025","m":"BUS301 · MKT213 · MKT215 · MKT217","n":59,'),
+ ('{"t":"Term 2 2025","m":"BUS107 · BUS301 · MKT217 · MKT301",', '{"t":"Term 2 2025","m":"BUS107 · BUS301 · MKT217 · MKT301","n":99,'),
+ ('{"t":"Term 1 2026","m":"MKT101 · MKT301 · MKT303 · MKT309",', '{"t":"Term 1 2026","m":"MKT101 · MKT301 · MKT303 · MKT309","n":90,'),
+ ('Source: MNU Subject and Teaching Evaluation reports, Term 2 2024 to Term 1 2026, as reported (the reports don’t state the scale). The axis starts at 75 so the differences are visible.',
+  'Source: MNU Subject and Teaching Evaluation reports, Term 2 2024 to Term 1 2026, as reported (the reports don’t state the scale). The axis starts at 75 so the differences are visible. Respondent numbers are estimates: every student who sits a final exam completes the evaluation, so I count students in my modules with a final exam (MNU workload forms for Term 2 2025 and Term 1 2026; marksheets for Term 1 2025). MKT303 has no final exam and isn’t counted.'),
+ ('<span class="todo">[TODO: arena usage numbers (students, sessions, completion). No number is shown until supplied.]</span>', 'In two weeks (28 Oct to 11 Nov 2026), 75 of 101 enrolled students used the tools: 80 hours of practice, 7,919 practice actions and 3 full business audits. <a class="more-link" href="academic/activity.html">See the anonymised activity dashboard <i data-ic="right"></i></a>'),
+ ('<p class="creds-note reveal"><span class="todo">[TODO: confirm exact bachelor’s title; other notes say BSc Tourism and Travel Services Management]</span></p>', ''),
+]
+for a, b in FIX:
+    assert src.count(a) == 1, a[:60]; src = src.replace(a, b)
+os.makedirs(P('out'), exist_ok=True)
+
+def sec(i):
+    m = re.search(r'(  <!-- [^\n]*-->\n)?  <section class="[^"]*" id="%s">.*?\n  </section>\n' % i, src, re.S)
+    assert m, i
+    return m.group(0)
+def rep(s, a, b, n=1):
+    assert s.count(a) == n, (a[:80], s.count(a)); return s.replace(a, b)
+def cut(s, a, b):
+    i = s.index(a); j = s.index(b, i) + len(b); return s[:i] + s[j:]
+def grab(s, a, b):
+    i = s.index(a); j = s.index(b, i) + len(b); return s[i:j]
+
+D = json.loads(re.search(r'<script type="application/json" id="acData">(.*?)</script>', src, re.S).group(1))
+acdata = re.search(r'<script type="application/json" id="acData">.*?</script>', src, re.S).group(0)
+
+# ---------- module data ----------
+GROUPS = [('Foundations', ['MKT101', 'BUS107', 'BUS301']),
+          ('Marketing communications', ['MKT213', 'MKT215', 'MKT217']),
+          ('Strategy, brand and digital', ['MKT301', 'MKT303', 'MKT309'])]
+MODS = {m['c']: m for m in D['mods']}
+ORDER = [c for g in GROUPS for c in g[1]]
+slug = lambda c: c.lower()
+lvl = lambda m: m['l'] + (' <span class="todo">[TODO: confirm level]</span>' if m.get('lt') else '')
+
+# ---------- HOME ----------
+header = rd('header.html')
+footer = rd('footer.html').replace('<span class="todo">[TODO: Google Scholar]</span>', SCHOLAR.replace('class="orcid"', 'class="orcid orcid-foot"'))
+CVPDF = 'academic/Muiz_Fuad_CV.pdf'
+def cvlinks(s):
+    s = re.sub(r'<button class="(btn[^"]*?) is-todo" type="button" data-todo="CV PDF file">(.*?)</button>', lambda m: '<a class="%s" href="%s" download="Muiz_Fuad_CV.pdf">%s</a>' % (m.group(1), CVPDF, m.group(2)), s)
+    return re.sub(r'\s*<span class="todo">\[TODO: CV PDF file\]</span>', '', s)
+s1 = sec('s1')
+s1 = rep(s1, 'I teach marketing through real Maldivian businesses, and I build the tools my students learn with.',
+         'I teach marketing through live industry cases, and I build the tools my students learn with.')
+s1 = rep(s1, '<p class="intro-p">15+ years in Maldivian tourism and marketing, now in the lecture room at MNU Business School.</p>',
+         '<p class="intro-p">15+ years in tourism and marketing, now in the lecture room at MNU Business School.</p>\n              <p class="cred-line">MSc Global Marketing Management (Merit) · Asia Pacific University, Kuala Lumpur</p>')
+s1 = rep(s1, '<a class="btn btn--ghost" href="#teach">See how I teach <i data-ic="down"></i></a>',
+         '<a class="btn btn--ghost" href="#modules">See what I teach <i data-ic="down"></i></a>')
+# the long career paragraph moves to the CV page
+career_p = grab(s1, '<p>My career began at Highrise', '</p>')
+apps_p = grab(s1, '<p>My students tell me what works.', '</p>')
+s1 = s1.replace(career_p + '\n', '').replace(apps_p + '\n', '')
+s1 = re.sub(r'\n\s*\n', '\n', s1)
+
+teach = sec('teach')
+pride_old = grab(teach, '<article class="pride reveal">', '</article>')
+PRIDE = '''<article class="pride reveal" id="delivery">
+        <span class="pride-tag"><i data-ic="star"></i> Reliable delivery</span>
+        <h3>Every class delivered.</h3>
+        <p>By my own record, I haven’t cancelled a class since Term 1 2025, when our new dean challenged the department to get through a whole term without one. I kept it going into 2026. When a public holiday fell on a class day, I taught that class in advance, and with colleagues I set up a simple cover system so a class goes ahead whenever a free room and time slot allow.</p>
+        <p>In Term 2 2025 I carried 18 contact hours a week, above my required load, and volunteered extra classes and tutorial hours so graduating students could finish that semester instead of waiting for the module to be offered again.</p>
+      </article>'''
+teach = teach.replace(pride_old, PRIDE)
+
+lesson = sec('lesson')
+lesson = cut(lesson, '      <div class="slots">', '</div>\n        <div class="slot reveal" style="--rd:.08s"><i data-ic="play"></i><b>Students on camera</b><span class="todo">[TODO: 2–3 captioned clips of 20–30 s, consent on file]</span></div>\n')
+ev = sec('evidence')
+evchart = grab(ev, '      <div class="panel ev-chart reveal" id="evChart">', '</table></div></details>\n      </div>')
+home_ev = rd('home_evidence.html').replace('@@EVCHART@@', evchart)
+
+def mgroups():
+    out = []
+    for i, (g, cs) in enumerate(GROUPS):
+        rows = ''.join('<a href="academic/modules/%s.html"><b>%s</b><span>%s%s</span><em>%s</em></a>' % (
+            slug(c), c, MODS[c]['n'], ('<small>Subject coordinator, 2025</small>' if MODS[c].get('coord') else ''),
+            MODS[c]['l'].replace('Level ', 'L')) for c in cs)
+        out.append('<div class="mgroup reveal" style="--rd:%.2fs"><span class="label">%s</span>%s</div>' % (i * .08, g, rows))
+    return '\n        '.join(out)
+home_mods = rd('home_modules.html').replace('<div class="mgroups" id="mgroups"></div>', '<div class="mgroups">\n        ' + mgroups() + '\n      </div>')
+
+res = sec('research')
+res_home = cut(res, '      <div class="next">', '</div>\n      </div>\n')
+res_home = rep(res_home, '      </div>\n    </div>\n  </section>', '      </div>\n      <div class="row-cta reveal"><a class="btn btn--ghost" href="academic/research.html">Research, profiles and talks <i data-ic="right"></i></a></div>\n    </div>\n  </section>')
+
+home = (header.replace('@@FADE@@', ' fade') + '\n<main>\n' + s1 + '\n' + home_mods + '\n' + teach + '\n' + rd('home_tools.html') + '\n' +
+        lesson + '\n' + home_ev + '\n' + res_home + '\n' + sec('about') + '\n' + sec('credentials') + '\n' + footer + acdata + '\n')
+open(P('out', 'home.html'), 'w', encoding='utf-8').write(cvlinks(home))
+
+# ---------- shared bits for inner pages ----------
+BACK = '  <div class="backbar"><div class="wrap"><a class="btn back-home" href="academic.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to portfolio</a></div></div>\n'
+def page(name, label, title, lead, body, toc=None, crumbs=None, data=False):
+    tc = ''
+    if toc: tc = '<nav class="toc" aria-label="On this page">' + ''.join('<a href="#%s">%s</a>' % t for t in toc) + '</nav>'
+    cb = '<div class="crumbs">' + ' <span aria-hidden="true">/</span> '.join('<a href="%s">%s</a>' % c for c in (crumbs or [('academic.html', 'Home')])) + '</div>'
+    h = (header.replace('@@FADE@@', '') + '\n<main>\n  <section class="pagehead"><div class="wrap">' + cb +
+         '<span class="label">' + label + '</span><h1 class="ph-t">' + title + '<span>.</span></h1>' +
+         ('<p class="ph-lead">' + lead + '</p>' if lead else '') + tc + '</div></section>\n' + body + '\n' + BACK + footer + (acdata + '\n' if data else ''))
+    open(P('out', name + '.html'), 'w', encoding='utf-8').write(cvlinks(h))
+
+def block(i, label, h2, inner, intro=''):
+    return ('  <section class="block" id="%s">\n    <div class="wrap">\n      <div class="head wide reveal"><span class="label">%s</span><h2>%s<span>.</span></h2>%s</div>\n%s\n    </div>\n  </section>\n'
+            % (i, label, h2, ('<p>' + intro + '</p>' if intro else ''), inner))
+inner = lambda s: re.search(r'<div class="wrap">\n(.*)\n    </div>\n  </section>', s, re.S).group(1)
+strip_head = lambda s: re.sub(r'\s*<div class="head[^"]*">.*?</div>\n', '\n', s, count=1, flags=re.S)
+
+# ---------- TEACHING ----------
+phil = grab(teach, '<div class="phil reveal">', '</div>')
+PILLARS = '''<div class="pillars">
+        <div class="pillar reveal"><em>1</em><b>Real local cases</b><p>Maldivian firms like Ruka, Reethi and the SME HUB businesses, not distant examples.</p><a class="more-link" href="academic/cv.html#work">See the cases <i data-ic="right"></i></a></div>
+        <div class="pillar reveal" style="--rd:.06s"><em>2</em><b>Theory to application</b><p>Every concept ends in a decision for a real business.</p><a class="more-link" href="academic/tools.html">See the tools <i data-ic="right"></i></a></div>
+        <div class="pillar reveal" style="--rd:.12s"><em>3</em><b>Practise the hard question</b><p>Rehearse the manager’s question until the answer comes.</p><a class="more-link" href="academic.html#lesson">See a lesson <i data-ic="right"></i></a></div>
+        <div class="pillar reveal" style="--rd:.18s"><em>4</em><b>Listen and adjust</b><p>Each term’s evaluation shapes the next.</p><a class="more-link" href="#evidence">See the evidence <i data-ic="right"></i></a></div>
+      </div>
+      <p class="src reveal" style="margin-top:14px">Steps 1 to 3 come from my teaching philosophy. Step 4 follows Tomáška (2025), <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12635050/" target="_blank" rel="noopener">“Making the first moves as a university teacher”</a>, <i>EMBO Reports</i>.</p>
+      <div class="row-cta reveal"><a class="btn btn--ghost" href="academic.html#teach-wheel">All eight ideas, on the teaching wheel <i data-ic="right"></i></a></div>'''
+A101 = D['asg']['MKT101']
+wb = lambda A: '<div class="wbar">' + ''.join('<span style="--w:%d">%s <b>%d</b></span>' % (x[1], x[0], x[1]) for x in A[1]) + '</div>'
+ASSESS = '''<div class="assess">
+        <article class="panel reveal"><span class="label">Clear from week one</span><h3>Outlines and rubrics, up front.</h3><p>In all three midterm check-ins I hold, every responding student said the subject outline arrived in the first two weeks and every assignment came with a marking rubric.</p><p class="src">Midterm Subject and Teaching Evaluations: MKT215, Term 1 2025; MKT217 and MKT301, Term 2 2025; 1 to 5 respondents each.</p></article>
+        <article class="panel reveal" style="--rd:.08s"><span class="label">A mix of evidence · MKT101, %s</span><h3>Coursework, a midterm and a final.</h3>%s<p class="small">Each module’s weighting, as delivered, is on its <a href="academic/modules.html">module page</a>.</p></article>
+        <article class="panel reveal"><span class="label">Setting and moderation</span><h3>Exam papers set and combined.</h3><p>I set the exam papers for four modules in Term 2 2025, and reviewed and combined the MKT101 paper with a co-lecturer’s. I have also supervised applied projects: one student completed in 2025, with two and three allocated in the 2026 terms.</p></article>
+        <article class="panel reveal" style="--rd:.08s"><span class="label">Where I want to improve</span><h3>Closing the exam gap.</h3><p>Coursework marks beat final-exam marks in all 15 cohorts with an exam, by a median of 16.4 points. The MKT101 Arena’s timed written practice is one response.</p><span class="todo">[TODO: what else you are doing about it, for example mock papers]</span></article>
+      </div>
+      <p class="reveal" style="margin-top:16px"><span class="todo">[TODO: for one module, a map of each learning outcome to the assessment that tests it (constructive alignment)]</span></p>''' % (A101[0], wb(A101))
+cur = sec('curriculum')
+cur_in = strip_head(inner(cur))
+ev_in = strip_head(inner(ev))
+ev_in = ev_in.replace('<details class="more-ev reveal"><summary><span>See the full teaching evidence</span><small>Student outcomes, attendance and midterm check-ins</small></summary>', '<details class="more-ev reveal" open><summary><span>Student outcomes</span><small>Pass rates, attendance and the exam gap</small></summary>')
+ev_in = cut(ev_in, '      <p class="pulse reveal">', '</p>\n')
+mods_sec = sec('modules')
+also = grab(mods_sec, '      <div class="also">', '</div>\n      </div>\n')
+slots = '''      <div class="slots">
+        <div class="slot reveal"><i data-ic="play"></i><b>Teaching demo video</b><span class="todo">[TODO: 3–5 min recording of “Found, Chosen, Booked”, with captions]</span></div>
+        <div class="slot reveal" style="--rd:.08s"><i data-ic="play"></i><b>Students on camera</b><span class="todo">[TODO: 2–3 captioned clips of 20–30 s, consent on file]</span></div>
+      </div>'''
+tbody = (block('philosophy', 'Teaching philosophy', 'How I teach', '      ' + phil + '\n      ' + PILLARS) +
+         block('assessment', 'Assessment', 'How I assess', '      ' + ASSESS) +
+         block('delivery-sec', 'Delivery', 'Reliability', '      ' + PRIDE.replace(' id="delivery"', '')) +
+         block('curriculum', 'Curriculum', 'Shaping what we teach', cur_in, 'MNU is developing a new marketing programme, and I keep updating the content we deliver.') +
+         block('evidence', 'Teaching evidence', 'What students say', ev_in, 'Every term I’ve taught at MNU, against the Business School and university averages. The good terms and the hard one.') +
+         block('beyond', 'Beyond the classroom', 'Workload and service', also + slots))
+page('teaching', 'Teaching portfolio', 'Teaching', 'How I teach and assess, what students say, and the work around the classroom: curriculum, supervision, exam setting and committees.', tbody,
+     toc=[('philosophy', 'Philosophy'), ('assessment', 'Assessment'), ('delivery-sec', 'Delivery'), ('curriculum', 'Curriculum'), ('evidence', 'Evidence'), ('beyond', 'Workload and service')], data=True)
+
+# ---------- MODULES (list) ----------
+def yr_of(t): return t.split()[-1]
+years = {}
+for c in ORDER:
+    for t in MODS[c]['terms']:
+        years.setdefault(yr_of(t[0]), {}).setdefault(c, []).append(t)
+def course(c, terms):
+    m = MODS[c]
+    chips = ''.join('<li>%s%s</li>' % (t[0], (' · <b>%d students</b>' % t[1]) if t[1] else '') for t in terms)
+    role = ' · ' + m['coord'] if m.get('coord') else ''
+    return ('<article class="course reveal"><a class="c-logo" href="academic/modules/%s.html" aria-label="%s, module page">%s<small>%s</small></a><div class="c-body">'
+            '<h3><a href="academic/modules/%s.html">%s</a></h3><p class="c-meta">%s · %s · MNU Business School%s</p>'
+            '<p class="c-desc"><span class="todo">[TODO: one-line description of what students learn]</span></p><ul class="chips">%s</ul></div></article>'
+            % (slug(c), re.sub('&amp;', 'and', m['n']), c, m['l'].replace('Level ', 'L'), slug(c), m['n'], c, lvl(m), role, chips))
+lst = ''
+for y in sorted(years, reverse=True):
+    lst += '<div class="yr"><h2>%s<span>.</span></h2>%s</div>\n' % (y, ''.join(course(c, years[y][c]) for c in ORDER if c in years[y]))
+earlier = grab(mods_sec, '      <div class="panel earlier reveal">', '</div>\n    </div>\n')
+earlier = earlier.replace('</div>\n    </div>\n', '</div>\n')
+lst += '<div class="yr"><h2>Earlier teaching<span>.</span></h2></div>\n' + earlier
+mbody = '  <section class="block" id="list">\n    <div class="wrap">\n' + lst + '\n    </div>\n  </section>\n'
+page('modules', 'Modules', 'Modules I teach', 'Nine undergraduate modules at MNU Business School since 2024, newest first. Each module page has its level, outcomes, assessment, the terms I taught it and what students use. Term 2 2024 isn’t listed: the evaluation report for that term doesn’t name the modules.', mbody,
+     crumbs=[('academic.html', 'Home')])
+
+# ---------- one page per module ----------
+os.makedirs(P('out', 'modules'), exist_ok=True)
+for k, c in enumerate(ORDER):
+    m = MODS[c]
+    A = D['asg'].get(c)
+    terms = ''.join('<li>%s%s</li>' % (t[0], (' · <b>%d students</b>' % t[1]) if t[1] else '') for t in m['terms'])
+    facts = '''<dl class="facts">
+        <div><dt>Code</dt><dd>%s</dd></div>
+        <div><dt>Level</dt><dd>%s</dd></div>
+        <div><dt>Credits</dt><dd><span class="todo">[TODO]</span></dd></div>
+        <div><dt>Prerequisite</dt><dd><span class="todo">[TODO]</span></dd></div>
+        <div><dt>My role</dt><dd>%s</dd></div>
+      </dl>''' % (c, lvl(m), m.get('coord', 'Lecturer'))
+    left = '''<article class="panel reveal"><h2>About the module<span>.</span></h2><span class="todo">[TODO: two or three sentences on what the module covers, from the module descriptor]</span><p class="small">Part of <span class="todo">[TODO: programme name, with a link to its MNU programme page]</span></p></article>
+        <article class="panel reveal"><h2>Learning outcomes<span>.</span></h2><span class="todo">[TODO: the course learning outcomes (CLOs), as published in the module descriptor]</span></article>
+        <article class="panel reveal"><h2>Weekly topics<span>.</span></h2><span class="todo">[TODO: the week-by-week topic list]</span></article>
+        <article class="panel reveal"><h2>A sample activity<span>.</span></h2><span class="todo">[TODO: one activity or photo from class, with a line on what students did]</span></article>'''
+    right = '<article class="panel reveal"><h2>Assessment<span>.</span></h2>'
+    right += ('<span class="label">As delivered, %s</span>%s' % (A[0], wb(A))) if A else '<span class="todo">[TODO: assessment types and weights]</span>'
+    right += '</article>'
+    right += '<article class="panel reveal"><h2>Terms I taught it<span>.</span></h2><ul class="chips">%s</ul><p class="src">Student numbers from MNU workload forms, where recorded.</p></article>' % terms
+    if m.get('app'):
+        right += '<article class="panel reveal"><h2>What students use<span>.</span></h2><p>%s, a web app I built for this module.</p><div class="row-cta" style="margin-top:4px"><a class="btn btn--sm" href="%s" target="_blank" rel="noopener">Open it <i data-ic="upright"></i></a><a class="more-link" href="academic/tools.html">How it works <i data-ic="right"></i></a></div></article>' % (m['app'][0], m['app'][1].replace('&', '&amp;'))
+    if m.get('demo'):
+        right += '<article class="panel reveal"><h2>Sample lesson<span>.</span></h2><p>“Found, Chosen, Booked”, my 10-minute demonstration lesson, was built for this module.</p><a class="more-link" href="academic.html#lesson">See the lesson <i data-ic="right"></i></a></article>'
+    if m.get('mid'):
+        mi = m['mid']
+        right += '<article class="panel reveal"><h2>Midterm check-in<span>.</span></h2><span class="label">%s · %d respondent%s</span><p>%s.</p><blockquote>“%s”</blockquote></article>' % (mi[0], mi[1], 's' if mi[1] > 1 else '', mi[2], mi[3])
+    prv, nxt = ORDER[k - 1] if k else None, ORDER[k + 1] if k + 1 < len(ORDER) else None
+    pager = '<nav class="pager" aria-label="Other modules">' + \
+        ('<a href="academic/modules/%s.html"><small>← Previous</small>%s %s</a>' % (slug(prv), prv, MODS[prv]['n']) if prv else '<span></span>') + \
+        ('<a href="academic/modules/%s.html"><small>Next →</small>%s %s</a>' % (slug(nxt), nxt, MODS[nxt]['n']) if nxt else '') + '</nav>'
+    body = ('  <section class="block" id="module">\n    <div class="wrap">\n      ' + facts + '\n      <div class="mp" style="margin-top:16px"><div class="mp-col">' + left +
+            '</div><div class="mp-col">' + right + '</div></div>\n      ' + pager + '\n    </div>\n  </section>\n')
+    grp = [g for g, cs in GROUPS if c in cs][0]
+    page('modules/' + slug(c), c + ' · ' + grp, m['n'], None, body,
+         crumbs=[('academic.html', 'Home'), ('academic/modules.html', 'Modules')])
+
+# ---------- TOOLS ----------
+tools = sec('tools')
+arena = grab(tools, '      <article class="spot reveal" id="arena">', '      </article>\n')
+more_tools = grab(tools, '      <div class="sub-head reveal"><div><span class="label">More tools</span>', '      </div>\n    </div>\n  </section>')
+more_tools = more_tools[:-len('    </div>\n  </section>')]
+tbody = ('  <section class="block" id="arena-sec">\n    <div class="wrap">\n' + arena + more_tools +
+         '      <p class="tool-access reveal" style="margin-left:0">Students sign in with their student ID. Visitors and review panels can try each tool as a guest, with no account: the arenas open with the whole class leaderboard shown without names, and the audit plays a finished demo for a real guesthouse with a fictional scenario.</p>\n      <div class="row-cta guest-row reveal" style="margin-top:12px"><a class="btn btn--ghost" href="https://abdullamuizfuad.github.io/mkt101-cases/?guest=1#/" target="_blank" rel="noopener">Try MKT101 Arena as a guest <i data-ic="upright"></i></a><a class="btn btn--ghost" href="https://abdullamuizfuad.github.io/mkt301/?guest=1#/" target="_blank" rel="noopener">Try MKT301 Arena as a guest <i data-ic="upright"></i></a><a class="btn btn--ghost" href="https://abdullamuizfuad.github.io/student-audit/tool.html?demo=1" target="_blank" rel="noopener">Watch the MKT303 audit demo <i data-ic="upright"></i></a></div>\n'
+         '      <div class="row-cta reveal"><a class="btn btn--ghost" href="academic.html#lesson">A lesson that uses AI search: Found, Chosen, Booked <i data-ic="right"></i></a></div>\n    </div>\n  </section>\n')
+page('tools', 'Student tools', 'Tools I built for my students', 'Students asked for more practical, interactive learning. These are the web apps I’ve built for it, each for a module I teach. <span class="todo">[TODO: confirm which feedback prompted each app before linking them causally]</span>', tbody)
+
+# ---------- RESEARCH ----------
+res_in = strip_head(inner(res))
+TALKS = '''<ul class="talks">
+        <li class="reveal"><time>5 November 2026</time><div><b>Found, Chosen, Booked: marketing when AI does the searching</b><p>Demonstration lesson, MNU lecturer selection, Malé. It scored highest in the selection.</p><div class="row-cta"><a class="btn btn--sm" href="https://abdullamuizfuad.github.io/GEO-Visibility-/" target="_blank" rel="noopener">Slides <i data-ic="upright"></i></a><a class="btn btn--sm btn--ghost" href="https://abdullamuizfuad.github.io/GEO-Visibility-/demo/" target="_blank" rel="noopener">Phone simulation <i data-ic="upright"></i></a><a class="btn btn--sm btn--ghost" href="https://abdullamuizfuad.github.io/GEO-Visibility-/slides.pdf" target="_blank" rel="noopener">PDF <i data-ic="download"></i></a></div></div></li>
+        <li class="reveal"><time>2016</time><div><b>Sustainable development of local island tourism</b><p>Conceptual paper, 3rd International Hospitality and Tourism Conference (IHTC).</p></div></li>
+      </ul>'''
+rbody = (block('direction', 'Research', 'What the classroom made me ask', res_in) +
+         block('talks', 'Talks', 'Talks and presentations', '      ' + TALKS))
+page('research', 'Research', 'Research', 'Where my research has been, and the question I want to study next: how small tourism businesses get found when an AI does the searching.', rbody,
+     toc=[('direction', 'Direction'), ('talks', 'Talks')])
+
+# ---------- CV ----------
+R = lambda t, d, org: '<div class="cv-row"><b>%s</b><span class="cv-d">%s</span></div><div class="cv-org">%s</div>' % (t, d, org)
+UL = lambda *xs: '<ul>' + ''.join('<li>%s</li>' % x for x in xs) + '</ul>'
+S = lambda t, body: '<section class="cv-sec"><h2>%s<span>.</span></h2>%s</section>' % (t, body)
+CVDOC = ('<article class="cvdoc" id="cvdoc">'
+ '<header class="cv-top"><h1 class="cv-name">Abdulla Muiz Fuad<span>.</span></h1>'
+ '<p class="cv-role">Lecturer in Marketing · Tourism, Digital Marketing and SME Development</p>'
+ '<p class="cv-contact"><span>+960 990 2996</span><span><a href="mailto:abdullamuizfuad@gmail.com">abdullamuizfuad@gmail.com</a></span><span><a href="https://linkedin.com/in/abdullamuizfuad">linkedin.com/in/abdullamuizfuad</a></span><span><a href="https://orcid.org/0009-0003-5812-6693">ORCID 0009-0003-5812-6693</a></span><span>Malé, Maldives</span></p></header>'
+ + S('Academic profile',
+   '<p>Marketing academic and industry practitioner holding an MSc in Global Marketing Management and a BA (Hons) in Tourism Management, both from Asia Pacific University, Kuala Lumpur. Has taught undergraduate and master’s marketing, e-commerce and supply chain modules at MNU Business School and MI College, including subject coordination, assessment design and Applied Project supervision. Co-author of peer-reviewed research on guesthouse tourism and e-marketing in the Maldives (36 citations). Draws on over a decade of marketing and tourism industry experience (since 2011) to ground theory in local business practice.</p>'
+   '<p><b>Research interests:</b> AI adoption and digital transformation in Maldivian tourism (operational impact, customer-experience personalisation, adoption barriers); small island developing states (SIDS); guesthouse and SME development; e-marketing and Generative Engine Optimisation (GEO).</p>'
+   '<p><b>Proposed doctoral research (from 2027):</b> “From Friction to Flow”, a three-wave longitudinal phenomenological study (2027–2030) of AI adoption across the Maldives tourism ecosystem (resorts, guesthouses, dive centres and tour operators), using the Technology–Organisation–Environment (TOE) framework and an AI maturity lens.</p>'
+   '<p><b>Teaching areas:</b> Introduction to Marketing; International Marketing; Electronic Marketing; Brand Management; Business Entrepreneurship; E-commerce; Digital Marketing; Supply Chain Management.</p>')
+ + S('Education',
+   R('MSc Global Marketing Management', '2016 – 2018', 'Asia Pacific University · Kuala Lumpur, Malaysia') +
+   R('BA (Hons) Tourism Management', '2014 – 2016', 'Asia Pacific University · Kuala Lumpur, Malaysia') +
+   R('Diploma Level 4 in Tourism Management', '2012 – 2013', 'MAPS College · Malé, Maldives · Affiliate: Confederation of Tourism and Hospitality (CTH), UK') +
+   R('Diploma in Human Resources Management', '2011', 'Clique College · Malé, Maldives · Affiliate: Association of Business Executives (ABE), UK') +
+   R('Diploma in Business with Information Technology', '2008 – 2010', 'Asia Pacific University · Kuala Lumpur, Malaysia'))
+ + S('Academic experience',
+   R('Lecturer', 'Nov 2026 – present', 'MNU Business School, The Maldives National University · Malé, Maldives') + UL('Teaching undergraduate marketing modules.') +
+   R('Associate Lecturer and Subject Coordinator', 'Oct 2024 – Oct 2026', 'MNU Business School, The Maldives National University · Malé, Maldives') +
+   UL('Full-time; delivered and coordinated undergraduate modules: MKT101 Introduction to Marketing, MKT301 International Marketing, MKT303 Electronic Marketing and MKT309 Brand Management; also lectured Business Entrepreneurship.',
+      'Responsible for curriculum delivery, assessment design, exam paper and marking guide development, study guide production and Applied Project supervision.',
+      'Embedded real Maldivian business cases into course material to link theoretical frameworks to local industry practice.') +
+   R('Part-time Lecturer', '2022 – 2023', 'MI College · Malé, Maldives') +
+   UL('Taught E-commerce, Digital Marketing and Supply Chain Management to master’s and undergraduate cohorts.',
+      'Revised and modernised inherited course materials to reflect current industry developments.',
+      'Prepared exam papers; designed tutorials, workshops and assignments built around contemporary industry trends.'))
+ + S('Publications',
+   '<p><b>Google Scholar:</b> <a href="%s">%s</a></p>' % (SCH, SCH.replace('https://', '')) +
+   UL('Chia, K. W., &amp; Fuad, A. M. (2021). The nature and challenges of guest house business in the Maldives: An exploratory study. <i>Tourism and Hospitality Research, 21</i>(1), 3–14. <a href="https://doi.org/10.1177/1467358420926688">https://doi.org/10.1177/1467358420926688</a> (cited 36 times)',
+      'Pappayah, P. C. M., &amp; Fuad, A. M. (2017). Increasing the visibility of guesthouse operation in the Maldives through e-marketing. <i>The International Journal of Tourism and Hospitality Administration, 13</i>(2), 15–29.'))
+ + S('Conference presentations', UL('Presented a conceptual paper on Sustainable Development of Local Island Tourism, 3rd International Hospitality and Tourism Conference (IHTC), 2016.'))
+ + S('Professional experience',
+   R('Manager, SME HUB', '2024', 'Business Centre Corporation · Malé, Maldives') +
+   UL('Managed an MSME business incubator (Ministry of Economic Development initiative under the MEERY Project), supporting 23 active vendors through a one-year incubation period.', 'Led digital and traditional marketing campaigns, market analysis, budgeting and partnership development.') +
+   R('Sales and Marketing Manager, Maldives Business Network (MBN)', '2023 – 2024', 'Business Centre Corporation · Malé, Maldives') +
+   UL('Marketed a business TV channel created to promote financial literacy; introduced web series and social media formats to reach a younger audience.', 'Led marketing strategy, market research, sales forecasting and client relations, securing key partnerships and growing advertising sales.') +
+   R('Manager, Customer Relations and Clinical Operations', '2022 – 2023', 'Thiba Psychology · Malé, Maldives') +
+   UL('Managed customer service and clinical staff, service workflows and process improvements; strengthened community presence through social media marketing.') +
+   R('Marketing Manager', '2021 – 2022', 'Reethi Beach Resort · Baa Atoll, Maldives') +
+   UL('Led the resort’s marketing function, with annual social media strategies targeting source markets including Germany and Italy.',
+      'Ran a multi-tiered influencer programme (including Miss Germany 2022, Domitila Barros, on coral conservation and reef restoration), with TV, creator and print partnerships reaching European and Asian platforms such as VK, Xiaohongshu and Douyin.',
+      'Improved organic search performance through blog content and high-authority travel features; tracked campaigns in Google Analytics; managed newsletters and repeat-guest email.',
+      'Contributed to the website redesign (UI/UX), created new room category tiers and developed in-property events that grew F&amp;B revenue; represented the resort at international trade fairs.') +
+   R('Copywriter', '2020 – 2021', 'Maldives Ports Limited · Malé, Maldives') +
+   UL('Wrote web content and newsletters, published data-driven operational reports, and ran a social media campaign on MPL’s workforce.') +
+   R('Head of Operations / Creative Director', '2018 – 2020', 'Blazon.Inc · Malé, Maldives') +
+   UL('Led the marketing and design teams; oversaw corporate identities, in-house publications and contracted in-flight magazines; hosted two consecutive Annual Maldives Business Awards.') +
+   '<div class="cv-row"><b>Earlier roles</b><span class="cv-d">2011 – 2017</span></div>' +
+   UL('<b>Apprentice Layout Designer</b>, Tourism Publication Corporation Sdn. Bhd, Kuala Lumpur (2015–2017)', '<b>Cargo Officer</b>, Maldives Airports Company (2013–2014)',
+      '<b>Marketing Officer</b>, Highrise Inc (2011–2013): sold advertising for Floating Asia and Visiting Guide; marketed MATATO Maldives Travel Awards and Living Expo', '<b>Marketing Associate</b>, Global Safety Associates (2011–2012)'))
+ + S('Selected industry engagement',
+   UL('<b>MATTA Fair, Kuala Lumpur (2014–2018):</b> progressed from promoter (2014) to Marketing Coordinator (2015) and Head of Marketing and Sales (2017) for MP Travel and Tours; led the Exhibitor Coordination Committee in 2018.',
+      '<b>Events (2012–2024):</b> Maldives Business Awards 2019 (Event Manager); MATATO Maldives Travel Awards 2012 (Event Coordinator); Living Expo; MAHA Portal Launch and Vunadhaana Festival (BCC).',
+      '<b>Content and strategy (2022):</b> Content Creator and Social Media Strategist for Miss Germany 2022, Domitila Barros (Maldives).',
+      '<b>Volunteer:</b> 6th Global Summit on Urban Tourism (2017).'))
+ + S('Referees', '<p>Available on request.</p>')
+ + '<footer class="cv-sign"><span class="regards">Warm regards,</span>@@SIGCV@@<span class="cv-sign-role">Lecturer in Marketing · MNU Business School</span></footer>'
+ + '</article>')
+open(P('out', 'cvdoc.html'), 'w', encoding='utf-8').write(CVDOC)
+CVTOP = ('<div class="cv-bar reveal"><span class="small">Updated November 2026</span><a class="btn" href="academic/Muiz_Fuad_CV.pdf" download="Muiz_Fuad_CV.pdf">Download PDF <i data-ic="download"></i></a></div>\n      <div class="reveal">' + CVDOC + '</div>')
+work = sec('work')
+work_in = strip_head(inner(work))
+cred_in = strip_head(inner(sec('credentials')))
+cbody = (block('cv-file', 'Curriculum vitae', 'The CV', '      ' + CVTOP) +
+         block('work', 'Practice', 'From industry to classroom', work_in, 'The work I bring into the classroom.') +
+         block('credentials', 'Credentials', 'Certificates', cred_in, 'Tap one to see the certificate.'))
+page('cv', 'Curriculum vitae', 'CV', 'Fifteen years in tourism and marketing, then the lecture room. The full CV, the industry work I teach from, and my certificates.', cbody,
+     toc=[('cv-file', 'CV'), ('work', 'Industry work'), ('credentials', 'Certificates')])
+# ---------- CLASS ACTIVITY ----------
+page('activity', 'Student tools · Class activity', 'Two weeks in the student tools', rd('activity_lede.txt'), rd('activity_body.html'),
+     crumbs=[('academic.html', 'Home'), ('academic/tools.html', 'Student tools')])
+print('composed', sorted(os.listdir(P('out'))), len(os.listdir(P('out', 'modules'))))
