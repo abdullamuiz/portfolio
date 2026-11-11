@@ -159,6 +159,13 @@ ev_in = ev_in.replace('<details class="more-ev reveal"><summary><span>See the fu
 ev_in = cut(ev_in, '      <p class="pulse reveal">', '</p>\n')
 mods_sec = sec('modules')
 also = grab(mods_sec, '      <div class="also">', '</div>\n      </div>\n')
+# students per term now lives in the evidence charts; keep duties here
+also = re.sub(r'\s*<div class="panel reveal">\s*<span class="label">Students per term</span>.*?</p>\s*</div>', '', also, count=1, flags=re.S)
+also = also.replace('<div class="panel reveal" style="--rd:.08s">\n          <span class="label">Beyond the classroom</span>', '<div class="panel reveal">\n          <span class="label">Beyond the classroom</span>')
+_evx = rd('evx.html')
+EVX_IN = re.search(r'<div class="wrap">\n(.*)\n    </div>\n  </section>', _evx, re.S).group(1) + '\n' + _evx[_evx.index('<script>'):]
+EV2 = ev_in[ev_in.index('      <div class="ev2">'):ev_in.index('      <details class="more-ev')]
+
 slots = '''      <div class="slots">
         <div class="slot reveal"><i data-ic="play"></i><b>Teaching demo video</b><span class="todo">[TODO: 3–5 min recording of “Found, Chosen, Booked”, with captions]</span></div>
         <div class="slot reveal" style="--rd:.08s"><i data-ic="play"></i><b>Students on camera</b><span class="todo">[TODO: 2–3 captioned clips of 20–30 s, consent on file]</span></div>
@@ -167,7 +174,7 @@ tbody = (block('philosophy', 'Teaching philosophy', 'How I teach', '      ' + ph
          block('assessment', 'Assessment', 'How I assess', '      ' + ASSESS) +
          block('delivery-sec', 'Delivery', 'Reliability', '      ' + PRIDE.replace(' id="delivery"', '')) +
          block('curriculum', 'Curriculum', 'Shaping what we teach', cur_in, 'MNU is developing a new marketing programme, and I keep updating the content we deliver.') +
-         block('evidence', 'Teaching evidence', 'What students say', ev_in, 'Every term I’ve taught at MNU, against the Business School and university averages. The good terms and the hard one.') +
+         block('evidence', 'Teaching evidence', 'What students say', EVX_IN + '\n' + EV2, 'Every term I’ve taught at MNU, against the Business School and university averages. The good terms and the hard one.') +
          block('beyond', 'Beyond the classroom', 'Workload and service', also + slots))
 page('teaching', 'Teaching portfolio', 'Teaching', 'How I teach and assess, what students say, and the work around the classroom: curriculum, supervision, exam setting and committees.', tbody,
      toc=[('philosophy', 'Philosophy'), ('assessment', 'Assessment'), ('delivery-sec', 'Delivery'), ('curriculum', 'Curriculum'), ('evidence', 'Evidence'), ('beyond', 'Workload and service')], data=True)
