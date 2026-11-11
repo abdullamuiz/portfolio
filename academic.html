@@ -1604,6 +1604,16 @@ body.subpage main{padding-top:var(--head)}
 .why-r .why-lead{font:400 clamp(19px,2vw,22px)/1.45 var(--serif)}
 @media (max-width:820px){.why{grid-template-columns:1fr}}
 .why-r .why-lead{font:500 clamp(16.5px,1.6vw,18.5px)/1.6 var(--sans)}
+/* class activity: scroll motion */
+.ca-motion .ca-card,.ca-motion .ca-kpi{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.ca-motion .ca-card.ca-in,.ca-motion .ca-kpis.ca-in .ca-kpi{opacity:1;transform:none}
+.ca-motion .ca-kpis.ca-in .ca-kpi:nth-child(2){transition-delay:.06s}.ca-motion .ca-kpis.ca-in .ca-kpi:nth-child(3){transition-delay:.12s}.ca-motion .ca-kpis.ca-in .ca-kpi:nth-child(4){transition-delay:.18s}.ca-motion .ca-kpis.ca-in .ca-kpi:nth-child(5){transition-delay:.24s}.ca-motion .ca-kpis.ca-in .ca-kpi:nth-child(6){transition-delay:.3s}
+.ca-motion svg rect.gv{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.ca-motion svg rect.gh{transform-box:fill-box;transform-origin:0 50%;transform:scaleX(0);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.ca-motion .ca-in svg rect.gv,.ca-motion .ca-in svg rect.gh{transform:none}
+.ca-motion svg polyline.gl{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1) .35s}
+.ca-motion .ca-in svg polyline.gl{stroke-dashoffset:0}
+.tools-ca .head{margin-bottom:8px}
 
 </style>
 </head>
@@ -1754,7 +1764,7 @@ body.subpage main{padding-top:var(--head)}
           <span class="app-foot"><span class="more-link">Open the audit <i data-ic="upright"></i></span></span>
         </a>
       </div>
-      <p class="tool-note reveal"><i data-ic="chart"></i><span>From my MKT101 class dashboard: one student worked through almost 80% of the arena’s questions in two weeks, with more than 10 hours of active practice. <a class="more-link" href="academic/activity.html">See two weeks of anonymised class activity across all three tools <i data-ic="right"></i></a></span></p>
+      <p class="tool-note reveal"><i data-ic="chart"></i><span>From my MKT101 class dashboard: one student worked through almost 80% of the arena’s questions in two weeks, with more than 10 hours of active practice. <a class="more-link" href="academic/tools.html#class-activity">See two weeks of anonymised class activity across all three tools <i data-ic="right"></i></a></span></p>
       <p class="tool-access reveal">Students sign in with their student ID. Visitors and review panels can try each tool as a guest, with no account: the arenas open with the whole class leaderboard shown without names, and the audit plays a finished demo for a real guesthouse with a fictional scenario.</p>
       <div class="row-cta guest-row reveal" style="margin-top:12px"><a class="btn btn--ghost" href="https://abdullamuizfuad.github.io/mkt101-cases/?guest=1#/" target="_blank" rel="noopener">Try MKT101 Arena as a guest <i data-ic="upright"></i></a><a class="btn btn--ghost" href="https://abdullamuizfuad.github.io/mkt301/?guest=1#/" target="_blank" rel="noopener">Try MKT301 Arena as a guest <i data-ic="upright"></i></a><a class="btn btn--ghost" href="https://abdullamuizfuad.github.io/student-audit/tool.html?demo=1" target="_blank" rel="noopener">Watch the MKT303 audit demo <i data-ic="upright"></i></a></div>
       <div class="row-cta reveal"><a class="btn btn--ghost" href="academic/tools.html">How the tools work in class <i data-ic="right"></i></a></div>

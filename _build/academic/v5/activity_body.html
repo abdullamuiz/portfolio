@@ -103,3 +103,28 @@ showAll();showArena('mkt101');showArena('mkt301');show303();
 
 })();
 </script>
+<script>
+/* scroll motion: each chart animates the first time it comes into view */
+(function(){
+  var root=document.getElementById('class-activity');if(!root)return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  root.querySelectorAll('.ca-card svg').forEach(function(svg){
+    var i=0;svg.querySelectorAll('rect').forEach(function(r){
+      var w=+r.getAttribute('width'),h=+r.getAttribute('height');if(!(w>0&&h>0))return;
+      r.classList.add(h>w?'gv':'gh');r.style.transitionDelay=(Math.min(i++,40)*18)+'ms'});
+    svg.querySelectorAll('polyline').forEach(function(p){p.setAttribute('pathLength','1');p.classList.add('gl')});
+  });
+  var kpis=[].slice.call(root.querySelectorAll('.ca-kpi b'));
+  kpis.forEach(function(b){b.dataset.f=b.textContent});
+  function count(b){var f=b.dataset.f,m=f.match(/[\d,]+(\.\d+)?/);if(!m||reduce){b.textContent=f;return}
+    var raw=m[0],dec=(raw.split('.')[1]||'').length,end=parseFloat(raw.replace(/,/g,'')),comma=raw.indexOf(',')>-1,t0=null;
+    function fmt(v){var s=v.toFixed(dec);if(comma)s=Number(s).toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec});return s}
+    function step(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/1100),e=1-Math.pow(1-k,3);b.textContent=f.replace(raw,fmt(end*e));if(k<1)requestAnimationFrame(step)}
+    requestAnimationFrame(step)}
+  if(reduce||!('IntersectionObserver' in window)){root.classList.add('ca-still');return}
+  root.classList.add('ca-motion');
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var el=e.target;el.classList.add('ca-in');
+    el.querySelectorAll('.ca-kpi b').forEach(count);io.unobserve(el)})},{threshold:.25,rootMargin:'0px 0px -8% 0px'});
+  root.querySelectorAll('.ca-card,.ca-kpis').forEach(function(el){io.observe(el)});
+})();
+</script>

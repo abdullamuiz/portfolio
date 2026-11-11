@@ -1604,6 +1604,16 @@ body.subpage main{padding-top:var(--head)}
 .why-r .why-lead{font:400 clamp(19px,2vw,22px)/1.45 var(--serif)}
 @media (max-width:820px){.why{grid-template-columns:1fr}}
 .why-r .why-lead{font:500 clamp(16.5px,1.6vw,18.5px)/1.6 var(--sans)}
+/* class activity: scroll motion */
+.ca-motion .ca-card,.ca-motion .ca-kpi{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.ca-motion .ca-card.ca-in,.ca-motion .ca-kpis.ca-in .ca-kpi{opacity:1;transform:none}
+.ca-motion .ca-kpis.ca-in .ca-kpi:nth-child(2){transition-delay:.06s}.ca-motion .ca-kpis.ca-in .ca-kpi:nth-child(3){transition-delay:.12s}.ca-motion .ca-kpis.ca-in .ca-kpi:nth-child(4){transition-delay:.18s}.ca-motion .ca-kpis.ca-in .ca-kpi:nth-child(5){transition-delay:.24s}.ca-motion .ca-kpis.ca-in .ca-kpi:nth-child(6){transition-delay:.3s}
+.ca-motion svg rect.gv{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.ca-motion svg rect.gh{transform-box:fill-box;transform-origin:0 50%;transform:scaleX(0);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.ca-motion .ca-in svg rect.gv,.ca-motion .ca-in svg rect.gh{transform:none}
+.ca-motion svg polyline.gl{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1) .35s}
+.ca-motion .ca-in svg polyline.gl{stroke-dashoffset:0}
+.tools-ca .head{margin-bottom:8px}
 
 </style>
 </head>
@@ -1733,6 +1743,31 @@ function showAll(){const a=DATA.mkt101,b=DATA.mkt301,c=A303;
 function showArena(k){PFX=k;const c=DATA[k];draw_kpis(c);draw_daily(c);draw_mix(c);draw_hours(c);draw_buckets(c);draw_top(c);PFX=''}
 showAll();showArena('mkt101');showArena('mkt301');show303();
 
+})();
+</script>
+<script>
+/* scroll motion: each chart animates the first time it comes into view */
+(function(){
+  var root=document.getElementById('class-activity');if(!root)return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  root.querySelectorAll('.ca-card svg').forEach(function(svg){
+    var i=0;svg.querySelectorAll('rect').forEach(function(r){
+      var w=+r.getAttribute('width'),h=+r.getAttribute('height');if(!(w>0&&h>0))return;
+      r.classList.add(h>w?'gv':'gh');r.style.transitionDelay=(Math.min(i++,40)*18)+'ms'});
+    svg.querySelectorAll('polyline').forEach(function(p){p.setAttribute('pathLength','1');p.classList.add('gl')});
+  });
+  var kpis=[].slice.call(root.querySelectorAll('.ca-kpi b'));
+  kpis.forEach(function(b){b.dataset.f=b.textContent});
+  function count(b){var f=b.dataset.f,m=f.match(/[\d,]+(\.\d+)?/);if(!m||reduce){b.textContent=f;return}
+    var raw=m[0],dec=(raw.split('.')[1]||'').length,end=parseFloat(raw.replace(/,/g,'')),comma=raw.indexOf(',')>-1,t0=null;
+    function fmt(v){var s=v.toFixed(dec);if(comma)s=Number(s).toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec});return s}
+    function step(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/1100),e=1-Math.pow(1-k,3);b.textContent=f.replace(raw,fmt(end*e));if(k<1)requestAnimationFrame(step)}
+    requestAnimationFrame(step)}
+  if(reduce||!('IntersectionObserver' in window)){root.classList.add('ca-still');return}
+  root.classList.add('ca-motion');
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var el=e.target;el.classList.add('ca-in');
+    el.querySelectorAll('.ca-kpi b').forEach(count);io.unobserve(el)})},{threshold:.25,rootMargin:'0px 0px -8% 0px'});
+  root.querySelectorAll('.ca-card,.ca-kpis').forEach(function(el){io.observe(el)});
 })();
 </script>
 
