@@ -43,6 +43,7 @@ FIX = [
  ('{"c":"MKT217","n":"Advertising &amp; Promotion","l":"Level 200",', '{"c":"MKT217","n":"Advertising &amp; Promotion","l":"Level 200","coord":"Subject coordinator",'),
  ('and coordinated MKT101.', 'and coordinate six of them.'),
  ('<li><i data-ic="file"></i><b>Exam papers and validation</b>', '<li><i data-ic="layers"></i><b>Subject coordination</b><span>MKT101, MKT213, MKT217, MKT301, MKT303 and MKT309: the syllabus, learning outcomes, assessment setting, rubric moderation, Moodle course design, exam papers and tutor standardisation</span></li>\n            <li><i data-ic="file"></i><b>Exam papers and validation</b>'),
+ ('<p class="spot-lead">Students use Moodle to download notes and submit work.', '<p class="spot-lead">I built the arena for first-year students: they learn best in short bursts, and the weakest student needs a way in. <a class="more-link" href="academic/teaching.html#why">Why first-years matter to me <i data-ic="right"></i></a></p>\n          <p class="spot-lead">Students use Moodle to download notes and submit work.'),
  ('<p class="creds-note reveal"><span class="todo">[TODO: confirm exact bachelor’s title; other notes say BSc Tourism and Travel Services Management]</span></p>', ''),
 ]
 for a, b in FIX:
@@ -180,7 +181,21 @@ slots = '''      <div class="slots">
         <div class="slot reveal"><i data-ic="play"></i><b>Teaching demo video</b><span class="todo">[TODO: 3–5 min recording of “Found, Chosen, Booked”, with captions]</span></div>
         <div class="slot reveal" style="--rd:.08s"><i data-ic="play"></i><b>Students on camera</b><span class="todo">[TODO: 2–3 captioned clips of 20–30 s, consent on file]</span></div>
       </div>'''
-tbody = (block('philosophy', 'Teaching philosophy', 'How I teach', '      ' + phil + '\n      ' + PILLARS) +
+WHY = """<article class="why reveal" id="why">
+        <div class="why-l">
+          <span class="label">Why I teach</span>
+          <h3>Why first-years matter to me<span>.</span></h3>
+          <ul class="why-chips"><li>Voluntary moderation · MKT101</li><li>First-year subjects · MKT101 and BUS107</li></ul>
+          <a class="more-link" href="academic/activity.html">Two weeks of class activity <i data-ic="right"></i></a>
+        </div>
+        <div class="why-r">
+          <p class="why-lead">I give MKT101 special care. I moderate it voluntarily because it is where students first meet marketing, and a first-year subject that fails to interest them can set the tone for the rest of their degree. Students who do poorly early are the ones most likely to slacken off or leave.</p>
+          <p>I know this from my own time at university. In my early years, one subject and one lecturer nearly put me off studying altogether. Then, in my second year, I met lecturers with real passion for their subjects and years of industry experience behind them. They are the reason I went on to the roles I have had, and the reason I came back to teach.</p>
+          <p>After freelancing in tourism marketing and managing marketing for a resort, I could see the next step was cluster director: less creative work, more corporate decision-making, further from the people and the customers. Building my own career had stopped feeling fulfilling. I had reached the point my lecturers reached after careers of 30 years and more; it took me 15, with no shortcuts, and I am grateful for every one of them. Now I want to inspire the next group of young, enthusiastic minds to pursue the art of communicating to influence what people buy.</p>
+          <p>That is why MKT101 and BUS107, the first-year subjects I teach, get my special attention. The MKT101 Arena began as a way to help these students practise case studies, because they learn best in short bursts and the weakest student needs a way in. Several versions later, I have seen it get students learning actively in short blocks and arriving at the exam better prepared.</p>
+        </div>
+      </article>"""
+tbody = (block('philosophy', 'Teaching philosophy', 'How I teach', '      ' + phil + '\n      ' + PILLARS + '\n      ' + WHY) +
          block('assessment', 'Assessment', 'How I assess', '      ' + ASSESS) +
          block('delivery-sec', 'Delivery', 'Reliability', '      ' + PRIDE.replace(' id="delivery"', '')) +
          block('curriculum', 'Curriculum', 'Shaping what we teach', cur_in, 'MNU is developing a new marketing programme, and I keep updating the content we deliver.') +
