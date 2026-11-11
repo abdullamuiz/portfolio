@@ -1578,6 +1578,19 @@ body.subpage main{padding-top:var(--head)}
 .stk-list span{display:inline-flex;align-items:center;gap:5px}
 .stk-list i{width:8px;height:8px;border-radius:2px;background:var(--c)}
 
+/* MTVO research panel */
+.mtvo h3 span{color:var(--lagoon)}
+.mtvo-steps{list-style:none;margin:4px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;counter-reset:st}
+.mtvo-steps li{display:grid;gap:4px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--tint);counter-increment:st}
+.mtvo-steps b{font:400 20px/1.1 var(--serif)}
+.mtvo-steps b::before{content:counter(st) " ";color:var(--lagoon)}
+.mtvo-steps span{font-size:13px;color:var(--muted)}
+.mtvo-int{border-top:1px solid var(--line);padding-top:10px}
+@media (max-width:700px){.mtvo-steps{grid-template-columns:1fr}}
+.mtvo-steps{grid-template-columns:1fr;gap:8px}
+.mtvo-steps li{grid-template-columns:96px 1fr;align-items:baseline;align-content:start;gap:12px;padding:12px 14px}
+@media (max-width:480px){.mtvo-steps li{grid-template-columns:1fr;gap:4px}}
+
 </style>
 </head>
 <body class="subpage" data-pg="research">
@@ -1602,27 +1615,35 @@ body.subpage main{padding-top:var(--head)}
 </header>
 
 <main>
-  <section class="pagehead"><div class="wrap"><div class="crumbs"><a href="../academic.html">Home</a></div><span class="label">Research</span><h1 class="ph-t">Research<span>.</span></h1><p class="ph-lead">Where my research has been, and the question I want to study next: how small tourism businesses get found when an AI does the searching.</p><nav class="toc" aria-label="On this page"><a href="#direction">Direction</a><a href="#talks">Talks</a></nav></div></section>
+  <section class="pagehead"><div class="wrap"><div class="crumbs"><a href="../academic.html">Home</a></div><span class="label">Research</span><h1 class="ph-t">Research<span>.</span></h1><p class="ph-lead">Where my research has been, and the study I propose next: how small tourism businesses in the Maldives are found online, and whether that visibility is rented or owned.</p><nav class="toc" aria-label="On this page"><a href="#direction">Direction</a><a href="#talks">Talks</a></nav></div></section>
   <section class="block" id="direction">
     <div class="wrap">
       <div class="head wide reveal"><span class="label">Research</span><h2>What the classroom made me ask<span>.</span></h2></div>
 
       <div class="res-grid">
-        <p class="thread reveal">My first paper asked how Maldivian guesthouses could be seen online. My second mapped what it takes to run one. Today travellers increasingly ask AI tools where to stay, and small businesses don’t know whether they’re being recommended. That’s the question I want to study next.</p>
-        <article class="panel reveal" style="--rd:.08s">
-          <span class="label">Research direction · intended doctoral focus</span>
-          <h3>How small tourism enterprises in the Maldives are found, and chosen, when AI tools make the recommendation.</h3>
-          <ol class="qs">
-            <li>How visible are small Maldivian tourism businesses in AI-generated travel recommendations, compared with larger competitors?</li>
-            <li>What stops them from adapting: skills, resources, or dependence on booking platforms?</li>
-            <li>Can a simple diagnostic help owners see the gap and act on it?</li>
+        <p class="thread reveal">My first paper asked how Maldivian guesthouses could be seen online. My second mapped what it takes to run one. Today travellers increasingly ask AI tools where to stay, and small businesses don’t know whether they’re being recommended. That’s the question I want to study next: whether their visibility is becoming more rented or more owned.</p>
+        <article class="panel reveal mtvo" style="--rd:.08s">
+          <span class="label">Proposed doctoral research · from 2027</span>
+          <h3>From Rented to Owned Visibility<span>.</span></h3>
+          <p class="ink">The Maldives Tourism Visibility Observatory (MTVO): a proposed study of how small tourism businesses in the Maldives are found and booked online, across search, booking sites, social media, review sites and AI assistants, and whether that visibility is becoming more rented from other people’s platforms or more owned.</p>
+          <ol class="mtvo-steps">
+            <li><b>Measure</b><span>Build and validate a Visibility Index that scores a property across every channel where travellers find it, including what AI assistants say about it.</span></li>
+            <li><b>Track</b><span>Apply it to the same panel of properties every month, starting from a baseline rebuilt from my 2016 guesthouse fieldwork.</span></li>
+            <li><b>Explain</b><span>Interview owners each season about why their numbers moved, and extend resource dependence theory from booking sites to algorithmic intermediaries such as AI assistants.</span></li>
           </ol>
-          <p>Working title: “From Friction to Flow”, a longitudinal study planned for 2027 to 2030.</p>
-          <p>Frameworks under consideration: technology-organisation-environment (TOE) and AI maturity, in a small-island context.</p>
+          <span class="label" style="margin-top:6px">The questions it asks</span>
+          <ol class="qs">
+            <li>Can a small business’s visibility across all these channels be measured reliably, month after month?</li>
+            <li>How does that visibility change over time, and is it becoming more rented or more owned?</li>
+            <li>Which properties do AI assistants recommend, and why?</li>
+            <li>Does visibility change how much of each booking a business keeps?</li>
+          </ol>
+          <p class="small">Planned: a public-data pilot from January 2027, then a monthly panel from October 2027. This is proposed research: admission, supervision and ethics approval are still to come, and no results are claimed.</p>
+          <p class="small mtvo-int"><b>Declared interest:</b> I run Islandeative, whose Digital Visibility Health Check works in the same area. The research instrument and data will be kept separate from any commercial work.</p>
         </article>
       </div>
       <div class="next">
-        <div class="panel reveal"><span class="label">Next steps · 2027</span><ul class="ticks"><li>Ethics approval and a pilot of the diagnostic</li><li>A conference abstract and a working paper</li></ul><span class="todo">[TODO: target university, supervisor, conference]</span></div>
+        <div class="panel reveal"><span class="label">Next steps</span><ul class="ticks"><li>Admission, supervision and ethics approval</li><li>A public-data pilot, January to June 2027</li><li>A short paper on what the pilot shows is feasible</li></ul></div>
         <div class="panel reveal" style="--rd:.08s"><span class="label">Profiles and indexing</span><a class="orcid" href="https://orcid.org/0009-0003-5812-6693" target="_blank" rel="noopener"><svg class="orcid-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#A6CE39"/><path fill="#fff" d="M8.1 17.6H6.6V7.1h1.5v10.5Zm3-10.5h4c3.8 0 5.5 2.7 5.5 5.3 0 2.8-2.2 5.3-5.5 5.3h-4V7.1Zm1.5 9.2h2.3c3.3 0 4.1-2.5 4.1-3.9 0-2.3-1.5-3.9-4.2-3.9h-2.2v7.8ZM8.3 5.1c0 .5-.4 1-1 1s-1-.5-1-1 .4-1 1-1 1 .5 1 1Z"/></svg><span><b>ORCID</b> 0009-0003-5812-6693</span></a><a class="orcid" href="https://iocdrp.s.gy/fuad-a-m" target="_blank" rel="noopener"><svg class="orcid-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#4285F4"/><path fill="#fff" d="M12 5 4.5 10.6h3.1a4.5 4.5 0 1 0 8.8 0h3.1L12 5Zm0 11.3a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2Z"/></svg><span><b>Google Scholar</b> Fuad, A. M.</span></a><span class="todo">[TODO: check Scopus / Web of Science status of both journals; state it only if true]</span></div>
       </div>
       <div class="sub-head reveal"><div><span class="label">Published work</span><h3 class="h3s">Two journal articles<span>.</span></h3></div></div>

@@ -1578,6 +1578,19 @@ body.subpage main{padding-top:var(--head)}
 .stk-list span{display:inline-flex;align-items:center;gap:5px}
 .stk-list i{width:8px;height:8px;border-radius:2px;background:var(--c)}
 
+/* MTVO research panel */
+.mtvo h3 span{color:var(--lagoon)}
+.mtvo-steps{list-style:none;margin:4px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;counter-reset:st}
+.mtvo-steps li{display:grid;gap:4px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--tint);counter-increment:st}
+.mtvo-steps b{font:400 20px/1.1 var(--serif)}
+.mtvo-steps b::before{content:counter(st) " ";color:var(--lagoon)}
+.mtvo-steps span{font-size:13px;color:var(--muted)}
+.mtvo-int{border-top:1px solid var(--line);padding-top:10px}
+@media (max-width:700px){.mtvo-steps{grid-template-columns:1fr}}
+.mtvo-steps{grid-template-columns:1fr;gap:8px}
+.mtvo-steps li{grid-template-columns:96px 1fr;align-items:baseline;align-content:start;gap:12px;padding:12px 14px}
+@media (max-width:480px){.mtvo-steps li{grid-template-columns:1fr;gap:4px}}
+
 </style>
 </head>
 <body class="intro-on">
@@ -1822,17 +1835,25 @@ body.subpage main{padding-top:var(--head)}
         <h2>What the classroom made me ask<span>.</span></h2>
       </div>
       <div class="res-grid">
-        <p class="thread reveal">My first paper asked how Maldivian guesthouses could be seen online. My second mapped what it takes to run one. Today travellers increasingly ask AI tools where to stay, and small businesses don’t know whether they’re being recommended. That’s the question I want to study next.</p>
-        <article class="panel reveal" style="--rd:.08s">
-          <span class="label">Research direction · intended doctoral focus</span>
-          <h3>How small tourism enterprises in the Maldives are found, and chosen, when AI tools make the recommendation.</h3>
-          <ol class="qs">
-            <li>How visible are small Maldivian tourism businesses in AI-generated travel recommendations, compared with larger competitors?</li>
-            <li>What stops them from adapting: skills, resources, or dependence on booking platforms?</li>
-            <li>Can a simple diagnostic help owners see the gap and act on it?</li>
+        <p class="thread reveal">My first paper asked how Maldivian guesthouses could be seen online. My second mapped what it takes to run one. Today travellers increasingly ask AI tools where to stay, and small businesses don’t know whether they’re being recommended. That’s the question I want to study next: whether their visibility is becoming more rented or more owned.</p>
+        <article class="panel reveal mtvo" style="--rd:.08s">
+          <span class="label">Proposed doctoral research · from 2027</span>
+          <h3>From Rented to Owned Visibility<span>.</span></h3>
+          <p class="ink">The Maldives Tourism Visibility Observatory (MTVO): a proposed study of how small tourism businesses in the Maldives are found and booked online, across search, booking sites, social media, review sites and AI assistants, and whether that visibility is becoming more rented from other people’s platforms or more owned.</p>
+          <ol class="mtvo-steps">
+            <li><b>Measure</b><span>Build and validate a Visibility Index that scores a property across every channel where travellers find it, including what AI assistants say about it.</span></li>
+            <li><b>Track</b><span>Apply it to the same panel of properties every month, starting from a baseline rebuilt from my 2016 guesthouse fieldwork.</span></li>
+            <li><b>Explain</b><span>Interview owners each season about why their numbers moved, and extend resource dependence theory from booking sites to algorithmic intermediaries such as AI assistants.</span></li>
           </ol>
-          <p>Working title: “From Friction to Flow”, a longitudinal study planned for 2027 to 2030.</p>
-          <p>Frameworks under consideration: technology-organisation-environment (TOE) and AI maturity, in a small-island context.</p>
+          <span class="label" style="margin-top:6px">The questions it asks</span>
+          <ol class="qs">
+            <li>Can a small business’s visibility across all these channels be measured reliably, month after month?</li>
+            <li>How does that visibility change over time, and is it becoming more rented or more owned?</li>
+            <li>Which properties do AI assistants recommend, and why?</li>
+            <li>Does visibility change how much of each booking a business keeps?</li>
+          </ol>
+          <p class="small">Planned: a public-data pilot from January 2027, then a monthly panel from October 2027. This is proposed research: admission, supervision and ethics approval are still to come, and no results are claimed.</p>
+          <p class="small mtvo-int"><b>Declared interest:</b> I run Islandeative, whose Digital Visibility Health Check works in the same area. The research instrument and data will be kept separate from any commercial work.</p>
         </article>
       </div>
       <div class="sub-head reveal"><div><span class="label">Published work</span><h3 class="h3s">Two journal articles<span>.</span></h3></div></div>
