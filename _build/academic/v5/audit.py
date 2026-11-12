@@ -60,14 +60,16 @@ def evidence(full=True):
             '<div class="eq-hero"><p class="eq-big"><b>%.1f</b> <span>out of 5</span><i class="eq-dot" aria-hidden="true"></i></p>'
             '<p class="eq-cap">Students’ rating of my teaching, %s. Business School average: %.1f.</p></div>'
             '<div class="eq-key" aria-hidden="true"><span><i class="k-me"></i>Me</span><span><i class="k-sc"></i>Business School average</span><span class="eq-axis">Scale 0 to 5</span></div>'
-            '<ol class="eq-terms" aria-hidden="true">%s</ol>%s%s'
+            '<ol class="eq-terms" aria-hidden="true">%s<li class="eq-ax"><span></span><span class="eq-ticks"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i></span><span></span></li></ol>%s%s'
             '<p class="src">Source: MNU Subject and Teaching Evaluation lecturer reports, Term 2 2024 to Term 1 2026. '
-            'Section B, “Teaching and learning”. Converted from MNU’s percentage scores (score ÷ 20).</p></div>'
+            'Section B, “Teaching and learning”.</p><p class="src eq-fn">Scores out of 5 are converted from MNU’s percentage scores (score ÷ 20).</p></div>'
             % (f5(t1[2]), t1[0], f5(t1[3]), rows, ('<div aria-hidden="true">' + areas + '</div>') if areas else '', '<div class="sr-only">' + tbl + '</div>'))
 
 # ---------- E. student comments (render nothing until real ones exist) ----------
 def comments():
     C = [c for c in J('comments.json') if c.get('comment') and c.get('name')]
+    for c in C:
+        if len(c['comment'].split()) > 45: print('comments.json: over 40 words, shorten:', c['name'])
     if not C: return ''
     cards = ''
     for c in C:

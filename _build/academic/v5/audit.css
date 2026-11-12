@@ -20,7 +20,7 @@
 .eq-axis{margin-left:auto}
 .eq-terms{list-style:none;margin:0;padding:0;display:grid;gap:0}
 .eq-term{display:grid;grid-template-columns:200px minmax(0,1fr) 216px;gap:6px 20px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
-.eq-term:last-child{border-bottom:1px solid var(--line)}
+.eq-term:nth-last-child(2){border-bottom:1px solid var(--line)}
 .eq-tl{display:grid;gap:2px}
 .eq-tl b{font-size:15px;color:var(--ink)}
 .eq-tl small{font-size:12px;color:var(--muted)}
@@ -110,3 +110,17 @@ header .brand,header a:has(.mark){min-width:44px;min-height:44px;display:inline-
 .hero-cta .btn{min-height:44px !important}
 .sitemap a{min-width:44px}
 .atg a,.tw-link{padding-block:10px;margin-block:-10px}
+
+/* chart axis and plainer comparison tags */
+.eq-ax{display:grid;grid-template-columns:200px minmax(0,1fr) 216px;gap:0 20px;padding:6px 0 0;border:0 !important}
+.eq-ticks{display:flex;justify-content:space-between;margin-left:62px;margin-right:44px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.eq-ticks i{font-style:normal;width:0;display:flex;justify-content:center}
+.eq-tag{border:0 !important;background:none !important;padding:0}
+.eq-tag.up{color:var(--ink)}
+.eq-fn{margin-top:-12px !important}
+@media (max-width:760px){.eq-ax{grid-template-columns:minmax(0,1fr)}.eq-ax>span:first-child,.eq-ax>span:last-child{display:none}}
+/* more tap targets */
+nav.links a{min-height:44px;display:inline-flex;align-items:center}
+.ca-jump{min-height:44px !important}
+.atg a{padding-block:12px;margin-block:-12px}
+.tw-link{min-height:44px;display:inline-flex;align-items:center}
