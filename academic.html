@@ -2569,7 +2569,7 @@ hydrateIcons();
         { transform: 'translate(-50%,-52%) scale(1)' }, { transform: 'translate(-50%,-52%) scale(1.035)' }, { transform: 'translate(-50%,-52%) scale(1)' }
       ], { duration: 2600, iterations: Infinity, easing: 'ease-in-out' });
       anims.push(breathe);
-      idleT = setTimeout(() => hint.classList.add('on'), 2000); timers.push(idleT);
+      idleT = setTimeout(trigger, 3000); timers.push(idleT);
     }, 1560));
   }
 
