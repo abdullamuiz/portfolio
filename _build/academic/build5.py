@@ -64,7 +64,7 @@ eng=rep(eng,"const p1 = prog(s1), px1 = -s1.getBoundingClientRect().top;","const
 eng=rep(eng,"    const p3 = prog(s3);\n    const pre = clamp(1 - s3.getBoundingClientRect().top / innerHeight);","    const pre = clamp(1 - vtop(s3) / innerHeight);")
 eng=rep(eng,"const px3 = -s3.getBoundingClientRect().top, R3","const px3 = -vtop(s3), R3")
 eng=rep(eng,"    if (introDone) fadeOut1.forEach(el => el.style.opacity = 1 - clamp(t * 2.2));",
-"    if (introDone) fadeOut1.forEach(el => el.style.opacity = 1 - clamp(t * 2.2));\n    fadeOut1[2].style.visibility = t > .46 ? 'hidden' : '';")
+"    if (introDone) fadeOut1.forEach(el => el.style.opacity = 1 - clamp(t * 2.2));\n    fadeOut1[2].style.visibility = t > .3 ? 'hidden' : '';")
 eng=rep(eng,"    ghost.style.filter = t > 0 && t < 1 ? `blur(${t * 10}px)` : '';","    ghost.style.filter = !mob && t > 0 && t < 1 ? `blur(${t * 10}px)` : '';")
 eng=rep(eng,"      l.style.filter = lt > 0 && lt < 1 ? `blur(${(1 - lt) * 8}px)` : '';","      l.style.filter = !mob && lt > 0 && lt < 1 ? `blur(${(1 - lt) * 8}px)` : '';")
 eng=rep(eng,"    const e = io3(t);\n    ghost.style.opacity","    const e = io3(t), mob = isMobile();\n    ghost.style.opacity")
@@ -81,8 +81,8 @@ eng=rep(eng,"""  let ticking = false;
   addEventListener('scroll', () => { if (!loop) loop = requestAnimationFrame(frame); }, { passive: true });""")
 
 # --- round 2: shorter About Me scroll, dot keeps its size until it lands ---
-eng=rep(eng,"s1.style.height = (innerHeight + base + X * 1.15) + 'px';","s1.style.height = (innerHeight + base * .78 + X) + 'px';")
-eng=rep(eng,"const rd = M.X ? clamp((px1 - M.base * .6) / (M.X * 1.15)) : 0;","const rd = M.X ? clamp((px1 - M.base * .6) / M.X) : 0;")
+eng=rep(eng,"s1.style.height = (innerHeight + base + X * 1.15) + 'px';","s1.style.height = (innerHeight + base * .48 + X) + 'px';")
+eng=rep(eng,"const rd = M.X ? clamp((px1 - M.base * .6) / (M.X * 1.15)) : 0;","const rd = M.X ? clamp((px1 - M.base * .45) / M.X) : 0;")
 eng=rep(eng,"cur = a; hop = from ? { from, t0: now } : null;","cur = a; hop = from ? { from, t0: now, dur: 0 } : null;")
 eng=rep(eng,"const k = clamp((now - hop.t0) / HOP), e = io3(k), f = hop.from;","const f = hop.from; if (!hop.dur) hop.dur = clamp(520 + Math.hypot(T.x - f.x, T.y - f.y) * .3, 560, 900) / HOP * HOP;\n          const k = clamp((now - hop.t0) / hop.dur), e = io3(k), ks = clamp((k - .62) / .38), es = ks * ks * (3 - 2 * ks);")
 eng=rep(eng,"s: lerp(f.s, T.s, e) };","s: lerp(f.s, T.s, es) };")
@@ -98,19 +98,14 @@ eng=rep(eng,"  $('goPreview').addEventListener('click', goTool);","  $('goPrevie
 
 # hidden About text must not sit over the hero buttons: it takes clicks only once it is showing
 eng=rep(eng,"    aboutText.style.opacity = at;","    aboutText.style.opacity = at;\n    aboutText.style.pointerEvents = at > .5 ? 'auto' : 'none';")
-# ---------- audit C1: the "Hi" never blocks reading ----------
-# plays on every load, about 1.5 s, then dismisses itself; skipped with reduced motion or a #hash
-eng=rep(eng,"  const A = (el, kf, opt) => { const a = el.animate(kf, { fill: 'both', ...opt }); anims.push(a); return a; };",
-"  const SP = 1.75;\n  const A = (el, kf, opt) => { const a = el.animate(kf, { fill: 'both', ...opt }); a.playbackRate = SP; anims.push(a); return a; };")
-eng=rep(eng,"      timers.push(setTimeout(() => finish(false), 1080));","      timers.push(setTimeout(() => finish(false), 1080 / SP));")
-eng=rep(eng,"""    timers.push(setTimeout(() => {
-      ready = true;
-      if (wantGo) { trigger(); return; }""","""    timers.push(setTimeout(() => {
-      ready = true;
-      trigger(); return;""")
-eng=rep(eng,"    }, 1560));","    }, 1560 / SP));")
-eng=rep(eng,"  const go = () => reduce ? finish(true) : play();",
-"""  const go = () => (reduce || location.hash.length > 1) ? finish(true) : play();""")
+# ---------- intro: the original "Hi" (natural pace, waits for the visitor); skipped with reduced motion or a #section link ----------
+eng=rep(eng,"  const go = () => reduce ? finish(true) : play();","  const go = () => (reduce || location.hash.length > 1) ? finish(true) : play();")
+# ---------- scene 1: steps one after another, no dead scroll ----------
+eng=rep(eng,"const t = reduce ? (px1 > M.base * .25 ? 1 : 0) : clamp((px1 - M.base * .06) / (M.base * .5));","const t = reduce ? (px1 > M.base * .25 ? 1 : 0) : clamp((px1 - M.base * .015) / (M.base * .42));")
+eng=rep(eng,"    ghost.style.opacity = 1 - clamp(t * 1.8);","    ghost.style.opacity = 1 - clamp(t * 2.6);")
+eng=rep(eng,"      const lt = out3(clamp((t - .28 - i * .05) / .35));","      const lt = out3(clamp((t - .32 - i * .04) / .3));")
+eng=rep(eng,"    if (introDone) fadeOut1.forEach(el => el.style.opacity = 1 - clamp(t * 2.2));","    if (introDone) fadeOut1.forEach(el => el.style.opacity = 1 - clamp(t * 3.4));")
+eng=rep(eng,"    const at = out3(clamp((t - .25) / .6));","    const at = out3(clamp((t - .3) / .45));")
 NOSCRIPT='<noscript><style>.reveal,.fade,.ca-card,.ca-kpi{opacity:1 !important;transform:none !important}#intro,#skip,#replay,.swipe-hint{display:none !important}.intro-on .ghost-hi{visibility:visible}</style></noscript>'
 _css='\n'.join(L)
 _i=_css.index('@media (max-width:860px){\n  #about{height:auto !important}'); _j=_css.index('\n}',_i)

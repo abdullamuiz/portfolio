@@ -93,7 +93,7 @@ s1 = rep(s1, 'I teach marketing through real Maldivian businesses, and I build t
          'I teach marketing through live industry cases, and I build the tools my students learn with.')
 s1 = rep(s1, '<p class="intro-p">15+ years in Maldivian tourism and marketing, now in the lecture room at MNU Business School.</p>',
          '<p class="intro-p">15+ years in tourism and marketing, now in the lecture room at MNU Business School.</p>')
-s1 = rep(s1, '            </div>\n            <div class="about-text" id="aboutText">', '              ' + AU.glance() + '\n            </div>\n            <div class="about-text" id="aboutText">\n              ' + AU.glance(mobile=True))
+s1 = rep(s1, '            </div>\n            <div class="about-text" id="aboutText">', '              ' + AU.glance() + '\n            </div>\n            <div class="about-text" id="aboutText">')
 s1 = rep(s1, '<a class="btn btn--ghost" href="#teach">See how I teach <i data-ic="down"></i></a>',
          '<a class="btn btn--ghost" href="#modules">See what I teach <i data-ic="down"></i></a>')
 # the long career paragraph moves to the CV page
@@ -135,7 +135,7 @@ res = sec('research')
 res_home = cut(res, '      <div class="next">', '</div>\n      </div>\n')
 res_home = rep(res_home, '</p>\n    </div>\n  </section>', '</p>\n      <div class="row-cta reveal"><a class="btn btn--ghost" href="academic/research.html">Research, profiles and talks <i data-ic="right"></i></a></div>\n    </div>\n  </section>')
 
-home = (header.replace('@@FADE@@', ' fade') + '\n<main>\n' + s1 + '\n' + home_mods + '\n' + teach + '\n' + rd('home_tools.html') + '\n' +
+home = (header.replace('@@FADE@@', ' fade') + '\n<main>\n' + s1 + '\n  <section class="block atg-sec"><div class="wrap">' + AU.glance(mobile=True) + '</div></section>\n' + home_mods + '\n' + teach + '\n' + rd('home_tools.html') + '\n' +
         lesson + '\n' + home_ev + '\n' + SVC_HOME + res_home + '\n' + sec('about') + '\n' + sec('credentials') + '\n' + footer + acdata + '\n')
 open(P('out', 'home.html'), 'w', encoding='utf-8').write(cvlinks(home))
 

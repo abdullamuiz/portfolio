@@ -1709,9 +1709,11 @@ body.subpage main{padding-top:var(--head)}
 .mp.one .mp-col{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;align-items:start}
 .demo-vid{margin:0 0 18px}.demo-vid video{width:100%;border-radius:14px;background:#000}
 
-/* phone: the hero keeps its portrait; the strip opens the About panel, one swipe down */
-.atg-m{display:none}
-@media (max-width:860px){.intro-b .atg{display:none}.atg-m{display:block;margin:0 0 18px;padding:0 0 14px;border-top:0;border-bottom:1px solid var(--line)}}
+
+/* phone: the strip sits right after the hero scene, as its own short block */
+.atg-sec{display:none}
+@media (max-width:860px){.intro-b .atg{display:none}.atg-sec{display:block;padding:28px 0 8px}.atg-m{display:block;margin:0;max-width:none}
+  .hero-cta{flex-wrap:nowrap;gap:8px}.hero-cta .btn{padding-inline:14px;font-size:13px;white-space:nowrap}}
 
 /* tap targets: at least 44 px */
 .btn,.btn--sm,.tw-btn,.tw-chip,.orcid{min-height:44px}
@@ -1791,7 +1793,6 @@ nav.links a{min-height:44px;display:inline-flex;align-items:center}
               <div class="atg" id="glance"><h2 class="atg-h">At a glance</h2><dl><div><dt>Qualifications</dt><dd>MSc Global Marketing Management (Merit) · BA (Hons) Tourism Management, Asia Pacific University</dd></div><div><dt>Teaching</dt><dd>Lecturer, MNU Business School, since 2024 · part-time at MI College from 2022</dd></div><div><dt>Modules</dt><dd>9 taught, 6 coordinated, Level 100 to 300</dd></div><div><dt>Research</dt><dd>2 peer-reviewed journal articles · <a href="https://iocdrp.s.gy/fuad-a-m" target="_blank" rel="noopener">36 citations</a></dd></div><div><dt>Student evaluation</dt><dd>4.4 out of 5 for teaching, Term 1 2026 (school average 4.2)</dd></div></dl></div>
             </div>
             <div class="about-text" id="aboutText">
-              <div class="atg atg-m"><h2 class="atg-h">At a glance</h2><dl><div><dt>Qualifications</dt><dd>MSc Global Marketing Management (Merit) · BA (Hons) Tourism Management, Asia Pacific University</dd></div><div><dt>Teaching</dt><dd>Lecturer, MNU Business School, since 2024 · part-time at MI College from 2022</dd></div><div><dt>Modules</dt><dd>9 taught, 6 coordinated, Level 100 to 300</dd></div><div><dt>Research</dt><dd>2 peer-reviewed journal articles · <a href="https://iocdrp.s.gy/fuad-a-m" target="_blank" rel="noopener">36 citations</a></dd></div><div><dt>Student evaluation</dt><dd>4.4 out of 5 for teaching, Term 1 2026 (school average 4.2)</dd></div></dl></div>
               <p class="lead">I teach the way I learned marketing: by doing it first. Since 2011 I’ve worked on one question, how a business in the Maldives gets seen by the right people and turns that attention into bookings and sales. Today I bring that question into the classroom.</p>
                             <p>I started teaching part-time at MI College in 2022 and joined MNU Business School in 2024. I’ve taught nine modules there since, from Introduction to Marketing to International Marketing, Electronic Marketing and Brand Management, and coordinate six of them.</p>
                             <p>My research grew the same way, from a 2017 paper on how guesthouses become visible online to the question I want to study next: how small tourism businesses get found when an AI does the searching.</p>
@@ -1806,6 +1807,7 @@ nav.links a{min-height:44px;display:inline-flex;align-items:center}
     </div>
   </section>
 
+  <section class="block atg-sec"><div class="wrap"><div class="atg atg-m"><h2 class="atg-h">At a glance</h2><dl><div><dt>Qualifications</dt><dd>MSc Global Marketing Management (Merit) · BA (Hons) Tourism Management, Asia Pacific University</dd></div><div><dt>Teaching</dt><dd>Lecturer, MNU Business School, since 2024 · part-time at MI College from 2022</dd></div><div><dt>Modules</dt><dd>9 taught, 6 coordinated, Level 100 to 300</dd></div><div><dt>Research</dt><dd>2 peer-reviewed journal articles · <a href="https://iocdrp.s.gy/fuad-a-m" target="_blank" rel="noopener">36 citations</a></dd></div><div><dt>Student evaluation</dt><dd>4.4 out of 5 for teaching, Term 1 2026 (school average 4.2)</dd></div></dl></div></div></section>
   <!-- ================= MODULES (home) ================= -->
   <section class="block" id="modules">
     <div class="wrap">
@@ -2254,7 +2256,7 @@ hydrateIcons();
     }
     const X = Math.max(0, a.y + a.h - D - bot);
     const base = innerHeight * 1.9;
-    s1.style.height = (innerHeight + base * .78 + X) + 'px';
+    s1.style.height = (innerHeight + base * .48 + X) + 'px';
     const Z0 = { left: 0, top: 0, width: 1, height: 1 }, s3r = st3 ? st3.getBoundingClientRect() : Z0, br = big ? big.getBoundingClientRect() : Z0, mr = cta ? cta.getBoundingClientRect() : Z0;
     const mkEls = [...copy.children].filter(el => !el.classList.contains('swap')).concat([aboutText]);
     M = {
@@ -2269,14 +2271,14 @@ hydrateIcons();
     if (!M) return;
     /* scene 1: Hi -> About Me */
     const px1 = -vtop(s1);
-    const t = reduce ? (px1 > M.base * .25 ? 1 : 0) : clamp((px1 - M.base * .06) / (M.base * .5));
-    const rd = M.X ? clamp((px1 - M.base * .6) / M.X) : 0;
+    const t = reduce ? (px1 > M.base * .25 ? 1 : 0) : clamp((px1 - M.base * .015) / (M.base * .42));
+    const rd = M.X ? clamp((px1 - M.base * .45) / M.X) : 0;
     const e = io3(t), mob = isMobile();
-    ghost.style.opacity = 1 - clamp(t * 1.8);
+    ghost.style.opacity = 1 - clamp(t * 2.6);
     ghost.style.transform = `scale(${1 - .2 * e})`;
     ghost.style.filter = !mob && t > 0 && t < 1 ? `blur(${t * 10}px)` : '';
     letters.forEach((l, i) => {
-      const lt = out3(clamp((t - .28 - i * .05) / .35));
+      const lt = out3(clamp((t - .32 - i * .04) / .3));
       l.style.opacity = lt;
       l.style.transform = `translateY(${(1 - lt) * .3}em)`;
       l.style.filter = !mob && lt > 0 && lt < 1 ? `blur(${(1 - lt) * 8}px)` : '';
@@ -2288,9 +2290,9 @@ hydrateIcons();
     const cyNow = -M.D * e - M.X * rd;
     copy.style.transform = `translateY(${cyNow}px)`;
     M.mk.forEach(([el, y]) => { el.classList.add('mk'); el.classList.toggle('reading', t > 0); el.style.setProperty('--mt', (M.win - (y + cyNow)) + 'px'); el.style.setProperty('--mb', (innerHeight - 4 - (y + cyNow)) + 'px'); });
-    if (introDone) fadeOut1.forEach(el => el.style.opacity = 1 - clamp(t * 2.2));
-    fadeOut1[2].style.visibility = t > .46 ? 'hidden' : '';
-    const at = out3(clamp((t - .25) / .6));
+    if (introDone) fadeOut1.forEach(el => el.style.opacity = 1 - clamp(t * 3.4));
+    fadeOut1[2].style.visibility = t > .3 ? 'hidden' : '';
+    const at = out3(clamp((t - .3) / .45));
     aboutText.style.opacity = at;
     aboutText.style.pointerEvents = at > .5 ? 'auto' : 'none';
     aboutText.style.transform = `translateY(${(1 - at) * 60}px)`;
@@ -2459,8 +2461,7 @@ hydrateIcons();
   /* intro */
   let anims = [], timers = [], done = false, waiting = false, ready = false, wantGo = false, idleT = null, breathe = null, phaseB = null;
   const hint = $('swipeHint');
-  const SP = 1.75;
-  const A = (el, kf, opt) => { const a = el.animate(kf, { fill: 'both', ...opt }); a.playbackRate = SP; anims.push(a); return a; };
+  const A = (el, kf, opt) => { const a = el.animate(kf, { fill: 'both', ...opt }); anims.push(a); return a; };
 
   function revealPage(instant) {
     body.classList.remove('intro-on');
@@ -2514,17 +2515,17 @@ hydrateIcons();
     phaseB = () => {
       A(bubble, [{ opacity: 1, transform: 'translate(-50%,-52%) scale(1)' }, { opacity: 0, transform: 'translate(-50%,-52%) scale(.94)' }], { duration: 420, easing: EASE });
       A(flyer, [{ transform: start, color: cFrom }, { transform: end, color: cTo }], { duration: 950, delay: 120, easing: 'cubic-bezier(.65,0,.25,1)' });
-      timers.push(setTimeout(() => finish(false), 1080 / SP));
+      timers.push(setTimeout(() => finish(false), 1080));
     };
     timers.push(setTimeout(() => {
       ready = true;
-      trigger(); return;
+      if (wantGo) { trigger(); return; }
       breathe = bubble.animate([
         { transform: 'translate(-50%,-52%) scale(1)' }, { transform: 'translate(-50%,-52%) scale(1.035)' }, { transform: 'translate(-50%,-52%) scale(1)' }
       ], { duration: 2600, iterations: Infinity, easing: 'ease-in-out' });
       anims.push(breathe);
       idleT = setTimeout(() => hint.classList.add('on'), 2000); timers.push(idleT);
-    }, 1560 / SP));
+    }, 1560));
   }
 
   function trigger() {
