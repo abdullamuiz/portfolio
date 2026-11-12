@@ -10,31 +10,6 @@
   var lp = $('loop');
   if (lp && !reduce) new IntersectionObserver(function (es) { lp.classList.toggle('on', es[0].isIntersecting); }, { threshold: .3 }).observe(lp);
 
-  /* evidence: one row per term, my score against the two averages, on a 75 to 100 scale */
-  var rows = $('evRows'), MIN = 75, MAX = 100;
-  var X = function (v) { return ((Math.max(MIN, Math.min(MAX, v)) - MIN) / (MAX - MIN) * 100).toFixed(2) + '%'; };
-  function drawEv(sec) {
-    if (!rows || !D.ev) return;
-    rows.innerHTML = D.ev.map(function (r, i) {
-      var s = r[sec], d = s[0] - s[1], cls = d >= 0 ? 'up' : 'down';
-      var tip = r.t + ': ' + s[0].toFixed(2) + ' (Business School ' + s[1].toFixed(2) + ', university ' + s[2].toFixed(2) + ')';
-      var det = r.detail && sec === 'b' ? '<details class="ev-det"><summary>What made up ' + r.t + '</summary><ul>' + r.detail.map(function (x) { return '<li><span>' + x[0] + '</span><b>' + x[1].toFixed(1) + '</b><em>faculty ' + x[2].toFixed(1) + '</em></li>'; }).join('') + '</ul></details>' : '';
-      return '<div class="ev-row" style="--rd:' + (i * .08) + 's"><div class="ev-l"><b>' + r.t + '</b><span>' + r.m + '</span>' + (r.n ? '<em class="ev-n">About ' + r.n + ' respondents</em>' : '<em class="ev-n">Respondents not reported</em>') + '</div>' +
-        '<div class="ev-track" title="' + esc(tip) + '" tabindex="0" aria-label="' + esc(tip) + '"><i class="grid"></i>' +
-        '<i class="m-mnu" style="left:' + X(s[2]) + '"></i><i class="m-fac" style="left:' + X(s[1]) + '"></i>' +
-        '<i class="m-gap" style="left:' + X(Math.min(s[0], s[1])) + ';width:calc(' + X(Math.max(s[0], s[1])) + ' - ' + X(Math.min(s[0], s[1])) + ')"></i>' +
-        '<i class="m-me" style="left:' + X(s[0]) + '"><b>' + (s[0] % 1 ? s[0].toFixed(1) : s[0]) + '</b></i></div>' +
-        '<span class="ev-d ' + cls + '">' + (d >= 0 ? '+' : '−') + Math.abs(d).toFixed(1) + '<small>vs faculty</small></span>' +
-        (r.note ? '<p class="ev-note">' + r.note + '</p>' : '') + det + '</div>';
-    }).join('');
-    var t = $('evTable');
-    if (t) t.innerHTML = '<thead><tr><th>Term</th><th>Score</th><th>Mine</th><th>Business School</th><th>University</th><th>Respondents (est.)</th></tr></thead><tbody>' +
-      D.ev.map(function (r) { return ['a', 'b'].map(function (k) { var s = r[k]; return '<tr><td>' + r.t + '</td><td>' + (k === 'a' ? 'Subject' : 'Teaching') + '</td><td>' + s[0].toFixed(2) + '</td><td>' + s[1].toFixed(2) + '</td><td>' + s[2].toFixed(2) + '</td><td>' + (r.n ? 'about ' + r.n : 'not reported') + '</td></tr>'; }).join(''); }).join('') + '</tbody>';
-  }
-  document.querySelectorAll('.seg button').forEach(function (b) {
-    b.addEventListener('click', function () { document.querySelectorAll('.seg button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); drawEv(b.dataset.sec); });
-  });
-  drawEv('b');
 
   /* modules: four core cards, five compact ones; each opens a details panel */
   var mods = D.mods || [], core = $('mods'), more = $('modsMore');

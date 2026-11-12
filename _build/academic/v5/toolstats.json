@@ -1,0 +1,72 @@
+{
+ "signed_off": false,
+ "_notes": "Set signed_off to true only after Muiz approves these numbers. Each item is [number, label].",
+ "tools": {
+  "mkt101": {
+   "period": "28 October to 11 November 2026",
+   "items": [
+    [
+     "48 of 56",
+     "students used it at least once (86%)"
+    ],
+    [
+     "7,639",
+     "practice actions"
+    ],
+    [
+     "5,589",
+     "multiple-choice questions answered"
+    ],
+    [
+     "65.7 hours",
+     "of active practice in total"
+    ],
+    [
+     "38 of 48",
+     "active students practised under an hour"
+    ]
+   ],
+   "name": "MKT101 Arena"
+  },
+  "mkt301": {
+   "period": "28 October to 11 November 2026",
+   "items": [
+    [
+     "23 of 32",
+     "students used it at least once (72%)"
+    ],
+    [
+     "280",
+     "practice actions"
+    ],
+    [
+     "14.7 hours",
+     "of active practice in total"
+    ],
+    [
+     "88",
+     "typed and timed answers"
+    ]
+   ],
+   "name": "MKT301 Practice Arena"
+  },
+  "mkt303": {
+   "period": "28 October to 11 November 2026, Term 2 2026",
+   "items": [
+    [
+     "4 of 13",
+     "students started an audit"
+    ],
+    [
+     "3",
+     "audits submitted, each for a real business"
+    ],
+    [
+     "3",
+     "students reached the final download step"
+    ]
+   ],
+   "name": "MKT303 Digital Presence Audit"
+  }
+ }
+}

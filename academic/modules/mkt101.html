@@ -6,11 +6,11 @@
 <title>MKT101 Introduction to Marketing | Abdulla Muiz Fuad</title>
 <meta name="description" content="Module page for MKT101 Introduction to Marketing, taught by Abdulla Muiz Fuad at MNU Business School.">
 <meta property="og:title" content="MKT101 Introduction to Marketing | Abdulla Muiz Fuad">
-<meta property="og:description" content="How I teach, the modules I teach, the tools I built for my students, and where my research is going.">
+<meta property="og:description" content="Module page for MKT101 Introduction to Marketing, taught by Abdulla Muiz Fuad at MNU Business School.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://abdullamuiz.github.io/portfolio/academic/modules/mkt101.html">
-<meta property="og:image" content="https://abdullamuiz.github.io/portfolio/img/og.jpg">
-<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Abdulla Muiz Fuad, Malé, Maldives"><meta name="twitter:image" content="https://abdullamuiz.github.io/portfolio/img/og.jpg">
+<meta property="og:image" content="https://abdullamuiz.github.io/portfolio/img/og-academic.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Abdulla Muiz Fuad, Lecturer in Marketing, MNU Business School"><meta name="twitter:image" content="https://abdullamuiz.github.io/portfolio/img/og-academic.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://abdullamuiz.github.io/portfolio/academic/modules/mkt101.html">
@@ -1615,6 +1615,134 @@ body.subpage main{padding-top:var(--head)}
 .ca-motion .ca-in svg polyline.gl{stroke-dashoffset:0}
 .tools-ca .head{margin-bottom:8px}
 
+/* ---------- audit (Prompt 02): evidence, glance, service, tool stats, comments, a11y ---------- */
+.sr-only{position:absolute !important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+/* content never waits for an animation: reduced motion shows everything at once */
+@media (prefers-reduced-motion:reduce){.reveal,.ca-motion .ca-card,.ca-motion .ca-kpi{opacity:1 !important;transform:none !important;transition:none !important}}
+
+/* evidence: one honest chart */
+.eq{--me:#0B9BAD;--sc:#6250d6;display:grid;gap:20px;padding:clamp(18px,3vw,30px)}
+:root[data-theme="dark"] .eq{--me:#13A6B5;--sc:#9085e9}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .eq{--me:#13A6B5;--sc:#9085e9}}
+.eq-hero{display:grid;gap:6px}
+.eq-big{margin:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.eq-big b{font:400 clamp(64px,9vw,104px)/.9 var(--serif);letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
+.eq-big span{font-size:clamp(17px,2vw,21px);color:var(--muted)}
+.eq-dot{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--lagoon);box-shadow:0 0 0 5px color-mix(in srgb,var(--lagoon) 20%,transparent);align-self:center;margin-left:4px}
+.eq-cap{margin:0;font-size:16px;color:var(--ink);max-width:56ch}
+.eq-key{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted);align-items:center}
+.eq-key span{display:inline-flex;align-items:center;gap:7px}
+.eq-key i{display:inline-block;width:14px;height:10px;border-radius:0 4px 4px 0}
+.eq-key .k-me{background:var(--me)}.eq-key .k-sc{background:var(--sc)}
+.eq-axis{margin-left:auto}
+.eq-terms{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.eq-term{display:grid;grid-template-columns:200px minmax(0,1fr) 216px;gap:6px 20px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.eq-term:nth-last-child(2){border-bottom:1px solid var(--line)}
+.eq-tl{display:grid;gap:2px}
+.eq-tl b{font-size:15px;color:var(--ink)}
+.eq-tl small{font-size:12px;color:var(--muted)}
+.eq-bars{display:grid;gap:5px}
+.eq-bar{display:grid;grid-template-columns:52px minmax(0,1fr) 34px;align-items:center;gap:10px}
+.eq-who{font-size:12px;color:var(--muted)}
+.eq-track{display:block;height:14px;border-radius:0 4px 4px 0;background:color-mix(in srgb,var(--ink) 6%,transparent);overflow:hidden}
+.eq-track i{display:block;height:100%;border-radius:0 4px 4px 0}
+.eq-bar.me i{background:var(--me)}.eq-bar.sc i{background:var(--sc)}
+.eq-bar b{font-size:14px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;text-align:right}
+.eq-bar.sc b{font-weight:500;color:var(--muted)}
+.eq-tag{display:inline-flex;align-items:center;gap:7px;justify-self:start;font-size:13px;font-weight:600;color:var(--ink);padding:5px 11px;border-radius:999px;border:1px solid var(--line)}
+.eq-tag svg{width:11px;height:11px;fill:currentColor}
+.eq-tag.up{border-color:color-mix(in srgb,var(--me) 55%,transparent);background:color-mix(in srgb,var(--me) 9%,transparent)}
+.eq-tag.down,.eq-tag.eq{color:var(--muted)}
+.eq-note{grid-column:2/-1;margin:2px 0 0;font-size:13.5px;color:var(--muted);font-style:italic}
+.eq-areas h3{font:400 clamp(20px,2.4vw,26px)/1.2 var(--serif);margin:0 0 12px}
+.eq-areas h3 span{color:var(--lagoon)}
+.eq-areas ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px 26px}
+.eq-areas li{display:grid;gap:6px}
+.eq-an{font-size:13.5px;font-weight:600;color:var(--ink)}
+.eq-bars.sm .eq-track{height:10px}
+.eq .src{margin:0}
+@media (max-width:760px){
+  .eq-term{grid-template-columns:minmax(0,1fr);gap:8px}
+  .eq-note{grid-column:1}
+  .eq-axis{margin-left:0}
+}
+
+/* at a glance, in the hero */
+.atg{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);max-width:640px}
+.atg-h{font:600 11px/1 var(--sans,inherit);letter-spacing:.16em;text-transform:uppercase;color:var(--label);margin:0 0 10px}
+.atg dl{margin:0;display:grid;gap:7px}
+.atg dl>div{display:grid;grid-template-columns:132px minmax(0,1fr);gap:12px;font-size:14px;line-height:1.4}
+.atg dt{color:var(--muted);font-weight:500}
+.atg dd{margin:0;color:var(--ink)}
+.atg a{color:inherit;text-decoration:underline;text-decoration-color:var(--lagoon);text-underline-offset:3px;display:inline-block;padding:10px 0;margin:-10px 0}
+@media (max-width:760px){.atg dl>div{grid-template-columns:minmax(0,1fr);gap:1px}.atg{margin-top:16px}.atg dl{gap:9px}}
+
+/* service and supervision */
+.svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.svc h3{font:400 clamp(20px,2.2vw,24px)/1.2 var(--serif);margin:0 0 10px}
+.svc h3 span{color:var(--lagoon)}
+.svc .ticks{margin:0}
+
+/* tool cohort numbers */
+.tstats{margin:18px 0 6px}
+.tstats ul{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.tstats li{display:grid;gap:3px;padding:12px 14px;border:1px solid var(--line);border-radius:12px}
+.tstats b{font:400 26px/1.05 var(--serif);color:var(--ink)}
+.tstats span{font-size:13px;color:var(--muted)}
+.tstats-eg{margin:6px 0 0}
+
+/* research */
+.mtvo-status{margin:2px 0 4px;font-weight:600;color:var(--ink);padding:10px 14px;border-left:3px solid var(--lagoon);background:color-mix(in srgb,var(--lagoon) 8%,transparent);border-radius:0 10px 10px 0}
+.pub-ix{font-size:12.5px;color:var(--label);font-weight:600}
+.pub-as{margin:10px 0 0}
+
+/* student comments (renders only with real, consented entries) */
+.cmts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.cmt{margin:0;padding:18px;border:1px solid var(--line);border-radius:16px;display:grid;gap:10px}
+.cmt img{width:56px;height:56px;border-radius:12px;object-fit:cover}
+.cmt blockquote{margin:0;font-size:15.5px;line-height:1.5}
+.cmt figcaption{display:grid;gap:2px;font-size:13px;color:var(--muted)}
+.cmt figcaption b{color:var(--ink)}
+
+/* module pages without placeholder panels */
+.mp.one{grid-template-columns:minmax(0,1fr)}
+.mp.one .mp-col{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;align-items:start}
+.demo-vid{margin:0 0 18px}.demo-vid video{width:100%;border-radius:14px;background:#000}
+
+/* phone: the hero keeps its portrait; the strip opens the About panel, one swipe down */
+.atg-m{display:none}
+@media (max-width:860px){.intro-b .atg{display:none}.atg-m{display:block;margin:0 0 18px;padding:0 0 14px;border-top:0;border-bottom:1px solid var(--line)}}
+
+/* tap targets: at least 44 px */
+.btn,.btn--sm,.tw-btn,.tw-chip,.orcid{min-height:44px}
+.sitemap a,.fv,.mgroup a{min-height:44px;display:inline-flex;align-items:center}
+.mgroup a{display:grid}
+.foot-icons a{min-width:44px;min-height:44px;display:inline-grid;place-items:center}
+header .brand,header a:has(.mark){min-width:44px;min-height:44px;display:inline-grid;place-items:center}
+.more-link,.tw-link{position:relative}
+.more-link::after,.tw-link::after{content:"";position:absolute;left:-4px;right:-4px;top:50%;height:44px;transform:translateY(-50%)}
+.tw-dot{position:relative}
+.tw-dot::after{content:"";position:absolute;left:50%;top:50%;width:44px;height:44px;transform:translate(-50%,-50%)}
+.crumbs a,.toc a,.ca-jump{min-height:44px;display:inline-flex;align-items:center}
+.hero-cta .btn{min-height:44px !important}
+.sitemap a{min-width:44px}
+.atg a,.tw-link{padding-block:10px;margin-block:-10px}
+
+/* chart axis and plainer comparison tags */
+.eq-ax{display:grid;grid-template-columns:200px minmax(0,1fr) 216px;gap:0 20px;padding:6px 0 0;border:0 !important}
+.eq-ticks{display:flex;justify-content:space-between;margin-left:62px;margin-right:44px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.eq-ticks i{font-style:normal;width:0;display:flex;justify-content:center}
+.eq-tag{border:0 !important;background:none !important;padding:0}
+.eq-tag.up{color:var(--ink)}
+.eq-fn{margin-top:-12px !important}
+@media (max-width:760px){.eq-ax{grid-template-columns:minmax(0,1fr)}.eq-ax>span:first-child,.eq-ax>span:last-child{display:none}}
+/* more tap targets */
+nav.links a{min-height:44px;display:inline-flex;align-items:center}
+.ca-jump{min-height:44px !important}
+.atg a{padding-block:12px;margin-block:-12px}
+.tw-link{min-height:44px;display:inline-flex;align-items:center}
+
+@media (prefers-reduced-motion:reduce){#s1{height:auto !important}#s1 .sticky{position:relative;height:auto;min-height:100svh;overflow:visible}#s1 .hero{position:relative;top:auto;bottom:auto;padding-top:calc(var(--head) + 24px);display:grid;grid-template-columns:minmax(0,1fr);align-items:start}#s1 .stage{height:auto;justify-content:flex-start}#s1 .portrait{height:auto;width:min(340px,70vw);margin:0}#s1 .copy{transform:none !important}.ghost-hi{display:none}@media (min-width:861px){#s1 .hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}#s1 .portrait{width:100%;max-width:440px}}.about-text{position:static;opacity:1 !important;margin-top:28px}.ghost-about,.fdot{display:none}   #about{height:auto !important}   #about .sticky{position:relative;height:auto;overflow:visible;padding:56px 0 40px}   #about .path-head{position:static;margin-bottom:32px}   #about .path-prog{display:none}   #about .track{position:relative;height:auto;transform:none !important;padding:0 var(--gutter) 0 calc(var(--gutter) + 36px)}   #about .line{left:calc(var(--gutter) + 8px);top:8px;bottom:40px;width:2px;height:auto;margin:0}   #about .fill{transform-origin:50% 0;transform:scaleY(0)}   #about .stop{position:relative;left:auto;top:auto;width:auto;height:auto;padding-bottom:34px}   #about .node{left:-36px;top:4px}   #about .stop.now .node{left:-39px;top:1px}   #about .arm{display:none}   #about .stop .card{position:static;width:auto;bottom:auto;top:auto}   #about .lg{margin-bottom:8px}#kick,#rule,#introP,.copy .fade{opacity:1 !important;visibility:visible !important}#portrait,.ghost-hi{transform:none !important}.ghost-hi{display:none}}
 </style>
 </head>
 <body class="subpage" data-pg="modules">
@@ -1624,6 +1752,7 @@ body.subpage main{padding-top:var(--head)}
 </svg>
 
 <script>try{if(/[?&]clean\b/.test(location.search))document.documentElement.classList.add("clean")}catch(e){}</script>
+<noscript><style>.reveal,.fade,.ca-card,.ca-kpi{opacity:1 !important;transform:none !important}#intro,#skip,#replay,.swipe-hint{display:none !important}.intro-on .ghost-hi{visibility:visible}#s1{height:auto !important}#s1 .sticky{position:relative;height:auto;min-height:100svh;overflow:visible}#s1 .hero{position:relative;top:auto;bottom:auto;padding-top:calc(var(--head) + 24px);display:grid;grid-template-columns:minmax(0,1fr);align-items:start}#s1 .stage{height:auto;justify-content:flex-start}#s1 .portrait{height:auto;width:min(340px,70vw);margin:0}#s1 .copy{transform:none !important}.ghost-hi{display:none}@media (min-width:861px){#s1 .hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}#s1 .portrait{width:100%;max-width:440px}}.about-text{position:static;opacity:1 !important;margin-top:28px}.ghost-about,.fdot{display:none}   #about{height:auto !important}   #about .sticky{position:relative;height:auto;overflow:visible;padding:56px 0 40px}   #about .path-head{position:static;margin-bottom:32px}   #about .path-prog{display:none}   #about .track{position:relative;height:auto;transform:none !important;padding:0 var(--gutter) 0 calc(var(--gutter) + 36px)}   #about .line{left:calc(var(--gutter) + 8px);top:8px;bottom:40px;width:2px;height:auto;margin:0}   #about .fill{transform-origin:50% 0;transform:scaleY(0)}   #about .stop{position:relative;left:auto;top:auto;width:auto;height:auto;padding-bottom:34px}   #about .node{left:-36px;top:4px}   #about .stop.now .node{left:-39px;top:1px}   #about .arm{display:none}   #about .stop .card{position:static;width:auto;bottom:auto;top:auto}   #about .lg{margin-bottom:8px}</style></noscript>
 <script>window.BASE="../../"</script>
 <header class="top" data-step="0" id="top">
   <div class="wrap">
@@ -1645,14 +1774,9 @@ body.subpage main{padding-top:var(--head)}
       <dl class="facts">
         <div><dt>Code</dt><dd>MKT101</dd></div>
         <div><dt>Level</dt><dd>Level 100</dd></div>
-        <div><dt>Credits</dt><dd><span class="todo">[TODO]</span></dd></div>
-        <div><dt>Prerequisite</dt><dd><span class="todo">[TODO]</span></dd></div>
         <div><dt>My role</dt><dd>Subject coordinator</dd></div>
       </dl>
-      <div class="mp" style="margin-top:16px"><div class="mp-col"><article class="panel reveal"><h2>About the module<span>.</span></h2><span class="todo">[TODO: two or three sentences on what the module covers, from the module descriptor]</span><p class="small">Part of <span class="todo">[TODO: programme name, with a link to its MNU programme page]</span></p></article>
-        <article class="panel reveal"><h2>Learning outcomes<span>.</span></h2><span class="todo">[TODO: the course learning outcomes (CLOs), as published in the module descriptor]</span></article>
-        <article class="panel reveal"><h2>Weekly topics<span>.</span></h2><span class="todo">[TODO: the week-by-week topic list]</span></article>
-        <article class="panel reveal"><h2>A sample activity<span>.</span></h2><span class="todo">[TODO: one activity or photo from class, with a line on what students did]</span></article></div><div class="mp-col"><article class="panel reveal"><h2>Assessment<span>.</span></h2><span class="label">As delivered, Term 1 2026</span><div class="wbar"><span style="--w:20">Group written <b>20</b></span><span style="--w:10">Group presentation <b>10</b></span><span style="--w:20">Midterm exam <b>20</b></span><span style="--w:50">Final exam <b>50</b></span></div></article><article class="panel reveal"><h2>Terms I taught it<span>.</span></h2><ul class="chips"><li>Term 1 2026 · <b>55 students</b></li><li>Term 2 2026 · <b>57 students</b></li></ul><p class="src">Student numbers from MNU workload forms, where recorded.</p></article><article class="panel reveal"><h2>What students use<span>.</span></h2><p>MKT101 Arena, a web app I built for this module.</p><div class="row-cta" style="margin-top:4px"><a class="btn btn--sm" href="https://abdullamuizfuad.github.io/mkt101-cases/#/" target="_blank" rel="noopener">Open it <i data-ic="upright"></i></a><a class="more-link" href="../../academic/tools.html">How it works <i data-ic="right"></i></a></div></article><article class="panel reveal"><h2>Sample lesson<span>.</span></h2><p>“Found, Chosen, Booked”, my 10-minute demonstration lesson, was built for this module.</p><a class="more-link" href="../../academic.html#lesson">See the lesson <i data-ic="right"></i></a></article></div></div>
+      <div class="mp one" style="margin-top:16px"><div class="mp-col"><article class="panel reveal"><h2>Assessment<span>.</span></h2><span class="label">As delivered, Term 1 2026</span><div class="wbar"><span style="--w:20">Group written <b>20</b></span><span style="--w:10">Group presentation <b>10</b></span><span style="--w:20">Midterm exam <b>20</b></span><span style="--w:50">Final exam <b>50</b></span></div></article><article class="panel reveal"><h2>Terms I taught it<span>.</span></h2><ul class="chips"><li>Term 1 2026 · <b>55 students</b></li><li>Term 2 2026 · <b>57 students</b></li></ul><p class="src">Student numbers from MNU workload forms, where recorded.</p></article><article class="panel reveal"><h2>What students use<span>.</span></h2><p>MKT101 Arena, a web app I built for this module.</p><div class="row-cta" style="margin-top:4px"><a class="btn btn--sm" href="https://abdullamuizfuad.github.io/mkt101-cases/#/" target="_blank" rel="noopener">Open it <i data-ic="upright"></i></a><a class="more-link" href="../../academic/tools.html">How it works <i data-ic="right"></i></a></div></article><article class="panel reveal"><h2>Sample lesson<span>.</span></h2><p>“Found, Chosen, Booked”, my 10-minute demonstration lesson, was built for this module.</p><a class="more-link" href="../../academic.html#lesson">See the lesson <i data-ic="right"></i></a></article></div></div>
       <nav class="pager" aria-label="Other modules"><span></span><a href="../../academic/modules/bus107.html"><small>Next →</small>BUS107 Maldivian Business Environment</a></nav>
     </div>
   </section>
@@ -1863,31 +1987,6 @@ hydrateIcons();
   var lp = $('loop');
   if (lp && !reduce) new IntersectionObserver(function (es) { lp.classList.toggle('on', es[0].isIntersecting); }, { threshold: .3 }).observe(lp);
 
-  /* evidence: one row per term, my score against the two averages, on a 75 to 100 scale */
-  var rows = $('evRows'), MIN = 75, MAX = 100;
-  var X = function (v) { return ((Math.max(MIN, Math.min(MAX, v)) - MIN) / (MAX - MIN) * 100).toFixed(2) + '%'; };
-  function drawEv(sec) {
-    if (!rows || !D.ev) return;
-    rows.innerHTML = D.ev.map(function (r, i) {
-      var s = r[sec], d = s[0] - s[1], cls = d >= 0 ? 'up' : 'down';
-      var tip = r.t + ': ' + s[0].toFixed(2) + ' (Business School ' + s[1].toFixed(2) + ', university ' + s[2].toFixed(2) + ')';
-      var det = r.detail && sec === 'b' ? '<details class="ev-det"><summary>What made up ' + r.t + '</summary><ul>' + r.detail.map(function (x) { return '<li><span>' + x[0] + '</span><b>' + x[1].toFixed(1) + '</b><em>faculty ' + x[2].toFixed(1) + '</em></li>'; }).join('') + '</ul></details>' : '';
-      return '<div class="ev-row" style="--rd:' + (i * .08) + 's"><div class="ev-l"><b>' + r.t + '</b><span>' + r.m + '</span>' + (r.n ? '<em class="ev-n">About ' + r.n + ' respondents</em>' : '<em class="ev-n">Respondents not reported</em>') + '</div>' +
-        '<div class="ev-track" title="' + esc(tip) + '" tabindex="0" aria-label="' + esc(tip) + '"><i class="grid"></i>' +
-        '<i class="m-mnu" style="left:' + X(s[2]) + '"></i><i class="m-fac" style="left:' + X(s[1]) + '"></i>' +
-        '<i class="m-gap" style="left:' + X(Math.min(s[0], s[1])) + ';width:calc(' + X(Math.max(s[0], s[1])) + ' - ' + X(Math.min(s[0], s[1])) + ')"></i>' +
-        '<i class="m-me" style="left:' + X(s[0]) + '"><b>' + (s[0] % 1 ? s[0].toFixed(1) : s[0]) + '</b></i></div>' +
-        '<span class="ev-d ' + cls + '">' + (d >= 0 ? '+' : '−') + Math.abs(d).toFixed(1) + '<small>vs faculty</small></span>' +
-        (r.note ? '<p class="ev-note">' + r.note + '</p>' : '') + det + '</div>';
-    }).join('');
-    var t = $('evTable');
-    if (t) t.innerHTML = '<thead><tr><th>Term</th><th>Score</th><th>Mine</th><th>Business School</th><th>University</th><th>Respondents (est.)</th></tr></thead><tbody>' +
-      D.ev.map(function (r) { return ['a', 'b'].map(function (k) { var s = r[k]; return '<tr><td>' + r.t + '</td><td>' + (k === 'a' ? 'Subject' : 'Teaching') + '</td><td>' + s[0].toFixed(2) + '</td><td>' + s[1].toFixed(2) + '</td><td>' + s[2].toFixed(2) + '</td><td>' + (r.n ? 'about ' + r.n : 'not reported') + '</td></tr>'; }).join(''); }).join('') + '</tbody>';
-  }
-  document.querySelectorAll('.seg button').forEach(function (b) {
-    b.addEventListener('click', function () { document.querySelectorAll('.seg button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); drawEv(b.dataset.sec); });
-  });
-  drawEv('b');
 
   /* modules: four core cards, five compact ones; each opens a details panel */
   var mods = D.mods || [], core = $('mods'), more = $('modsMore');

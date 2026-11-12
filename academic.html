@@ -9,8 +9,8 @@
 <meta property="og:description" content="How I teach, the modules I teach, the tools I built for my students, and where my research is going.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://abdullamuiz.github.io/portfolio/academic.html">
-<meta property="og:image" content="https://abdullamuiz.github.io/portfolio/img/og.jpg">
-<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Abdulla Muiz Fuad, Malé, Maldives"><meta name="twitter:image" content="https://abdullamuiz.github.io/portfolio/img/og.jpg">
+<meta property="og:image" content="https://abdullamuiz.github.io/portfolio/img/og-academic.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Abdulla Muiz Fuad, Lecturer in Marketing, MNU Business School"><meta name="twitter:image" content="https://abdullamuiz.github.io/portfolio/img/og-academic.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://abdullamuiz.github.io/portfolio/academic.html">
@@ -1615,6 +1615,134 @@ body.subpage main{padding-top:var(--head)}
 .ca-motion .ca-in svg polyline.gl{stroke-dashoffset:0}
 .tools-ca .head{margin-bottom:8px}
 
+/* ---------- audit (Prompt 02): evidence, glance, service, tool stats, comments, a11y ---------- */
+.sr-only{position:absolute !important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+/* content never waits for an animation: reduced motion shows everything at once */
+@media (prefers-reduced-motion:reduce){.reveal,.ca-motion .ca-card,.ca-motion .ca-kpi{opacity:1 !important;transform:none !important;transition:none !important}}
+
+/* evidence: one honest chart */
+.eq{--me:#0B9BAD;--sc:#6250d6;display:grid;gap:20px;padding:clamp(18px,3vw,30px)}
+:root[data-theme="dark"] .eq{--me:#13A6B5;--sc:#9085e9}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .eq{--me:#13A6B5;--sc:#9085e9}}
+.eq-hero{display:grid;gap:6px}
+.eq-big{margin:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.eq-big b{font:400 clamp(64px,9vw,104px)/.9 var(--serif);letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
+.eq-big span{font-size:clamp(17px,2vw,21px);color:var(--muted)}
+.eq-dot{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--lagoon);box-shadow:0 0 0 5px color-mix(in srgb,var(--lagoon) 20%,transparent);align-self:center;margin-left:4px}
+.eq-cap{margin:0;font-size:16px;color:var(--ink);max-width:56ch}
+.eq-key{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted);align-items:center}
+.eq-key span{display:inline-flex;align-items:center;gap:7px}
+.eq-key i{display:inline-block;width:14px;height:10px;border-radius:0 4px 4px 0}
+.eq-key .k-me{background:var(--me)}.eq-key .k-sc{background:var(--sc)}
+.eq-axis{margin-left:auto}
+.eq-terms{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.eq-term{display:grid;grid-template-columns:200px minmax(0,1fr) 216px;gap:6px 20px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.eq-term:nth-last-child(2){border-bottom:1px solid var(--line)}
+.eq-tl{display:grid;gap:2px}
+.eq-tl b{font-size:15px;color:var(--ink)}
+.eq-tl small{font-size:12px;color:var(--muted)}
+.eq-bars{display:grid;gap:5px}
+.eq-bar{display:grid;grid-template-columns:52px minmax(0,1fr) 34px;align-items:center;gap:10px}
+.eq-who{font-size:12px;color:var(--muted)}
+.eq-track{display:block;height:14px;border-radius:0 4px 4px 0;background:color-mix(in srgb,var(--ink) 6%,transparent);overflow:hidden}
+.eq-track i{display:block;height:100%;border-radius:0 4px 4px 0}
+.eq-bar.me i{background:var(--me)}.eq-bar.sc i{background:var(--sc)}
+.eq-bar b{font-size:14px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;text-align:right}
+.eq-bar.sc b{font-weight:500;color:var(--muted)}
+.eq-tag{display:inline-flex;align-items:center;gap:7px;justify-self:start;font-size:13px;font-weight:600;color:var(--ink);padding:5px 11px;border-radius:999px;border:1px solid var(--line)}
+.eq-tag svg{width:11px;height:11px;fill:currentColor}
+.eq-tag.up{border-color:color-mix(in srgb,var(--me) 55%,transparent);background:color-mix(in srgb,var(--me) 9%,transparent)}
+.eq-tag.down,.eq-tag.eq{color:var(--muted)}
+.eq-note{grid-column:2/-1;margin:2px 0 0;font-size:13.5px;color:var(--muted);font-style:italic}
+.eq-areas h3{font:400 clamp(20px,2.4vw,26px)/1.2 var(--serif);margin:0 0 12px}
+.eq-areas h3 span{color:var(--lagoon)}
+.eq-areas ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px 26px}
+.eq-areas li{display:grid;gap:6px}
+.eq-an{font-size:13.5px;font-weight:600;color:var(--ink)}
+.eq-bars.sm .eq-track{height:10px}
+.eq .src{margin:0}
+@media (max-width:760px){
+  .eq-term{grid-template-columns:minmax(0,1fr);gap:8px}
+  .eq-note{grid-column:1}
+  .eq-axis{margin-left:0}
+}
+
+/* at a glance, in the hero */
+.atg{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);max-width:640px}
+.atg-h{font:600 11px/1 var(--sans,inherit);letter-spacing:.16em;text-transform:uppercase;color:var(--label);margin:0 0 10px}
+.atg dl{margin:0;display:grid;gap:7px}
+.atg dl>div{display:grid;grid-template-columns:132px minmax(0,1fr);gap:12px;font-size:14px;line-height:1.4}
+.atg dt{color:var(--muted);font-weight:500}
+.atg dd{margin:0;color:var(--ink)}
+.atg a{color:inherit;text-decoration:underline;text-decoration-color:var(--lagoon);text-underline-offset:3px;display:inline-block;padding:10px 0;margin:-10px 0}
+@media (max-width:760px){.atg dl>div{grid-template-columns:minmax(0,1fr);gap:1px}.atg{margin-top:16px}.atg dl{gap:9px}}
+
+/* service and supervision */
+.svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.svc h3{font:400 clamp(20px,2.2vw,24px)/1.2 var(--serif);margin:0 0 10px}
+.svc h3 span{color:var(--lagoon)}
+.svc .ticks{margin:0}
+
+/* tool cohort numbers */
+.tstats{margin:18px 0 6px}
+.tstats ul{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.tstats li{display:grid;gap:3px;padding:12px 14px;border:1px solid var(--line);border-radius:12px}
+.tstats b{font:400 26px/1.05 var(--serif);color:var(--ink)}
+.tstats span{font-size:13px;color:var(--muted)}
+.tstats-eg{margin:6px 0 0}
+
+/* research */
+.mtvo-status{margin:2px 0 4px;font-weight:600;color:var(--ink);padding:10px 14px;border-left:3px solid var(--lagoon);background:color-mix(in srgb,var(--lagoon) 8%,transparent);border-radius:0 10px 10px 0}
+.pub-ix{font-size:12.5px;color:var(--label);font-weight:600}
+.pub-as{margin:10px 0 0}
+
+/* student comments (renders only with real, consented entries) */
+.cmts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.cmt{margin:0;padding:18px;border:1px solid var(--line);border-radius:16px;display:grid;gap:10px}
+.cmt img{width:56px;height:56px;border-radius:12px;object-fit:cover}
+.cmt blockquote{margin:0;font-size:15.5px;line-height:1.5}
+.cmt figcaption{display:grid;gap:2px;font-size:13px;color:var(--muted)}
+.cmt figcaption b{color:var(--ink)}
+
+/* module pages without placeholder panels */
+.mp.one{grid-template-columns:minmax(0,1fr)}
+.mp.one .mp-col{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;align-items:start}
+.demo-vid{margin:0 0 18px}.demo-vid video{width:100%;border-radius:14px;background:#000}
+
+/* phone: the hero keeps its portrait; the strip opens the About panel, one swipe down */
+.atg-m{display:none}
+@media (max-width:860px){.intro-b .atg{display:none}.atg-m{display:block;margin:0 0 18px;padding:0 0 14px;border-top:0;border-bottom:1px solid var(--line)}}
+
+/* tap targets: at least 44 px */
+.btn,.btn--sm,.tw-btn,.tw-chip,.orcid{min-height:44px}
+.sitemap a,.fv,.mgroup a{min-height:44px;display:inline-flex;align-items:center}
+.mgroup a{display:grid}
+.foot-icons a{min-width:44px;min-height:44px;display:inline-grid;place-items:center}
+header .brand,header a:has(.mark){min-width:44px;min-height:44px;display:inline-grid;place-items:center}
+.more-link,.tw-link{position:relative}
+.more-link::after,.tw-link::after{content:"";position:absolute;left:-4px;right:-4px;top:50%;height:44px;transform:translateY(-50%)}
+.tw-dot{position:relative}
+.tw-dot::after{content:"";position:absolute;left:50%;top:50%;width:44px;height:44px;transform:translate(-50%,-50%)}
+.crumbs a,.toc a,.ca-jump{min-height:44px;display:inline-flex;align-items:center}
+.hero-cta .btn{min-height:44px !important}
+.sitemap a{min-width:44px}
+.atg a,.tw-link{padding-block:10px;margin-block:-10px}
+
+/* chart axis and plainer comparison tags */
+.eq-ax{display:grid;grid-template-columns:200px minmax(0,1fr) 216px;gap:0 20px;padding:6px 0 0;border:0 !important}
+.eq-ticks{display:flex;justify-content:space-between;margin-left:62px;margin-right:44px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.eq-ticks i{font-style:normal;width:0;display:flex;justify-content:center}
+.eq-tag{border:0 !important;background:none !important;padding:0}
+.eq-tag.up{color:var(--ink)}
+.eq-fn{margin-top:-12px !important}
+@media (max-width:760px){.eq-ax{grid-template-columns:minmax(0,1fr)}.eq-ax>span:first-child,.eq-ax>span:last-child{display:none}}
+/* more tap targets */
+nav.links a{min-height:44px;display:inline-flex;align-items:center}
+.ca-jump{min-height:44px !important}
+.atg a{padding-block:12px;margin-block:-12px}
+.tw-link{min-height:44px;display:inline-flex;align-items:center}
+
+@media (prefers-reduced-motion:reduce){#s1{height:auto !important}#s1 .sticky{position:relative;height:auto;min-height:100svh;overflow:visible}#s1 .hero{position:relative;top:auto;bottom:auto;padding-top:calc(var(--head) + 24px);display:grid;grid-template-columns:minmax(0,1fr);align-items:start}#s1 .stage{height:auto;justify-content:flex-start}#s1 .portrait{height:auto;width:min(340px,70vw);margin:0}#s1 .copy{transform:none !important}.ghost-hi{display:none}@media (min-width:861px){#s1 .hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}#s1 .portrait{width:100%;max-width:440px}}.about-text{position:static;opacity:1 !important;margin-top:28px}.ghost-about,.fdot{display:none}   #about{height:auto !important}   #about .sticky{position:relative;height:auto;overflow:visible;padding:56px 0 40px}   #about .path-head{position:static;margin-bottom:32px}   #about .path-prog{display:none}   #about .track{position:relative;height:auto;transform:none !important;padding:0 var(--gutter) 0 calc(var(--gutter) + 36px)}   #about .line{left:calc(var(--gutter) + 8px);top:8px;bottom:40px;width:2px;height:auto;margin:0}   #about .fill{transform-origin:50% 0;transform:scaleY(0)}   #about .stop{position:relative;left:auto;top:auto;width:auto;height:auto;padding-bottom:34px}   #about .node{left:-36px;top:4px}   #about .stop.now .node{left:-39px;top:1px}   #about .arm{display:none}   #about .stop .card{position:static;width:auto;bottom:auto;top:auto}   #about .lg{margin-bottom:8px}#kick,#rule,#introP,.copy .fade{opacity:1 !important;visibility:visible !important}#portrait,.ghost-hi{transform:none !important}.ghost-hi{display:none}}
 </style>
 </head>
 <body class="intro-on">
@@ -1624,6 +1752,7 @@ body.subpage main{padding-top:var(--head)}
 </svg>
 
 <script>try{if(/[?&]clean\b/.test(location.search))document.documentElement.classList.add("clean")}catch(e){}</script>
+<noscript><style>.reveal,.fade,.ca-card,.ca-kpi{opacity:1 !important;transform:none !important}#intro,#skip,#replay,.swipe-hint{display:none !important}.intro-on .ghost-hi{visibility:visible}#s1{height:auto !important}#s1 .sticky{position:relative;height:auto;min-height:100svh;overflow:visible}#s1 .hero{position:relative;top:auto;bottom:auto;padding-top:calc(var(--head) + 24px);display:grid;grid-template-columns:minmax(0,1fr);align-items:start}#s1 .stage{height:auto;justify-content:flex-start}#s1 .portrait{height:auto;width:min(340px,70vw);margin:0}#s1 .copy{transform:none !important}.ghost-hi{display:none}@media (min-width:861px){#s1 .hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}#s1 .portrait{width:100%;max-width:440px}}.about-text{position:static;opacity:1 !important;margin-top:28px}.ghost-about,.fdot{display:none}   #about{height:auto !important}   #about .sticky{position:relative;height:auto;overflow:visible;padding:56px 0 40px}   #about .path-head{position:static;margin-bottom:32px}   #about .path-prog{display:none}   #about .track{position:relative;height:auto;transform:none !important;padding:0 var(--gutter) 0 calc(var(--gutter) + 36px)}   #about .line{left:calc(var(--gutter) + 8px);top:8px;bottom:40px;width:2px;height:auto;margin:0}   #about .fill{transform-origin:50% 0;transform:scaleY(0)}   #about .stop{position:relative;left:auto;top:auto;width:auto;height:auto;padding-bottom:34px}   #about .node{left:-36px;top:4px}   #about .stop.now .node{left:-39px;top:1px}   #about .arm{display:none}   #about .stop .card{position:static;width:auto;bottom:auto;top:auto}   #about .lg{margin-bottom:8px}</style></noscript>
 <header class="top fade" data-step="0" id="top">
   <div class="wrap">
     <a href="academic.html" aria-label="Muiz, academic portfolio home">
@@ -1644,7 +1773,7 @@ body.subpage main{padding-top:var(--head)}
       <div class="hero">
         <div class="stage" id="stage">
           <div class="ghost-hi hi" id="ghost" aria-hidden="true"><span>H</span><span class="i">ı<span class="dot" id="hiDot"></span></span></div>
-          <div class="ghost-about" id="about-g" aria-label="About me"><span class="row1"><span class="l">A</span><span class="l">b</span><span class="l">o</span><span class="l">u</span><span class="l">t</span></span><span class="row2"><span class="l">M</span><span class="l">e</span><span class="me-dot" id="meDot"></span></span></div>
+          <div class="ghost-about" id="about-g" aria-hidden="true"><span class="row1"><span class="l">A</span><span class="l">b</span><span class="l">o</span><span class="l">u</span><span class="l">t</span></span><span class="row2"><span class="l">M</span><span class="l">e</span><span class="me-dot" id="meDot"></span></span></div>
           <img class="portrait fade" data-step="1" id="portrait" src="img/muiz-cutout.webp" alt="Abdulla Muiz Fuad, arms crossed, smiling">
         </div>
         <div class="copy" id="copy">
@@ -1655,13 +1784,14 @@ body.subpage main{padding-top:var(--head)}
           <div class="swap">
             <div class="intro-b fade" data-step="3" id="introP">
               <p class="intro-p">15+ years in tourism and marketing, now in the lecture room at MNU Business School.</p>
-              <p class="cred-line">MSc Global Marketing Management (Merit) · Asia Pacific University, Kuala Lumpur</p>
               <div class="hero-cta">
                 <a class="btn" href="academic/Muiz_Fuad_CV.pdf" download="Muiz_Fuad_CV.pdf">Download academic CV <i data-ic="download"></i></a>
                 <a class="btn btn--ghost" href="#modules">See what I teach <i data-ic="down"></i></a>
               </div>
+              <div class="atg" id="glance"><h2 class="atg-h">At a glance</h2><dl><div><dt>Qualifications</dt><dd>MSc Global Marketing Management (Merit) · BA (Hons) Tourism Management, Asia Pacific University</dd></div><div><dt>Teaching</dt><dd>Lecturer, MNU Business School, since 2024 · part-time at MI College from 2022</dd></div><div><dt>Modules</dt><dd>9 taught, 6 coordinated, Level 100 to 300</dd></div><div><dt>Research</dt><dd>2 peer-reviewed journal articles · <a href="https://iocdrp.s.gy/fuad-a-m" target="_blank" rel="noopener">36 citations</a></dd></div><div><dt>Student evaluation</dt><dd>4.4 out of 5 for teaching, Term 1 2026 (school average 4.2)</dd></div></dl></div>
             </div>
             <div class="about-text" id="aboutText">
+              <div class="atg atg-m"><h2 class="atg-h">At a glance</h2><dl><div><dt>Qualifications</dt><dd>MSc Global Marketing Management (Merit) · BA (Hons) Tourism Management, Asia Pacific University</dd></div><div><dt>Teaching</dt><dd>Lecturer, MNU Business School, since 2024 · part-time at MI College from 2022</dd></div><div><dt>Modules</dt><dd>9 taught, 6 coordinated, Level 100 to 300</dd></div><div><dt>Research</dt><dd>2 peer-reviewed journal articles · <a href="https://iocdrp.s.gy/fuad-a-m" target="_blank" rel="noopener">36 citations</a></dd></div><div><dt>Student evaluation</dt><dd>4.4 out of 5 for teaching, Term 1 2026 (school average 4.2)</dd></div></dl></div>
               <p class="lead">I teach the way I learned marketing: by doing it first. Since 2011 I’ve worked on one question, how a business in the Maldives gets seen by the right people and turns that attention into bookings and sales. Today I bring that question into the classroom.</p>
                             <p>I started teaching part-time at MI College in 2022 and joined MNU Business School in 2024. I’ve taught nine modules there since, from Introduction to Marketing to International Marketing, Electronic Marketing and Brand Management, and coordinate six of them.</p>
                             <p>My research grew the same way, from a 2017 paper on how guesthouses become visible online to the question I want to study next: how small tourism businesses get found when an AI does the searching.</p>
@@ -1764,7 +1894,7 @@ body.subpage main{padding-top:var(--head)}
           <span class="app-foot"><span class="more-link">Open the audit <i data-ic="upright"></i></span></span>
         </a>
       </div>
-      <p class="tool-note reveal"><i data-ic="chart"></i><span>From my MKT101 class dashboard: one student worked through almost 80% of the arena’s questions in two weeks, with more than 10 hours of active practice. <a class="more-link" href="academic/tools.html#class-activity">See two weeks of anonymised class activity across all three tools <i data-ic="right"></i></a></span></p>
+      <p class="tool-note reveal"><i data-ic="chart"></i><span>Each tool keeps anonymised usage records, so I can see how a whole class practises. <a class="more-link" href="academic/tools.html#class-activity">See two weeks of anonymised class activity across all three tools <i data-ic="right"></i></a></span></p>
       <p class="tool-access reveal">Students sign in with their student ID. Visitors and review panels can try each tool as a guest, with no account: the arenas open with the whole class leaderboard shown without names, and the audit plays a finished demo for a real guesthouse with a fictional scenario.</p>
       <div class="row-cta guest-row reveal" style="margin-top:12px"><a class="btn btn--ghost" href="https://abdullamuizfuad.github.io/mkt101-cases/?guest=1#/" target="_blank" rel="noopener">Try MKT101 Arena as a guest <i data-ic="upright"></i></a><a class="btn btn--ghost" href="https://abdullamuizfuad.github.io/mkt301/?guest=1#/" target="_blank" rel="noopener">Try MKT301 Arena as a guest <i data-ic="upright"></i></a><a class="btn btn--ghost" href="https://abdullamuizfuad.github.io/student-audit/tool.html?demo=1" target="_blank" rel="noopener">Watch the MKT303 audit demo <i data-ic="upright"></i></a></div>
       <div class="row-cta reveal"><a class="btn btn--ghost" href="academic/tools.html">How the tools work in class <i data-ic="right"></i></a></div>
@@ -1780,8 +1910,9 @@ body.subpage main{padding-top:var(--head)}
       </div>
       <article class="lesson reveal">
         <div class="ls-head">
-          <p>My 10-minute demonstration lesson for the MNU lecturer selection on 5 November 2026, where it scored highest. Built for Introduction to Marketing (MKT101) and Business Entrepreneurship (BUS301), it teaches segmentation, brand, the marketing mix and the sales process through one running case: Ruka Maldives, a twelve-room guesthouse on Dhiffushi that AI assistants left out when I tested them.</p>
+          <p>A 10-minute demonstration lesson. Built for Introduction to Marketing (MKT101) and Business Entrepreneurship (BUS301), it teaches segmentation, brand, the marketing mix and the sales process through one running case: Ruka Maldives, a twelve-room guesthouse on Dhiffushi that AI assistants left out when I tested them.</p>
         </div>
+
         <div class="slides" id="slides" tabindex="0" aria-label="Slides from the lesson">
           <figure><img src="images/academic/demo-slide-01.webp" width="1200" height="675" alt="Slide 1: Exploring Unique Marketing Issues, teaching demonstration cover" loading="lazy"><figcaption>The question</figcaption></figure>
           <figure><img src="images/academic/demo-slide-04.webp" width="1200" height="675" alt="Slide 4: the same question asked in the UK and in China; Ruka is named zero times" loading="lazy"><figcaption>Real AI answers, tested the day before</figcaption></figure>
@@ -1827,30 +1958,20 @@ body.subpage main{padding-top:var(--head)}
       <div class="head wide reveal">
         <span class="label">Teaching evidence</span>
         <h2>What students say<span>.</span></h2>
-        <p>Every term I’ve taught at MNU, against the Business School and university averages. The good terms and the hard one.</p>
+        <p>How students rated my teaching in every term I’ve taught at MNU, against the Business School average. The good terms and the hard one.</p>
       </div>
-      <div class="panel ev-chart reveal" id="evChart">
-        <div class="ev-top">
-          <div class="seg" role="group" aria-label="Which score">
-            <button type="button" data-sec="b" aria-pressed="true">My teaching</button><button type="button" data-sec="a" aria-pressed="false">The subject</button>
-          </div>
-          <ul class="ev-key" aria-label="Legend">
-            <li><i class="k-me"></i>My score</li><li><i class="k-fac"></i>Business School average</li><li><i class="k-mnu"></i>University average</li>
-          </ul>
-        </div>
-        <div class="ev-rows" id="evRows"></div>
-        <div class="ev-axis" aria-hidden="true"><span>75</span><span>80</span><span>85</span><span>90</span><span>95</span><span>100</span></div>
-        <p class="src">Source: MNU Subject and Teaching Evaluation reports, Term 2 2024 to Term 1 2026, as reported (the reports don’t state the scale). The axis starts at 75 so the differences are visible. Respondent numbers are estimates: every student who sits a final exam completes the evaluation, so I count students in my modules with a final exam (MNU workload forms for Term 2 2025 and Term 1 2026; marksheets for Term 1 2025). MKT303 has no final exam and isn’t counted.</p>
-        <details class="ev-table"><summary>Show as a table</summary><div class="tbl-wrap"><table id="evTable"></table></div></details>
-      </div>
-      <div class="quotes q2">
-        <figure class="quote reveal"><blockquote>But sir why do you not use social media but knows so much about it. I’m just fascinated</blockquote><figcaption><span class="av">215</span><span>Student, MKT215 Direct Marketing<br><small>Midterm evaluation, Term 1 2025</small></span></figcaption></figure>
-        <figure class="quote reveal" style="--rd:.08s"><blockquote>I don’t like strict lectures. That said, be a little just tiny bit strict sir. Hehe.</blockquote><figcaption><span class="av">217</span><span>Student, MKT217 Advertising and Promotion<br><small>Midterm evaluation, Term 2 2025</small></span></figcaption></figure>
-      </div>
+<div class="eq panel reveal" id="evq"><div class="eq-hero"><p class="eq-big"><b>4.4</b> <span>out of 5</span><i class="eq-dot" aria-hidden="true"></i></p><p class="eq-cap">Students’ rating of my teaching, Term 1 2026. Business School average: 4.2.</p></div><div class="eq-key" aria-hidden="true"><span><i class="k-me"></i>Me</span><span><i class="k-sc"></i>Business School average</span><span class="eq-axis">Scale 0 to 5</span></div><ol class="eq-terms" aria-hidden="true"><li class="eq-term"><div class="eq-tl"><b>Term 2 2024</b><small>Modules not named in the report</small></div><div class="eq-bars"><div class="eq-bar me"><span class="eq-who">Me</span><span class="eq-track"><i style="width:94.00%"></i></span><b>4.7</b></div><div class="eq-bar sc"><span class="eq-who">School</span><span class="eq-track"><i style="width:84.00%"></i></span><b>4.2</b></div></div><span class="eq-tag up"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2 11 9H1z"/></svg>Above school average</span></li><li class="eq-term"><div class="eq-tl"><b>Term 1 2025</b><small>BUS301 · MKT213 · MKT215 · MKT217</small></div><div class="eq-bars"><div class="eq-bar me"><span class="eq-who">Me</span><span class="eq-track"><i style="width:84.00%"></i></span><b>4.2</b></div><div class="eq-bar sc"><span class="eq-who">School</span><span class="eq-track"><i style="width:84.00%"></i></span><b>4.2</b></div></div><span class="eq-tag eq"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 4h10v1.6H1zM1 7h10v1.6H1z"/></svg>Level with school average</span></li><li class="eq-term"><div class="eq-tl"><b>Term 2 2025</b><small>BUS107 · BUS301 · MKT217 · MKT301</small></div><div class="eq-bars"><div class="eq-bar me"><span class="eq-who">Me</span><span class="eq-track"><i style="width:82.00%"></i></span><b>4.1</b></div><div class="eq-bar sc"><span class="eq-who">School</span><span class="eq-track"><i style="width:84.00%"></i></span><b>4.2</b></div></div><span class="eq-tag down"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10 1 3h10z"/></svg>Below school average</span><p class="eq-note">My heaviest term: four modules, two of them new to me, and 18 contact hours a week.</p></li><li class="eq-term"><div class="eq-tl"><b>Term 1 2026</b><small>MKT101 · MKT301 · MKT303 · MKT309</small></div><div class="eq-bars"><div class="eq-bar me"><span class="eq-who">Me</span><span class="eq-track"><i style="width:88.00%"></i></span><b>4.4</b></div><div class="eq-bar sc"><span class="eq-who">School</span><span class="eq-track"><i style="width:84.00%"></i></span><b>4.2</b></div></div><span class="eq-tag up"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2 11 9H1z"/></svg>Above school average</span></li><li class="eq-ax"><span></span><span class="eq-ticks"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i></span><span></span></li></ol><div class="sr-only"><table><caption>Students’ rating of my teaching out of 5, against the Business School average</caption><thead><tr><th scope="col">Term</th><th scope="col">Me</th><th scope="col">Business School</th><th scope="col">Comparison</th></tr></thead><tbody><tr><th scope="row">Term 2 2024</th><td>4.7</td><td>4.2</td><td>Above school average</td></tr><tr><th scope="row">Term 1 2025</th><td>4.2</td><td>4.2</td><td>Level with school average</td></tr><tr><th scope="row">Term 2 2025</th><td>4.1</td><td>4.2</td><td>Below school average</td></tr><tr><th scope="row">Term 1 2026</th><td>4.4</td><td>4.2</td><td>Above school average</td></tr></tbody></table></div><p class="src">Source: MNU Subject and Teaching Evaluation lecturer reports, Term 2 2024 to Term 1 2026. Section B, “Teaching and learning”.</p><p class="src eq-fn">Scores out of 5 are converted from MNU’s percentage scores (score ÷ 20).</p></div>
+
       <div class="row-cta reveal"><a class="btn btn--ghost" href="academic/teaching.html#evidence">The full teaching evidence <i data-ic="right"></i></a></div>
     </div>
   </section>
 
+  <section class="block" id="service">
+    <div class="wrap">
+      <div class="head wide reveal"><span class="label">Beyond the classroom</span><h2>Service and supervision<span>.</span></h2></div>
+      <div class="svc reveal"><div class="panel"><h3>Service and academic citizenship<span>.</span></h3><ul class="ticks"><li>Subject coordinator for six modules</li><li>Assessment validation for coordinated subjects</li><li>Peer evaluation of two colleagues’ teaching (2025)</li><li>Member, MNU Business School Marketing Committee</li><li>Member, MSME Awards committee (Business Centre Corporation, with MIRA, the Ministry and MNU), 2025</li><li>Exam paper setting and moderation, including the combined MKT101 paper with a co-lecturer</li></ul></div><div class="panel"><h3>Supervision<span>.</span></h3><ul class="ticks"><li>Undergraduate applied projects: learning-contract advice, progress meetings, report review and presentation coaching.</li><li>One applied project supervised to completion in 2025 (a marketing campaign designed to be implemented).</li></ul></div></div>
+    </div>
+  </section>
   <!-- ================= RESEARCH ================= -->
   <section class="block" id="research">
     <div class="wrap">
@@ -1861,9 +1982,10 @@ body.subpage main{padding-top:var(--head)}
       <div class="res-grid">
         <p class="thread reveal">My first paper asked how Maldivian guesthouses could be seen online. My second mapped what it takes to run one. Today travellers increasingly ask AI tools where to stay, and small businesses don’t know whether they’re being recommended. That’s the question I want to study next: whether their visibility is becoming more rented or more owned.</p>
         <article class="panel reveal mtvo" style="--rd:.08s">
-          <span class="label">Proposed doctoral research · from 2027</span>
-          <h3>From Rented to Owned Visibility<span>.</span></h3>
-          <p class="ink">The Maldives Tourism Visibility Observatory (MTVO): a proposed study of how small tourism businesses in the Maldives are found and booked online, across search, booking sites, social media, review sites and AI assistants, and whether that visibility is becoming more rented from other people’s platforms or more owned.</p>
+          <span class="label">Proposed doctoral research (from 2027)</span>
+          <h3>From Rented to Owned Visibility: towards a Maldives Tourism Visibility Observatory<span>.</span></h3>
+          <p class="mtvo-status">A proposal. The observatory is what this research aims to build; the first step is a public-data pilot in 2027.</p>
+          <p class="ink">A proposed study of how small tourism businesses in the Maldives are found and booked online, across search, booking sites, social media, review sites and AI assistants, and whether that visibility is becoming more rented from other people’s platforms or more owned.</p>
           <ol class="mtvo-steps">
             <li><b>Measure</b><span>Build and validate a Visibility Index that scores a property across every channel where travellers find it, including what AI assistants say about it.</span></li>
             <li><b>Track</b><span>Apply it to the same panel of properties every month, starting from a baseline rebuilt from my 2016 guesthouse fieldwork.</span></li>
@@ -1876,7 +1998,7 @@ body.subpage main{padding-top:var(--head)}
             <li>Which properties do AI assistants recommend, and why?</li>
             <li>Does visibility change how much of each booking a business keeps?</li>
           </ol>
-          <p class="small">Planned: a public-data pilot from January 2027, then a monthly panel from October 2027. This is proposed research: admission, supervision and ethics approval are still to come, and no results are claimed.</p>
+          <p class="small">This is proposed research: admission, supervision and ethics approval are still to come, and no results are claimed.</p>
           <p class="small mtvo-int"><b>Declared interest:</b> I run Islandeative, whose Digital Visibility Health Check works in the same area. The research instrument and data will be kept separate from any commercial work.</p>
         </article>
       </div>
@@ -1884,13 +2006,14 @@ body.subpage main{padding-top:var(--head)}
       <div class="pubs reveal" style="margin-top:0">
         <a class="pub" href="https://doi.org/10.1177/1467358420926688" target="_blank" rel="noopener">
           <span class="book" style="--c:#232C4A"><span class="bk-j">Tourism and Hospitality Research</span><span class="bk-t">The nature and challenges of guest house business in the Maldives</span><span class="bk-y">SAGE · 2021</span></span>
-          <span class="pub-meta"><span class="label">Journal article · 2021</span><b>The nature and challenges of guest house business in the Maldives: an exploratory study</b><span>Chia, K. W. and Fuad, A. M. · <i style="font-style:italic">Tourism and Hospitality Research</i>, 21(1), 3–14 · SAGE · cited 36 times</span><em>Read on SAGE ↗</em></span>
+          <span class="pub-meta"><span class="label">Journal article · 2021</span><b>The nature and challenges of guest house business in the Maldives: an exploratory study</b><span>Chia, K. W. and Muiz, A. · <i style="font-style:italic">Tourism and Hospitality Research</i>, 21(1), 3–14 · SAGE · cited 36 times</span><span class="pub-ix">Indexed in Scopus and Web of Science (ESCI)</span><em>Read on SAGE ↗</em></span>
         </a>
-        <a class="pub" href="https://cgscholar.com/bookstore/works/increasing-the-visibility-of-guesthouse-operation-in-the-maldives-through-emarketing?category_id=cgrn" target="_blank" rel="noopener">
-          <span class="book" style="--c:#0B6E78"><span class="bk-j">Int. J. of Tourism &amp; Hospitality Admin.</span><span class="bk-t">Increasing the visibility of guesthouse operation in the Maldives</span><span class="bk-y">Common Ground · 2017</span></span>
-          <span class="pub-meta"><span class="label">Journal article · 2017</span><b>Increasing the visibility of guesthouse operation in the Maldives through e-marketing</b><span>Pappayah, P. C. M. and Fuad, A. M. · <i style="font-style:italic">The International Journal of Tourism and Hospitality Administration</i>, 13(2), 15–29</span><em>View on CG Scholar ↗</em></span>
+        <a class="pub" href="https://doi.org/10.18848/2470-9336/CGP/v02i02/11-20" target="_blank" rel="noopener">
+          <span class="book" style="--c:#0B6E78"><span class="bk-j">Journal of Tourism and Leisure Studies</span><span class="bk-t">Increasing the visibility of guesthouse operation in the Maldives</span><span class="bk-y">Common Ground · 2017</span></span>
+          <span class="pub-meta"><span class="label">Journal article · 2017</span><b>Increasing the visibility of guesthouse operation in the Maldives through e-marketing</b><span>CM Pappayah, P. P., Muiz, A. and Jinus, D. J. · <i style="font-style:italic">Journal of Tourism and Leisure Studies</i>, 2(2), 11–20 · Common Ground Research Networks</span><em>Read via DOI ↗</em></span>
         </a>
       </div>
+      <p class="small pub-as reveal">Published as A. Muiz.</p>
       <div class="row-cta reveal"><a class="btn btn--ghost" href="academic/research.html">Research, profiles and talks <i data-ic="right"></i></a></div>
     </div>
   </section>
@@ -1981,30 +2104,7 @@ body.subpage main{padding-top:var(--head)}
     <button class="replay" id="replay" type="button" hidden aria-hidden="true" style="display:none">↺ Replay intro</button>
   </div>
 </div></footer>
-<script type="application/json" id="acData">
-{"mods":[
- {"c":"MKT101","n":"Introduction to Marketing","l":"Level 100","core":1,"coord":"Subject coordinator","terms":[["Term 1 2026",55],["Term 2 2026",57]],"app":["MKT101 Arena","https://abdullamuizfuad.github.io/mkt101-cases/#/"],"demo":1},
- {"c":"MKT301","n":"International Marketing","l":"Level 300","core":1,"coord":"Subject coordinator","terms":[["Term 2 2025",20],["Term 1 2026",21],["Term 2 2026",32]],"app":["MKT301 Practice Arena","https://abdullamuizfuad.github.io/mkt301/#/"],"mid":["Term 2 2025",1,"Agree or strongly agree on every item","all good"]},
- {"c":"MKT303","n":"Electronic Marketing","l":"Level 300","core":1,"coord":"Subject coordinator","terms":[["Term 1 2026",31],["Term 2 2026",12]],"app":["Digital Presence Audit","https://abdullamuizfuad.github.io/student-audit/index.html?out=1&v2=1"]},
- {"c":"MKT309","n":"Brand Management","l":"Level 300","core":1,"coord":"Subject coordinator","terms":[["Term 1 2026",14]]},
- {"c":"BUS301","n":"Business Entrepreneurship","l":"Level 300","terms":[["Term 1 2025",null],["Term 2 2025",28]],"demo":1},
- {"c":"BUS107","n":"Maldivian Business Environment","l":"Level 100","lt":1,"terms":[["Term 2 2025",40]]},
- {"c":"MKT213","n":"Integrated Marketing Communication","l":"Level 200","lt":1,"coord":"Subject coordinator","terms":[["Term 1 2025",null]]},
- {"c":"MKT215","n":"Direct Marketing","l":"Level 200","lt":1,"terms":[["Term 1 2025",null]],"mid":["Term 1 2025",5,"Mostly neutral; agree on use of technology and on clear assignment briefs and due dates","But sir why do you not use social media but knows so much about it. I’m just fascinated"]},
- {"c":"MKT217","n":"Advertising &amp; Promotion","l":"Level 200","coord":"Subject coordinator","terms":[["Term 1 2025",null],["Term 2 2025",11]],"mid":["Term 2 2025",3,"Agree or strongly agree on every item","I don’t like strict lectures. That said, be a little just tiny bit strict sir. Hehe."]}
-],
-"ev":[
- {"t":"Term 2 2024","m":"Modules not named in the report","a":[100,83.72,83.61],"b":[93.83,84.86,83.63],"note":"The report doesn’t give the number of respondents, and I have no class lists for this term, so this may reflect very few students."},
- {"t":"Term 1 2025","m":"BUS301 · MKT213 · MKT215 · MKT217","n":59,"a":[87.89,85.37,83.86],"b":[84.17,84.83,83.69]},
- {"t":"Term 2 2025","m":"BUS107 · BUS301 · MKT217 · MKT301","n":99,"a":[82.64,84.19,84.37],"b":[81.63,84.58,84.5],"note":"My hardest term: four modules, two of them new to me, and 18 contact hours a week."},
- {"t":"Term 1 2026","m":"MKT101 · MKT301 · MKT303 · MKT309","n":90,"a":[88.37,84.24,83.72],"b":[87.17,84.02,83.65],"detail":[["Planning and preparation",85.52,83.94],["Teaching and learning",88.08,83.54],["Interaction and responsiveness",87.92,84.57],["Subject resources",88.44,83.71]]}
-],
-"loads":[["Term 2 2025",[["BUS107",40],["BUS301",28],["MKT301",20],["MKT217",11]]],["Term 1 2026",[["MKT101",55],["MKT303",31],["MKT301",21],["MKT309",14]]],["Term 2 2026",[["MKT101",57],["MKT301",32],["MKT303",12]]]],
-"full":1,
-"asg":{"BUS301": ["Term 2 2025", [["Individual written", 15], ["Group written", 25], ["Group presentation", 10], ["Final exam", 50]]], "MKT101": ["Term 1 2026", [["Group written", 20], ["Group presentation", 10], ["Midterm exam", 20], ["Final exam", 50]]], "MKT213": ["Term 1 2026", [["Group assignment+presentation", 35], ["Midterm exam", 15], ["Final exam", 50]]], "MKT215": ["Term 1 2026", [["Group written", 25], ["Group presentation", 15], ["Final exam", 60]]], "MKT217": ["Term 2 2025", [["Individual written", 15], ["Group written", 25], ["Group presentation", 10], ["Final exam", 50]]], "BUS107": ["Term 2 2025", [["Individual written", 15], ["Group presentation", 10], ["Group written", 20], ["Tutorial participation", 5], ["Final exam", 50]]], "MKT301": ["Term 1 2026", [["Group written", 35], ["Group presentation", 15], ["Final exam", 50]]], "MKT303": ["Term 1 2026", [["Group written", 30], ["Individual presentation", 20], ["Individual written", 50]]], "MKT309": ["Term 1 2026", [["Group written", 35], ["Group presentation", 15], ["Final exam", 50]]]},
-"out":{"db":[["BUS107 · T2 2025",70.7,38.5],["BUS301 · T1 2025",81.4,62.7],["MKT213 · T1 2025",92.8,72.4],["BUS301 · T2 2025",78.6,57.5],["MKT301 · T2 2025",78.5,55.7],["MKT101 · T2 2025",72.9,53.9],["MKT215 · T1 2025",91.7,75.3],["MKT215 · T1 2026",89.0,72.8],["MKT301 · T1 2026",72.5,54.7],["MKT217 · T1 2025",84.0,71.0],["MKT101 · T1 2025",54.3,42.1],["MKT217 · T2 2025",82.0,70.1],["MKT213 · T1 2026",80.2,71.3],["MKT309 · T1 2026",73.5,68.4],["MKT101 · T1 2026",47.3,46.8]],"att":[["85% or more",325,86.8],["70 to 84%",81,66.7],["50 to 69%",12,0],["Under 50%",23,0]]}
-}
-</script>
+<script type="application/json" id="acData">{"mods":[{"c":"MKT101","n":"Introduction to Marketing","l":"Level 100","core":1,"coord":"Subject coordinator","terms":[["Term 1 2026",55],["Term 2 2026",57]],"app":["MKT101 Arena","https://abdullamuizfuad.github.io/mkt101-cases/#/"],"demo":1},{"c":"MKT301","n":"International Marketing","l":"Level 300","core":1,"coord":"Subject coordinator","terms":[["Term 2 2025",20],["Term 1 2026",21],["Term 2 2026",32]],"app":["MKT301 Practice Arena","https://abdullamuizfuad.github.io/mkt301/#/"],"mid":["Term 2 2025",1,"Agree or strongly agree on every item",""]},{"c":"MKT303","n":"Electronic Marketing","l":"Level 300","core":1,"coord":"Subject coordinator","terms":[["Term 1 2026",31],["Term 2 2026",12]],"app":["Digital Presence Audit","https://abdullamuizfuad.github.io/student-audit/index.html?out=1&v2=1"]},{"c":"MKT309","n":"Brand Management","l":"Level 300","core":1,"coord":"Subject coordinator","terms":[["Term 1 2026",14]]},{"c":"BUS301","n":"Business Entrepreneurship","l":"Level 300","terms":[["Term 1 2025",null],["Term 2 2025",28]],"demo":1},{"c":"BUS107","n":"Maldivian Business Environment","l":"Level 100","lt":1,"terms":[["Term 2 2025",40]]},{"c":"MKT213","n":"Integrated Marketing Communication","l":"Level 200","lt":1,"coord":"Subject coordinator","terms":[["Term 1 2025",null]]},{"c":"MKT215","n":"Direct Marketing","l":"Level 200","lt":1,"terms":[["Term 1 2025",null]],"mid":["Term 1 2025",5,"Mostly neutral; agree on use of technology and on clear assignment briefs and due dates",""]},{"c":"MKT217","n":"Advertising &amp; Promotion","l":"Level 200","coord":"Subject coordinator","terms":[["Term 1 2025",null],["Term 2 2025",11]],"mid":["Term 2 2025",3,"Agree or strongly agree on every item",""]}],"loads":[["Term 2 2025",[["BUS107",40],["BUS301",28],["MKT301",20],["MKT217",11]]],["Term 1 2026",[["MKT101",55],["MKT303",31],["MKT301",21],["MKT309",14]]],["Term 2 2026",[["MKT101",57],["MKT301",32],["MKT303",12]]]],"full":1,"asg":{"BUS301":["Term 2 2025",[["Individual written",15],["Group written",25],["Group presentation",10],["Final exam",50]]],"MKT101":["Term 1 2026",[["Group written",20],["Group presentation",10],["Midterm exam",20],["Final exam",50]]],"MKT213":["Term 1 2026",[["Group assignment+presentation",35],["Midterm exam",15],["Final exam",50]]],"MKT215":["Term 1 2026",[["Group written",25],["Group presentation",15],["Final exam",60]]],"MKT217":["Term 2 2025",[["Individual written",15],["Group written",25],["Group presentation",10],["Final exam",50]]],"BUS107":["Term 2 2025",[["Individual written",15],["Group presentation",10],["Group written",20],["Tutorial participation",5],["Final exam",50]]],"MKT301":["Term 1 2026",[["Group written",35],["Group presentation",15],["Final exam",50]]],"MKT303":["Term 1 2026",[["Group written",30],["Individual presentation",20],["Individual written",50]]],"MKT309":["Term 1 2026",[["Group written",35],["Group presentation",15],["Final exam",50]]]},"out":{"db":[["BUS107 · T2 2025",70.7,38.5],["BUS301 · T1 2025",81.4,62.7],["MKT213 · T1 2025",92.8,72.4],["BUS301 · T2 2025",78.6,57.5],["MKT301 · T2 2025",78.5,55.7],["MKT101 · T2 2025",72.9,53.9],["MKT215 · T1 2025",91.7,75.3],["MKT215 · T1 2026",89.0,72.8],["MKT301 · T1 2026",72.5,54.7],["MKT217 · T1 2025",84.0,71.0],["MKT101 · T1 2025",54.3,42.1],["MKT217 · T2 2025",82.0,70.1],["MKT213 · T1 2026",80.2,71.3],["MKT309 · T1 2026",73.5,68.4],["MKT101 · T1 2026",47.3,46.8]],"att":[["85% or more",325,86.8],["70 to 84%",81,66.7],["50 to 69%",12,0],["Under 50%",23,0]]}}</script>
 
 <dialog class="lb" id="lb" aria-label="Certificate viewer">
   <div class="lb-stage" id="lbStage"></div>
@@ -2358,7 +2458,8 @@ hydrateIcons();
   /* intro */
   let anims = [], timers = [], done = false, waiting = false, ready = false, wantGo = false, idleT = null, breathe = null, phaseB = null;
   const hint = $('swipeHint');
-  const A = (el, kf, opt) => { const a = el.animate(kf, { fill: 'both', ...opt }); anims.push(a); return a; };
+  const SP = 1.75;
+  const A = (el, kf, opt) => { const a = el.animate(kf, { fill: 'both', ...opt }); a.playbackRate = SP; anims.push(a); return a; };
 
   function revealPage(instant) {
     body.classList.remove('intro-on');
@@ -2412,17 +2513,17 @@ hydrateIcons();
     phaseB = () => {
       A(bubble, [{ opacity: 1, transform: 'translate(-50%,-52%) scale(1)' }, { opacity: 0, transform: 'translate(-50%,-52%) scale(.94)' }], { duration: 420, easing: EASE });
       A(flyer, [{ transform: start, color: cFrom }, { transform: end, color: cTo }], { duration: 950, delay: 120, easing: 'cubic-bezier(.65,0,.25,1)' });
-      timers.push(setTimeout(() => finish(false), 1080));
+      timers.push(setTimeout(() => finish(false), 1080 / SP));
     };
     timers.push(setTimeout(() => {
       ready = true;
-      if (wantGo) { trigger(); return; }
+      trigger(); return;
       breathe = bubble.animate([
         { transform: 'translate(-50%,-52%) scale(1)' }, { transform: 'translate(-50%,-52%) scale(1.035)' }, { transform: 'translate(-50%,-52%) scale(1)' }
       ], { duration: 2600, iterations: Infinity, easing: 'ease-in-out' });
       anims.push(breathe);
       idleT = setTimeout(() => hint.classList.add('on'), 2000); timers.push(idleT);
-    }, 1560));
+    }, 1560 / SP));
   }
 
   function trigger() {
@@ -2442,7 +2543,8 @@ hydrateIcons();
   replayBtn.addEventListener('click', e => { e.stopPropagation(); play(); });
   addEventListener('keydown', e => { if (e.key === 'Escape' && !done) finish(true); });
 
-  const go = () => reduce ? finish(true) : play();
+  let seen = false; try { seen = sessionStorage.getItem('acHi') === '1'; sessionStorage.setItem('acHi', '1'); } catch (e) {}
+  const go = () => (reduce || seen || location.hash.length > 1) ? finish(true) : play();
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(go));
 })();
 </script>
@@ -2516,31 +2618,6 @@ hydrateIcons();
   var lp = $('loop');
   if (lp && !reduce) new IntersectionObserver(function (es) { lp.classList.toggle('on', es[0].isIntersecting); }, { threshold: .3 }).observe(lp);
 
-  /* evidence: one row per term, my score against the two averages, on a 75 to 100 scale */
-  var rows = $('evRows'), MIN = 75, MAX = 100;
-  var X = function (v) { return ((Math.max(MIN, Math.min(MAX, v)) - MIN) / (MAX - MIN) * 100).toFixed(2) + '%'; };
-  function drawEv(sec) {
-    if (!rows || !D.ev) return;
-    rows.innerHTML = D.ev.map(function (r, i) {
-      var s = r[sec], d = s[0] - s[1], cls = d >= 0 ? 'up' : 'down';
-      var tip = r.t + ': ' + s[0].toFixed(2) + ' (Business School ' + s[1].toFixed(2) + ', university ' + s[2].toFixed(2) + ')';
-      var det = r.detail && sec === 'b' ? '<details class="ev-det"><summary>What made up ' + r.t + '</summary><ul>' + r.detail.map(function (x) { return '<li><span>' + x[0] + '</span><b>' + x[1].toFixed(1) + '</b><em>faculty ' + x[2].toFixed(1) + '</em></li>'; }).join('') + '</ul></details>' : '';
-      return '<div class="ev-row" style="--rd:' + (i * .08) + 's"><div class="ev-l"><b>' + r.t + '</b><span>' + r.m + '</span>' + (r.n ? '<em class="ev-n">About ' + r.n + ' respondents</em>' : '<em class="ev-n">Respondents not reported</em>') + '</div>' +
-        '<div class="ev-track" title="' + esc(tip) + '" tabindex="0" aria-label="' + esc(tip) + '"><i class="grid"></i>' +
-        '<i class="m-mnu" style="left:' + X(s[2]) + '"></i><i class="m-fac" style="left:' + X(s[1]) + '"></i>' +
-        '<i class="m-gap" style="left:' + X(Math.min(s[0], s[1])) + ';width:calc(' + X(Math.max(s[0], s[1])) + ' - ' + X(Math.min(s[0], s[1])) + ')"></i>' +
-        '<i class="m-me" style="left:' + X(s[0]) + '"><b>' + (s[0] % 1 ? s[0].toFixed(1) : s[0]) + '</b></i></div>' +
-        '<span class="ev-d ' + cls + '">' + (d >= 0 ? '+' : '−') + Math.abs(d).toFixed(1) + '<small>vs faculty</small></span>' +
-        (r.note ? '<p class="ev-note">' + r.note + '</p>' : '') + det + '</div>';
-    }).join('');
-    var t = $('evTable');
-    if (t) t.innerHTML = '<thead><tr><th>Term</th><th>Score</th><th>Mine</th><th>Business School</th><th>University</th><th>Respondents (est.)</th></tr></thead><tbody>' +
-      D.ev.map(function (r) { return ['a', 'b'].map(function (k) { var s = r[k]; return '<tr><td>' + r.t + '</td><td>' + (k === 'a' ? 'Subject' : 'Teaching') + '</td><td>' + s[0].toFixed(2) + '</td><td>' + s[1].toFixed(2) + '</td><td>' + s[2].toFixed(2) + '</td><td>' + (r.n ? 'about ' + r.n : 'not reported') + '</td></tr>'; }).join(''); }).join('') + '</tbody>';
-  }
-  document.querySelectorAll('.seg button').forEach(function (b) {
-    b.addEventListener('click', function () { document.querySelectorAll('.seg button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); drawEv(b.dataset.sec); });
-  });
-  drawEv('b');
 
   /* modules: four core cards, five compact ones; each opens a details panel */
   var mods = D.mods || [], core = $('mods'), more = $('modsMore');

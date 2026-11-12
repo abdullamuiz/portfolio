@@ -1,0 +1,7 @@
+{
+  "evaluation_on": true,
+  "evaluation_scale_confirmed": true,
+  "supervision_2026_completed": null,
+  "demo_video": null,
+  "_notes": "evaluation_on: switch off if MNU's quality unit refuses permission (hides the chart and the glance item). demo_video: {\"src\":\"video/academic/demo.mp4\",\"poster\":\"...webp\",\"captions\":\"...vtt\",\"length\":\"4 minutes\"}."
+}
