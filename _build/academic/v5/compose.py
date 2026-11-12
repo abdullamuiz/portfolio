@@ -18,6 +18,7 @@ FIX = [
   'CM Pappayah, P. P., Muiz, A. and Jinus, D. J. · <i style="font-style:italic">Journal of Tourism and Leisure Studies</i>, 2(2), 11–20 · Common Ground Research Networks</span>'),
  ('https://cgscholar.com/bookstore/works/increasing-the-visibility-of-guesthouse-operation-in-the-maldives-through-emarketing?category_id=cgrn', 'https://doi.org/10.18848/2470-9336/CGP/v02i02/11-20'),
  ('<em>View on CG Scholar ↗</em>', '<em>Read via DOI ↗</em>'),
+ ('<em>Read via DOI ↗</em></span>\n        </a>\n      </div>', '<em>Read via DOI ↗</em></span>\n        </a>\n      </div>\n      <p class="small pub-as reveal">Published as A. Muiz.</p>'),
  ('<span class="bk-j">Common Ground</span>', '<span class="bk-j">Journal of Tourism and Leisure Studies</span>'),
  ('<time>2011 – 2013</time><b>Senior Marketing Executive</b>', '<time>2011 – 2013</time><b>Marketing Officer</b>'),
  ('<b>Team Lead, Maldives Promotions</b><span>MATTA Fair, Kuala Lumpur · MP World Travel &amp; Tours</span>', '<b>Head of Marketing and Sales</b><span>MATTA Fair, Kuala Lumpur · MP Travel and Tours</span>'),
@@ -135,7 +136,7 @@ home_mods = rd('home_modules.html').replace('<div class="mgroups" id="mgroups"><
 
 res = sec('research')
 res_home = cut(res, '      <div class="next">', '</div>\n      </div>\n')
-res_home = rep(res_home, '      </div>\n    </div>\n  </section>', '      </div>\n      <div class="row-cta reveal"><a class="btn btn--ghost" href="academic/research.html">Research, profiles and talks <i data-ic="right"></i></a></div>\n    </div>\n  </section>')
+res_home = rep(res_home, '</p>\n    </div>\n  </section>', '</p>\n      <div class="row-cta reveal"><a class="btn btn--ghost" href="academic/research.html">Research, profiles and talks <i data-ic="right"></i></a></div>\n    </div>\n  </section>')
 
 home = (header.replace('@@FADE@@', ' fade') + '\n<main>\n' + s1 + '\n' + home_mods + '\n' + teach + '\n' + rd('home_tools.html') + '\n' +
         lesson + '\n' + home_ev + '\n' + SVC_HOME + res_home + '\n' + sec('about') + '\n' + sec('credentials') + '\n' + footer + acdata + '\n')
