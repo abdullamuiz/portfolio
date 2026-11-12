@@ -96,9 +96,28 @@ eng=rep(eng,"    G3.m = m; G3.a = a;\n","    G3.m = m; G3.a = a;\n    }\n")
 eng=rep(eng,"  big.addEventListener('click', goTool);","  if (big) { big.addEventListener('click', goTool);")
 eng=rep(eng,"  $('goPreview').addEventListener('click', goTool);","  $('goPreview').addEventListener('click', goTool); }")
 
+# ---------- audit C1: the "Hi" never blocks reading ----------
+# plays once per session, about 1.5 s, then dismisses itself; skipped with reduced motion, a #hash or a repeat visit
+eng=rep(eng,"  const A = (el, kf, opt) => { const a = el.animate(kf, { fill: 'both', ...opt }); anims.push(a); return a; };",
+"  const SP = 1.75;\n  const A = (el, kf, opt) => { const a = el.animate(kf, { fill: 'both', ...opt }); a.playbackRate = SP; anims.push(a); return a; };")
+eng=rep(eng,"      timers.push(setTimeout(() => finish(false), 1080));","      timers.push(setTimeout(() => finish(false), 1080 / SP));")
+eng=rep(eng,"""    timers.push(setTimeout(() => {
+      ready = true;
+      if (wantGo) { trigger(); return; }""","""    timers.push(setTimeout(() => {
+      ready = true;
+      trigger(); return;""")
+eng=rep(eng,"    }, 1560));","    }, 1560 / SP));")
+eng=rep(eng,"  const go = () => reduce ? finish(true) : play();",
+"""  let seen = false; try { seen = sessionStorage.getItem('acHi') === '1'; sessionStorage.setItem('acHi', '1'); } catch (e) {}
+  const go = () => (reduce || seen || location.hash.length > 1) ? finish(true) : play();""")
+NOSCRIPT='<noscript><style>.reveal,.fade,.ca-card,.ca-kpi{opacity:1 !important;transform:none !important}#intro,#skip,#replay,.swipe-hint{display:none !important}.intro-on .ghost-hi{visibility:visible}</style></noscript>'
+_css='\n'.join(L)
+_i=_css.index('@media (max-width:860px){\n  #about{height:auto !important}'); _j=_css.index('\n}',_i)
+_ABOUT_STATIC=_css[_i+len('@media (max-width:860px){'):_j].replace('\n',' ')
+NOSCRIPT=NOSCRIPT.replace('</style></noscript>','#s1{height:auto !important}#s1 .sticky{position:relative;height:auto;min-height:100svh;overflow:visible}#s1 .hero{position:relative;top:auto;bottom:auto;padding-top:calc(var(--head) + 24px);display:grid;grid-template-columns:minmax(0,1fr);align-items:end}#s1 .stage{height:auto;justify-content:flex-start}#s1 .portrait{height:auto;width:min(340px,70vw);margin:0}#s1 .copy{transform:none !important}.ghost-hi{display:none}@media (min-width:861px){#s1 .hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}#s1 .portrait{width:100%;max-width:440px}}.about-text{position:static;opacity:1 !important;margin-top:28px}.ghost-about,.fdot{display:none}'+_ABOUT_STATIC+'</style></noscript>')
 import os
 V='v5/'
-css2=open(V+'css2.css',encoding='utf-8').read().split('\n')
+css2=(open(V+'css2.css',encoding='utf-8').read()+'\n'+open(V+'audit.css',encoding='utf-8').read()).split('\n')
 x1=open('extra.js',encoding='utf-8').read().replace("poster:'img/cert-","poster:(window.BASE||'')+'img/cert-")
 x2=open('extra2.js',encoding='utf-8').read().replace("v.poster = 'video/academic/'","v.poster = (window.BASE||'') + 'video/academic/'").replace("'<source src=\"video/academic/'","'<source src=\"' + (window.BASE||'') + 'video/academic/'")
 assert "window.BASE||'') + 'video/academic/' + n + '.mp4" in x2 or True
@@ -140,7 +159,7 @@ def finish(html,draft):
 outs={}
 # home
 hb=open(V+'out/home.html',encoding='utf-8').read().replace('@@B@@','').replace('@@MARK@@',mark).replace('@@SIG2@@',sig2).replace('@@SIG@@',sig)
-home='\n'.join(head+css+css2+pre_body)+'\n'+CLEAN+'\n'+hb+'\n'+ov+'\n'+eng+'\n'+x1+x2+tw+'</body>\n</html>\n'
+home='\n'.join(head+css+css2+pre_body)+'\n'+CLEAN+'\n'+NOSCRIPT+'\n'+hb+'\n'+ov+'\n'+eng+'\n'+x1+x2+tw+'</body>\n</html>\n'
 home=home.replace('<meta name="description" content="Abdulla Muiz Fuad teaches marketing at MNU Business School through real Maldivian businesses,','<meta name="description" content="Abdulla Muiz Fuad teaches marketing at MNU Business School through live industry cases,')
 outs['academic.html']=home
 META={'teaching':('Teaching | Abdulla Muiz Fuad','How Abdulla Muiz Fuad teaches and assesses marketing at MNU Business School, with student evaluation results.'),
@@ -157,7 +176,7 @@ for name,(title,desc) in META.items():
     pg=name.split('/')[0]
     sb=open(V+'out/'+name+'.html',encoding='utf-8').read().replace('@@B@@','').replace('@@MARK@@',mark).replace('@@SIG2@@',sig2).replace('@@SIG@@',sig)
     pre='\n'.join(pre_body).replace('<body class="intro-on">','<body class="subpage" data-pg="%s">'%pg)
-    page=headfor(title,desc,'academic/'+name+'.html',B)+'\n'+'\n'.join(css+css2)+'\n'+prefix(pre,B)+'\n'+CLEAN+'\n<script>window.BASE="'+B+'"</script>\n'+prefix(sb,B)+'\n'+ov+'\n'+SUB+'\n'+x1+x2+'</body>\n</html>\n'
+    page=headfor(title,desc,'academic/'+name+'.html',B)+'\n'+'\n'.join(css+css2)+'\n'+prefix(pre,B)+'\n'+CLEAN+'\n'+NOSCRIPT+'\n<script>window.BASE="'+B+'"</script>\n'+prefix(sb,B)+'\n'+ov+'\n'+SUB+'\n'+x1+x2+'</body>\n</html>\n'
     outs['academic/'+name+'.html']=page
 sigcv=sig2.replace('id="sig2"','id="sigCv"').replace('sigMask2','sigMaskCv').replace('sigDot2','sigDotCv')
 for k in list(outs): outs[k]=outs[k].replace('@@SIGCV@@',sigcv)

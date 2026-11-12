@@ -1615,6 +1615,119 @@ body.subpage main{padding-top:var(--head)}
 .ca-motion .ca-in svg polyline.gl{stroke-dashoffset:0}
 .tools-ca .head{margin-bottom:8px}
 
+/* ---------- audit (Prompt 02): evidence, glance, service, tool stats, comments, a11y ---------- */
+.sr-only{position:absolute !important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+/* content never waits for an animation: reduced motion shows everything at once */
+@media (prefers-reduced-motion:reduce){.reveal,.ca-motion .ca-card,.ca-motion .ca-kpi{opacity:1 !important;transform:none !important;transition:none !important}}
+
+/* evidence: one honest chart */
+.eq{--me:#0B9BAD;--sc:#6250d6;display:grid;gap:20px;padding:clamp(18px,3vw,30px)}
+:root[data-theme="dark"] .eq{--me:#13A6B5;--sc:#9085e9}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .eq{--me:#13A6B5;--sc:#9085e9}}
+.eq-hero{display:grid;gap:6px}
+.eq-big{margin:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.eq-big b{font:400 clamp(64px,9vw,104px)/.9 var(--serif);letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
+.eq-big span{font-size:clamp(17px,2vw,21px);color:var(--muted)}
+.eq-dot{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--lagoon);box-shadow:0 0 0 5px color-mix(in srgb,var(--lagoon) 20%,transparent);align-self:center;margin-left:4px}
+.eq-cap{margin:0;font-size:16px;color:var(--ink);max-width:56ch}
+.eq-key{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted);align-items:center}
+.eq-key span{display:inline-flex;align-items:center;gap:7px}
+.eq-key i{display:inline-block;width:14px;height:10px;border-radius:0 4px 4px 0}
+.eq-key .k-me{background:var(--me)}.eq-key .k-sc{background:var(--sc)}
+.eq-axis{margin-left:auto}
+.eq-terms{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.eq-term{display:grid;grid-template-columns:200px minmax(0,1fr) 216px;gap:6px 20px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.eq-term:last-child{border-bottom:1px solid var(--line)}
+.eq-tl{display:grid;gap:2px}
+.eq-tl b{font-size:15px;color:var(--ink)}
+.eq-tl small{font-size:12px;color:var(--muted)}
+.eq-bars{display:grid;gap:5px}
+.eq-bar{display:grid;grid-template-columns:52px minmax(0,1fr) 34px;align-items:center;gap:10px}
+.eq-who{font-size:12px;color:var(--muted)}
+.eq-track{display:block;height:14px;border-radius:0 4px 4px 0;background:color-mix(in srgb,var(--ink) 6%,transparent);overflow:hidden}
+.eq-track i{display:block;height:100%;border-radius:0 4px 4px 0}
+.eq-bar.me i{background:var(--me)}.eq-bar.sc i{background:var(--sc)}
+.eq-bar b{font-size:14px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;text-align:right}
+.eq-bar.sc b{font-weight:500;color:var(--muted)}
+.eq-tag{display:inline-flex;align-items:center;gap:7px;justify-self:start;font-size:13px;font-weight:600;color:var(--ink);padding:5px 11px;border-radius:999px;border:1px solid var(--line)}
+.eq-tag svg{width:11px;height:11px;fill:currentColor}
+.eq-tag.up{border-color:color-mix(in srgb,var(--me) 55%,transparent);background:color-mix(in srgb,var(--me) 9%,transparent)}
+.eq-tag.down,.eq-tag.eq{color:var(--muted)}
+.eq-note{grid-column:2/-1;margin:2px 0 0;font-size:13.5px;color:var(--muted);font-style:italic}
+.eq-areas h3{font:400 clamp(20px,2.4vw,26px)/1.2 var(--serif);margin:0 0 12px}
+.eq-areas h3 span{color:var(--lagoon)}
+.eq-areas ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px 26px}
+.eq-areas li{display:grid;gap:6px}
+.eq-an{font-size:13.5px;font-weight:600;color:var(--ink)}
+.eq-bars.sm .eq-track{height:10px}
+.eq .src{margin:0}
+@media (max-width:760px){
+  .eq-term{grid-template-columns:minmax(0,1fr);gap:8px}
+  .eq-note{grid-column:1}
+  .eq-axis{margin-left:0}
+}
+
+/* at a glance, in the hero */
+.atg{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);max-width:640px}
+.atg-h{font:600 11px/1 var(--sans,inherit);letter-spacing:.16em;text-transform:uppercase;color:var(--label);margin:0 0 10px}
+.atg dl{margin:0;display:grid;gap:7px}
+.atg dl>div{display:grid;grid-template-columns:132px minmax(0,1fr);gap:12px;font-size:14px;line-height:1.4}
+.atg dt{color:var(--muted);font-weight:500}
+.atg dd{margin:0;color:var(--ink)}
+.atg a{color:inherit;text-decoration:underline;text-decoration-color:var(--lagoon);text-underline-offset:3px;display:inline-block;padding:10px 0;margin:-10px 0}
+@media (max-width:760px){.atg dl>div{grid-template-columns:minmax(0,1fr);gap:1px}.atg{margin-top:16px}.atg dl{gap:9px}}
+
+/* service and supervision */
+.svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.svc h3{font:400 clamp(20px,2.2vw,24px)/1.2 var(--serif);margin:0 0 10px}
+.svc h3 span{color:var(--lagoon)}
+.svc .ticks{margin:0}
+
+/* tool cohort numbers */
+.tstats{margin:18px 0 6px}
+.tstats ul{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.tstats li{display:grid;gap:3px;padding:12px 14px;border:1px solid var(--line);border-radius:12px}
+.tstats b{font:400 26px/1.05 var(--serif);color:var(--ink)}
+.tstats span{font-size:13px;color:var(--muted)}
+.tstats-eg{margin:6px 0 0}
+
+/* research */
+.mtvo-status{margin:2px 0 4px;font-weight:600;color:var(--ink);padding:10px 14px;border-left:3px solid var(--lagoon);background:color-mix(in srgb,var(--lagoon) 8%,transparent);border-radius:0 10px 10px 0}
+.pub-ix{font-size:12.5px;color:var(--label);font-weight:600}
+.pub-as{margin:10px 0 0}
+
+/* student comments (renders only with real, consented entries) */
+.cmts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.cmt{margin:0;padding:18px;border:1px solid var(--line);border-radius:16px;display:grid;gap:10px}
+.cmt img{width:56px;height:56px;border-radius:12px;object-fit:cover}
+.cmt blockquote{margin:0;font-size:15.5px;line-height:1.5}
+.cmt figcaption{display:grid;gap:2px;font-size:13px;color:var(--muted)}
+.cmt figcaption b{color:var(--ink)}
+
+/* module pages without placeholder panels */
+.mp.one{grid-template-columns:minmax(0,1fr)}
+.mp.one .mp-col{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;align-items:start}
+.demo-vid{margin:0 0 18px}.demo-vid video{width:100%;border-radius:14px;background:#000}
+
+/* phone: the hero keeps its portrait; the strip opens the About panel, one swipe down */
+.atg-m{display:none}
+@media (max-width:860px){.intro-b .atg{display:none}.atg-m{display:block;margin:0 0 18px;padding:0 0 14px;border-top:0;border-bottom:1px solid var(--line)}}
+
+/* tap targets: at least 44 px */
+.btn,.btn--sm,.tw-btn,.tw-chip,.orcid{min-height:44px}
+.sitemap a,.fv,.mgroup a{min-height:44px;display:inline-flex;align-items:center}
+.mgroup a{display:grid}
+.foot-icons a{min-width:44px;min-height:44px;display:inline-grid;place-items:center}
+header .brand,header a:has(.mark){min-width:44px;min-height:44px;display:inline-grid;place-items:center}
+.more-link,.tw-link{position:relative}
+.more-link::after,.tw-link::after{content:"";position:absolute;left:-4px;right:-4px;top:50%;height:44px;transform:translateY(-50%)}
+.tw-dot{position:relative}
+.tw-dot::after{content:"";position:absolute;left:50%;top:50%;width:44px;height:44px;transform:translate(-50%,-50%)}
+.crumbs a,.toc a,.ca-jump{min-height:44px;display:inline-flex;align-items:center}
+.hero-cta .btn{min-height:44px !important}
+.sitemap a{min-width:44px}
+.atg a,.tw-link{padding-block:10px;margin-block:-10px}
+
 </style>
 </head>
 <body class="subpage" data-pg="research">
@@ -1624,6 +1737,7 @@ body.subpage main{padding-top:var(--head)}
 </svg>
 
 <script>try{if(/[?&]clean\b/.test(location.search))document.documentElement.classList.add("clean")}catch(e){}</script>
+<noscript><style>.reveal,.fade,.ca-card,.ca-kpi{opacity:1 !important;transform:none !important}#intro,#skip,#replay,.swipe-hint{display:none !important}.intro-on .ghost-hi{visibility:visible}#s1{height:auto !important}#s1 .sticky{position:relative;height:auto;min-height:100svh;overflow:visible}#s1 .hero{position:relative;top:auto;bottom:auto;padding-top:calc(var(--head) + 24px);display:grid;grid-template-columns:minmax(0,1fr);align-items:end}#s1 .stage{height:auto;justify-content:flex-start}#s1 .portrait{height:auto;width:min(340px,70vw);margin:0}#s1 .copy{transform:none !important}.ghost-hi{display:none}@media (min-width:861px){#s1 .hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}#s1 .portrait{width:100%;max-width:440px}}.about-text{position:static;opacity:1 !important;margin-top:28px}.ghost-about,.fdot{display:none}   #about{height:auto !important}   #about .sticky{position:relative;height:auto;overflow:visible;padding:56px 0 40px}   #about .path-head{position:static;margin-bottom:32px}   #about .path-prog{display:none}   #about .track{position:relative;height:auto;transform:none !important;padding:0 var(--gutter) 0 calc(var(--gutter) + 36px)}   #about .line{left:calc(var(--gutter) + 8px);top:8px;bottom:40px;width:2px;height:auto;margin:0}   #about .fill{transform-origin:50% 0;transform:scaleY(0)}   #about .stop{position:relative;left:auto;top:auto;width:auto;height:auto;padding-bottom:34px}   #about .node{left:-36px;top:4px}   #about .stop.now .node{left:-39px;top:1px}   #about .arm{display:none}   #about .stop .card{position:static;width:auto;bottom:auto;top:auto}   #about .lg{margin-bottom:8px}</style></noscript>
 <script>window.BASE="../"</script>
 <header class="top" data-step="0" id="top">
   <div class="wrap">
@@ -1647,9 +1761,10 @@ body.subpage main{padding-top:var(--head)}
       <div class="res-grid">
         <p class="thread reveal">My first paper asked how Maldivian guesthouses could be seen online. My second mapped what it takes to run one. Today travellers increasingly ask AI tools where to stay, and small businesses don’t know whether they’re being recommended. That’s the question I want to study next: whether their visibility is becoming more rented or more owned.</p>
         <article class="panel reveal mtvo" style="--rd:.08s">
-          <span class="label">Proposed doctoral research · from 2027</span>
-          <h3>From Rented to Owned Visibility<span>.</span></h3>
-          <p class="ink">The Maldives Tourism Visibility Observatory (MTVO): a proposed study of how small tourism businesses in the Maldives are found and booked online, across search, booking sites, social media, review sites and AI assistants, and whether that visibility is becoming more rented from other people’s platforms or more owned.</p>
+          <span class="label">Proposed doctoral research (from 2027)</span>
+          <h3>From Rented to Owned Visibility: towards a Maldives Tourism Visibility Observatory<span>.</span></h3>
+          <p class="mtvo-status">A proposal. The observatory is what this research aims to build; the first step is a public-data pilot in 2027.</p>
+          <p class="ink">A proposed study of how small tourism businesses in the Maldives are found and booked online, across search, booking sites, social media, review sites and AI assistants, and whether that visibility is becoming more rented from other people’s platforms or more owned.</p>
           <ol class="mtvo-steps">
             <li><b>Measure</b><span>Build and validate a Visibility Index that scores a property across every channel where travellers find it, including what AI assistants say about it.</span></li>
             <li><b>Track</b><span>Apply it to the same panel of properties every month, starting from a baseline rebuilt from my 2016 guesthouse fieldwork.</span></li>
@@ -1662,23 +1777,23 @@ body.subpage main{padding-top:var(--head)}
             <li>Which properties do AI assistants recommend, and why?</li>
             <li>Does visibility change how much of each booking a business keeps?</li>
           </ol>
-          <p class="small">Planned: a public-data pilot from January 2027, then a monthly panel from October 2027. This is proposed research: admission, supervision and ethics approval are still to come, and no results are claimed.</p>
+          <p class="small">This is proposed research: admission, supervision and ethics approval are still to come, and no results are claimed.</p>
           <p class="small mtvo-int"><b>Declared interest:</b> I run Islandeative, whose Digital Visibility Health Check works in the same area. The research instrument and data will be kept separate from any commercial work.</p>
         </article>
       </div>
       <div class="next">
-        <div class="panel reveal"><span class="label">Next steps</span><ul class="ticks"><li>Admission, supervision and ethics approval</li><li>A public-data pilot, January to June 2027</li><li>A short paper on what the pilot shows is feasible</li></ul></div>
-        <div class="panel reveal" style="--rd:.08s"><span class="label">Profiles and indexing</span><a class="orcid" href="https://orcid.org/0009-0003-5812-6693" target="_blank" rel="noopener"><svg class="orcid-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#A6CE39"/><path fill="#fff" d="M8.1 17.6H6.6V7.1h1.5v10.5Zm3-10.5h4c3.8 0 5.5 2.7 5.5 5.3 0 2.8-2.2 5.3-5.5 5.3h-4V7.1Zm1.5 9.2h2.3c3.3 0 4.1-2.5 4.1-3.9 0-2.3-1.5-3.9-4.2-3.9h-2.2v7.8ZM8.3 5.1c0 .5-.4 1-1 1s-1-.5-1-1 .4-1 1-1 1 .5 1 1Z"/></svg><span><b>ORCID</b> 0009-0003-5812-6693</span></a><a class="orcid" href="https://iocdrp.s.gy/fuad-a-m" target="_blank" rel="noopener"><svg class="orcid-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#4285F4"/><path fill="#fff" d="M12 5 4.5 10.6h3.1a4.5 4.5 0 1 0 8.8 0h3.1L12 5Zm0 11.3a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2Z"/></svg><span><b>Google Scholar</b> Fuad, A. M.</span></a><span class="todo">[TODO: check Scopus / Web of Science status of both journals; state it only if true]</span></div>
+        <div class="panel reveal"><span class="label">Next steps</span><ul class="ticks"><li>Preparing PhD applications to Universiti Putra Malaysia and Universiti Teknologi Malaysia.</li><li>2027: public-data pilot; a working paper with an open dataset; a research note submitted to a Scopus-indexed journal.</li></ul></div>
+        <div class="panel reveal" style="--rd:.08s"><span class="label">Profiles and indexing</span><a class="orcid" href="https://orcid.org/0009-0003-5812-6693" target="_blank" rel="noopener"><svg class="orcid-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#A6CE39"/><path fill="#fff" d="M8.1 17.6H6.6V7.1h1.5v10.5Zm3-10.5h4c3.8 0 5.5 2.7 5.5 5.3 0 2.8-2.2 5.3-5.5 5.3h-4V7.1Zm1.5 9.2h2.3c3.3 0 4.1-2.5 4.1-3.9 0-2.3-1.5-3.9-4.2-3.9h-2.2v7.8ZM8.3 5.1c0 .5-.4 1-1 1s-1-.5-1-1 .4-1 1-1 1 .5 1 1Z"/></svg><span><b>ORCID</b> 0009-0003-5812-6693</span></a><a class="orcid" href="https://iocdrp.s.gy/fuad-a-m" target="_blank" rel="noopener"><svg class="orcid-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#4285F4"/><path fill="#fff" d="M12 5 4.5 10.6h3.1a4.5 4.5 0 1 0 8.8 0h3.1L12 5Zm0 11.3a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2Z"/></svg><span><b>Google Scholar</b> Fuad, A. M.</span></a></div>
       </div>
       <div class="sub-head reveal"><div><span class="label">Published work</span><h3 class="h3s">Two journal articles<span>.</span></h3></div></div>
       <div class="pubs reveal" style="margin-top:0">
         <a class="pub" href="https://doi.org/10.1177/1467358420926688" target="_blank" rel="noopener">
           <span class="book" style="--c:#232C4A"><span class="bk-j">Tourism and Hospitality Research</span><span class="bk-t">The nature and challenges of guest house business in the Maldives</span><span class="bk-y">SAGE · 2021</span></span>
-          <span class="pub-meta"><span class="label">Journal article · 2021</span><b>The nature and challenges of guest house business in the Maldives: an exploratory study</b><span>Chia, K. W. and Fuad, A. M. · <i style="font-style:italic">Tourism and Hospitality Research</i>, 21(1), 3–14 · SAGE · cited 36 times</span><em>Read on SAGE ↗</em></span>
+          <span class="pub-meta"><span class="label">Journal article · 2021</span><b>The nature and challenges of guest house business in the Maldives: an exploratory study</b><span>Chia, K. W. and Muiz, A. · <i style="font-style:italic">Tourism and Hospitality Research</i>, 21(1), 3–14 · SAGE · cited 36 times</span><span class="pub-ix">Indexed in Scopus and Web of Science (ESCI)</span><em>Read on SAGE ↗</em></span>
         </a>
-        <a class="pub" href="https://cgscholar.com/bookstore/works/increasing-the-visibility-of-guesthouse-operation-in-the-maldives-through-emarketing?category_id=cgrn" target="_blank" rel="noopener">
-          <span class="book" style="--c:#0B6E78"><span class="bk-j">Int. J. of Tourism &amp; Hospitality Admin.</span><span class="bk-t">Increasing the visibility of guesthouse operation in the Maldives</span><span class="bk-y">Common Ground · 2017</span></span>
-          <span class="pub-meta"><span class="label">Journal article · 2017</span><b>Increasing the visibility of guesthouse operation in the Maldives through e-marketing</b><span>Pappayah, P. C. M. and Fuad, A. M. · <i style="font-style:italic">The International Journal of Tourism and Hospitality Administration</i>, 13(2), 15–29</span><em>View on CG Scholar ↗</em></span>
+        <a class="pub" href="https://doi.org/10.18848/2470-9336/CGP/v02i02/11-20" target="_blank" rel="noopener">
+          <span class="book" style="--c:#0B6E78"><span class="bk-j">Journal of Tourism and Leisure Studies</span><span class="bk-t">Increasing the visibility of guesthouse operation in the Maldives</span><span class="bk-y">Common Ground · 2017</span></span>
+          <span class="pub-meta"><span class="label">Journal article · 2017</span><b>Increasing the visibility of guesthouse operation in the Maldives through e-marketing</b><span>CM Pappayah, P. P., Muiz, A. and Jinus, D. J. · <i style="font-style:italic">Journal of Tourism and Leisure Studies</i>, 2(2), 11–20 · Common Ground Research Networks</span><em>Read via DOI ↗</em></span>
         </a>
       </div>
     </div>
@@ -1687,7 +1802,7 @@ body.subpage main{padding-top:var(--head)}
     <div class="wrap">
       <div class="head wide reveal"><span class="label">Talks</span><h2>Talks and presentations<span>.</span></h2></div>
       <ul class="talks">
-        <li class="reveal"><time>5 November 2026</time><div><b>Found, Chosen, Booked: marketing when AI does the searching</b><p>Demonstration lesson, MNU lecturer selection, Malé. It scored highest in the selection.</p><div class="row-cta"><a class="btn btn--sm" href="https://abdullamuizfuad.github.io/GEO-Visibility-/" target="_blank" rel="noopener">Slides <i data-ic="upright"></i></a><a class="btn btn--sm btn--ghost" href="https://abdullamuizfuad.github.io/GEO-Visibility-/demo/" target="_blank" rel="noopener">Phone simulation <i data-ic="upright"></i></a><a class="btn btn--sm btn--ghost" href="https://abdullamuizfuad.github.io/GEO-Visibility-/slides.pdf" target="_blank" rel="noopener">PDF <i data-ic="download"></i></a></div></div></li>
+        <li class="reveal"><time>2026</time><div><b>Found, Chosen, Booked: marketing when AI does the searching</b><p>A 10-minute demonstration lesson for Introduction to Marketing (MKT101) and Business Entrepreneurship (BUS301).</p><div class="row-cta"><a class="btn btn--sm" href="https://abdullamuizfuad.github.io/GEO-Visibility-/" target="_blank" rel="noopener">Slides <i data-ic="upright"></i></a><a class="btn btn--sm btn--ghost" href="https://abdullamuizfuad.github.io/GEO-Visibility-/demo/" target="_blank" rel="noopener">Phone simulation <i data-ic="upright"></i></a><a class="btn btn--sm btn--ghost" href="https://abdullamuizfuad.github.io/GEO-Visibility-/slides.pdf" target="_blank" rel="noopener">PDF <i data-ic="download"></i></a></div></div></li>
         <li class="reveal"><time>2016</time><div><b>Sustainable development of local island tourism</b><p>Conceptual paper, 3rd International Hospitality and Tourism Conference (IHTC).</p></div></li>
       </ul>
     </div>
