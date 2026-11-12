@@ -294,7 +294,7 @@ TALKS = '''<ul class="talks">
         <li class="reveal"><time>2026</time><div><b>Found, Chosen, Booked: marketing when AI does the searching</b><p>A 10-minute demonstration lesson for Introduction to Marketing (MKT101) and Business Entrepreneurship (BUS301).</p><div class="row-cta"><a class="btn btn--sm" href="https://abdullamuizfuad.github.io/GEO-Visibility-/" target="_blank" rel="noopener">Slides <i data-ic="upright"></i></a><a class="btn btn--sm btn--ghost" href="https://abdullamuizfuad.github.io/GEO-Visibility-/demo/" target="_blank" rel="noopener">Phone simulation <i data-ic="upright"></i></a><a class="btn btn--sm btn--ghost" href="https://abdullamuizfuad.github.io/GEO-Visibility-/slides.pdf" target="_blank" rel="noopener">PDF <i data-ic="download"></i></a></div></div></li>
         <li class="reveal"><time>2016</time><div><b>Sustainable development of local island tourism</b><p>Conceptual paper, 3rd International Hospitality and Tourism Conference (IHTC).</p></div></li>
       </ul>'''
-rbody = (block('direction', 'Research', 'What the classroom made me ask', res_in) +
+rbody = (block('direction', 'Research', 'Where the question is going', res_in) +
          block('talks', 'Talks', 'Talks and presentations', '      ' + TALKS))
 page('research', 'Research', 'Research', 'Where my research has been, and the study I propose next: how small tourism businesses in the Maldives are found online, and whether that visibility is rented or owned.', rbody,
      toc=[('direction', 'Direction'), ('talks', 'Talks')])
