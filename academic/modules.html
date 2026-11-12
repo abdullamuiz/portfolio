@@ -1709,9 +1709,11 @@ body.subpage main{padding-top:var(--head)}
 .mp.one .mp-col{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;align-items:start}
 .demo-vid{margin:0 0 18px}.demo-vid video{width:100%;border-radius:14px;background:#000}
 
-/* phone: the hero keeps its portrait; the strip opens the About panel, one swipe down */
-.atg-m{display:none}
-@media (max-width:860px){.intro-b .atg{display:none}.atg-m{display:block;margin:0 0 18px;padding:0 0 14px;border-top:0;border-bottom:1px solid var(--line)}}
+
+/* phone: the strip sits right after the hero scene, as its own short block */
+.atg-sec{display:none}
+@media (max-width:860px){.intro-b .atg{display:none}.atg-sec{display:block;padding:28px 0 8px}.atg-m{display:block;margin:0;max-width:none}
+  .hero-cta{flex-wrap:nowrap;gap:8px}.hero-cta .btn{padding-inline:14px;font-size:13px;white-space:nowrap}}
 
 /* tap targets: at least 44 px */
 .btn,.btn--sm,.tw-btn,.tw-chip,.orcid{min-height:44px}
