@@ -99,6 +99,8 @@ eng=rep(eng,"  $('goPreview').addEventListener('click', goTool);","  $('goPrevie
 # hidden About text must not sit over the hero buttons: it takes clicks only once it is showing
 eng=rep(eng,"    aboutText.style.opacity = at;","    aboutText.style.opacity = at;\n    aboutText.style.pointerEvents = at > .5 ? 'auto' : 'none';")
 # ---------- intro: the original "Hi" (natural pace, waits for the visitor); skipped with reduced motion or a #section link ----------
+# After "Hi" lands, the bubble breathes for 3 s, then the landing page comes in on its own (a scroll, swipe or tap goes sooner)
+eng=rep(eng,"      idleT = setTimeout(() => hint.classList.add('on'), 2000); timers.push(idleT);","      idleT = setTimeout(trigger, 3000); timers.push(idleT);")
 # When the Hi plays: a fresh visit, a reload while still on the landing scene, or any load after 30 minutes idle.
 # Never on a reload mid-page, a browser Back/Forward, a return from an inner page in the same visit, a #section link or reduced motion.
 eng=rep(eng,"  const go = () => reduce ? finish(true) : play();",
