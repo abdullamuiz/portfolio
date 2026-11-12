@@ -94,7 +94,7 @@ def glance(mobile=False):
     ev = ('4.4 out of 5 for teaching, Term 1 2026 (school average 4.2)' if F['evaluation_scale_confirmed']
           else '87 out of 100 for teaching, Term 1 2026 (school average 84)')
     items = [('Qualifications', 'MSc Global Marketing Management (Merit) · BA (Hons) Tourism Management, Asia Pacific University'),
-             ('Teaching', 'Lecturer, MNU Business School, since 2024 · part-time at MI College from 2022'),
+             ('Teaching', 'Lecturer, MNU Business School, since 2024 · part-time at MI College, 2022 to 2024'),
              ('Modules', '9 taught, 6 coordinated, Level 100 to 300'),
              ('Research', '2 peer-reviewed journal articles · <a href="%s" target="_blank" rel="noopener">36 citations</a>' % SCH)]
     if F['evaluation_on']: items.append(('Student evaluation', ev))
