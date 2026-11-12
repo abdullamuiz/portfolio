@@ -2590,7 +2590,17 @@ hydrateIcons();
   replayBtn.addEventListener('click', e => { e.stopPropagation(); play(); });
   addEventListener('keydown', e => { if (e.key === 'Escape' && !done) finish(true); });
 
-  const go = () => (reduce || location.hash.length > 1) ? finish(true) : play();
+  const IDLE = 30 * 60 * 1000, now = Date.now();
+  let last = 0, lastY = 0;
+  try { last = +sessionStorage.getItem('acT') || 0; lastY = +sessionStorage.getItem('acY') || 0; } catch (e) {}
+  const nav = ((performance.getEntriesByType && performance.getEntriesByType('navigation')[0]) || {}).type || 'navigate';
+  const fresh = !last || now - last > IDLE;
+  const greet = !reduce && location.hash.length < 2 && (fresh || (nav === 'reload' && lastY < innerHeight * .5));
+  const save = () => { try { sessionStorage.setItem('acT', Date.now()); sessionStorage.setItem('acY', Math.round(scrollY)); } catch (e) {} };
+  addEventListener('pagehide', save); document.addEventListener('visibilitychange', () => { if (document.hidden) save(); });
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  const back = !greet && location.hash.length < 2 && (nav === 'reload' || nav === 'back_forward') && lastY > 0;
+  const go = () => { if (greet) { play(); return; } finish(true); if (back) requestAnimationFrame(() => { scrollTo(0, lastY); requestAnimationFrame(() => scrollTo(0, lastY)); }); };
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(go));
 })();
 </script>

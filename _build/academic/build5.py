@@ -99,7 +99,20 @@ eng=rep(eng,"  $('goPreview').addEventListener('click', goTool);","  $('goPrevie
 # hidden About text must not sit over the hero buttons: it takes clicks only once it is showing
 eng=rep(eng,"    aboutText.style.opacity = at;","    aboutText.style.opacity = at;\n    aboutText.style.pointerEvents = at > .5 ? 'auto' : 'none';")
 # ---------- intro: the original "Hi" (natural pace, waits for the visitor); skipped with reduced motion or a #section link ----------
-eng=rep(eng,"  const go = () => reduce ? finish(true) : play();","  const go = () => (reduce || location.hash.length > 1) ? finish(true) : play();")
+# When the Hi plays: a fresh visit, a reload while still on the landing scene, or any load after 30 minutes idle.
+# Never on a reload mid-page, a browser Back/Forward, a return from an inner page in the same visit, a #section link or reduced motion.
+eng=rep(eng,"  const go = () => reduce ? finish(true) : play();",
+"""  const IDLE = 30 * 60 * 1000, now = Date.now();
+  let last = 0, lastY = 0;
+  try { last = +sessionStorage.getItem('acT') || 0; lastY = +sessionStorage.getItem('acY') || 0; } catch (e) {}
+  const nav = ((performance.getEntriesByType && performance.getEntriesByType('navigation')[0]) || {}).type || 'navigate';
+  const fresh = !last || now - last > IDLE;
+  const greet = !reduce && location.hash.length < 2 && (fresh || (nav === 'reload' && lastY < innerHeight * .5));
+  const save = () => { try { sessionStorage.setItem('acT', Date.now()); sessionStorage.setItem('acY', Math.round(scrollY)); } catch (e) {} };
+  addEventListener('pagehide', save); document.addEventListener('visibilitychange', () => { if (document.hidden) save(); });
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  const back = !greet && location.hash.length < 2 && (nav === 'reload' || nav === 'back_forward') && lastY > 0;
+  const go = () => { if (greet) { play(); return; } finish(true); if (back) requestAnimationFrame(() => { scrollTo(0, lastY); requestAnimationFrame(() => scrollTo(0, lastY)); }); };""")
 # ---------- scene 1: steps one after another, no dead scroll ----------
 eng=rep(eng,"const t = reduce ? (px1 > M.base * .25 ? 1 : 0) : clamp((px1 - M.base * .06) / (M.base * .5));","const t = reduce ? (px1 > M.base * .25 ? 1 : 0) : clamp((px1 - M.base * .015) / (M.base * .42));")
 eng=rep(eng,"    ghost.style.opacity = 1 - clamp(t * 1.8);","    ghost.style.opacity = 1 - clamp(t * 2.6);")
@@ -134,6 +147,7 @@ SUB=r"""<script>
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
   document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
   document.querySelectorAll('.sig').forEach(function(s){s.classList.add('done','dotted')});
+  var mark=function(){try{sessionStorage.setItem('acT',Date.now())}catch(e){}};mark();addEventListener('pagehide',mark);
   var pg=document.body.dataset.pg; document.querySelectorAll('nav.links a[data-pg]').forEach(function(a){if(a.dataset.pg===pg){a.classList.add('cur');a.setAttribute('aria-current','page')}});
 })();
 </script>"""
