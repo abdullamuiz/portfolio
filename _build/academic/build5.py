@@ -97,7 +97,7 @@ eng=rep(eng,"  big.addEventListener('click', goTool);","  if (big) { big.addEven
 eng=rep(eng,"  $('goPreview').addEventListener('click', goTool);","  $('goPreview').addEventListener('click', goTool); }")
 
 # ---------- audit C1: the "Hi" never blocks reading ----------
-# plays once per session, about 1.5 s, then dismisses itself; skipped with reduced motion, a #hash or a repeat visit
+# plays on every load, about 1.5 s, then dismisses itself; skipped with reduced motion or a #hash
 eng=rep(eng,"  const A = (el, kf, opt) => { const a = el.animate(kf, { fill: 'both', ...opt }); anims.push(a); return a; };",
 "  const SP = 1.75;\n  const A = (el, kf, opt) => { const a = el.animate(kf, { fill: 'both', ...opt }); a.playbackRate = SP; anims.push(a); return a; };")
 eng=rep(eng,"      timers.push(setTimeout(() => finish(false), 1080));","      timers.push(setTimeout(() => finish(false), 1080 / SP));")
@@ -108,8 +108,7 @@ eng=rep(eng,"""    timers.push(setTimeout(() => {
       trigger(); return;""")
 eng=rep(eng,"    }, 1560));","    }, 1560 / SP));")
 eng=rep(eng,"  const go = () => reduce ? finish(true) : play();",
-"""  let seen = false; try { seen = sessionStorage.getItem('acHi') === '1'; sessionStorage.setItem('acHi', '1'); } catch (e) {}
-  const go = () => (reduce || seen || location.hash.length > 1) ? finish(true) : play();""")
+"""  const go = () => (reduce || location.hash.length > 1) ? finish(true) : play();""")
 NOSCRIPT='<noscript><style>.reveal,.fade,.ca-card,.ca-kpi{opacity:1 !important;transform:none !important}#intro,#skip,#replay,.swipe-hint{display:none !important}.intro-on .ghost-hi{visibility:visible}</style></noscript>'
 _css='\n'.join(L)
 _i=_css.index('@media (max-width:860px){\n  #about{height:auto !important}'); _j=_css.index('\n}',_i)

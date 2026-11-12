@@ -2543,8 +2543,7 @@ hydrateIcons();
   replayBtn.addEventListener('click', e => { e.stopPropagation(); play(); });
   addEventListener('keydown', e => { if (e.key === 'Escape' && !done) finish(true); });
 
-  let seen = false; try { seen = sessionStorage.getItem('acHi') === '1'; sessionStorage.setItem('acHi', '1'); } catch (e) {}
-  const go = () => (reduce || seen || location.hash.length > 1) ? finish(true) : play();
+  const go = () => (reduce || location.hash.length > 1) ? finish(true) : play();
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(go));
 })();
 </script>
