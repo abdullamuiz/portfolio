@@ -25,10 +25,10 @@ FIX = [
  ('<span class="label">Team Lead, Maldives Promotions · 2014 to 2018</span>', '<span class="label">Promoter to Head of Marketing and Sales · 2014 to 2018</span>'),
  ('I started as a junior sales host and went on to lead the sales team for Maldives packages, grouping packages by type of traveller and designing the sales conversation.',
   'I started as a promoter in 2014 and was Head of Marketing and Sales for MP Travel and Tours by 2017, grouping packages by type of traveller and designing the sales conversation.'),
- ('aria-label="Mianz College logo"></span><time>2022 – 2023</time><b>Part-time Lecturer</b><span>Mianz College</span>', 'aria-label="MI College logo"></span><time>2022 – 2023</time><b>Part-time Lecturer</b><span>MI College</span>'),
+ ('aria-label="Mianz College logo"></span><time>2022 – 2023</time><b>Part-time Lecturer</b><span>Mianz College</span>', 'aria-label="MI College logo"></span><time>2022 – 2024</time><b>Part-time Lecturer</b><span>MI College</span>'),
  ('I started teaching part-time at Mianz College in 2022', 'I started teaching part-time at MI College in 2022'),
- ('<h3>Mianz College</h3><p class="ink">Part-time lecturer, 2022 to 2023.</p>', '<h3>MI College</h3><p class="ink">Part-time lecturer, 2022 to 2023, for master’s and undergraduate cohorts.</p>'),
- ('<ul class="subj"><li>Digital marketing</li><li>E-commerce</li></ul>', '<ul class="subj"><li>E-commerce</li><li>Digital marketing</li><li>Supply chain management</li></ul>'),
+ ('<h3>Mianz College</h3><p class="ink">Part-time lecturer, 2022 to 2023.</p>', '<h3>MI College</h3><p class="ink">Part-time lecturer, 2022 to 2024, for master’s and undergraduate cohorts, online and in person.</p>'),
+ ('<ul class="subj"><li>Digital marketing</li><li>E-commerce</li></ul>', '<ul class="subj"><li>Digital Marketing &amp; Ecommerce · Master’s, level 500</li><li>Supply Chain Management · level 300</li><li>Introduction to Marketing and Communication · level 100</li></ul>'),
  ('\n        <span class="todo">[TODO: confirm the subjects taught there, and whether the name should read “Mianz International College”]</span>', ''),
  ('<span class="todo">[TODO: arena usage numbers (students, sessions, completion). No number is shown until supplied.]</span>', 'In two weeks (28 Oct to 11 Nov 2026), 75 of 101 enrolled students used the tools: 80 hours of practice, 7,919 practice actions and 3 full business audits. <a class="more-link" href="#class-activity">See the anonymised class activity <i data-ic="down"></i></a>'),
  ('        <article class="panel reveal" style="--rd:.08s">\n          <span class="label">Research direction · intended doctoral focus</span>\n          <h3>How small tourism enterprises in the Maldives are found, and chosen, when AI tools make the recommendation.</h3>\n          <ol class="qs">\n            <li>How visible are small Maldivian tourism businesses in AI-generated travel recommendations, compared with larger competitors?</li>\n            <li>What stops them from adapting: skills, resources, or dependence on booking platforms?</li>\n            <li>Can a simple diagnostic help owners see the gap and act on it?</li>\n          </ol>\n          <p>Working title: “From Friction to Flow”. <span class="todo">[TODO: keep or change]</span></p>\n          <p>Frameworks under consideration: technology-organisation-environment (TOE) and AI maturity, in a small-island context.</p>\n        </article>', '        <article class="panel reveal mtvo" style="--rd:.08s">\n          <span class="label">Proposed doctoral research (from 2027)</span>\n          <h3>From Rented to Owned Visibility: towards a Maldives Tourism Visibility Observatory<span>.</span></h3>\n          <p class="mtvo-status">A proposal. The observatory is what this research aims to build; the first step is a public-data pilot in 2027.</p>\n          <p class="ink">A proposed study of how small tourism businesses in the Maldives are found and booked online, across search, booking sites, social media, review sites and AI assistants, and whether that visibility is becoming more rented from other people’s platforms or more owned.</p>\n          <ol class="mtvo-steps">\n            <li><b>Measure</b><span>Build and validate a Visibility Index that scores a property across every channel where travellers find it, including what AI assistants say about it.</span></li>\n            <li><b>Track</b><span>Apply it to the same panel of properties every month, starting from a baseline rebuilt from my 2016 guesthouse fieldwork.</span></li>\n            <li><b>Explain</b><span>Interview owners each season about why their numbers moved, and extend resource dependence theory from booking sites to algorithmic intermediaries such as AI assistants.</span></li>\n          </ol>\n          <span class="label" style="margin-top:6px">The questions it asks</span>\n          <ol class="qs">\n            <li>Can a small business’s visibility across all these channels be measured reliably, month after month?</li>\n            <li>How does that visibility change over time, and is it becoming more rented or more owned?</li>\n            <li>Which properties do AI assistants recommend, and why?</li>\n            <li>Does visibility change how much of each booking a business keeps?</li>\n          </ol>\n          <p class="small">This is proposed research: admission, supervision and ethics approval are still to come, and no results are claimed.</p>\n          <p class="small mtvo-int"><b>Declared interest:</b> I run Islandeative, whose Digital Visibility Health Check works in the same area. The research instrument and data will be kept separate from any commercial work.</p>\n        </article>'),
@@ -90,16 +90,14 @@ def cvlinks(s):
     return s
 s1 = sec('s1')
 s1 = rep(s1, 'I teach marketing through real Maldivian businesses, and I build the tools my students learn with.',
-         'I teach marketing through live industry cases, and I build the tools my students learn with.')
+         'I teach marketing through the experiences that built its theories.')
+_ab = grab(s1, '<div class="about-text" id="aboutText">', '@@SIG2@@')
+s1 = s1.replace(_ab, '<div class="about-text" id="aboutText">\n' + rd('landing_about.html') + '@@SIG2@@')
 s1 = rep(s1, '<p class="intro-p">15+ years in Maldivian tourism and marketing, now in the lecture room at MNU Business School.</p>',
          '<p class="intro-p">15+ years in tourism and marketing, now in the lecture room at MNU Business School.</p>')
 s1 = rep(s1, '            </div>\n            <div class="about-text" id="aboutText">', '              ' + AU.glance() + '\n            </div>\n            <div class="about-text" id="aboutText">')
 s1 = rep(s1, '<a class="btn btn--ghost" href="#teach">See how I teach <i data-ic="down"></i></a>',
          '<a class="btn btn--ghost" href="#modules">See what I teach <i data-ic="down"></i></a>')
-# the long career paragraph moves to the CV page
-career_p = grab(s1, '<p>My career began at Highrise', '</p>')
-apps_p = grab(s1, '<p>My students tell me what works.', '</p>')
-s1 = s1.replace(career_p + '\n', '').replace(apps_p + '\n', '')
 s1 = re.sub(r'\n\s*\n', '\n', s1)
 
 teach = sec('teach')
@@ -135,7 +133,7 @@ res = sec('research')
 res_home = cut(res, '      <div class="next">', '</div>\n      </div>\n')
 res_home = rep(res_home, '</p>\n    </div>\n  </section>', '</p>\n      <div class="row-cta reveal"><a class="btn btn--ghost" href="academic/research.html">Research, profiles and talks <i data-ic="right"></i></a></div>\n    </div>\n  </section>')
 
-home = (header.replace('@@FADE@@', ' fade') + '\n<main>\n' + s1 + '\n  <section class="block atg-sec"><div class="wrap">' + AU.glance(mobile=True) + '</div></section>\n' + home_mods + '\n' + teach + '\n' + rd('home_tools.html') + '\n' +
+home = (header.replace('@@FADE@@', ' fade') + '\n<main>\n' + s1 + '\n  <section class="block atg-sec"><div class="wrap">' + AU.glance(mobile=True) + '</div></section>\n' + rd('home_story.html') + '\n' + home_mods + '\n' + teach + '\n' + rd('home_tools.html') + '\n' +
         lesson + '\n' + home_ev + '\n' + SVC_HOME + res_home + '\n' + sec('about') + '\n' + sec('credentials') + '\n' + footer + acdata + '\n')
 open(P('out', 'home.html'), 'w', encoding='utf-8').write(cvlinks(home))
 
@@ -326,8 +324,8 @@ CVDOC = ('<article class="cvdoc" id="cvdoc">'
    UL('Full-time; taught and coordinated undergraduate modules: MKT101 Introduction to Marketing, MKT213 Integrated Marketing Communication, MKT217 Advertising and Promotion, MKT301 International Marketing, MKT303 Electronic Marketing and MKT309 Brand Management; also lectured Business Entrepreneurship and Maldivian Business Environment.',
       'As subject coordinator, responsible for the syllabus and learning outcomes, assessment setting and rubric moderation, exam papers and marking guides, Moodle course design, tutor standardisation, study guides and Applied Project supervision.',
       'Embedded real Maldivian business cases into course material to link theoretical frameworks to local industry practice.') +
-   R('Part-time Lecturer', '2022 – 2023', 'MI College · Malé, Maldives') +
-   UL('Taught E-commerce, Digital Marketing and Supply Chain Management to master’s and undergraduate cohorts.',
+   R('Part-time Lecturer', '2022 – 2024', 'MI College · Malé, Maldives') +
+   UL('Taught Digital Marketing &amp; Ecommerce (master’s, level 500), Supply Chain Management (level 300) and Introduction to Marketing and Communication (level 100), online and in person.',
       'Revised and modernised inherited course materials to reflect current industry developments.',
       'Prepared exam papers; designed tutorials, workshops and assignments built around contemporary industry trends.'))
  + S('Publications',

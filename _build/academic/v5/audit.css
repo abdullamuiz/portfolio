@@ -126,3 +126,18 @@ nav.links a{min-height:44px;display:inline-flex;align-items:center}
 .ca-jump{min-height:44px !important}
 .atg a{padding-block:12px;margin-block:-12px}
 .tw-link{min-height:44px;display:inline-flex;align-items:center}
+
+/* my story */
+.story-q{max-width:68ch;display:grid;gap:14px}
+.story-q p{margin:0;font-size:17px;line-height:1.7}
+.story-lead{font-size:19px !important;color:var(--ink)}
+.story-q a{color:inherit;text-decoration:underline;text-decoration-color:var(--lagoon);text-underline-offset:3px}
+.story-now{font-weight:600;color:var(--ink)}
+.story-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:26px;align-items:start}
+.story-role{display:grid;gap:4px;margin-top:12px}
+.story-role+.story-role{padding-top:14px;border-top:1px solid var(--line)}
+.story-role h3{font:400 22px/1.2 var(--serif);margin:0}
+.story-role p{margin:0}
+.story-meta{font-size:13px;font-weight:600;color:var(--label)}
+.story-close{margin:30px 0 0;max-width:40ch}
+.story-close em{font:400 italic clamp(22px,2.4vw,30px)/1.3 var(--serif);color:var(--ink)}
