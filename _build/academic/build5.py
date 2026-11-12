@@ -96,6 +96,8 @@ eng=rep(eng,"    G3.m = m; G3.a = a;\n","    G3.m = m; G3.a = a;\n    }\n")
 eng=rep(eng,"  big.addEventListener('click', goTool);","  if (big) { big.addEventListener('click', goTool);")
 eng=rep(eng,"  $('goPreview').addEventListener('click', goTool);","  $('goPreview').addEventListener('click', goTool); }")
 
+# hidden About text must not sit over the hero buttons: it takes clicks only once it is showing
+eng=rep(eng,"    aboutText.style.opacity = at;","    aboutText.style.opacity = at;\n    aboutText.style.pointerEvents = at > .5 ? 'auto' : 'none';")
 # ---------- audit C1: the "Hi" never blocks reading ----------
 # plays on every load, about 1.5 s, then dismisses itself; skipped with reduced motion or a #hash
 eng=rep(eng,"  const A = (el, kf, opt) => { const a = el.animate(kf, { fill: 'both', ...opt }); anims.push(a); return a; };",

@@ -2292,6 +2292,7 @@ hydrateIcons();
     fadeOut1[2].style.visibility = t > .46 ? 'hidden' : '';
     const at = out3(clamp((t - .25) / .6));
     aboutText.style.opacity = at;
+    aboutText.style.pointerEvents = at > .5 ? 'auto' : 'none';
     aboutText.style.transform = `translateY(${(1 - at) * 60}px)`;
     portrait.style.transform = isMobile() ? `scale(${lerp(1, .42, e)})` : `scale(${lerp(1, .74, e)})`;
 
