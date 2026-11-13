@@ -270,7 +270,11 @@ for k, c in enumerate(ORDER):
         left = ('<article class="panel reveal mt-about"><h2>About this module<span>.</span></h2><p>%s</p>'
                 '<span class="label" style="margin-top:6px">What students learn to do</span><ul class="ticks">%s</ul></article>'
                 % (T['about'], ''.join('<li>%s</li>' % x for x in T['learn'])))
-        left += ('<article class="panel reveal mt-teach"><h2>How I teach it<span>.</span></h2><span class="label">%s</span><p>%s</p><ol class="mt-steps">%s</ol><p>%s</p></article>'
+        fam = ''
+        if T.get('family'):
+            fam = '<nav class="mt-fam" aria-label="Taught as one family"><span class="label">Taught as one family</span><div>' + ''.join(
+                ('<span aria-current="page"><b>%s</b> %s</span>' if f == c else '<a href="academic/modules/%s.html"><b>%s</b> %s</a>' % (slug(f), '%s', '%s')) % (f, MODS[f]['n']) for f in T['family']) + '</div></nav>'
+        left += ('<article class="panel reveal mt-teach"><h2>How I teach it<span>.</span></h2>' + fam + '<span class="label">%s</span><p>%s</p><ol class="mt-steps">%s</ol><p>%s</p></article>'
                  % (T['teach_h'], T['teach_intro'], ''.join('<li>%s</li>' % x for x in T['teach_steps']), T['teach_after']))
         left += ('<article class="panel reveal mt-week"><h2>Every week<span>.</span></h2><dl class="mt-rhythm">%s</dl></article>'
                  % ''.join('<div><dt>%s</dt><dd>%s</dd></div>' % r for r in T['rhythm']))
