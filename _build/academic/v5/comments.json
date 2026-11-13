@@ -1,1 +1,34 @@
-[]
+[
+ {
+  "who": "Bachelor of Business graduate, Business Entrepreneurship",
+  "modules": ["BUS301"],
+  "year": 2026,
+  "theme": "AI, used well",
+  "pull": "While most encouraged us to avoid using it, you actually showed us how to use AI effectively and make it work to our advantage … it’s something I still apply in both my professional and everyday life.",
+  "full": [
+   "One thing I remember most from your classes was how you introduced us to the practical side of entrepreneurship, especially protecting our business ideas and understanding intellectual property rights. I also really appreciated how differently you approached AI compared to many other lecturers. While most encouraged us to avoid using it, you actually showed us how to use AI effectively and make it work to our advantage. That was something I found particularly unique about your teaching, and it’s something I still apply in both my professional and everyday life. I’ve learned to use technology to explore ideas, find information and make things easier, while also using my own judgement and doing further research rather than relying on AI entirely.",
+   "Your classes also taught me a lot about business beyond what was written on the slides. I especially appreciated the real-world examples you incorporated into your lessons. They made even the more complicated concepts easier to understand and remember. I still remember how those examples would suddenly make a topic click, even when I wasn’t fully focused! They were particularly helpful when preparing for exams and even when explaining concepts to my friends.",
+   "If there’s one thing I would have loved to learn more about, it would be the practical steps involved in starting a business, such as business registration, financing and getting an idea off the ground. I think exploring these areas in a little more depth would be valuable for students who genuinely aspire to become entrepreneurs."
+  ],
+  "ask": "More on the practical steps of starting a business: registration, financing and getting an idea off the ground.",
+  "module_quote": {
+   "BUS301": "One thing I remember most from your classes was how you introduced us to the practical side of entrepreneurship, especially protecting our business ideas and understanding intellectual property rights."
+  }
+ },
+ {
+  "who": "Bachelor of Marketing graduate",
+  "modules": ["MKT213", "MKT215", "MKT303"],
+  "year": 2026,
+  "theme": "Real ads, real tools",
+  "pull": "What I remember the most is when real advertisements were used in the classes to explain what Integrated Marketing Communication and Direct Marketing were. It helped us clarify the concepts and make the connections to relevant marketing applications.",
+  "full": [
+   "What I remember the most is when real advertisements were used in the classes to explain what Integrated Marketing Communication and Direct Marketing were. It helped us clarify the concepts and make the connections to relevant marketing applications. There were tools he showed to us in e-marketing that I got a really great introduction to how digital platforms and tools can be used by businesses in order to market their products and get their customers. Perhaps more scenario based questions during tutorial classes, but overall no complaints. The classes were a continuous process of learning under his guidance."
+  ],
+  "ask": "More scenario-based questions in tutorials.",
+  "module_quote": {
+   "MKT213": "Real advertisements were used in the classes to explain what Integrated Marketing Communication and Direct Marketing were. It helped us clarify the concepts and make the connections to relevant marketing applications.",
+   "MKT215": "Real advertisements were used in the classes to explain what Integrated Marketing Communication and Direct Marketing were. It helped us clarify the concepts and make the connections to relevant marketing applications.",
+   "MKT303": "… a really great introduction to how digital platforms and tools can be used by businesses in order to market their products and get their customers."
+  }
+ }
+]

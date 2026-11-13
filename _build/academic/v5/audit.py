@@ -66,18 +66,33 @@ def evidence(full=True):
             % (f5(t1[2]), t1[0], f5(t1[3]), rows, ('<div aria-hidden="true">' + areas + '</div>') if areas else '', '<div class="sr-only">' + tbl + '</div>'))
 
 # ---------- E. student comments (render nothing until real ones exist) ----------
-def comments():
-    C = [c for c in J('comments.json') if c.get('comment') and c.get('name')]
-    for c in C:
-        if len(c['comment'].split()) > 45: print('comments.json: over 40 words, shorten:', c['name'])
+def _cmts():
+    return [c for c in J('comments.json') if c.get('pull')]   # no student names are stored or shown
+
+def _who(c):
+    return '%s · %s · %s' % (esc(c['who']), ', '.join(c['modules']), c['year'])
+
+def comments(full=False):
+    C = _cmts()
     if not C: return ''
     cards = ''
     for c in C:
-        first = c['name'].split()[0]
-        ph = ('<img src="%s" alt="Photo of %s" width="64" height="64" loading="lazy">' % (esc(c['photo']), esc(first))) if c.get('photo') else ''
-        cards += ('<figure class="cmt reveal">%s<blockquote>%s</blockquote><figcaption><b>%s</b><span>%s · %s · %s</span></figcaption></figure>'
-                  % (ph, esc(c['comment']), esc(c['name']), esc(c.get('programme', '')), esc(c.get('module', '')), esc(str(c.get('year', '')))))
-    return ('<div class="cmts">' + cards + '</div><p class="src">Comments from former students, shared with their permission.</p>')
+        more = ''.join('<p>%s</p>' % esc(x) for x in c['full'])
+        cards += ('<figure class="cmt reveal"><span class="cmt-theme">%s</span><blockquote>“%s”</blockquote>'
+                  '<figcaption><span>%s</span></figcaption>'
+                  '<details class="cmt-more"><summary>Read the full comment</summary><div>%s</div></details>%s</figure>'
+                  % (esc(c['theme']), esc(c['pull']), _who(c), more,
+                     ('<p class="cmt-ask"><b>What they’d like more of:</b> %s</p>' % esc(c['ask'])) if full and c.get('ask') else ''))
+    return ('<div class="cmt-wrap"><span class="label">In their own words</span><div class="cmts">' + cards +
+            '</div><p class="src">Unedited comments from former students, given when I asked for feedback for this portfolio and shared with their permission. Names withheld.</p></div>')
+
+def module_comment(code):
+    for c in _cmts():
+        q = c.get('module_quote', {}).get(code)
+        if q:
+            return ('<article class="panel reveal mt-cmt"><h2>A student remembers<span>.</span></h2><blockquote>“%s”</blockquote>'
+                    '<p class="src">%s</p></article>' % (esc(q), _who(c)))
+    return ''
 
 # ---------- F. tool impact rows (only numbers Muiz has signed off) ----------
 def toolstats(tool):
