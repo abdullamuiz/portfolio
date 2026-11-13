@@ -2,6 +2,7 @@
 # Each entry fills the main column of academic/modules/<code>.html; modules without an entry keep the short layout.
 #
 # LOCKED STRUCTURE (agreed with Muiz on BUS301, November 2026). Every module follows it:
+#   hook         one line for the home Modules section (the signature activity, short)
 #   hours        facts strip: total contact hours, e.g. '56 contact hours'
 #   about        2-3 sentences. Opens with the level line ("A Level N00 module: ..."), then what the
 #                module is for, in plain words. No topic names from the outline.
@@ -22,6 +23,7 @@
 MODTEXT = {
 'BUS301': {
  'hours': '56 contact hours',
+ 'hook': 'The million-dollar marketplace',
  'about': 'A Level 300 module: students bring together what they’ve learned across the degree to judge and build a real venture. They start from a real problem, test whether a business can solve it and make money, and build the case for it the way a founder would before asking anyone for investment.',
  'learn': ['Find real opportunities in everyday problems, and judge which ones can become a business.',
            'Test an idea properly before committing to it, from the customer and the market to the money.',
@@ -43,6 +45,7 @@ MODTEXT = {
 },
 'BUS107': {
  'hours': '56 contact hours',
+ 'hook': 'A Maldivian market in the classroom',
  'about': 'A Level 100 module, taught at foundation level, that gives students a working picture of how business really runs in the Maldives: the forces that shape it, the industries that drive it, and the opportunities and obstacles local firms face. It’s about learning to read the business environment before making decisions inside it.',
  'learn': ['Read the forces around a Maldivian business, and judge how they shape its decisions.',
            'Compare the industries that drive the economy and the pressures each one faces.',
@@ -63,6 +66,7 @@ MODTEXT = {
 },
 'MKT101': {
  'hours': '56 contact hours',
+ 'hook': 'Practice Arena: compete on the basics',
  'about': 'A Level 100 module where first-year students meet marketing as a way of thinking: understand the customer, find the value, and make choices that deliver it. Everything is anchored in brands students already know.',
  'learn': ['Explain what marketing does inside an organisation, and why it matters to the whole business.',
            'Research a market and understand how customers decide.',
@@ -84,6 +88,7 @@ MODTEXT = {
 },
 'MKT213': {
  'hours': '56 contact hours',
+ 'hook': 'Think Different, three ways',
  'family': ['MKT213', 'MKT215', 'MKT217'],
  'about': 'A Level 200 module on making every message a brand sends work as one: advertising, promotion, digital, social and personal selling planned together, rather than as separate campaigns.',
  'learn': ['Explain why joined-up communication matters to a brand’s strategy.',
@@ -102,6 +107,7 @@ MODTEXT = {
 },
 'MKT215': {
  'hours': '56 contact hours',
+ 'hook': 'Think Different, three ways',
  'family': ['MKT213', 'MKT215', 'MKT217'],
  'about': 'A Level 200 module on reaching the right person with the right offer: building customer data, designing direct campaigns, and proving they work.',
  'learn': ['Explain how direct marketing works and when it beats mass marketing.',
@@ -120,6 +126,7 @@ MODTEXT = {
 },
 'MKT217': {
  'hours': '56 contact hours',
+ 'hook': 'Think Different, three ways',
  'family': ['MKT213', 'MKT215', 'MKT217'],
  'about': 'A Level 200 module on the craft and the business of advertising and sales promotion: what makes an ad work, where to place it, and how to prove it paid off.',
  'learn': ['Judge advertising critically, using the ideas behind creative strategy and message appeals.',
@@ -138,6 +145,7 @@ MODTEXT = {
 },
 'MKT301': {
  'hours': '56 contact hours',
+ 'hook': 'Local firms, foreign markets',
  'about': 'A Level 300 module on taking a business across borders. Students learn to read a foreign market, choose how to enter it, and adapt the product, price, channels and message to it. They do this from the seat of a small Maldivian company, not a global giant.',
  'learn': ['Judge how culture, economics, politics and law in a foreign market shape what a business can do there.',
            'Research a market and decide who to target and how to stand out.',
@@ -159,6 +167,7 @@ MODTEXT = {
 },
 'MKT303': {
  'hours': '56 contact hours',
+ 'hook': 'From Kandu Stay to a real business',
  'about': 'A Level 300 module on marketing where customers now find businesses: search, social, websites, reviews, and increasingly AI assistants. Students learn to diagnose a real business’s online presence and plan how to improve it.',
  'learn': ['Explain how online marketing differs from traditional marketing, and where it fits in a strategy.',
            'Use web and customer data to research a market and understand behaviour online.',
@@ -179,6 +188,7 @@ MODTEXT = {
 },
 'MKT309': {
  'hours': '56 contact hours',
+ 'hook': 'A live rebrand: Malé City Council',
  'about': 'A Level 300 module on brands as some of a company’s most valuable assets: how they are built, managed and measured, and what happens when a brand changes.',
  'learn': ['Explain what gives a brand its value in customers’ minds.',
            'Position a brand and choose the elements and programmes that build it.',
