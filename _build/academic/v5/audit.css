@@ -175,3 +175,9 @@ nav.links a{min-height:44px;display:inline-flex;align-items:center}
 
 .thread p{font-size:clamp(20px,1.9vw,24px) !important;line-height:1.35}
 .head .big-q,.big-q{color:var(--ink) !important}
+
+.res-row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;align-items:baseline;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:15px;line-height:1.55}
+.res-row b{color:var(--ink);font-weight:600}
+.res-tag{justify-self:start;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--label);padding:3px 9px;border-radius:999px;background:color-mix(in srgb,var(--lagoon) 12%,transparent)}
+.res-tag--p{color:var(--muted);background:transparent;border:1px dashed var(--line)}
+@media (max-width:560px){.res-row{grid-template-columns:minmax(0,1fr);gap:6px}}
