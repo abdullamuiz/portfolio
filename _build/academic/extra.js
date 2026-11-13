@@ -82,3 +82,67 @@
   });
 })();
 </script>
+<script>
+(function () {
+  var rows = document.querySelectorAll('.mgroup a[data-pk]');
+  if (!rows.length) return;
+  var pop = document.getElementById('pkPop'), sheet = document.getElementById('pkSheet');
+  var fine = matchMedia('(hover:hover) and (pointer:fine)');
+  var lastPt = '';
+  addEventListener('pointerdown', function (e) { lastPt = e.pointerType; }, true);
+  function touchy() { return lastPt === 'touch' || lastPt === 'pen' || !fine.matches; }
+  var list = Array.prototype.map.call(rows, function (a) { return a.getAttribute('data-pk'); });
+  function content(code) { var t = document.getElementById('pk-' + code); return t ? t.innerHTML : ''; }
+  var showT, hideT, cur = null;
+  function place(a) {
+    var r = a.getBoundingClientRect(), w = pop.offsetWidth, h = pop.offsetHeight, g = 14;
+    var x = r.right + g; if (x + w > innerWidth - 12) x = r.left - w - g; if (x < 12) x = Math.min(innerWidth - w - 12, Math.max(12, r.left));
+    var y = Math.min(Math.max(12, r.top + r.height / 2 - h / 2), innerHeight - h - 12);
+    pop.style.left = x + 'px'; pop.style.top = y + 'px';
+  }
+  function show(a) {
+    clearTimeout(hideT);
+    if (cur === a) return;
+    if (cur) cur.classList.remove('is-peek');
+    cur = a; a.classList.add('is-peek');
+    pop.innerHTML = content(a.getAttribute('data-pk')); pop.hidden = false; place(a);
+    requestAnimationFrame(function () { pop.classList.add('on'); });
+  }
+  function hide() {
+    pop.classList.remove('on'); if (cur) cur.classList.remove('is-peek'); cur = null;
+    setTimeout(function () { if (!cur) pop.hidden = true; }, 180);
+  }
+  rows.forEach(function (a) {
+    a.addEventListener('mouseenter', function () { if (touchy()) return; clearTimeout(showT); clearTimeout(hideT); showT = setTimeout(function () { show(a); }, cur ? 0 : 220); });
+    a.addEventListener('mouseleave', function () { clearTimeout(showT); hideT = setTimeout(hide, 160); });
+    a.addEventListener('focus', function () { if (!touchy()) show(a); });
+    a.addEventListener('blur', function () { hideT = setTimeout(hide, 160); });
+    a.addEventListener('click', function (e) {
+      if (!touchy() || !sheet || !sheet.showModal || e.metaKey || e.ctrlKey) return;
+      clearTimeout(showT); hide();
+      e.preventDefault(); openSheet(a.getAttribute('data-pk'));
+    });
+  });
+  pop.addEventListener('mouseenter', function () { clearTimeout(hideT); });
+  pop.addEventListener('mouseleave', function () { hideT = setTimeout(hide, 160); });
+  addEventListener('scroll', function () { if (cur) hide(); }, { passive: true });
+  addEventListener('keydown', function (e) { if (e.key === 'Escape' && cur) hide(); });
+  function openSheet(code) {
+    var i = list.indexOf(code), body = sheet.querySelector('.pk-body');
+    body.innerHTML = content(code) + '<div class="pk-nav">' +
+      (i > 0 ? '<button type="button" data-to="' + list[i - 1] + '">← ' + list[i - 1] + '</button>' : '') +
+      (i < list.length - 1 ? '<button type="button" data-to="' + list[i + 1] + '">' + list[i + 1] + ' →</button>' : '') + '</div>';
+    sheet.scrollTop = 0;
+    if (!sheet.open) sheet.showModal();
+  }
+  if (sheet) {
+    sheet.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-to]'); if (b) { openSheet(b.getAttribute('data-to')); return; }
+      if (e.target.closest('.pk-x') || e.target === sheet) sheet.close();
+    });
+    var y0 = null;
+    sheet.addEventListener('touchstart', function (e) { y0 = sheet.scrollTop <= 0 ? e.touches[0].clientY : null; }, { passive: true });
+    sheet.addEventListener('touchend', function (e) { if (y0 !== null && e.changedTouches[0].clientY - y0 > 90) sheet.close(); y0 = null; }, { passive: true });
+  }
+})();
+</script>

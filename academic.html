@@ -1927,6 +1927,80 @@ dialog.invite::backdrop{background:rgba(10,18,36,.55);backdrop-filter:blur(2px)}
 .cmt-wrap>.more-link{display:inline-flex;margin-top:6px}
 .mt-cmt figure{margin:0 0 14px}
 .mt-cmt figure:last-child{margin-bottom:0}
+/* ---------- home modules: accents, hooks, pills, stats, peek popup / sheet ---------- */
+.mgroup.a1{--acc:#0B8794}.mgroup.a2{--acc:#6247C9}.mgroup.a3{--acc:#9A5B00}
+:root[data-theme="dark"] .mgroup.a1{--acc:#5FD3E0}:root[data-theme="dark"] .mgroup.a2{--acc:#B3A5F5}:root[data-theme="dark"] .mgroup.a3{--acc:#F2B661}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .mgroup.a1{--acc:#5FD3E0}:root:not([data-theme="light"]) .mgroup.a2{--acc:#B3A5F5}:root:not([data-theme="light"]) .mgroup.a3{--acc:#F2B661}}
+.mgroup{position:relative;overflow:hidden;border-top:0;padding-top:24px}
+.mgroup::before{content:"";position:absolute;inset:0 0 auto;height:4px;background:var(--acc)}
+.mgroup > .label{color:var(--acc)}
+.mgroup a{grid-template-columns:62px 1fr auto 14px;align-items:start;padding:13px 6px 13px 0;border-radius:10px;transition:background .18s var(--ease),transform .18s var(--ease)}
+.mgroup a b{color:var(--acc);padding-top:3px}
+.mgroup a > span{display:grid;gap:3px}
+.mg-n{font-size:15px;line-height:1.35;font-weight:500}
+.mg-hook{font-size:13px;line-height:1.4;color:var(--muted);font-style:italic}
+.mg-pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:3px}
+.pill{display:inline-flex;align-items:center;font:600 10.5px/1 var(--sans);letter-spacing:.04em;padding:4px 8px;border-radius:999px;white-space:nowrap}
+.mgroup a small.pill{margin:0;display:inline-flex;font-size:10.5px}
+.pill-co{background:var(--acc,#0B8794);color:#fff}
+:root[data-theme="dark"] .pill-co{color:#121829}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pill-co{color:#121829}}
+.pill-tool{border:1px solid var(--acc,#0B8794);color:var(--acc,#0B8794)}
+.mgroup a em{padding-top:4px}
+.mg-go{font-style:normal;color:var(--acc);opacity:0;transform:translateX(-4px);transition:opacity .18s var(--ease),transform .18s var(--ease);padding-top:2px}
+.mgroup a:hover,.mgroup a:focus-visible,.mgroup a.is-peek{background:color-mix(in srgb,var(--acc) 8%,transparent)}
+.mgroup a:hover .mg-go,.mgroup a:focus-visible .mg-go,.mgroup a.is-peek .mg-go{opacity:1;transform:none}
+.mgroup a:hover span.mg-n{color:var(--ink)}
+.mg-fam{margin:0 0 6px;display:grid;gap:2px}
+.mg-fam .mg-hook{font-size:14px;color:var(--ink)}
+.mg-fam small{font:600 10.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
+.mstats{list-style:none;margin:0 0 18px;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.mstats li{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--card);display:grid;gap:2px}
+.mstats b{font:600 clamp(24px,3vw,32px)/1.05 var(--serif);color:var(--ink)}
+.mstats span{font-size:12.5px;color:var(--muted)}
+@media (max-width:700px){.mstats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* peek content */
+.pk-in{display:grid;gap:10px}
+.pk-in h3{margin:0;font:600 22px/1.2 var(--serif);color:var(--ink)}
+.pk-top{display:flex;gap:6px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.pk-code{font-weight:700;letter-spacing:.06em;color:var(--label)}
+.pk-tags{display:flex;flex-wrap:wrap;gap:6px}
+.pk-in .pill-co{background:var(--label);color:var(--card)}
+.pk-in .pill-tool{border-color:var(--label);color:var(--label)}
+.pk-about{margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.pk-teach{padding:10px 12px;border-radius:12px;background:var(--tint);display:grid;gap:3px}
+.pk-teach b{font-size:14.5px;color:var(--ink)}
+.pk-teach p{margin:0;font-size:13px;line-height:1.45;color:var(--muted)}
+.pk-in .label{margin:0}
+.pk-learn{margin:0;padding-left:18px;font-size:13px;line-height:1.45;display:grid;gap:3px}
+.pk-bar{display:flex;height:10px;border-radius:999px;overflow:hidden;gap:2px}
+.pk-bar i,.pk-leg i{background:var(--label)}
+.pk-bar i:nth-child(2),.pk-leg li:nth-child(2) i{opacity:.75}.pk-bar i:nth-child(3),.pk-leg li:nth-child(3) i{opacity:.5}.pk-bar i:nth-child(4),.pk-leg li:nth-child(4) i{opacity:.32}.pk-bar i:nth-child(5),.pk-leg li:nth-child(5) i{opacity:.18}
+.pk-leg{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11.5px;color:var(--muted)}
+.pk-leg i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px}
+.pk-leg b{color:var(--ink)}
+.pk-go{justify-self:start;margin-top:2px}
+/* desktop popup */
+.pk-pop{position:fixed;z-index:60;width:min(400px,calc(100vw - 32px));max-height:min(78vh,620px);overflow:auto;padding:20px 20px 18px;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:0 24px 60px rgba(10,20,40,.22);opacity:0;transform:translateY(6px) scale(.98);transition:opacity .16s ease,transform .16s ease;pointer-events:none}
+.pk-pop.on{opacity:1;transform:none;pointer-events:auto}
+/* mobile sheet */
+dialog.pk-sheet{margin:auto 0 0;width:100%;max-width:100%;max-height:86vh;padding:14px 18px calc(18px + env(safe-area-inset-bottom));border:0;border-radius:22px 22px 0 0;background:var(--card);color:var(--ink);overflow:auto;box-sizing:border-box}
+dialog.pk-sheet[open]{animation:pkUp .24s cubic-bezier(.2,.8,.2,1)}
+dialog.pk-sheet::backdrop{background:rgba(10,18,36,.55)}
+dialog.pk-sheet::before{content:"";display:block;width:40px;height:4px;border-radius:4px;background:var(--line);margin:0 auto 10px}
+.pk-x{position:absolute;top:10px;right:12px;width:40px;height:40px;border:0;border-radius:50%;background:var(--tint);color:var(--ink);font-size:22px;line-height:1;cursor:pointer}
+.pk-sheet .pk-go{justify-self:stretch;justify-content:center;min-height:46px}
+.pk-nav{display:flex;justify-content:space-between;gap:8px;margin-top:4px}
+.pk-nav button{flex:1;min-height:42px;border:1px solid var(--line);border-radius:12px;background:transparent;color:var(--ink);font:inherit;font-size:13px;cursor:pointer}
+@keyframes pkUp{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.pk-pop,.mg-go,.mgroup a{transition:none}dialog.pk-sheet[open]{animation:none}}
+.mgroup a small.pill-co{color:#fff}
+:root[data-theme="dark"] .mgroup a small.pill-co{color:#121829}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .mgroup a small.pill-co{color:#121829}}
+.mgroup a small.pill-tool{color:var(--acc)}
+.pk-pop .pk-teach p{display:none}
+.pk-pop .pk-about{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pk-pop .pk-in{gap:8px}
 
 @media (prefers-reduced-motion:reduce){#s1{height:auto !important}#s1 .sticky{position:relative;height:auto;min-height:100svh;overflow:visible}#s1 .hero{position:relative;top:auto;bottom:auto;padding-top:calc(var(--head) + 24px);display:grid;grid-template-columns:minmax(0,1fr);align-items:start}#s1 .stage{height:auto;justify-content:flex-start}#s1 .portrait{height:auto;width:min(340px,70vw);margin:0}#s1 .copy{transform:none !important}.ghost-hi{display:none}@media (min-width:861px){#s1 .hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}#s1 .portrait{width:100%;max-width:440px}}.about-text{position:static;opacity:1 !important;margin-top:28px}.ghost-about,.fdot{display:none}   #about{height:auto !important}   #about .sticky{position:relative;height:auto;overflow:visible;padding:56px 0 40px}   #about .path-head{position:static;margin-bottom:32px}   #about .path-prog{display:none}   #about .track{position:relative;height:auto;transform:none !important;padding:0 var(--gutter) 0 calc(var(--gutter) + 36px)}   #about .line{left:calc(var(--gutter) + 8px);top:8px;bottom:40px;width:2px;height:auto;margin:0}   #about .fill{transform-origin:50% 0;transform:scaleY(0)}   #about .stop{position:relative;left:auto;top:auto;width:auto;height:auto;padding-bottom:34px}   #about .node{left:-36px;top:4px}   #about .stop.now .node{left:-39px;top:1px}   #about .arm{display:none}   #about .stop .card{position:static;width:auto;bottom:auto;top:auto}   #about .lg{margin-bottom:8px}#kick,#rule,#introP,.copy .fade{opacity:1 !important;visibility:visible !important}#portrait,.ghost-hi{transform:none !important}.ghost-hi{display:none}}
 </style>
@@ -2022,11 +2096,15 @@ dialog.invite::backdrop{background:rgba(10,18,36,.55);backdrop-filter:blur(2px)}
         <h2>What I teach<span>.</span></h2>
         <p>Nine undergraduate modules at MNU Business School since 2024, from Level 100 to Level 300, six of which I coordinate.</p>
       </div>
+      <ul class="mstats reveal"><li><b>9</b><span>modules</span></li><li><b>6</b><span>coordinated</span></li><li><b>100–300</b><span>levels taught</span></li><li><b>3</b><span>student tools built</span></li></ul>
       <div class="mgroups">
-        <div class="mgroup reveal" style="--rd:0.00s"><span class="label">Business concepts</span><a href="academic/modules/mkt101.html"><b>MKT101</b><span>Introduction to Marketing<small>Subject coordinator</small></span><em>L100</em></a><a href="academic/modules/bus107.html"><b>BUS107</b><span>Maldivian Business Environment</span><em>L100</em></a><a href="academic/modules/bus301.html"><b>BUS301</b><span>Business Entrepreneurship</span><em>L300</em></a></div>
-        <div class="mgroup reveal" style="--rd:0.08s"><span class="label">Marketing communications</span><a href="academic/modules/mkt213.html"><b>MKT213</b><span>Integrated Marketing Communication<small>Subject coordinator</small></span><em>L200</em></a><a href="academic/modules/mkt215.html"><b>MKT215</b><span>Direct Marketing</span><em>L200</em></a><a href="academic/modules/mkt217.html"><b>MKT217</b><span>Advertising &amp; Promotion<small>Subject coordinator</small></span><em>L200</em></a></div>
-        <div class="mgroup reveal" style="--rd:0.16s"><span class="label">Strategy, brand and digital</span><a href="academic/modules/mkt301.html"><b>MKT301</b><span>International Marketing<small>Subject coordinator</small></span><em>L300</em></a><a href="academic/modules/mkt303.html"><b>MKT303</b><span>Electronic Marketing<small>Subject coordinator</small></span><em>L300</em></a><a href="academic/modules/mkt309.html"><b>MKT309</b><span>Brand Management<small>Subject coordinator</small></span><em>L300</em></a></div>
+        <div class="mgroup a1 reveal" style="--rd:0.00s"><span class="label">Business concepts</span><div class="mg-rows"><a href="academic/modules/mkt101.html" data-pk="MKT101"><b>MKT101</b><span><span class="mg-n">Introduction to Marketing</span><span class="mg-hook">Practice Arena: compete on the basics</span><span class="mg-pills"><small class="pill pill-co">Coordinator</small><small class="pill pill-tool">Live tool</small></span></span><em>L100</em><i class="mg-go" aria-hidden="true">→</i></a><a href="academic/modules/bus107.html" data-pk="BUS107"><b>BUS107</b><span><span class="mg-n">Maldivian Business Environment</span><span class="mg-hook">A Maldivian market in the classroom</span></span><em>L100</em><i class="mg-go" aria-hidden="true">→</i></a><a href="academic/modules/bus301.html" data-pk="BUS301"><b>BUS301</b><span><span class="mg-n">Business Entrepreneurship</span><span class="mg-hook">The million-dollar marketplace</span></span><em>L300</em><i class="mg-go" aria-hidden="true">→</i></a></div></div>
+        <div class="mgroup a2 is-fam reveal" style="--rd:0.08s"><span class="label">Marketing communications</span><p class="mg-fam"><span class="mg-hook">Think Different, three ways</span><small>Taught as one family</small></p><div class="mg-rows"><a href="academic/modules/mkt213.html" data-pk="MKT213"><b>MKT213</b><span><span class="mg-n">Integrated Marketing Communication</span><span class="mg-pills"><small class="pill pill-co">Coordinator</small></span></span><em>L200</em><i class="mg-go" aria-hidden="true">→</i></a><a href="academic/modules/mkt215.html" data-pk="MKT215"><b>MKT215</b><span><span class="mg-n">Direct Marketing</span></span><em>L200</em><i class="mg-go" aria-hidden="true">→</i></a><a href="academic/modules/mkt217.html" data-pk="MKT217"><b>MKT217</b><span><span class="mg-n">Advertising &amp; Promotion</span><span class="mg-pills"><small class="pill pill-co">Coordinator</small></span></span><em>L200</em><i class="mg-go" aria-hidden="true">→</i></a></div></div>
+        <div class="mgroup a3 reveal" style="--rd:0.16s"><span class="label">Strategy, brand and digital</span><div class="mg-rows"><a href="academic/modules/mkt301.html" data-pk="MKT301"><b>MKT301</b><span><span class="mg-n">International Marketing</span><span class="mg-hook">Local firms, foreign markets</span><span class="mg-pills"><small class="pill pill-co">Coordinator</small><small class="pill pill-tool">Live tool</small></span></span><em>L300</em><i class="mg-go" aria-hidden="true">→</i></a><a href="academic/modules/mkt303.html" data-pk="MKT303"><b>MKT303</b><span><span class="mg-n">Electronic Marketing</span><span class="mg-hook">From Kandu Stay to a real business</span><span class="mg-pills"><small class="pill pill-co">Coordinator</small><small class="pill pill-tool">Live tool</small></span></span><em>L300</em><i class="mg-go" aria-hidden="true">→</i></a><a href="academic/modules/mkt309.html" data-pk="MKT309"><b>MKT309</b><span><span class="mg-n">Brand Management</span><span class="mg-hook">A live rebrand: Malé City Council</span><span class="mg-pills"><small class="pill pill-co">Coordinator</small></span></span><em>L300</em><i class="mg-go" aria-hidden="true">→</i></a></div></div>
       </div>
+      <div class="pk-tpls" hidden><template id="pk-MKT101"><div class="pk-in"><div class="pk-top"><span class="pk-code">MKT101</span><span>Level 100</span> · 56 contact hours</div><h3>Introduction to Marketing</h3><div class="pk-tags"><span class="pill pill-co">Subject coordinator</span><span class="pill pill-tool">Live tool: MKT101 Arena</span></div><p class="pk-about">A Level 100 module where first-year students meet marketing as a way of thinking: understand the customer, find the value, and make choices that deliver it. Everything is anchored in brands students already know.</p><div class="pk-teach"><span class="label">How I teach it</span><b>The Arena</b><p>The MKT101 Arena, a practice app I built for the module, turns the basics into a challenge students want to win.</p></div><span class="label">Students learn to</span><ul class="pk-learn"><li>Explain what marketing does inside an organisation, and why it matters to the whole business.</li><li>Research a market and understand how customers decide.</li><li>Choose who to serve and how to stand out.</li></ul><span class="label">Assessment, Term 1 2026</span><div class="pk-bar"><i style="flex:20" title="Group written 20%"></i><i style="flex:10" title="Group presentation 10%"></i><i style="flex:20" title="Midterm exam 20%"></i><i style="flex:50" title="Final exam 50%"></i></div><ul class="pk-leg"><li><i></i>Group written <b>20</b></li><li><i></i>Group presentation <b>10</b></li><li><i></i>Midterm exam <b>20</b></li><li><i></i>Final exam <b>50</b></li></ul><a class="btn btn--sm pk-go" href="academic/modules/mkt101.html">Open the module page →</a></div></template><template id="pk-BUS107"><div class="pk-in"><div class="pk-top"><span class="pk-code">BUS107</span><span>Level 100</span> · 56 contact hours</div><h3>Maldivian Business Environment</h3><p class="pk-about">A Level 100 module, taught at foundation level, that gives students a working picture of how business really runs in the Maldives: the forces that shape it, the industries that drive it, and the opportunities and obstacles local firms face. It’s about learning to read the business environment before making decisions inside it.</p><div class="pk-teach"><span class="label">How I teach it</span><b>A Maldivian market in the classroom</b><p>The subject runs on a classroom economy built from the industries of the Maldives.</p></div><span class="label">Students learn to</span><ul class="pk-learn"><li>Read the forces around a Maldivian business, and judge how they shape its decisions.</li><li>Compare the industries that drive the economy and the pressures each one faces.</li><li>Recognise the management, people and money questions local firms deal with, including what it takes to start, trade and grow.</li></ul><span class="label">Assessment, Term 2 2025</span><div class="pk-bar"><i style="flex:15" title="Individual written 15%"></i><i style="flex:10" title="Group presentation 10%"></i><i style="flex:20" title="Group written 20%"></i><i style="flex:5" title="Tutorial participation 5%"></i><i style="flex:50" title="Final exam 50%"></i></div><ul class="pk-leg"><li><i></i>Individual written <b>15</b></li><li><i></i>Group presentation <b>10</b></li><li><i></i>Group written <b>20</b></li><li><i></i>Tutorial participation <b>5</b></li><li><i></i>Final exam <b>50</b></li></ul><a class="btn btn--sm pk-go" href="academic/modules/bus107.html">Open the module page →</a></div></template><template id="pk-BUS301"><div class="pk-in"><div class="pk-top"><span class="pk-code">BUS301</span><span>Level 300</span> · 56 contact hours</div><h3>Business Entrepreneurship</h3><p class="pk-about">A Level 300 module: students bring together what they’ve learned across the degree to judge and build a real venture. They start from a real problem, test whether a business can solve it and make money, and build the case for it the way a founder would before asking anyone for investment.</p><div class="pk-teach"><span class="label">How I teach it</span><b>The million-dollar marketplace</b><p>The subject opens with the million-dollar marketplace, a two-hour pitch challenge.</p></div><span class="label">Students learn to</span><ul class="pk-learn"><li>Find real opportunities in everyday problems, and judge which ones can become a business.</li><li>Test an idea properly before committing to it, from the customer and the market to the money.</li><li>Plan how a new venture will be funded, organised, protected and grown.</li></ul><span class="label">Assessment, Term 2 2025</span><div class="pk-bar"><i style="flex:15" title="Individual written 15%"></i><i style="flex:25" title="Group written 25%"></i><i style="flex:10" title="Group presentation 10%"></i><i style="flex:50" title="Final exam 50%"></i></div><ul class="pk-leg"><li><i></i>Individual written <b>15</b></li><li><i></i>Group written <b>25</b></li><li><i></i>Group presentation <b>10</b></li><li><i></i>Final exam <b>50</b></li></ul><a class="btn btn--sm pk-go" href="academic/modules/bus301.html">Open the module page →</a></div></template><template id="pk-MKT213"><div class="pk-in"><div class="pk-top"><span class="pk-code">MKT213</span><span>Level 200</span> · 56 contact hours</div><h3>Integrated Marketing Communication</h3><div class="pk-tags"><span class="pill pill-co">Subject coordinator</span></div><p class="pk-about">A Level 200 module on making every message a brand sends work as one: advertising, promotion, digital, social and personal selling planned together, rather than as separate campaigns.</p><div class="pk-teach"><span class="label">How I teach it</span><b>One idea, three lenses: Think Different</b><p>I teach this module as one of a family with Direct Marketing and Advertising & Promotion, because the three share the same core ideas, seen from different sides. Apple’s Think Different is the thread that ties them together.</p></div><span class="label">Students learn to</span><ul class="pk-learn"><li>Explain why joined-up communication matters to a brand’s strategy.</li><li>Understand how a message travels and which tools carry it best.</li><li>Set clear communication objectives for a specific audience.</li></ul><span class="label">Assessment, Term 1 2026</span><div class="pk-bar"><i style="flex:35" title="Group assignment+presentation 35%"></i><i style="flex:15" title="Midterm exam 15%"></i><i style="flex:50" title="Final exam 50%"></i></div><ul class="pk-leg"><li><i></i>Group assignment+presentation <b>35</b></li><li><i></i>Midterm exam <b>15</b></li><li><i></i>Final exam <b>50</b></li></ul><a class="btn btn--sm pk-go" href="academic/modules/mkt213.html">Open the module page →</a></div></template><template id="pk-MKT215"><div class="pk-in"><div class="pk-top"><span class="pk-code">MKT215</span><span>Level 200</span> · 56 contact hours</div><h3>Direct Marketing</h3><p class="pk-about">A Level 200 module on reaching the right person with the right offer: building customer data, designing direct campaigns, and proving they work.</p><div class="pk-teach"><span class="label">How I teach it</span><b>One idea, three lenses: Think Different</b><p>I teach this module as one of a family with Integrated Marketing Communication and Advertising & Promotion, because the three share the same core ideas, seen from different sides. Apple’s Think Different is the thread that ties them together.</p></div><span class="label">Students learn to</span><ul class="pk-learn"><li>Explain how direct marketing works and when it beats mass marketing.</li><li>Use customer data to find and profile the right prospects.</li><li>Design an offer and creative work that make people respond.</li></ul><span class="label">Assessment, Term 1 2026</span><div class="pk-bar"><i style="flex:25" title="Group written 25%"></i><i style="flex:15" title="Group presentation 15%"></i><i style="flex:60" title="Final exam 60%"></i></div><ul class="pk-leg"><li><i></i>Group written <b>25</b></li><li><i></i>Group presentation <b>15</b></li><li><i></i>Final exam <b>60</b></li></ul><a class="btn btn--sm pk-go" href="academic/modules/mkt215.html">Open the module page →</a></div></template><template id="pk-MKT217"><div class="pk-in"><div class="pk-top"><span class="pk-code">MKT217</span><span>Level 200</span> · 56 contact hours</div><h3>Advertising &amp; Promotion</h3><div class="pk-tags"><span class="pill pill-co">Subject coordinator</span></div><p class="pk-about">A Level 200 module on the craft and the business of advertising and sales promotion: what makes an ad work, where to place it, and how to prove it paid off.</p><div class="pk-teach"><span class="label">How I teach it</span><b>One idea, three lenses: Think Different</b><p>I teach this module as one of a family with Integrated Marketing Communication and Direct Marketing, because the three share the same core ideas, seen from different sides. Apple’s Think Different is the thread that ties them together.</p></div><span class="label">Students learn to</span><ul class="pk-learn"><li>Judge advertising critically, using the ideas behind creative strategy and message appeals.</li><li>Choose the right mix of media for a target audience.</li><li>Plan promotions aimed at both consumers and retailers.</li></ul><span class="label">Assessment, Term 2 2025</span><div class="pk-bar"><i style="flex:15" title="Individual written 15%"></i><i style="flex:25" title="Group written 25%"></i><i style="flex:10" title="Group presentation 10%"></i><i style="flex:50" title="Final exam 50%"></i></div><ul class="pk-leg"><li><i></i>Individual written <b>15</b></li><li><i></i>Group written <b>25</b></li><li><i></i>Group presentation <b>10</b></li><li><i></i>Final exam <b>50</b></li></ul><a class="btn btn--sm pk-go" href="academic/modules/mkt217.html">Open the module page →</a></div></template><template id="pk-MKT301"><div class="pk-in"><div class="pk-top"><span class="pk-code">MKT301</span><span>Level 300</span> · 56 contact hours</div><h3>International Marketing</h3><div class="pk-tags"><span class="pill pill-co">Subject coordinator</span><span class="pill pill-tool">Live tool: MKT301 Practice Arena</span></div><p class="pk-about">A Level 300 module on taking a business across borders. Students learn to read a foreign market, choose how to enter it, and adapt the product, price, channels and message to it. They do this from the seat of a small Maldivian company, not a global giant.</p><div class="pk-teach"><span class="label">How I teach it</span><b>Local firms, foreign markets</b><p>Students follow Maldivian businesses abroad through teaching cases I write and publish as interactive pages.</p></div><span class="label">Students learn to</span><ul class="pk-learn"><li>Judge how culture, economics, politics and law in a foreign market shape what a business can do there.</li><li>Research a market and decide who to target and how to stand out.</li><li>Compare ways to enter a market and defend the one they choose.</li></ul><span class="label">Assessment, Term 1 2026</span><div class="pk-bar"><i style="flex:35" title="Group written 35%"></i><i style="flex:15" title="Group presentation 15%"></i><i style="flex:50" title="Final exam 50%"></i></div><ul class="pk-leg"><li><i></i>Group written <b>35</b></li><li><i></i>Group presentation <b>15</b></li><li><i></i>Final exam <b>50</b></li></ul><a class="btn btn--sm pk-go" href="academic/modules/mkt301.html">Open the module page →</a></div></template><template id="pk-MKT303"><div class="pk-in"><div class="pk-top"><span class="pk-code">MKT303</span><span>Level 300</span> · 56 contact hours</div><h3>Electronic Marketing</h3><div class="pk-tags"><span class="pill pill-co">Subject coordinator</span><span class="pill pill-tool">Live tool: Digital Presence Audit</span></div><p class="pk-about">A Level 300 module on marketing where customers now find businesses: search, social, websites, reviews, and increasingly AI assistants. Students learn to diagnose a real business’s online presence and plan how to improve it.</p><div class="pk-teach"><span class="label">How I teach it</span><b>From Kandu Stay to a real business</b><p>The whole module runs on one continuous case, Kandu Stay, a 12-room guesthouse on a local island.</p></div><span class="label">Students learn to</span><ul class="pk-learn"><li>Explain how online marketing differs from traditional marketing, and where it fits in a strategy.</li><li>Use web and customer data to research a market and understand behaviour online.</li><li>Audit a business’s digital presence and judge what is working.</li></ul><span class="label">Assessment, Term 1 2026</span><div class="pk-bar"><i style="flex:30" title="Group written 30%"></i><i style="flex:20" title="Individual presentation 20%"></i><i style="flex:50" title="Individual written 50%"></i></div><ul class="pk-leg"><li><i></i>Group written <b>30</b></li><li><i></i>Individual presentation <b>20</b></li><li><i></i>Individual written <b>50</b></li></ul><a class="btn btn--sm pk-go" href="academic/modules/mkt303.html">Open the module page →</a></div></template><template id="pk-MKT309"><div class="pk-in"><div class="pk-top"><span class="pk-code">MKT309</span><span>Level 300</span> · 56 contact hours</div><h3>Brand Management</h3><div class="pk-tags"><span class="pill pill-co">Subject coordinator</span></div><p class="pk-about">A Level 300 module on brands as some of a company’s most valuable assets: how they are built, managed and measured, and what happens when a brand changes.</p><div class="pk-teach"><span class="label">How I teach it</span><b>From the history of branding to a live rebrand</b><p>The subject opens with a deep dive into the history of branding.</p></div><span class="label">Students learn to</span><ul class="pk-learn"><li>Explain what gives a brand its value in customers’ minds.</li><li>Position a brand and choose the elements and programmes that build it.</li><li>Measure how a brand is performing, and read what the numbers mean.</li></ul><span class="label">Assessment, Term 1 2026</span><div class="pk-bar"><i style="flex:35" title="Group written 35%"></i><i style="flex:15" title="Group presentation 15%"></i><i style="flex:50" title="Final exam 50%"></i></div><ul class="pk-leg"><li><i></i>Group written <b>35</b></li><li><i></i>Group presentation <b>15</b></li><li><i></i>Final exam <b>50</b></li></ul><a class="btn btn--sm pk-go" href="academic/modules/mkt309.html">Open the module page →</a></div></template></div>
+      <div class="pk-pop" id="pkPop" role="tooltip" hidden></div>
+      <dialog class="pk-sheet" id="pkSheet" aria-label="Module preview"><button type="button" class="pk-x" aria-label="Close">×</button><div class="pk-body"></div></dialog>
       <div class="row-cta reveal"><a class="btn" href="academic/modules.html">All modules, with outlines and assessment <i data-ic="right"></i></a></div>
     </div>
   </section>
@@ -2862,6 +2940,70 @@ hydrateIcons();
       cards.forEach(function (c) { c.hidden = !!m && (' ' + c.getAttribute('data-mods') + ' ').indexOf(' ' + m + ' ') < 0; });
     });
   });
+})();
+</script>
+<script>
+(function () {
+  var rows = document.querySelectorAll('.mgroup a[data-pk]');
+  if (!rows.length) return;
+  var pop = document.getElementById('pkPop'), sheet = document.getElementById('pkSheet');
+  var fine = matchMedia('(hover:hover) and (pointer:fine)');
+  var lastPt = '';
+  addEventListener('pointerdown', function (e) { lastPt = e.pointerType; }, true);
+  function touchy() { return lastPt === 'touch' || lastPt === 'pen' || !fine.matches; }
+  var list = Array.prototype.map.call(rows, function (a) { return a.getAttribute('data-pk'); });
+  function content(code) { var t = document.getElementById('pk-' + code); return t ? t.innerHTML : ''; }
+  var showT, hideT, cur = null;
+  function place(a) {
+    var r = a.getBoundingClientRect(), w = pop.offsetWidth, h = pop.offsetHeight, g = 14;
+    var x = r.right + g; if (x + w > innerWidth - 12) x = r.left - w - g; if (x < 12) x = Math.min(innerWidth - w - 12, Math.max(12, r.left));
+    var y = Math.min(Math.max(12, r.top + r.height / 2 - h / 2), innerHeight - h - 12);
+    pop.style.left = x + 'px'; pop.style.top = y + 'px';
+  }
+  function show(a) {
+    clearTimeout(hideT);
+    if (cur === a) return;
+    if (cur) cur.classList.remove('is-peek');
+    cur = a; a.classList.add('is-peek');
+    pop.innerHTML = content(a.getAttribute('data-pk')); pop.hidden = false; place(a);
+    requestAnimationFrame(function () { pop.classList.add('on'); });
+  }
+  function hide() {
+    pop.classList.remove('on'); if (cur) cur.classList.remove('is-peek'); cur = null;
+    setTimeout(function () { if (!cur) pop.hidden = true; }, 180);
+  }
+  rows.forEach(function (a) {
+    a.addEventListener('mouseenter', function () { if (touchy()) return; clearTimeout(showT); clearTimeout(hideT); showT = setTimeout(function () { show(a); }, cur ? 0 : 220); });
+    a.addEventListener('mouseleave', function () { clearTimeout(showT); hideT = setTimeout(hide, 160); });
+    a.addEventListener('focus', function () { if (!touchy()) show(a); });
+    a.addEventListener('blur', function () { hideT = setTimeout(hide, 160); });
+    a.addEventListener('click', function (e) {
+      if (!touchy() || !sheet || !sheet.showModal || e.metaKey || e.ctrlKey) return;
+      clearTimeout(showT); hide();
+      e.preventDefault(); openSheet(a.getAttribute('data-pk'));
+    });
+  });
+  pop.addEventListener('mouseenter', function () { clearTimeout(hideT); });
+  pop.addEventListener('mouseleave', function () { hideT = setTimeout(hide, 160); });
+  addEventListener('scroll', function () { if (cur) hide(); }, { passive: true });
+  addEventListener('keydown', function (e) { if (e.key === 'Escape' && cur) hide(); });
+  function openSheet(code) {
+    var i = list.indexOf(code), body = sheet.querySelector('.pk-body');
+    body.innerHTML = content(code) + '<div class="pk-nav">' +
+      (i > 0 ? '<button type="button" data-to="' + list[i - 1] + '">← ' + list[i - 1] + '</button>' : '') +
+      (i < list.length - 1 ? '<button type="button" data-to="' + list[i + 1] + '">' + list[i + 1] + ' →</button>' : '') + '</div>';
+    sheet.scrollTop = 0;
+    if (!sheet.open) sheet.showModal();
+  }
+  if (sheet) {
+    sheet.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-to]'); if (b) { openSheet(b.getAttribute('data-to')); return; }
+      if (e.target.closest('.pk-x') || e.target === sheet) sheet.close();
+    });
+    var y0 = null;
+    sheet.addEventListener('touchstart', function (e) { y0 = sheet.scrollTop <= 0 ? e.touches[0].clientY : null; }, { passive: true });
+    sheet.addEventListener('touchend', function (e) { if (y0 !== null && e.changedTouches[0].clientY - y0 > 90) sheet.close(); y0 = null; }, { passive: true });
+  }
 })();
 </script>
 <script>

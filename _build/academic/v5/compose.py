@@ -130,15 +130,47 @@ home_ev = rd('home_evidence.html').replace('@@EVCHART@@', AU.evidence(full=False
 if not AU.F['evaluation_on'] and not AU.comments(): home_ev = ''
 SVC_HOME = '  <section class="block" id="service">\n    <div class="wrap">\n      <div class="head wide reveal"><span class="label">Beyond the classroom</span><h2>Service and supervision<span>.</span></h2></div>\n      ' + AU.service() + '\n    </div>\n  </section>\n'
 
+ACC = ['a1', 'a2', 'a3']
+def peek(c):
+    m, T, A = MODS[c], MODTEXT.get(c, {}), D['asg'].get(c)
+    bar = ''
+    if A:
+        bar = ('<span class="label">Assessment, %s</span><div class="pk-bar">' % A[0] + ''.join('<i style="flex:%d" title="%s %d%%"></i>' % (x[1], x[0], x[1]) for x in A[1]) + '</div>'
+               '<ul class="pk-leg">' + ''.join('<li><i></i>%s <b>%d</b></li>' % (x[0], x[1]) for x in A[1]) + '</ul>')
+    tags = ''.join(['<span class="pill pill-co">Subject coordinator</span>' if m.get('coord') else '',
+                    '<span class="pill pill-tool">Live tool: %s</span>' % m['app'][0] if m.get('app') else ''])
+    learn = ''.join('<li>%s</li>' % x for x in T.get('learn', [])[:3])
+    return ('<template id="pk-%s"><div class="pk-in"><div class="pk-top"><span class="pk-code">%s</span><span>%s</span>%s</div>'
+            '<h3>%s</h3>%s'
+            '%s%s%s%s'
+            '<a class="btn btn--sm pk-go" href="academic/modules/%s.html">Open the module page →</a></div></template>'
+            % (c, c, m['l'], ' · %s' % T['hours'] if T.get('hours') else '', m['n'], ('<div class="pk-tags">' + tags + '</div>') if tags else '',
+               ('<p class="pk-about">%s</p>' % T['about']) if T.get('about') else '',
+               ('<div class="pk-teach"><span class="label">How I teach it</span><b>%s</b><p>%s</p></div>' % (T['teach_h'], T['teach_intro'])) if T.get('teach_h') else '',
+               ('<span class="label">Students learn to</span><ul class="pk-learn">%s</ul>' % learn) if learn else '', bar, slug(c)))
+
 def mgroups():
-    out = []
+    out, tpl = [], ''
     for i, (g, cs) in enumerate(GROUPS):
-        rows = ''.join('<a href="academic/modules/%s.html"><b>%s</b><span>%s%s</span><em>%s</em></a>' % (
-            slug(c), c, MODS[c]['n'], ('<small>Subject coordinator</small>' if MODS[c].get('coord') else ''),
-            MODS[c]['l'].replace('Level ', 'L')) for c in cs)
-        out.append('<div class="mgroup reveal" style="--rd:%.2fs"><span class="label">%s</span>%s</div>' % (i * .08, g, rows))
-    return '\n        '.join(out)
-home_mods = rd('home_modules.html').replace('<div class="mgroups" id="mgroups"></div>', '<div class="mgroups">\n        ' + mgroups() + '\n      </div>')
+        fam = all(MODTEXT.get(c, {}).get('family') for c in cs)
+        rows = ''
+        for c in cs:
+            m, T = MODS[c], MODTEXT.get(c, {})
+            pills = ''.join(['<small class="pill pill-co">Coordinator</small>' if m.get('coord') else '',
+                             '<small class="pill pill-tool">Live tool</small>' if m.get('app') else ''])
+            rows += ('<a href="academic/modules/%s.html" data-pk="%s"><b>%s</b><span><span class="mg-n">%s</span>%s%s</span><em>%s</em><i class="mg-go" aria-hidden="true">→</i></a>'
+                     % (slug(c), c, c, m['n'], ('<span class="mg-hook">%s</span>' % T['hook']) if T.get('hook') and not fam else '',
+                        ('<span class="mg-pills">%s</span>' % pills) if pills else '', m['l'].replace('Level ', 'L')))
+            tpl += peek(c)
+        famtag = ('<p class="mg-fam"><span class="mg-hook">%s</span><small>Taught as one family</small></p>' % MODTEXT[cs[0]]['hook']) if fam else ''
+        out.append('<div class="mgroup %s%s reveal" style="--rd:%.2fs"><span class="label">%s</span>%s<div class="mg-rows">%s</div></div>' % (ACC[i], ' is-fam' if fam else '', i * .08, g, famtag, rows))
+    return '\n        '.join(out), tpl
+_mg, _tpl = mgroups()
+_ncoord = sum(1 for c in ORDER if MODS[c].get('coord'))
+_napps = sum(1 for c in ORDER if MODS[c].get('app'))
+MSTATS = ('<ul class="mstats reveal"><li><b>%d</b><span>modules</span></li><li><b>%d</b><span>coordinated</span></li>'
+          '<li><b>100–300</b><span>levels taught</span></li><li><b>%d</b><span>student tools built</span></li></ul>' % (len(ORDER), _ncoord, _napps))
+home_mods = rd('home_modules.html').replace('<div class="mgroups" id="mgroups"></div>', MSTATS + '\n      <div class="mgroups">\n        ' + _mg + '\n      </div>\n      <div class="pk-tpls" hidden>' + _tpl + '</div>\n      <div class="pk-pop" id="pkPop" role="tooltip" hidden></div>\n      <dialog class="pk-sheet" id="pkSheet" aria-label="Module preview"><button type="button" class="pk-x" aria-label="Close">×</button><div class="pk-body"></div></dialog>')
 
 res = sec('research')
 res_home = cut(res, '      <div class="next">', '</div>\n      </div>\n')
