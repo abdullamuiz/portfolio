@@ -1798,6 +1798,7 @@ nav.links a{min-height:44px;display:inline-flex;align-items:center}
 .res-tag{justify-self:start;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--label);padding:3px 9px;border-radius:999px;background:color-mix(in srgb,var(--lagoon) 12%,transparent)}
 .res-tag--p{color:var(--muted);background:transparent;border:1px dashed var(--line)}
 @media (max-width:560px){.res-row{grid-template-columns:minmax(0,1fr);gap:6px}}
+.tw-tag.tw-tag-on{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--cta)}
 
 @media (prefers-reduced-motion:reduce){#s1{height:auto !important}#s1 .sticky{position:relative;height:auto;min-height:100svh;overflow:visible}#s1 .hero{position:relative;top:auto;bottom:auto;padding-top:calc(var(--head) + 24px);display:grid;grid-template-columns:minmax(0,1fr);align-items:start}#s1 .stage{height:auto;justify-content:flex-start}#s1 .portrait{height:auto;width:min(340px,70vw);margin:0}#s1 .copy{transform:none !important}.ghost-hi{display:none}@media (min-width:861px){#s1 .hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}#s1 .portrait{width:100%;max-width:440px}}.about-text{position:static;opacity:1 !important;margin-top:28px}.ghost-about,.fdot{display:none}   #about{height:auto !important}   #about .sticky{position:relative;height:auto;overflow:visible;padding:56px 0 40px}   #about .path-head{position:static;margin-bottom:32px}   #about .path-prog{display:none}   #about .track{position:relative;height:auto;transform:none !important;padding:0 var(--gutter) 0 calc(var(--gutter) + 36px)}   #about .line{left:calc(var(--gutter) + 8px);top:8px;bottom:40px;width:2px;height:auto;margin:0}   #about .fill{transform-origin:50% 0;transform:scaleY(0)}   #about .stop{position:relative;left:auto;top:auto;width:auto;height:auto;padding-bottom:34px}   #about .node{left:-36px;top:4px}   #about .stop.now .node{left:-39px;top:1px}   #about .arm{display:none}   #about .stop .card{position:static;width:auto;bottom:auto;top:auto}   #about .lg{margin-bottom:8px}#kick,#rule,#introP,.copy .fade{opacity:1 !important;visibility:visible !important}#portrait,.ghost-hi{transform:none !important}.ghost-hi{display:none}}
 </style>
@@ -2787,14 +2788,26 @@ const items=[
   c:ALL},
  {k:'Real cases',t:'Cases students can walk into',
   b:'A case should feel like a business you could visit, not a page you must read.',
-  how:'I write my own teaching cases around local businesses and publish them as interactive pages students open on their phones. MKT303 runs on one continuous case instead of unrelated examples.',
-  proof:['ICETO Gelato: interactive teaching case for MKT301, with more cases in the same format on the way','Kandu Stay, a 12-room local-island guesthouse, is the running case through MKT303'],
-  c:['MKT301','MKT303']},
+  how:'I write my own teaching cases around local businesses and publish them as interactive pages students open on their phones. MKT303 runs on one continuous case, and MKT309 works on live rebrands as they happen.',
+  proof:['ICETO Gelato: interactive teaching case for MKT301','Kandu Stay, a 12-room local-island guesthouse, is the running case through MKT303','Malé City Council’s rebrand is a live case in MKT309'],
+  c:['MKT301','MKT303','MKT309'],
+  per:{
+   MKT301:{how:'Students follow local businesses into foreign markets. Each case is an interactive page they open on their phones, and the practice arena is built around the same cases.',
+    proof:['ICETO Gelato: interactive teaching case','Kandu Bites taking tuna jerky to Japan and Italy, one of three cases in the MKT301 Practice Arena']},
+   MKT303:{how:'The whole module runs on one continuous case instead of unrelated examples, and students then audit the digital presence of a real local business.',
+    proof:['Kandu Stay, a 12-room local-island guesthouse, is the running case through the module','Digital Presence Audit: students audit a real business’s social media, Google Business Profile, website and reviews']},
+   MKT309:{how:'I bring live local rebrands into class. With Malé City Council’s rebrand, students weigh what the new identity gained against the iconic identity the older brand carried.',
+    proof:['Malé City Council rebrand: what changed, and what the older identity’s recognition was worth','Other current rebrands added as they happen, so the cases stay live']}}},
  {k:'Build as you learn',t:'Every week adds a piece of the real thing',
   b:'Students learn marketing fastest when each lecture produces something they can use.',
-  how:'Weekly tutorials are tied to the lecture chapter and to the group assignment, so the marketing plan for a Maldivian brand grows a section at a time instead of arriving as a last-minute scramble.',
-  proof:['MKT101 tutorials map each chapter (e.g. marketing research, buyer behaviour) to a part of the group marketing plan','A marketing-plan skeleton gives groups a clear structure to build into'],
-  c:['MKT101']},
+  how:'Work is tied to the lecture and to the assessment, so the final piece grows a section at a time instead of arriving as a last-minute scramble.',
+  proof:['MKT101: each chapter maps to a part of the group marketing plan','MKT303: the audit builds into a 12-month e-marketing plan'],
+  c:['MKT101','MKT303'],
+  per:{
+   MKT101:{how:'Weekly tutorials are tied to the lecture chapter and to the group assignment, so the marketing plan for a Maldivian brand grows a section at a time.',
+    proof:['Tutorials map each chapter (e.g. marketing research, buyer behaviour) to a part of the group marketing plan','A marketing-plan skeleton gives groups a clear structure to build into']},
+   MKT303:{how:'Students audit a real business step by step, then turn what they found into a plan, so the evidence and the plan grow together.',
+    proof:['Digital Presence Audit: social media, Google Business Profile, website and reviews, one part at a time','The audit builds into a 12-month e-marketing plan and a PDF evidence report for grading']}}},
  {k:'Plain words',t:'Clear English, rigorous thinking',
   b:'Difficulty should come from the ideas, never from the wording.',
   how:'Many of my students study in their second language. I write lectures and exam questions in simple, direct English and ask for what I want to see: “give an example”, “describe”, “explain why”.',
@@ -2804,21 +2817,36 @@ const items=[
   b:'An exam should measure what was taught, and I change it when the evidence says it isn’t.',
   how:'Papers follow a table of specifications so every question maps to a learning outcome and a thinking level. When I saw students running out of time, I restructured the paper instead of blaming the students.',
   proof:['MKT301 Final and Resit built from one specification, with different cases and limited overlap','Section B changed to “answer any 5 of 6” focused on Understand, Apply and Analyse'],
-  c:['MKT101','MKT301']},
+  c:['MKT101','MKT301'],
+  per:{
+   MKT101:{how:'MKT101 is taught by more than one lecturer, so the paper has to be fair to every class. I set it jointly with a co-lecturer, mapped to the same learning outcomes.',
+    proof:['Combined MKT101 exam paper, set and moderated with a co-lecturer']},
+   MKT301:{how:'The paper follows a table of specifications, so every question maps to a learning outcome and a thinking level. When I saw students running out of time, I restructured it instead of blaming the students.',
+    proof:['Final and Resit built from one specification, with different cases and limited overlap','Section B changed to “answer any 5 of 6” focused on Understand, Apply and Analyse']}}},
  {k:'Practice first',t:'Practise before the pressure',
   b:'Students should meet the exam format long before the exam does.',
-  how:'I am building a study portal where students practise a randomised set of questions, see how to build a strong answer, then compare with a model answer, while essays are still practised on paper under real conditions.',
-  proof:['MKT101 portal: large MCQ bank, 30 random questions per practice session','Guidance and model answers for the longer questions, designed to sit beside a notepad on a phone'],
-  c:['MKT101']},
+  how:'I built practice arenas where students meet the exam format in short sessions, see how to build a strong answer, then compare with a model answer, while essays are still practised on paper under real conditions.',
+  proof:['MKT101 Arena: short daily practice with timed written answers and self-marking against the rubric','MKT301 Practice Arena: 56 short-answer questions, strategy scenarios and an essay coach'],
+  c:['MKT101','MKT301'],
+  per:{
+   MKT101:{how:'First-year students learn best in short bursts, so the MKT101 Arena gives them short daily sessions with the exam always in view, and I run tutorials from its live class dashboard.',
+    proof:['Timed written answers and self-marking against the rubric','Live tutorial sessions run from students’ phones']},
+   MKT301:{how:'The MKT301 Practice Arena lets students rehearse the written answers the exam asks for, on the same cases they study in class.',
+    proof:['56 short-answer questions across three cases','Strategy scenarios, answer plans, paragraph builders and an essay coach']}}},
  {k:'Theory with Trend',t:'Pair every theory with a trend',
   b:'A framework earns its place when students can see it working in today’s market.',
-  how:'I teach the established models first, then test them against what is changing right now, such as AI search and Generative Engine Optimisation in MKT303, so students learn ideas that hold up as platforms shift.',
-  proof:['Peer-reviewed paper in Tourism and Hospitality Research (2021), 36+ citations','Journal article on guesthouse e-marketing, Common Ground (2017)','MKT303 deck suite rebuilt around current texts, with GEO connected to the curriculum'],
-  c:['MKT303']},
+  how:'I teach the established ideas first, then test them against what is changing right now, so students learn ideas that hold up as markets and platforms shift.',
+  proof:['MKT303 deck suite rebuilt around current texts, with Generative Engine Optimisation connected to the curriculum','MKT309 starts from the history of branding before current cases'],
+  c:['MKT303','MKT309'],
+  per:{
+   MKT303:{how:'I teach the established e-marketing models first, then test them against what is changing now, such as AI search and Generative Engine Optimisation (GEO).',
+    proof:['Deck suite rebuilt around current texts','GEO and AI search connected to the curriculum']},
+   MKT309:{how:'Brand Management goes deep into the history of branding first, then into how a brand shapes everything an organisation communicates. Each idea is then tested on a live case.',
+    proof:['The history of branding taught in depth before the modern frameworks','How branding shapes communication, tested on current local and international cases']}}},
  {k:'Build Confidence',t:'Leave students able, and willing',
   b:'Confidence comes from doing the work successfully before it counts for marks.',
-  how:'Small wins come first: plain explanations, weekly builds toward the group plan, and practice papers with model answers. Students walk into assessments having already done the work once, and they can see a real path into the Maldivian industry.',
-  proof:['Weekly tutorials turn the assignment into steady progress instead of one big task','Practice portal lets students attempt questions, then compare with model answers before the real exam','Teaching is a step I always wanted to take, driven by a passion for passing knowledge to the next generation'],
+  how:'Small wins come first: plain explanations, weekly builds toward the assessment, and practice with model answers. Students walk into assessments having already done the work once, and they can see a real path into the Maldivian industry.',
+  proof:['Weekly tutorials turn the assignment into steady progress instead of one big task','Practice arenas let students attempt questions, then compare with model answers before the real exam','Teaching is a step I always wanted to take, driven by a passion for passing knowledge to the next generation'],
   c:ALL}
 ];
 
@@ -2872,7 +2900,7 @@ function mkChip(label,val){
   const b=document.createElement('button');b.className='tw-chip';b.textContent=label;b.setAttribute('aria-pressed','false');
   b.onclick=()=>{filter=(filter===val?null:val);[...fbox.querySelectorAll('.tw-chip')].forEach(c=>c.setAttribute('aria-pressed',String(c.dataset.v===String(filter))));
     segs.forEach((g,i)=>g.classList.toggle('tw-dim',!!filter&&!items[i].c.includes(filter)));
-    if(filter&&!items[sel].c.includes(filter)){const n=items.findIndex(x=>x.c.includes(filter));if(n>-1)select(n)}};
+    let n=sel;if(filter){n=items.findIndex(x=>x.per&&x.per[filter]);if(n<0)n=items.findIndex(x=>x.c.includes(filter));if(n<0)n=sel}select(n)};
   b.dataset.v=val;fbox.appendChild(b);
 }
 COURSES.forEach(c=>mkChip(c,c));
@@ -2882,7 +2910,7 @@ const body=document.getElementById('twBody'),dots=document.getElementById('twDot
 items.forEach((_,i)=>{const d=document.createElement('button');d.className='tw-dot';d.setAttribute('aria-label','Go to principle '+(i+1));d.onclick=()=>select(i);dots.appendChild(d)});
 function select(i,focus,auto){
   if(!auto)userPause();
-  sel=(i+N)%N;const it=items[sel];
+  sel=(i+N)%N;const it=items[sel],pc=filter&&it.per&&it.per[filter],v=pc?{how:pc.how,proof:pc.proof,per:1}:{how:it.how,proof:it.proof};
   segs.forEach((g,j)=>{g.classList.remove('tw-in');g.style.animation='none';g.classList.toggle('tw-sel',j===sel);g.setAttribute('aria-pressed',String(j===sel))});
   [...dots.children].forEach((d,j)=>d.classList.toggle('tw-on',j===sel));
   document.getElementById('twHubnum').textContent='0'+(sel+1);
@@ -2891,9 +2919,9 @@ function select(i,focus,auto){
   body.innerHTML=`<div class="tw-pnum">PRINCIPLE 0${sel+1} / 0${N}</div>
   <h4 class="tw-ptitle">${it.t}</h4>
   <p class="tw-belief">${it.b}</p>
-  <div class="tw-h">How it looks in my classroom</div><p class="tw-how">${it.how}</p>
-  <div class="tw-h">Evidence</div><ul class="tw-proof">${it.proof.map(p=>`<li>${p}</li>`).join('')}</ul>
-  <div class="tw-tags">${it.c.length===COURSES.length?'<span class="tw-tag">All courses</span>':it.c.map(c=>`<span class="tw-tag">${c}</span>`).join('')}</div>`;
+  <div class="tw-h">${v.per?'How it looks in '+filter:'How it looks in my classroom'}</div><p class="tw-how">${v.how}</p>
+  <div class="tw-h">${v.per?'Evidence from '+filter:'Evidence'}</div><ul class="tw-proof">${v.proof.map(p=>`<li>${p}</li>`).join('')}</ul>
+  <div class="tw-tags">${it.c.length===COURSES.length?'<span class="tw-tag">All courses</span>':it.c.map(c=>`<span class="tw-tag${c===filter?' tw-tag-on':''}">${c}</span>`).join('')}</div>`;
   if(focus)segs[sel].focus();
 }
 const ok=i=>!filter||items[i].c.includes(filter);
