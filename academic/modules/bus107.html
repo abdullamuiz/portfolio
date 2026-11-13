@@ -1832,6 +1832,26 @@ dialog.invite::backdrop{background:rgba(10,18,36,.55);backdrop-filter:blur(2px)}
 .invite .inv-status{min-height:1.4em;margin:8px 0 6px;font-size:13.5px;color:var(--ink)}
 .inv-row{display:flex;flex-wrap:wrap;gap:10px}.inv-row .btn{flex:1 1 180px;justify-content:center;white-space:nowrap}
 .inv-x{position:absolute;top:10px;right:12px;margin:0}.inv-x button{width:44px;height:44px;border:0;background:none;font-size:28px;line-height:1;color:var(--muted);cursor:pointer;border-radius:50%}.inv-x button:hover{background:var(--ghost)}
+/* CV page header: compact career timeline */
+.cvtl{margin:30px 0 26px}
+.cvtl-key{display:flex;gap:16px;font-size:12px;color:var(--muted);margin-bottom:14px}.cvtl-key i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--muted);margin-right:6px;vertical-align:-1px}.cvtl-key i.t{background:var(--cta)}
+.cvtl ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:0 12px;position:relative}
+.cvtl ol::before{content:"";position:absolute;left:0;right:0;top:6px;height:2px;background:var(--line)}
+.cvtl li{position:relative;padding-top:24px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.cvtl li::before{content:"";position:absolute;top:1px;left:0;width:12px;height:12px;border-radius:50%;background:var(--card);border:2px solid var(--muted)}
+.cvtl li.t::before{background:var(--cta);border-color:var(--cta)}
+.cvtl li:last-child::before{box-shadow:0 0 0 5px color-mix(in srgb,var(--cta) 25%,transparent)}
+.cvtl time{font-weight:600;font-size:13.5px;color:var(--ink)}
+.cvtl b{font-weight:500;font-size:12.5px;line-height:1.3;color:var(--ink)}
+.cvtl span{font-size:11.5px;line-height:1.3;color:var(--muted)}
+.cvtl li.t time,.cvtl li.t b{color:var(--cta)}
+@media (max-width:900px){
+ .cvtl ol{grid-template-columns:1fr;gap:12px}
+ .cvtl ol::before{left:5px;right:auto;top:6px;bottom:6px;width:2px;height:auto}
+ .cvtl li{padding:0 0 0 28px;display:grid;grid-template-columns:44px 1fr;column-gap:10px}
+ .cvtl li time{grid-row:1/3}
+}
+.cv-first{padding-top:clamp(28px,4vw,48px)}
 
 @media (prefers-reduced-motion:reduce){#s1{height:auto !important}#s1 .sticky{position:relative;height:auto;min-height:100svh;overflow:visible}#s1 .hero{position:relative;top:auto;bottom:auto;padding-top:calc(var(--head) + 24px);display:grid;grid-template-columns:minmax(0,1fr);align-items:start}#s1 .stage{height:auto;justify-content:flex-start}#s1 .portrait{height:auto;width:min(340px,70vw);margin:0}#s1 .copy{transform:none !important}.ghost-hi{display:none}@media (min-width:861px){#s1 .hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}#s1 .portrait{width:100%;max-width:440px}}.about-text{position:static;opacity:1 !important;margin-top:28px}.ghost-about,.fdot{display:none}   #about{height:auto !important}   #about .sticky{position:relative;height:auto;overflow:visible;padding:56px 0 40px}   #about .path-head{position:static;margin-bottom:32px}   #about .path-prog{display:none}   #about .track{position:relative;height:auto;transform:none !important;padding:0 var(--gutter) 0 calc(var(--gutter) + 36px)}   #about .line{left:calc(var(--gutter) + 8px);top:8px;bottom:40px;width:2px;height:auto;margin:0}   #about .fill{transform-origin:50% 0;transform:scaleY(0)}   #about .stop{position:relative;left:auto;top:auto;width:auto;height:auto;padding-bottom:34px}   #about .node{left:-36px;top:4px}   #about .stop.now .node{left:-39px;top:1px}   #about .arm{display:none}   #about .stop .card{position:static;width:auto;bottom:auto;top:auto}   #about .lg{margin-bottom:8px}#kick,#rule,#introP,.copy .fade{opacity:1 !important;visibility:visible !important}#portrait,.ghost-hi{transform:none !important}.ghost-hi{display:none}}
 </style>
