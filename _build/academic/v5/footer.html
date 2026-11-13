@@ -6,13 +6,22 @@
         <div class="tags-strip reveal"><span class="t1">Let’s talk about</span><span class="t2">teaching and research</span></div>
         <p class="end-line reveal">Open to lecturer appointments, visiting lectures, curriculum collaboration and joint research in tourism and small-business marketing.</p>
         <div class="end-row reveal">
-          <a class="btn" href="mailto:abdullamuizfuad@gmail.com?subject=Invitation%20to%20give%20a%20demo%20lecture">Invite me to give a demo lecture <i data-ic="mail"></i></a>
+          <a class="btn" id="inviteBtn" href="mailto:abdullamuizfuad@gmail.com?subject=Invitation%20to%20give%20a%20demo%20lecture" aria-haspopup="dialog">Invite me to give a demo lecture <i data-ic="mail"></i></a>
           <button class="btn btn--ghost is-todo" type="button" data-todo="CV PDF file">Download academic CV <i data-ic="download"></i></button>
         </div>
-        <div class="end-small reveal">
-          <span>Referees available on request. Based in Malé, Maldives.</span>
-          <span class="todo">[TODO: CV PDF file]</span>
-        </div>
+        <span class="todo">[TODO: CV PDF file]</span>
+        <dialog class="invite" id="invite" aria-labelledby="inviteH">
+          <form method="dialog" class="inv-x"><button type="submit" aria-label="Close">×</button></form>
+          <span class="label">Demo lecture</span>
+          <h3 id="inviteH">Invite me to give a demo lecture<span>.</span></h3>
+          <p>Email me with the module, the date and the audience you have in mind.</p>
+          <div class="inv-mail"><span id="inviteMail">abdullamuizfuad@gmail.com</span><button type="button" class="btn btn--sm" id="inviteCopy">Copy email</button></div>
+          <p class="inv-status" id="inviteStatus" role="status" aria-live="polite"></p>
+          <div class="inv-row">
+            <a class="btn btn--ghost" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=abdullamuizfuad@gmail.com&amp;su=Invitation%20to%20give%20a%20demo%20lecture" target="_blank" rel="noopener">Open in Gmail <i data-ic="upright"></i></a>
+            <a class="btn btn--ghost" href="mailto:abdullamuizfuad@gmail.com?subject=Invitation%20to%20give%20a%20demo%20lecture">Use my email app <i data-ic="mail"></i></a>
+          </div>
+        </dialog>
       </div>
     </div>
   </section>
