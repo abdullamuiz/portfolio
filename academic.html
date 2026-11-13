@@ -1793,6 +1793,12 @@ nav.links a{min-height:44px;display:inline-flex;align-items:center}
 .thread p{font-size:clamp(20px,1.9vw,24px) !important;line-height:1.35}
 .head .big-q,.big-q{color:var(--ink) !important}
 
+.res-row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;align-items:baseline;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:15px;line-height:1.55}
+.res-row b{color:var(--ink);font-weight:600}
+.res-tag{justify-self:start;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--label);padding:3px 9px;border-radius:999px;background:color-mix(in srgb,var(--lagoon) 12%,transparent)}
+.res-tag--p{color:var(--muted);background:transparent;border:1px dashed var(--line)}
+@media (max-width:560px){.res-row{grid-template-columns:minmax(0,1fr);gap:6px}}
+
 @media (prefers-reduced-motion:reduce){#s1{height:auto !important}#s1 .sticky{position:relative;height:auto;min-height:100svh;overflow:visible}#s1 .hero{position:relative;top:auto;bottom:auto;padding-top:calc(var(--head) + 24px);display:grid;grid-template-columns:minmax(0,1fr);align-items:start}#s1 .stage{height:auto;justify-content:flex-start}#s1 .portrait{height:auto;width:min(340px,70vw);margin:0}#s1 .copy{transform:none !important}.ghost-hi{display:none}@media (min-width:861px){#s1 .hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}#s1 .portrait{width:100%;max-width:440px}}.about-text{position:static;opacity:1 !important;margin-top:28px}.ghost-about,.fdot{display:none}   #about{height:auto !important}   #about .sticky{position:relative;height:auto;overflow:visible;padding:56px 0 40px}   #about .path-head{position:static;margin-bottom:32px}   #about .path-prog{display:none}   #about .track{position:relative;height:auto;transform:none !important;padding:0 var(--gutter) 0 calc(var(--gutter) + 36px)}   #about .line{left:calc(var(--gutter) + 8px);top:8px;bottom:40px;width:2px;height:auto;margin:0}   #about .fill{transform-origin:50% 0;transform:scaleY(0)}   #about .stop{position:relative;left:auto;top:auto;width:auto;height:auto;padding-bottom:34px}   #about .node{left:-36px;top:4px}   #about .stop.now .node{left:-39px;top:1px}   #about .arm{display:none}   #about .stop .card{position:static;width:auto;bottom:auto;top:auto}   #about .lg{margin-bottom:8px}#kick,#rule,#introP,.copy .fade{opacity:1 !important;visibility:visible !important}#portrait,.ghost-hi{transform:none !important}.ghost-hi{display:none}}
 </style>
 </head>
@@ -1871,9 +1877,9 @@ nav.links a{min-height:44px;display:inline-flex;align-items:center}
       <p class="story-close reveal"><em>Theory tells you what to look for. A real case teaches you how to see it. I teach both.</em></p>
       <a class="res-card reveal" href="academic/research.html">
         <span class="label">Research</span>
-        <span class="res-card-t">From Rented to Owned Visibility<span>.</span></span>
-        <span class="res-card-d">Proposed doctoral research (from 2027) on how small tourism businesses in the Maldives are found online, and whether that visibility is rented from platforms or owned.</span>
-        <ul class="res-card-f"><li><b>2</b> peer-reviewed journal articles</li><li><b>36</b> citations</li><li><b>January 2027</b> public-data pilot</li></ul>
+        <span class="res-card-t">Two published papers, one proposed study<span>.</span></span>
+        <span class="res-row"><span class="res-tag">Published</span><span><b>2017 and 2021:</b> two peer-reviewed journal articles on how Maldivian guesthouses get seen online and what it takes to run one. Cited 36 times.</span></span>
+        <span class="res-row"><span class="res-tag res-tag--p">Proposed</span><span><b>From 2027:</b> <i>From Rented to Owned Visibility</i>, a doctoral proposal starting with a public-data pilot in January 2027. Not yet under way; no results claimed.</span></span>
         <span class="more-link">The full research <i data-ic="right"></i></span>
       </a>
     </div>
