@@ -220,7 +220,7 @@ tbody = (block('philosophy', 'Teaching philosophy', 'How I teach', '      ' + ph
          block('assessment', 'Assessment', 'How I assess', '      ' + ASSESS) +
          block('delivery-sec', 'Delivery', 'Reliability', '      ' + PRIDE.replace(' id="delivery"', '')) +
          block('curriculum', 'Curriculum', 'Shaping what we teach', cur_in, 'MNU is developing a new marketing programme, and I keep updating the content we deliver.') +
-         (block('evidence', 'Teaching evidence', 'What students say', '      ' + AU.evidence(full=True) + '\n      ' + AU.comments(), 'How students rated my teaching in every term I’ve taught at MNU, against the Business School average. The good terms and the hard one.') if AU.F['evaluation_on'] or AU.comments() else '') +
+         (block('evidence', 'Teaching evidence', 'What students say', '      ' + AU.evidence(full=True) + '\n      ' + AU.comments(full=True), 'How students rated my teaching in every term I’ve taught at MNU, against the Business School average. The good terms and the hard one.') if AU.F['evaluation_on'] or AU.comments() else '') +
          block('outcomes', 'Student outcomes', 'How my students do', EV2) +
          block('beyond', 'Beyond the classroom', 'Service and supervision', '      ' + AU.service()))
 page('teaching', 'Teaching portfolio', 'Teaching', 'How I teach and assess, what students say, and the work around the classroom: curriculum, supervision, exam setting and committees.', tbody,
@@ -289,6 +289,7 @@ for k, c in enumerate(ORDER):
         right += '<article class="panel reveal"><h2>What students use<span>.</span></h2><p>%s, a web app I built for this module.</p><div class="row-cta" style="margin-top:4px"><a class="btn btn--sm" href="%s" target="_blank" rel="noopener">Open it <i data-ic="upright"></i></a><a class="more-link" href="academic/tools.html">How it works <i data-ic="right"></i></a></div></article>' % (m['app'][0], m['app'][1].replace('&', '&amp;'))
     if m.get('demo'):
         right += '<article class="panel reveal"><h2>Sample lesson<span>.</span></h2><p>“Found, Chosen, Booked”, my 10-minute demonstration lesson, was built for this module.</p><a class="more-link" href="academic.html#lesson">See the lesson <i data-ic="right"></i></a></article>'
+    right += AU.module_comment(c)
     if m.get('mid'):
         mi = m['mid']
         right += '<article class="panel reveal"><h2>Midterm check-in<span>.</span></h2><span class="label">%s · %d respondent%s</span><p>%s.</p></article>' % (mi[0], mi[1], 's' if mi[1] > 1 else '', mi[2])
