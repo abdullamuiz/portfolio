@@ -139,10 +139,10 @@ home_mods = rd('home_modules.html').replace('<div class="mgroups" id="mgroups"><
 
 res = sec('research')
 res_home = cut(res, '      <div class="next">', '</div>\n      </div>\n')
-res_home = rep(res_home, '<span class="label">Research</span>\n        <h2>', '<span class="label">Research</span>\n        <p class="big-q">What’s next? Where is the question leading?</p>\n        <h2>')
+res_home = rep(res_home, '<span class="label">Research</span>\n        <h2>Where the question is going<span>.</span></h2>', '<span class="label">Research</span>\n        <h2 class="big-q">What’s next? Where is the question leading?</h2>')
 res_home = rep(res_home, '</p>\n    </div>\n  </section>', '</p>\n      <div class="row-cta reveal"><a class="btn btn--ghost" href="academic/research.html">Research, profiles and talks <i data-ic="right"></i></a></div>\n    </div>\n  </section>')
 
-home = (header.replace('@@FADE@@', ' fade') + '\n<main>\n' + s1 + '\n  <section class="block atg-sec"><div class="wrap">' + AU.glance(mobile=True) + '</div></section>\n' + rd('home_story.html') + '\n' + home_mods + '\n' + teach + '\n' + rd('home_tools.html') + '\n' +
+home = (header.replace('@@FADE@@', ' fade') + '\n<main>\n' + s1 + '\n  <section class="block atg-sec"><div class="wrap">' + AU.glance(mobile=True) + '</div></section>\n' + rd('home_story.html') + '\n' + home_mods + '\n' + teach + '\n' + AU.snapshot(rd('home_tools.html')) + '\n' +
         home_ev + '\n' + lesson + '\n' + SVC_HOME + res_home + '\n' + sec('about') + '\n' + sec('credentials') + '\n' + footer + acdata + '\n')
 open(P('out', 'home.html'), 'w', encoding='utf-8').write(cvlinks(home))
 

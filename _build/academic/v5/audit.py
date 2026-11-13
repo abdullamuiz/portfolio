@@ -131,3 +131,47 @@ def demo_video(B=''):
     return ('<figure class="demo-vid reveal"><video controls preload="none" playsinline poster="%s"><source src="%s" type="video/mp4">'
             '<track kind="captions" src="%s" srclang="en" label="English" default></video>'
             '<figcaption>The full lesson, %s. Captions on.</figcaption></figure>' % (v['poster'], v['src'], v['captions'], v['length']))
+
+# ---------- F2. class-activity snapshot on the home tools section (figures already published on the activity page) ----------
+def snapshot(tools_html):
+    import re
+    src = open(os.path.join(H, 'activity_body.html'), encoding='utf-8').read()
+    D = json.loads(re.search(r'const DATA=(\{.*?\});?\n', src).group(1))
+    C = json.loads(re.search(r'A303=(\{.*?\});\n', src).group(1))
+    a, b = D['mkt101'], D['mkt301']
+    used, roster = a['active'] + b['active'] + C['started'], a['roster'] + b['roster'] + C['roster']
+    m3 = {d: x + y + z for d, x, y, z in C['daily']}
+    days = [(x['d'], x['act'], b['daily'][i]['act'], m3.get(x['d'], 0)) for i, x in enumerate(a['daily'])]
+    mx = max(sum(d[1:]) for d in days)
+    peak = max(days, key=lambda d: sum(d[1:]))
+    md = lambda d: '%d %s' % (int(d[8:]), ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][int(d[5:7]) - 1])
+    W, Hh, n = 300, 96, len(days); bw = W / n
+    cols = ['var(--cta)', 'var(--sea)', 'var(--deep)']
+    bars = ''
+    for i, d in enumerate(days):
+        y = Hh
+        for j, v in enumerate(d[1:]):
+            if not v: continue
+            h = v / mx * (Hh - 14); y -= h
+            bars += '<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="1.5" fill="%s"/>' % (i * bw + bw * .16, y, bw * .68, h, cols[j])
+    pi = days.index(peak)
+    spark = ('<svg class="snap-bars" viewBox="0 0 %d %d" aria-hidden="true" preserveAspectRatio="none">%s<line x1="0" y1="%d" x2="%d" y2="%d" stroke="var(--line)"/></svg>'
+             '<div class="snap-axis"><span>%s</span><span>%s</span></div>' % (W, Hh, bars, Hh, W, Hh, md(days[0][0]), md(days[-1][0])))
+    reach = [('MKT101 Arena', a['active'], a['roster'], 'used it', cols[0]), ('MKT301 Arena', b['active'], b['roster'], 'used it', cols[1]),
+             ('MKT303 Audit', C['started'], C['roster'], 'started an audit', cols[2])]
+    rows = ''.join('<li><span class="snap-n">%s</span><span class="snap-track"><i style="width:%d%%;background:%s"></i></span><b>%d<small> / %d</small></b></li>'
+                   % (nm, round(x / r * 100), c, x, r) for nm, x, r, _, c in reach)
+    card = ('<a class="snap panel lift reveal" href="academic/tools.html#class-activity">'
+            '<div class="snap-l"><span class="label">Class activity · %s to %s 2026</span>'
+            '<p class="snap-big"><b>%d</b><span> of %d students</span></p><p class="snap-cap">used a tool in two weeks</p>'
+            '<ul class="snap-kpis"><li><b>%.0f h</b><span>of practice</span></li><li><b>%s</b><span>practice actions</span></li><li><b>%d</b><span>business audits submitted</span></li></ul></div>'
+            '<div class="snap-m"><span class="snap-h">Activity each day</span>%s<div class="snap-leg"><span><i style="background:var(--cta)"></i>MKT101 students</span><span><i style="background:var(--sea)"></i>MKT301 students</span><span><i style="background:var(--deep)"></i>MKT303 audit steps</span></div><p class="snap-peak">Busiest day: %s, %d students practising</p></div>'
+            '<div class="snap-r"><span class="snap-h">Reach by tool</span><ul class="snap-reach">%s</ul></div>'
+            '<span class="snap-cta more-link">See the full class activity <i data-ic="right"></i></span>'
+            '<span class="sr-only">%d of %d enrolled students used a tool between %s and %s 2026. MKT101 Arena %d of %d, MKT301 Arena %d of %d, MKT303 audit started by %d of %d. Busiest day %s.</span></a>'
+            % (md(days[0][0]), md(days[-1][0]), used, roster, a['hrs'] + b['hrs'], '{:,}'.format(a['ans'] + b['ans']), C['submitted'],
+               spark, md(peak[0]), sum(peak[1:]), rows,
+               used, roster, md(days[0][0]), md(days[-1][0]), a['active'], a['roster'], b['active'], b['roster'], C['started'], C['roster'], md(peak[0])))
+    old = re.search(r'      <p class="tool-note reveal">.*?</p>\n', tools_html, re.S)
+    assert old, 'tool-note not found'
+    return tools_html.replace(old.group(0), '      ' + card + '\n', 1)
