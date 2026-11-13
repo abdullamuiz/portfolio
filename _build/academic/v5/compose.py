@@ -9,6 +9,7 @@ rd = lambda n: open(P(n), encoding='utf-8').read()
 # ---------- facts from the CV (Muiz_Fuad_CV, Nov 2026) ----------
 SCH = 'https://iocdrp.s.gy/fuad-a-m'
 import sys; sys.path.insert(0, H); import audit as AU
+from modtext import MODTEXT
 SCHOLAR = '<a class="orcid" href="%s" target="_blank" rel="noopener"><svg class="orcid-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#4285F4"/><path fill="#fff" d="M12 5 4.5 10.6h3.1a4.5 4.5 0 1 0 8.8 0h3.1L12 5Zm0 11.3a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2Z"/></svg><span><b>Google Scholar</b> Fuad, A. M.</span></a>' % SCH
 FIX = [
  ('<p>I came from industry. In marketing management roles I sat on the other side of the desk, interviewing graduates. The knowledge was there, but when a real question came there was no reference point, and minds went blank. So I teach students to meet that manager, and surprise them.</p>',
@@ -261,7 +262,20 @@ for k, c in enumerate(ORDER):
         <div><dt>Level</dt><dd>%s</dd></div>
         <div><dt>My role</dt><dd>%s</dd></div>
       </dl>''' % (c, lvl(m), m.get('coord', 'Lecturer'))
-    left = ''  # About, outcomes, weekly topics and a sample activity stay hidden until the module descriptors are supplied
+    T = MODTEXT.get(c)
+    if T and T.get('hours'):
+        facts = facts.replace('</dl>', '  <div><dt>Contact</dt><dd>%s</dd></div>\n      </dl>' % T['hours'])
+    left = ''
+    if T:
+        left = ('<article class="panel reveal mt-about"><h2>About this module<span>.</span></h2><p>%s</p>'
+                '<span class="label" style="margin-top:6px">What students learn to do</span><ul class="ticks">%s</ul></article>'
+                % (T['about'], ''.join('<li>%s</li>' % x for x in T['learn'])))
+        left += ('<article class="panel reveal mt-teach"><h2>How I teach it<span>.</span></h2><span class="label">%s</span><p>%s</p><ol class="mt-steps">%s</ol><p>%s</p></article>'
+                 % (T['teach_h'], T['teach_intro'], ''.join('<li>%s</li>' % x for x in T['teach_steps']), T['teach_after']))
+        left += ('<article class="panel reveal mt-week"><h2>Every week<span>.</span></h2><dl class="mt-rhythm">%s</dl></article>'
+                 % ''.join('<div><dt>%s</dt><dd>%s</dd></div>' % r for r in T['rhythm']))
+        left += ('<article class="panel reveal"><h2>Assessment that mirrors the real thing<span>.</span></h2><ul class="ticks">%s</ul><p class="small">%s</p></article>'
+                 % (''.join('<li>%s</li>' % x for x in T['assess']), T['current']))  # About, outcomes, weekly topics and a sample activity stay hidden until the module descriptors are supplied
     right = '<article class="panel reveal"><h2>Assessment<span>.</span></h2>'
     right += ('<span class="label">As delivered, %s</span>%s' % (A[0], wb(A))) if A else ''
     right += '</article>'
@@ -278,7 +292,7 @@ for k, c in enumerate(ORDER):
     pager = '<nav class="pager" aria-label="Other modules">' + \
         ('<a href="academic/modules/%s.html"><small>← Previous</small>%s %s</a>' % (slug(prv), prv, MODS[prv]['n']) if prv else '<span></span>') + \
         ('<a href="academic/modules/%s.html"><small>Next →</small>%s %s</a>' % (slug(nxt), nxt, MODS[nxt]['n']) if nxt else '') + '</nav>'
-    body = ('  <section class="block" id="module">\n    <div class="wrap">\n      ' + facts + '\n      <div class="mp one" style="margin-top:16px"><div class="mp-col">' + left + right + '</div></div>\n      ' + pager + '\n    </div>\n  </section>\n')
+    body = ('  <section class="block" id="module">\n    <div class="wrap">\n      ' + facts + '\n      ' + ('<div class="mp mp-mod" style="margin-top:16px"><div class="mp-col">' + left + '</div><div class="mp-col">' + right + '</div></div>' if left else '<div class="mp one" style="margin-top:16px"><div class="mp-col">' + right + '</div></div>') + '\n      ' + pager + '\n    </div>\n  </section>\n')
     grp = [g for g, cs in GROUPS if c in cs][0]
     page('modules/' + slug(c), c + ' · ' + grp, m['n'], None, body,
          crumbs=[('academic.html', 'Home'), ('academic/modules.html', 'Modules')])

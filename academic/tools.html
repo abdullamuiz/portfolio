@@ -1874,6 +1874,19 @@ dialog.invite::backdrop{background:rgba(10,18,36,.55);backdrop-filter:blur(2px)}
 .earlier{display:grid;grid-template-columns:minmax(240px,1fr) minmax(0,1.6fr);gap:18px 32px;align-items:center}
 .earlier .subj{justify-content:flex-start}
 @media (max-width:760px){.earlier{grid-template-columns:1fr}}
+/* module pages with written content */
+.mp-mod .panel p{margin:10px 0 0;line-height:1.7}
+.mp-mod .ticks{margin-top:10px}
+.mt-steps{margin:12px 0 0;padding:0;list-style:none;counter-reset:s;display:grid;gap:10px}
+.mt-steps li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;gap:10px;line-height:1.6}
+.mt-steps li::before{content:counter(s);width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:600 12.5px var(--sans);background:var(--ghost);color:var(--label)}
+.mt-rhythm{margin:12px 0 0;display:grid;gap:10px}
+.mt-rhythm div{display:grid;grid-template-columns:130px 1fr;gap:12px;padding:12px 14px;border-radius:12px;background:var(--tint)}
+.mt-rhythm dt{font-weight:600;color:var(--label)}.mt-rhythm dd{margin:0;line-height:1.55}
+@media (max-width:560px){.mt-rhythm div{grid-template-columns:1fr;gap:2px}}
+.facts:has(> div:nth-child(4):last-child){grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:900px){.facts:has(> div:nth-child(4):last-child){grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:901px){.mp-mod > .mp-col:last-child{position:sticky;top:96px}}
 
 @media (prefers-reduced-motion:reduce){#s1{height:auto !important}#s1 .sticky{position:relative;height:auto;min-height:100svh;overflow:visible}#s1 .hero{position:relative;top:auto;bottom:auto;padding-top:calc(var(--head) + 24px);display:grid;grid-template-columns:minmax(0,1fr);align-items:start}#s1 .stage{height:auto;justify-content:flex-start}#s1 .portrait{height:auto;width:min(340px,70vw);margin:0}#s1 .copy{transform:none !important}.ghost-hi{display:none}@media (min-width:861px){#s1 .hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}#s1 .portrait{width:100%;max-width:440px}}.about-text{position:static;opacity:1 !important;margin-top:28px}.ghost-about,.fdot{display:none}   #about{height:auto !important}   #about .sticky{position:relative;height:auto;overflow:visible;padding:56px 0 40px}   #about .path-head{position:static;margin-bottom:32px}   #about .path-prog{display:none}   #about .track{position:relative;height:auto;transform:none !important;padding:0 var(--gutter) 0 calc(var(--gutter) + 36px)}   #about .line{left:calc(var(--gutter) + 8px);top:8px;bottom:40px;width:2px;height:auto;margin:0}   #about .fill{transform-origin:50% 0;transform:scaleY(0)}   #about .stop{position:relative;left:auto;top:auto;width:auto;height:auto;padding-bottom:34px}   #about .node{left:-36px;top:4px}   #about .stop.now .node{left:-39px;top:1px}   #about .arm{display:none}   #about .stop .card{position:static;width:auto;bottom:auto;top:auto}   #about .lg{margin-bottom:8px}#kick,#rule,#introP,.copy .fade{opacity:1 !important;visibility:visible !important}#portrait,.ghost-hi{transform:none !important}.ghost-hi{display:none}}
 </style>
