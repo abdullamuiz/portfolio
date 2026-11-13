@@ -110,8 +110,8 @@ SERVICE = ['Subject coordinator for six modules',
            'Exam paper setting and moderation, including the combined MKT101 paper with a co-lecturer']
 def service():
     sup = ['Undergraduate applied projects: learning-contract advice, progress meetings, report review and presentation coaching.',
-           'One applied project supervised to completion in 2025 (a marketing campaign designed to be implemented)' +
-           ('; %s further students supervised to completion in 2026.' % F['supervision_2026_completed'] if F.get('supervision_2026_completed') else '.')]
+           'Three applied projects supervised to completion (2025 to 2026), three in progress.',
+           'Featured: <i>Safe Steps</i>, a child-safety campaign for a national ministry.']
     pd = J('development.json')
     out = ('<div class="svc reveal"><div class="panel"><h3>Service and academic citizenship<span>.</span></h3><ul class="ticks">' +
            ''.join('<li>%s</li>' % x for x in SERVICE) + '</ul></div>'
