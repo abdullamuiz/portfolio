@@ -257,6 +257,3 @@ dialog.invite::backdrop{background:rgba(10,18,36,.55);backdrop-filter:blur(2px)}
 .earlier{display:grid;grid-template-columns:minmax(240px,1fr) minmax(0,1.6fr);gap:18px 32px;align-items:center}
 .earlier .subj{justify-content:flex-start}
 @media (max-width:760px){.earlier{grid-template-columns:1fr}}
-/* teaching philosophy: credit to APU */
-.phil .phil-apu{padding:14px 18px;border-radius:14px;background:var(--tint);color:var(--ink)}
-.phil .phil-apu b{color:var(--label);font-weight:600}
