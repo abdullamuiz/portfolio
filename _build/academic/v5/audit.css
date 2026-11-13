@@ -253,3 +253,7 @@ dialog.invite::backdrop{background:rgba(10,18,36,.55);backdrop-filter:blur(2px)}
  .ip-cap b{font-size:1.15rem}
 }
 @media (prefers-reduced-motion:reduce){.ip-paper,.intent-prev{transition:none}.ip-paper{transform:none}}
+/* earlier teaching panel: text keeps its width, subjects wrap beside it */
+.earlier{display:grid;grid-template-columns:minmax(240px,1fr) minmax(0,1.6fr);gap:18px 32px;align-items:center}
+.earlier .subj{justify-content:flex-start}
+@media (max-width:760px){.earlier{grid-template-columns:1fr}}

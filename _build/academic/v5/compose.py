@@ -242,6 +242,7 @@ for y in sorted(years, reverse=True):
     lst += '<div class="yr"><h2>%s<span>.</span></h2>%s</div>\n' % (y, ''.join(course(c, years[y][c]) for c in ORDER if c in years[y]))
 earlier = grab(mods_sec, '      <div class="panel earlier reveal">', '</div>\n    </div>\n')
 earlier = earlier.replace('</div>\n    </div>\n', '</div>\n')
+earlier = earlier.replace('<span class="label">Earlier teaching</span>', '', 1)
 lst += '<div class="yr"><h2>Earlier teaching<span>.</span></h2></div>\n' + earlier
 mbody = '  <section class="block" id="list">\n    <div class="wrap">\n' + lst + '\n    </div>\n  </section>\n'
 page('modules', 'Modules', 'Modules I teach', 'Nine undergraduate modules at MNU Business School since 2024, newest first. Each module page has its level, outcomes, assessment, the terms I taught it and what students use. Term 2 2024 isn’t listed: the evaluation report for that term doesn’t name the modules.', mbody,
