@@ -270,3 +270,10 @@ dialog.invite::backdrop{background:rgba(10,18,36,.55);backdrop-filter:blur(2px)}
 .facts:has(> div:nth-child(4):last-child){grid-template-columns:repeat(4,minmax(0,1fr))}
 @media (max-width:900px){.facts:has(> div:nth-child(4):last-child){grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:901px){.mp-mod > .mp-col:last-child{position:sticky;top:96px}}
+/* module family strip (MKT213 / MKT215 / MKT217) */
+.mt-fam{margin:2px 0 14px}
+.mt-fam>div{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.mt-fam a,.mt-fam span[aria-current]{display:inline-flex;gap:6px;align-items:baseline;padding:6px 12px;border:1px solid var(--line,rgba(127,127,127,.35));border-radius:999px;font-size:.86rem;text-decoration:none;color:inherit;line-height:1.3}
+.mt-fam a:hover{border-color:var(--accent,currentColor)}
+.mt-fam span[aria-current]{border-color:var(--accent,currentColor);border-width:2px}
+.mt-fam b{font-weight:700}
