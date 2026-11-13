@@ -1,5 +1,24 @@
 # Module page content, written in Muiz's voice and paraphrased (never copied) from the subject outlines.
 # Each entry fills the main column of academic/modules/<code>.html; modules without an entry keep the short layout.
+#
+# LOCKED STRUCTURE (agreed with Muiz on BUS301, November 2026). Every module follows it:
+#   hours        facts strip: total contact hours, e.g. '56 contact hours'
+#   about        2-3 sentences. Opens with the level line ("A Level N00 module: ..."), then what the
+#                module is for, in plain words. No topic names from the outline.
+#   learn        4 bullets: "What students learn to do". Paraphrased outcomes, written as abilities.
+#   teach_h      the signature activity's name, with NO week number (e.g. 'The million-dollar marketplace')
+#   teach_intro  one sentence: "The subject opens with ..." (or how the activity fits in)
+#   teach_steps  3-5 numbered steps of that activity, concrete enough to picture
+#   teach_after  one paragraph on what the activity leads into across the module: the aspects students
+#                learn, written as a sentence, never as a topic list or week-by-week content
+#   rhythm       "Every week": (label, text) rows for lecture, tutorial and any weekly working session
+#   assess       "Assessment that mirrors the real thing": what students actually produce (2 bullets)
+#   current      one line on keeping content current
+# Rules: first person; no outline wording, topic names, week numbers or chapter references;
+# no results or grades on module pages (they live in the Teaching page's Outcomes section);
+# no facts that Muiz has not confirmed. The right column (assessment as delivered, terms, tools,
+# sample lesson, midterm check-in) is generated from the existing data and is not written here.
+
 MODTEXT = {
 'BUS301': {
  'hours': '56 contact hours',
