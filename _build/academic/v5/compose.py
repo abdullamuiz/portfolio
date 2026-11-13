@@ -70,7 +70,7 @@ for _m in D['mods']:
 acdata = '<script type="application/json" id="acData">' + json.dumps(D, ensure_ascii=False, separators=(',', ':')) + '</script>'
 
 # ---------- module data ----------
-GROUPS = [('Foundations', ['MKT101', 'BUS107', 'BUS301']),
+GROUPS = [('Business concepts', ['MKT101', 'BUS107', 'BUS301']),
           ('Marketing communications', ['MKT213', 'MKT215', 'MKT217']),
           ('Strategy, brand and digital', ['MKT301', 'MKT303', 'MKT309'])]
 MODS = {m['c']: m for m in D['mods']}
