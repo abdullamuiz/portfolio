@@ -148,13 +148,13 @@ open(P('out', 'home.html'), 'w', encoding='utf-8').write(cvlinks(home))
 
 # ---------- shared bits for inner pages ----------
 BACK = '  <div class="backbar"><div class="wrap"><a class="btn back-home" href="academic.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to portfolio</a></div></div>\n'
-def page(name, label, title, lead, body, toc=None, crumbs=None, data=False):
+def page(name, label, title, lead, body, toc=None, crumbs=None, data=False, extra=''):
     tc = ''
     if toc: tc = '<nav class="toc" aria-label="On this page">' + ''.join('<a href="#%s">%s</a>' % t for t in toc) + '</nav>'
     cb = '<div class="crumbs">' + ' <span aria-hidden="true">/</span> '.join('<a href="%s">%s</a>' % c for c in (crumbs or [('academic.html', 'Home')])) + '</div>'
     h = (header.replace('@@FADE@@', '') + '\n<main>\n  <section class="pagehead"><div class="wrap">' + cb +
          '<span class="label">' + label + '</span><h1 class="ph-t">' + title + '<span>.</span></h1>' +
-         ('<p class="ph-lead">' + lead + '</p>' if lead else '') + tc + '</div></section>\n' + body + '\n' + BACK + footer + (acdata + '\n' if data else ''))
+         ('<p class="ph-lead">' + lead + '</p>' if lead else '') + extra + tc + '</div></section>\n' + body + '\n' + BACK + footer + (acdata + '\n' if data else ''))
     open(P('out', name + '.html'), 'w', encoding='utf-8').write(cvlinks(h))
 
 def block(i, label, h2, inner, intro=''):
@@ -376,11 +376,18 @@ CVTOP = ('<div class="cv-bar reveal"><span class="small">Updated November 2026</
 work = sec('work')
 work_in = strip_head(inner(work))
 cred_in = strip_head(inner(sec('credentials')))
-cbody = (block('cv-file', 'Curriculum vitae', 'The CV', '      ' + CVTOP) +
+cbody = ('  <section class="block cv-first" id="cv-file">\n    <div class="wrap">\n      ' + CVTOP + '\n    </div>\n  </section>\n' +
          block('work', 'Practice', 'From industry to classroom', work_in, 'The work I bring into the classroom.') +
          block('credentials', 'Credentials', 'Certificates', cred_in, 'Tap one to see the certificate.'))
-page('cv', 'Curriculum vitae', 'CV', 'Fifteen years in tourism and marketing, then the lecture room. The full CV, the industry work I teach from, and my certificates.', cbody,
-     toc=[('cv-file', 'CV'), ('work', 'Industry work'), ('credentials', 'Certificates')])
+CVTL = [('2011', 'Marketing Officer', 'Highrise Inc.', 0), ('2014', 'Head of Marketing and Sales', 'MATTA Fair, Kuala Lumpur', 0),
+        ('2018', 'Head of Operations', 'Blazon Inc.', 0), ('2020', 'Copywriter', 'Maldives Ports Limited', 0),
+        ('2021', 'Marketing Manager', 'Reethi Beach Resort', 0), ('2022', 'Part-time Lecturer', 'MI College', 1),
+        ('2023', 'Sales and Marketing Manager', 'Maldives Business Network TV', 0), ('2024', 'Manager, SME HUB', 'Business Centre Corporation', 0),
+        ('2024', 'Lecturer', 'MNU Business School · now', 1)]
+CVTL_HTML = ('<div class="cvtl reveal"><div class="cvtl-key" aria-hidden="true"><span><i></i>Industry</span><span><i class="t"></i>Teaching</span></div>'
+             '<ol aria-label="Career timeline, 2011 to now">' + ''.join('<li class="%s"><time>%s</time><b>%s</b><span>%s</span></li>' % ('t' if t else '', y, r, o) for y, r, o, t in CVTL) + '</ol></div>')
+page('cv', 'Curriculum vitae', 'From the industry floor to the lecture room', 'Fifteen years in tourism and marketing, then the lecture room. The full CV, the industry work I teach from, and my certificates.', cbody,
+     toc=[('cv-file', 'Full CV'), ('work', 'Industry work'), ('credentials', 'Certificates')], extra=CVTL_HTML)
 # ---------- CLASS ACTIVITY ----------
 page('activity', 'Student tools · Class activity', 'Two weeks in the student tools', rd('activity_lede.txt'), rd('activity_body.html'),
      crumbs=[('academic.html', 'Home'), ('academic/tools.html', 'Student tools')])
