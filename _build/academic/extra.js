@@ -23,6 +23,19 @@
     if (navigator.clipboard) navigator.clipboard.writeText(mail).then(done, done); else done();
   });
 
+  /* demo-lecture invite: a popup that works without an email app (the link stays a mailto without JS) */
+  var ib = $('inviteBtn'), dlg = $('invite');
+  if (ib && dlg && dlg.showModal) {
+    ib.addEventListener('click', function (e) { e.preventDefault(); $('inviteStatus').textContent = ''; dlg.showModal(); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    $('inviteCopy').addEventListener('click', function () {
+      var m = $('inviteMail').textContent, st = $('inviteStatus');
+      var ok = function () { st.textContent = 'Email copied. Paste it into any email app.'; };
+      var sel = function () { var r = document.createRange(); r.selectNodeContents($('inviteMail')); var w = getSelection(); w.removeAllRanges(); w.addRange(r); st.textContent = 'Email selected. Copy it with your device’s copy command.'; };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(m).then(ok, sel); else sel();
+    });
+  }
+
   /* buttons that wait for a file say so instead of doing nothing */
   document.querySelectorAll('button.is-todo').forEach(function (b) {
     b.title = 'TODO: ' + b.dataset.todo;
