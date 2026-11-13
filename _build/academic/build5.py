@@ -199,15 +199,15 @@ sigcv=sig2.replace('id="sig2"','id="sigCv"').replace('sigMask2','sigMaskCv').rep
 for k in list(outs): outs[k]=outs[k].replace('@@SIGCV@@',sigcv)
 # print copy of the CV: light theme only, on the portfolio tint, signature already written
 doc=open(V+'out/cvdoc.html',encoding='utf-8').read().replace('@@SIGCV@@',sigcv.replace('class="sig sig-about"','class="sig sig-about done dotted"'))
-PR='''@page{size:A4;margin:14mm 15mm 14mm;background:#F4F6FA}
+PR='''@page{size:A4;margin:12mm 15mm 11mm;background:#F4F6FA}
 html,body{background:#F4F6FA !important}
 body{margin:0;overflow:visible}
-.cvdoc{max-width:none;border:0;border-radius:0;background:transparent;padding:0;font-size:9.4pt;line-height:1.45}
+.cvdoc{max-width:none;border:0;border-radius:0;background:transparent;padding:0;font-size:9.1pt;line-height:1.42}
 .cv-name{font-size:28pt}.cv-role{font-size:10.5pt;margin:4pt 0}.cv-top{padding-bottom:10pt}
 .cv-sec h2{font-size:14pt;margin:12pt 0 5pt;padding-bottom:3pt}.cv-row{margin-top:7pt}.cv-row b{font-size:10pt}.cv-contact,.cv-org{font-size:8.6pt}.cv-d{font-size:8.6pt}
 .cvdoc ul{margin:3pt 0 2pt}.cvdoc li{margin:1.5pt 0}.cv-sec p{margin:4pt 0}
 .cv-row{break-inside:avoid}.cvdoc li{break-inside:avoid}
-.cv-sign{margin-top:18pt}.cv-sign .regards{color:var(--ink);font-size:13pt}.cv-sign .sig{width:240px}'''
+.cv-sign{margin-top:10pt}.cv-sign .regards{color:var(--ink);font-size:13pt}.cv-sign .sig{width:240px}'''
 printhtml='<!doctype html><html lang="en" data-theme="light"><head><meta charset="utf-8"><title>Abdulla Muiz Fuad, CV</title>'+'\n'.join(L[15:style_end])+'\n'+'\n'.join(css+css2)+'\n'+PR+'\n</style></head><body>'+'\n'.join(pre_body[pre_body.index(next(l for l in pre_body if l.startswith('<body'))) + 1:])+doc+'</body></html>'
 open(V+'cv-print.html','w',encoding='utf-8').write(printhtml)
 for k,v in outs.items():
