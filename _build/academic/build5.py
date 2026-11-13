@@ -214,3 +214,7 @@ for k,v in outs.items():
     for root_,draft in ((ROOT,True),('v5/site/',False)):
         p=root_+k; os.makedirs(os.path.dirname(p) or '.',exist_ok=True); open(p,'w',encoding='utf-8').write(finish(v,draft))
 print('built',{k:len(v) for k,v in outs.items()})
+
+# research-intent one-pager (standalone page, follows the site theme)
+import shutil
+shutil.copy('v5/mtvo.html', '../../academic/mtvo.html')
