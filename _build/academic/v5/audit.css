@@ -295,3 +295,18 @@ dialog.invite::backdrop{background:rgba(10,18,36,.55);backdrop-filter:blur(2px)}
 .cmts{align-items:start}
 .cmt{align-content:start}
 .mt-cmt blockquote{font-family:var(--sans) !important;font-weight:400 !important}
+/* comments at scale: masonry columns on the Teaching page, filter chips, one list of asks */
+.cmts-all{display:block;columns:2 340px;column-gap:14px}
+.cmts-all .cmt{break-inside:avoid;margin:0 0 14px;width:100%;box-sizing:border-box}
+.cmt[hidden]{display:none}
+.cmt-filter{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.cmt-filter button{font:inherit;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line,rgba(127,127,127,.35));background:transparent;color:inherit;cursor:pointer}
+.cmt-filter button small{opacity:.65;margin-left:2px}
+.cmt-filter button[aria-pressed="true"]{border-color:var(--accent,#0B9BAD);border-width:2px;font-weight:600}
+.cmt-asks{margin-top:16px}
+.cmt-asks ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:8px}
+.cmt-asks li{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 12px;border-radius:10px;background:rgba(127,127,127,.08);font-size:14.5px;line-height:1.45}
+.cmt-asks li small{white-space:nowrap;color:var(--muted);font-size:12px}
+.cmt-wrap>.more-link{display:inline-flex;margin-top:6px}
+.mt-cmt figure{margin:0 0 14px}
+.mt-cmt figure:last-child{margin-bottom:0}

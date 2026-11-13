@@ -69,3 +69,16 @@
   addEventListener('resize', spy); spy();
 })();
 </script>
+<script>
+(function () {
+  document.querySelectorAll('.cmt-filter').forEach(function (g) {
+    var cards = g.parentNode.querySelectorAll('.cmts-all .cmt');
+    g.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      g.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      var m = b.getAttribute('data-m');
+      cards.forEach(function (c) { c.hidden = !!m && (' ' + c.getAttribute('data-mods') + ' ').indexOf(' ' + m + ' ') < 0; });
+    });
+  });
+})();
+</script>

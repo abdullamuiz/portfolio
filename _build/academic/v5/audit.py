@@ -66,33 +66,64 @@ def evidence(full=True):
             % (f5(t1[2]), t1[0], f5(t1[3]), rows, ('<div aria-hidden="true">' + areas + '</div>') if areas else '', '<div class="sr-only">' + tbl + '</div>'))
 
 # ---------- E. student comments (render nothing until real ones exist) ----------
+# comments.json: one entry per former student, built for about ten. Fields:
+#   who          degree only, never a name, e.g. "Bachelor of Marketing graduate"
+#   modules      module codes the student took with me, e.g. ["MKT213", "MKT303"]
+#   year         graduation or study year
+#   theme        2-4 word tag for what the comment is about
+#   pull         the strongest 20-45 words, verbatim (ellipsis allowed); shown on the card
+#   full         the whole comment, verbatim, as a list of paragraphs
+#   ask          optional: what they'd like more of, in a short paraphrase
+#   featured     optional true: shown on the home page (keep it to 3)
+#   module_quote optional {code: verbatim excerpt} for that module's page (up to 3 per module are shown)
+HOME_MAX, MOD_MAX = 3, 3
+
 def _cmts():
-    return [c for c in J('comments.json') if c.get('pull')]   # no student names are stored or shown
+    C = [c for c in J('comments.json') if c.get('pull')]   # no student names are stored or shown
+    for c in C:
+        n = len(c['pull'].split())
+        if n > 50: print('comments.json: pull quote over 50 words (%d):' % n, c['theme'])
+    C.sort(key=lambda c: (not c.get('featured'), -int(c.get('year', 0))))
+    return C
 
 def _who(c):
     return '%s · %s · %s' % (esc(c['who']), ', '.join(c['modules']), c['year'])
 
+def _card(c):
+    more = ''.join('<p>%s</p>' % esc(x) for x in c['full'])
+    return ('<figure class="cmt reveal" data-mods="%s"><span class="cmt-theme">%s</span><blockquote>“%s”</blockquote>'
+            '<figcaption><span>%s</span></figcaption>'
+            '<details class="cmt-more"><summary>Read the full comment</summary><div>%s</div></details></figure>'
+            % (' '.join(c['modules']), esc(c['theme']), esc(c['pull']), _who(c), more))
+
 def comments(full=False):
     C = _cmts()
     if not C: return ''
-    cards = ''
-    for c in C:
-        more = ''.join('<p>%s</p>' % esc(x) for x in c['full'])
-        cards += ('<figure class="cmt reveal"><span class="cmt-theme">%s</span><blockquote>“%s”</blockquote>'
-                  '<figcaption><span>%s</span></figcaption>'
-                  '<details class="cmt-more"><summary>Read the full comment</summary><div>%s</div></details>%s</figure>'
-                  % (esc(c['theme']), esc(c['pull']), _who(c), more,
-                     ('<p class="cmt-ask"><b>What they’d like more of:</b> %s</p>' % esc(c['ask'])) if full and c.get('ask') else ''))
-    return ('<div class="cmt-wrap"><span class="label">In their own words</span><div class="cmts">' + cards +
-            '</div><p class="src">Unedited comments from former students, given when I asked for feedback for this portfolio and shared with their permission. Names withheld.</p></div>')
+    note = ('<p class="src">Unedited comments from former students, given when I asked for feedback for this portfolio and shared with their permission. Names withheld.</p>')
+    if not full:
+        show = [c for c in C if c.get('featured')][:HOME_MAX] or C[:HOME_MAX]
+        more = ('<a class="more-link" href="academic/teaching.html#comments">Read all %d comments <i data-ic="right"></i></a>' % len(C)) if len(C) > len(show) else ''
+        return ('<div class="cmt-wrap"><span class="label">In their own words</span><div class="cmts">' + ''.join(map(_card, show)) +
+                '</div>' + note + more + '</div>')
+    mods = sorted({m for c in C for m in c['modules']})
+    chips = ''
+    if len(C) > 3 and len(mods) > 1:
+        chips = ('<div class="cmt-filter" role="group" aria-label="Filter comments by module"><button type="button" aria-pressed="true" data-m="">All <small>%d</small></button>' % len(C) +
+                 ''.join('<button type="button" aria-pressed="false" data-m="%s">%s <small>%d</small></button>' % (m, m, sum(m in c['modules'] for c in C)) for m in mods) + '</div>')
+    asks = [c for c in C if c.get('ask')]
+    askp = ''
+    if asks:
+        askp = ('<div class="panel reveal cmt-asks"><h3>What they’d like more of<span>.</span></h3><ul>' +
+                ''.join('<li><span>%s</span><small>%s</small></li>' % (esc(c['ask']), ', '.join(c['modules'])) for c in asks) +
+                '</ul></div>')
+    return ('<div class="cmt-wrap" id="comments"><span class="label">In their own words · %d former student%s</span>' % (len(C), '' if len(C) == 1 else 's') + chips +
+            '<div class="cmts cmts-all">' + ''.join(map(_card, C)) + '</div>' + note + askp + '</div>')
 
 def module_comment(code):
-    for c in _cmts():
-        q = c.get('module_quote', {}).get(code)
-        if q:
-            return ('<article class="panel reveal mt-cmt"><h2>A student remembers<span>.</span></h2><blockquote>“%s”</blockquote>'
-                    '<p class="src">%s</p></article>' % (esc(q), _who(c)))
-    return ''
+    Q = [(c, c['module_quote'][code]) for c in _cmts() if c.get('module_quote', {}).get(code)][:MOD_MAX]
+    if not Q: return ''
+    return ('<article class="panel reveal mt-cmt"><h2>%s<span>.</span></h2>' % ('A student remembers' if len(Q) == 1 else 'Students remember') +
+            ''.join('<figure><blockquote>“%s”</blockquote><figcaption class="src">%s</figcaption></figure>' % (esc(q), _who(c)) for c, q in Q) + '</article>')
 
 # ---------- F. tool impact rows (only numbers Muiz has signed off) ----------
 def toolstats(tool):
