@@ -146,3 +146,59 @@
   }
 })();
 </script>
+<script>
+(function () {
+  var track = document.getElementById('vsTrack'); if (!track) return;
+  var rail = track.querySelector('.vs-rail'), cards = [].slice.call(rail.children);
+  var prev = document.querySelector('.vs-prev'), next = document.querySelector('.vs-next');
+  var fine = matchMedia('(hover:hover) and (pointer:fine) and (min-width:761px)');
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var x = 0, tx = 0, raf = 0, open = null, openT = 0, lastPt = '', hov = null;
+  addEventListener('pointerdown', function (e) { lastPt = e.pointerType; }, true);
+  function max() { return Math.max(0, rail.scrollWidth - track.clientWidth); }
+  function clampT() { tx = Math.min(max(), Math.max(0, tx)); }
+  function nav() { if (prev) { prev.disabled = tx <= 1; next.disabled = tx >= max() - 1; } }
+  function loop() {
+    x += (tx - x) * (still ? 1 : 0.09);
+    if (Math.abs(tx - x) < 0.4) x = tx;
+    rail.style.transform = 'translateX(' + (-x) + 'px)';
+    if (open) place(open);
+    raf = x !== tx ? requestAnimationFrame(loop) : 0;
+  }
+  function go() { clampT(); nav(); if (!raf) raf = requestAnimationFrame(loop); }
+  function place(c) {
+    var W = Math.min(560, track.clientWidth - 16), cl = c.offsetLeft - x, left = -(W - c.offsetWidth) / 2;
+    left = Math.max(-cl + 8, Math.min(left, track.clientWidth - cl - W - 8));
+    c.style.setProperty('--ow', W + 'px'); c.style.setProperty('--ol', left + 'px');
+  }
+  function openCard(c) { if (open === c) return; closeCard(); open = c; place(c); c.classList.add('is-open'); }
+  function closeCard() { if (open) { open.classList.remove('is-open'); open.scrollTop = 0; } open = null; }
+  track.addEventListener('mousemove', function (e) {
+    if (!fine.matches || open) return;
+    var hit = document.elementFromPoint(e.clientX, e.clientY), hc = hit && hit.closest('.vs-card');
+    if (hc && hc !== hov) { hov = hc; clearTimeout(openT); openT = setTimeout(function () { if (hov === hc) openCard(hc); }, 450); }
+    var r = track.getBoundingClientRect(), k = (e.clientX - r.left - 60) / (r.width - 120);
+    tx = Math.min(1, Math.max(0, k)) * max(); go();
+  });
+  track.addEventListener('mouseleave', function () { hov = null; clearTimeout(openT); });
+  track.addEventListener('wheel', function (e) {
+    if (!fine.matches || Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    e.preventDefault(); closeCard(); tx += e.deltaX; go();
+  }, { passive: false });
+  cards.forEach(function (c) {
+    c.addEventListener('mouseleave', function () { if (!fine.matches || lastPt === 'touch') return; if (hov === c) hov = null; clearTimeout(openT); if (open === c) closeCard(); });
+    c.addEventListener('focus', function () {
+      if (lastPt === 'touch' || !c.matches(':focus-visible')) return;
+      if (fine.matches) { tx = c.offsetLeft - (track.clientWidth - c.offsetWidth) / 2; go(); }
+      openCard(c);
+    });
+    c.addEventListener('blur', function () { if (open === c) closeCard(); });
+    c.addEventListener('click', function () { if (fine.matches) return; if (open === c) closeCard(); else openCard(c); });
+    c.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeCard(); c.blur(); } });
+  });
+  function step(d) { closeCard(); tx += d * (cards[0].offsetWidth + 16) * 2; go(); }
+  if (prev) { prev.addEventListener('click', function () { step(-1); }); next.addEventListener('click', function () { step(1); }); }
+  addEventListener('resize', function () { if (!fine.matches) { tx = x = 0; rail.style.transform = ''; } go(); });
+  nav();
+})();
+</script>

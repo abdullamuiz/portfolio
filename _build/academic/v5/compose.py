@@ -126,8 +126,8 @@ lesson = cut(lesson, '      <div class="slots">', '</div>\n        <div class="s
 lesson = lesson.replace('        <div class="slides" id="slides"', AU.demo_video() + '\n        <div class="slides" id="slides"', 1)
 ev = sec('evidence')
 evchart = grab(ev, '      <div class="panel ev-chart reveal" id="evChart">', '</table></div></details>\n      </div>')
-home_ev = rd('home_evidence.html').replace('@@EVCHART@@', AU.evidence(full=False)).replace('@@COMMENTS@@', AU.comments())
-if not AU.F['evaluation_on'] and not AU.comments(): home_ev = ''
+home_ev = rd('home_evidence.html').replace('@@EVCHART@@', AU.evidence(full=False)).replace('@@COMMENTS@@', '')
+if not AU.F['evaluation_on']: home_ev = ''
 SVC_HOME = '  <section class="block" id="service">\n    <div class="wrap">\n      <div class="head wide reveal"><span class="label">Beyond the classroom</span><h2>Service and supervision<span>.</span></h2></div>\n      ' + AU.service() + '\n    </div>\n  </section>\n'
 
 ACC = ['a1', 'a2', 'a3']
@@ -177,7 +177,7 @@ res_home = cut(res, '      <div class="next">', '</div>\n      </div>\n')
 res_home = rep(res_home, '<span class="label">Research</span>\n        <h2>Where the question is going<span>.</span></h2>', '<span class="label">Research</span>\n        <h2 class="big-q">What’s next? Where is the question leading?</h2>')
 res_home = rep(res_home, '</p>\n    </div>\n  </section>', '</p>\n      <div class="row-cta reveal"><a class="btn btn--ghost" href="academic/research.html">Research, profiles and talks <i data-ic="right"></i></a></div>\n    </div>\n  </section>')
 
-home = (header.replace('@@FADE@@', ' fade') + '\n<main>\n' + s1 + '\n  <section class="block atg-sec"><div class="wrap">' + AU.glance(mobile=True) + '</div></section>\n' + rd('home_story.html') + '\n' + home_mods + '\n' + teach + '\n' + AU.snapshot(rd('home_tools.html')) + '\n' +
+home = (header.replace('@@FADE@@', ' fade') + '\n<main>\n' + s1 + '\n  <section class="block atg-sec"><div class="wrap">' + AU.glance(mobile=True) + '</div></section>\n' + AU.strip() + rd('home_story.html') + '\n' + home_mods + '\n' + teach + '\n' + AU.snapshot(rd('home_tools.html')) + '\n' +
         home_ev + '\n' + lesson + '\n' + SVC_HOME + res_home + '\n' + sec('about') + '\n' + sec('credentials') + '\n' + footer + acdata + '\n')
 open(P('out', 'home.html'), 'w', encoding='utf-8').write(cvlinks(home))
 

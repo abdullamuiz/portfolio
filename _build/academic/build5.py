@@ -210,6 +210,17 @@ body{margin:0;overflow:visible}
 .cv-sign{margin-top:10pt}.cv-sign .regards{color:var(--ink);font-size:13pt}.cv-sign .sig{width:240px}'''
 printhtml='<!doctype html><html lang="en" data-theme="light"><head><meta charset="utf-8"><title>Abdulla Muiz Fuad, CV</title>'+'\n'.join(L[15:style_end])+'\n'+'\n'.join(css+css2)+'\n'+PR+'\n</style></head><body>'+'\n'.join(pre_body[pre_body.index(next(l for l in pre_body if l.startswith('<body'))) + 1:])+doc+'</body></html>'
 open(V+'cv-print.html','w',encoding='utf-8').write(printhtml)
+# light is the default; a visitor's own choice (localStorage 'theme') wins. The toggle is a labelled Light / Dark switch.
+TSW_HEAD=("<script>(function(){var r=document.documentElement;try{r.dataset.theme=localStorage.getItem('theme')||'light'}catch(e){r.dataset.theme='light'}"
+ "window.TSW=function(b,d){b.classList.add('theme-sw');b.classList.toggle('is-dark',d);b.setAttribute('aria-pressed',d?'true':'false');"
+ "b.innerHTML='<span class=\"ts-w ts-l\">Light</span><span class=\"ts-k\" aria-hidden=\"true\"><i>'+(d?'<svg viewBox=\"0 0 24 24\"><path d=\"M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5z\"/></svg>':'<svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"5\"/></svg>')+'</i></span><span class=\"ts-w ts-d\">Dark</span>'}})()</script>")
+def lightdef(h):
+    h=h.replace('<html lang="en">','<html lang="en" data-theme="light">',1).replace('<head>','<head>\n'+TSW_HEAD,1)
+    h=h.replace("themeBtn.innerHTML = '<i>' + IC(d ? 'sun' : 'moon') + '</i>';","TSW(themeBtn, d);")
+    h=h.replace("btn.innerHTML='<i>'+IC(d?'sun':'moon')+'</i>';","TSW(btn,d);")
+    h=h.replace("'Switch to light mode' : 'Switch to dark mode'","'Dark mode on, switch to light' : 'Dark mode off, switch to dark'").replace("'Switch to light mode':'Switch to dark mode'","'Dark mode on, switch to light':'Dark mode off, switch to dark'")
+    return h
+for k in outs: outs[k]=lightdef(outs[k])
 for k,v in outs.items():
     for root_,draft in ((ROOT,True),('v5/site/',False)):
         p=root_+k; os.makedirs(os.path.dirname(p) or '.',exist_ok=True); open(p,'w',encoding='utf-8').write(finish(v,draft))
