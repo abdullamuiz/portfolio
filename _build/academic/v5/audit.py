@@ -146,17 +146,20 @@ def strip():
     for i, c in enumerate(C):
         g = GROUP_OF.get((c['modules'] or [''])[0], (i % 3) + 1)
         full = ''.join('<p>%s</p>' % esc(x) for x in c['full'])
-        cards += ('<article class="vs-card a%d" tabindex="0" aria-label="Comment %d of %d: %s"><div class="vs-in">'
+        cards += ('<article class="vs-card a%d%s" tabindex="0" aria-label="Comment %d of %d: %s"><div class="vs-in">'
                   '<div class="vs-top"><span class="vs-q" aria-hidden="true">“</span><b>%s</b></div>'
                   '<blockquote class="vs-short">“%s”</blockquote><div class="vs-full">%s</div>'
-                  '<p class="vs-who">%s</p><span class="vs-hint" aria-hidden="true"><span class="h-fine">Hover to read in full</span><span class="h-touch">Tap to read in full</span></span></div></article>'
-                  % (g, i + 1, len(C), esc(c['theme']), esc(c['theme']), esc(c['pull']), full, _who(c)))
+                  '<p class="vs-who">%s</p></div></article>'
+                  % (g, ' is-open' if i == 0 else '', i + 1, len(C), esc(c['theme']), esc(c['theme']), esc(c['pull']), full, _who(c)))
     return ('  <section class="block vs" id="voices">\n    <div class="wrap">\n'
             '      <div class="head wide reveal"><span class="label">Student voices</span><h2>In their own words<span>.</span></h2>'
             '<p>What former students remember, in comments they gave for this portfolio. Names withheld; wording unchanged.</p></div>\n'
             '      ' + themes(C) + '\n'
-            '      <div class="vs-track reveal" id="vsTrack"><div class="vs-rail">' + cards + '</div></div>\n'
-            '      <div class="vs-foot reveal"><div class="vs-nav"><button type="button" class="vs-prev" aria-label="Previous comments">←</button><button type="button" class="vs-next" aria-label="More comments">→</button></div>'
+            '      <div class="vs-track reveal" id="vsTrack"><div class="vs-rail">' + cards + '</div>'
+            '<div class="vs-hint" aria-hidden="true"><svg viewBox="0 0 58 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
+            '<path d="M6 20h10M6 20l4-4M6 20l4 4M52 20H42M52 20l-4-4M52 20l-4 4"/><path d="M25 9l0 20 5-5 4 9 3-1.4-4-9 7 0z" fill="var(--card)"/></svg>'
+            '<span class="t-fine">Move across to read more</span><span class="t-touch">Swipe to read more</span></div></div>\n'
+            '      <div class="vs-foot reveal"><div class="vs-nav"><button type="button" class="vs-prev" aria-label="Previous comment">←</button><span class="vs-count" aria-live="polite">1 / ' + str(len(C)) + '</span><button type="button" class="vs-next" aria-label="Next comment">→</button></div>'
             '<a class="more-link" href="academic/teaching.html#comments">All comments, and what students asked for more of <i data-ic="right"></i></a></div>\n'
             '    </div>\n  </section>\n')
 

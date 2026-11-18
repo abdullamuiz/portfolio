@@ -149,56 +149,63 @@
 <script>
 (function () {
   var track = document.getElementById('vsTrack'); if (!track) return;
-  var rail = track.querySelector('.vs-rail'), cards = [].slice.call(rail.children);
-  var prev = document.querySelector('.vs-prev'), next = document.querySelector('.vs-next');
-  var fine = matchMedia('(hover:hover) and (pointer:fine) and (min-width:761px)');
-  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var x = 0, tx = 0, raf = 0, open = null, openT = 0, lastPt = '', hov = null;
-  addEventListener('pointerdown', function (e) { lastPt = e.pointerType; }, true);
-  function max() { return Math.max(0, rail.scrollWidth - track.clientWidth); }
-  function clampT() { tx = Math.min(max(), Math.max(0, tx)); }
-  function nav() { if (prev) { prev.disabled = tx <= 1; next.disabled = tx >= max() - 1; } }
-  function loop() {
-    x += (tx - x) * (still ? 1 : 0.09);
-    if (Math.abs(tx - x) < 0.4) x = tx;
-    rail.style.transform = 'translateX(' + (-x) + 'px)';
-    if (open) place(open);
-    raf = x !== tx ? requestAnimationFrame(loop) : 0;
+  var rail = track.querySelector('.vs-rail'), cards = [].slice.call(rail.children), n = cards.length;
+  var prev = document.querySelector('.vs-prev'), next = document.querySelector('.vs-next'), count = document.querySelector('.vs-count');
+  var desk = matchMedia('(hover:hover) and (pointer:fine) and (min-width:761px)');
+  var a = 0, CW = 300, OW = 560, G = 16, lastX = null, moved = 0, dwell = 0, lockUntil = 0;
+  function hinted() { track.classList.add('hinted'); }
+  function centre() {
+    if (!desk.matches) return;
+    var W = track.clientWidth - 16;
+    rail.style.transform = 'translateX(' + (W / 2 - (a * (CW + G) + OW / 2)) + 'px)';
   }
-  function go() { clampT(); nav(); if (!raf) raf = requestAnimationFrame(loop); }
-  function place(c) {
-    var W = Math.min(560, track.clientWidth - 16), cl = c.offsetLeft - x, left = -(W - c.offsetWidth) / 2;
-    left = Math.max(-cl + 8, Math.min(left, track.clientWidth - cl - W - 8));
-    c.style.setProperty('--ow', W + 'px'); c.style.setProperty('--ol', left + 'px');
+  function setActive(k, scroll) {
+    k = Math.max(0, Math.min(n - 1, k));
+    if (k !== a) { var f = cards[a].querySelector('.vs-full'); if (f) f.scrollTop = 0; }
+    a = k;
+    cards.forEach(function (c, i) { c.classList.toggle('is-open', i === a); });
+    if (count) count.textContent = (a + 1) + ' / ' + n;
+    if (prev) { prev.disabled = a === 0; next.disabled = a === n - 1; }
+    if (desk.matches) { centre(); lockUntil = Date.now() + 550; }
+    else if (scroll) { var c = cards[a]; track.scrollTo({ left: c.offsetLeft - (track.clientWidth - c.offsetWidth) / 2, behavior: 'smooth' }); }
   }
-  function openCard(c) { if (open === c) return; closeCard(); open = c; place(c); c.classList.add('is-open'); }
-  function closeCard() { if (open) { open.classList.remove('is-open'); open.scrollTop = 0; } open = null; }
+  // desktop: the row follows the mouse; resting on a card behind brings it to the centre
   track.addEventListener('mousemove', function (e) {
-    if (!fine.matches || open) return;
-    var hit = document.elementFromPoint(e.clientX, e.clientY), hc = hit && hit.closest('.vs-card');
-    if (hc && hc !== hov) { hov = hc; clearTimeout(openT); openT = setTimeout(function () { if (hov === hc) openCard(hc); }, 450); }
-    var r = track.getBoundingClientRect(), k = (e.clientX - r.left - 60) / (r.width - 120);
-    tx = Math.min(1, Math.max(0, k)) * max(); go();
+    if (!desk.matches) return;
+    if (lastX !== null) moved += Math.abs(e.clientX - lastX);
+    lastX = e.clientX;
+    if (moved > 6) hinted();
+    var c = e.target.closest && e.target.closest('.vs-card');
+    clearTimeout(dwell);
+    if (!c || c.classList.contains('is-open') || moved < 24) return;
+    var k = cards.indexOf(c);
+    dwell = setTimeout(function () { if (Date.now() < lockUntil) return; moved = 0; setActive(k); }, 160);
   });
-  track.addEventListener('mouseleave', function () { hov = null; clearTimeout(openT); });
+  track.addEventListener('mouseleave', function () { clearTimeout(dwell); lastX = null; moved = 0; });
+  cards.forEach(function (c, i) {
+    c.addEventListener('click', function () { hinted(); if (i !== a) setActive(i, true); });
+    c.addEventListener('focus', function () { if (c.matches(':focus-visible') && i !== a) setActive(i, true); });
+  });
+  track.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); setActive(a + 1, true); cards[a].focus(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); setActive(a - 1, true); cards[a].focus(); }
+  });
   track.addEventListener('wheel', function (e) {
-    if (!fine.matches || Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
-    e.preventDefault(); closeCard(); tx += e.deltaX; go();
+    if (!desk.matches || Math.abs(e.deltaX) <= Math.abs(e.deltaY) || Math.abs(e.deltaX) < 12) return;
+    e.preventDefault(); if (Date.now() < lockUntil) return; hinted(); setActive(a + (e.deltaX > 0 ? 1 : -1));
   }, { passive: false });
-  cards.forEach(function (c) {
-    c.addEventListener('mouseleave', function () { if (!fine.matches || lastPt === 'touch') return; if (hov === c) hov = null; clearTimeout(openT); if (open === c) closeCard(); });
-    c.addEventListener('focus', function () {
-      if (lastPt === 'touch' || !c.matches(':focus-visible')) return;
-      if (fine.matches) { tx = c.offsetLeft - (track.clientWidth - c.offsetWidth) / 2; go(); }
-      openCard(c);
-    });
-    c.addEventListener('blur', function () { if (open === c) closeCard(); });
-    c.addEventListener('click', function () { if (fine.matches) return; if (open === c) closeCard(); else openCard(c); });
-    c.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeCard(); c.blur(); } });
-  });
-  function step(d) { closeCard(); tx += d * (cards[0].offsetWidth + 16) * 2; go(); }
-  if (prev) { prev.addEventListener('click', function () { step(-1); }); next.addEventListener('click', function () { step(1); }); }
-  addEventListener('resize', function () { if (!fine.matches) { tx = x = 0; rail.style.transform = ''; } go(); });
-  nav();
+  if (prev) { prev.addEventListener('click', function () { hinted(); setActive(a - 1, true); }); next.addEventListener('click', function () { hinted(); setActive(a + 1, true); }); }
+  // phones: swipe; the card nearest the centre is the open one
+  var st = 0;
+  track.addEventListener('scroll', function () {
+    if (desk.matches) return; hinted();
+    clearTimeout(st); st = setTimeout(function () {
+      var mid = track.scrollLeft + track.clientWidth / 2, best = 0, bd = 1e9;
+      cards.forEach(function (c, i) { var d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < bd) { bd = d; best = i; } });
+      if (best !== a) setActive(best, false);
+    }, 90);
+  }, { passive: true });
+  addEventListener('resize', function () { if (desk.matches) centre(); else rail.style.transform = ''; });
+  setActive(0, false);
 })();
 </script>

@@ -94,7 +94,9 @@
  },
  {
   "who": "Bachelor of Marketing graduate",
-  "modules": [],
+  "modules": [
+   "BUS301"
+  ],
   "year": 2026,
   "theme": "Today’s marketing, not yesterday’s",
   "rank": 4,
@@ -109,7 +111,7 @@
   "full": [
    "The practical examples and scenarios that you gave on how marketing concepts can be applied.",
    "It encouraged me on actually using what i learned from your class in the workplace and in my personal projects. Plus the fun facts and examples that you give throughout the lecture helps recall important concepts.",
-   "I think you and one other lecturer are the only people who acknowledged that some of the content in the lectures are outdated. But I noticed that you take effort to make sure to teach us contemporary marketing tips and tricks 👍. Like using AI and github and designing and stuffs etc. I think you should do that more.. because its very interesting 🫢"
+   "… I noticed that you take effort to make sure to teach us contemporary marketing tips and tricks 👍. Like using AI and github and designing and stuffs etc. I think you should do that more.. because its very interesting 🫢"
   ],
   "ask": "More contemporary marketing in class: AI, GitHub and design."
  }
