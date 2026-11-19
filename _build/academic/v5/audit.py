@@ -281,7 +281,7 @@ def snapshot(tools_html):
     ta, mo = D.get('typAll', {}), a.get('most', {})
     tB = ''
     if ta and mo:
-        tB = ('<div class="t4 t4-b"><span class="snap-h">Per student</span>'
+        tB = ('<div class="t4-b"><span class="snap-h">Per student</span>'
               '<div class="t4-ps"><span>Most active</span><b>%.1f h</b><i style="width:100%%;background:var(--cta)"></i><small>across %d of %d days</small></div>'
               '<div class="t4-ps"><span>Typical student</span><b>%.1f h</b><i style="width:%.1f%%;background:var(--sea)"></i><small>across %d days</small></div>'
               '<p class="t4-note">“Typical” is the middle student: half did more.</p></div>' % (mo['h'], mo['d'], len(days), ta['h'], max(3, ta['h'] / mo['h'] * 100), ta['d']))
@@ -295,7 +295,7 @@ def snapshot(tools_html):
             '<span class="label snap4-l">Class activity · %s to %s 2026</span><div class="t4s">%s%s%s%s</div>'
             '<span class="snap-cta more-link">See the full class activity <i data-ic="right"></i></span>'
             '<span class="sr-only">%d of %d enrolled students used a tool between %s and %s 2026, practising %.0f hours in the arenas. Someone practised on every day. Busiest day %s. A typical arena student practised %.1f hours; the most active %.1f hours.</span></a>'
-            % (md(days[0][0]), md(days[-1][0]), tA, tC, tB, tD, used, roster, md(days[0][0]), md(days[-1][0]), a['hrs'] + b['hrs'], md(pk[0]), ta.get('h', 0), mo.get('h', 0)))
+            % (md(days[0][0]), md(days[-1][0]), tA.replace('</ul></div>', '</ul>' + tB + '</div>', 1), tC, '', tD, used, roster, md(days[0][0]), md(days[-1][0]), a['hrs'] + b['hrs'], md(pk[0]), ta.get('h', 0), mo.get('h', 0)))
     old = re.search(r'      <p class="tool-note reveal">.*?</p>\n', tools_html, re.S)
     assert old, 'tool-note not found'
     return tools_html.replace(old.group(0), '      ' + card + '\n', 1)
