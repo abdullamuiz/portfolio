@@ -479,3 +479,11 @@ dialog.pk-sheet::before{content:"";display:block;width:40px;height:4px;border-ra
 @media (prefers-reduced-motion:reduce){.vs-hint svg{animation:none}}
 .ca-kpi em.ca-up{display:table;margin-top:8px;font:600 11.5px/1 var(--sans);font-style:normal;color:var(--label);background:color-mix(in srgb,var(--label) 12%,transparent);border-radius:999px;padding:5px 9px;white-space:nowrap}
 .ca-kpi span{display:block}
+.ca-per{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:12px}
+.ca-pc{border:1px solid var(--line);border-radius:16px;padding:16px 18px;background:color-mix(in srgb,var(--label) 6%,var(--card));display:grid;gap:4px}
+.ca-pc-top{background:color-mix(in srgb,var(--cta,#0B8794) 10%,var(--card));border-color:color-mix(in srgb,var(--label) 35%,var(--line))}
+.ca-pc .ca-pl{font:700 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--label)}
+.ca-pc b{font:400 2rem/1.1 var(--serif);color:var(--ink)}
+.ca-pc span{color:var(--ink);font-size:14px}
+.ca-pc small{color:var(--muted);font-size:12px}
+.ca-typ{margin:14px 0 0;font-size:15px;color:var(--ink)}
