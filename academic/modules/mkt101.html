@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://abdullamuiz.github.io/portfolio/academic/modules/mkt101.html">
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#F6EFE4" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121829" media="(prefers-color-scheme: dark)">
 <link rel="icon" type="image/svg+xml" href="../../images/brand/favicon.svg?v=2">
 <link rel="apple-touch-icon" href="../../images/brand/apple-touch-icon.png?v=2">
@@ -2084,6 +2084,17 @@ dialog.pk-sheet::before{content:"";display:block;width:40px;height:4px;border-ra
   .vs-hint svg{width:44px;height:30px;padding:3px 6px}
 }
 .vs-hint span{white-space:nowrap}
+/* ---------- warm ivory light theme (cards stay white) ---------- */
+:root[data-theme="light"]{--paper:#F6EFE4;--tint:#EEE5D6;--line:#E2D8C7;--ghost:#EBE2D2;--ghost2:#D9CDB8;--label:#06707C}
+/* "move across" hint: one solid pill below the cards */
+.vs-track{padding-bottom:66px}
+.vs-hint,.vs-track .vs-hint{top:auto;right:auto;bottom:12px;left:50%;transform:translateX(-50%);grid-auto-flow:column;align-items:center;gap:6px;
+  background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 14px 5px 6px;box-shadow:0 6px 18px rgba(10,20,40,.08);opacity:1}
+.vs-hint svg{width:44px;height:30px;padding:0;background:none;box-shadow:none;animation:vsNudge 2.4s ease-in-out infinite}
+.vs-hint span{background:none;border:0;box-shadow:none;padding:0;font-size:12.5px}
+.vs-track.hinted .vs-hint{opacity:0}
+@keyframes vsNudge{0%,100%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){.vs-hint svg{animation:none}}
 
 @media (prefers-reduced-motion:reduce){#s1{height:auto !important}#s1 .sticky{position:relative;height:auto;min-height:100svh;overflow:visible}#s1 .hero{position:relative;top:auto;bottom:auto;padding-top:calc(var(--head) + 24px);display:grid;grid-template-columns:minmax(0,1fr);align-items:start}#s1 .stage{height:auto;justify-content:flex-start}#s1 .portrait{height:auto;width:min(340px,70vw);margin:0}#s1 .copy{transform:none !important}.ghost-hi{display:none}@media (min-width:861px){#s1 .hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}#s1 .portrait{width:100%;max-width:440px}}.about-text{position:static;opacity:1 !important;margin-top:28px}.ghost-about,.fdot{display:none}   #about{height:auto !important}   #about .sticky{position:relative;height:auto;overflow:visible;padding:56px 0 40px}   #about .path-head{position:static;margin-bottom:32px}   #about .path-prog{display:none}   #about .track{position:relative;height:auto;transform:none !important;padding:0 var(--gutter) 0 calc(var(--gutter) + 36px)}   #about .line{left:calc(var(--gutter) + 8px);top:8px;bottom:40px;width:2px;height:auto;margin:0}   #about .fill{transform-origin:50% 0;transform:scaleY(0)}   #about .stop{position:relative;left:auto;top:auto;width:auto;height:auto;padding-bottom:34px}   #about .node{left:-36px;top:4px}   #about .stop.now .node{left:-39px;top:1px}   #about .arm{display:none}   #about .stop .card{position:static;width:auto;bottom:auto;top:auto}   #about .lg{margin-bottom:8px}#kick,#rule,#introP,.copy .fade{opacity:1 !important;visibility:visible !important}#portrait,.ghost-hi{transform:none !important}.ghost-hi{display:none}}
 </style>

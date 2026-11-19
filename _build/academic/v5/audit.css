@@ -466,3 +466,14 @@ dialog.pk-sheet::before{content:"";display:block;width:40px;height:4px;border-ra
   .vs-hint svg{width:44px;height:30px;padding:3px 6px}
 }
 .vs-hint span{white-space:nowrap}
+/* ---------- warm ivory light theme (cards stay white) ---------- */
+:root[data-theme="light"]{--paper:#F6EFE4;--tint:#EEE5D6;--line:#E2D8C7;--ghost:#EBE2D2;--ghost2:#D9CDB8;--label:#06707C}
+/* "move across" hint: one solid pill below the cards */
+.vs-track{padding-bottom:66px}
+.vs-hint,.vs-track .vs-hint{top:auto;right:auto;bottom:12px;left:50%;transform:translateX(-50%);grid-auto-flow:column;align-items:center;gap:6px;
+  background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 14px 5px 6px;box-shadow:0 6px 18px rgba(10,20,40,.08);opacity:1}
+.vs-hint svg{width:44px;height:30px;padding:0;background:none;box-shadow:none;animation:vsNudge 2.4s ease-in-out infinite}
+.vs-hint span{background:none;border:0;box-shadow:none;padding:0;font-size:12.5px}
+.vs-track.hinted .vs-hint{opacity:0}
+@keyframes vsNudge{0%,100%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){.vs-hint svg{animation:none}}
