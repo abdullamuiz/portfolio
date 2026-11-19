@@ -2095,6 +2095,62 @@ dialog.pk-sheet::before{content:"";display:block;width:40px;height:4px;border-ra
 .vs-track.hinted .vs-hint{opacity:0}
 @keyframes vsNudge{0%,100%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
 @media (prefers-reduced-motion:reduce){.vs-hint svg{animation:none}}
+.ca-kpi em.ca-up{display:table;margin-top:8px;font:600 11.5px/1 var(--sans);font-style:normal;color:var(--label);background:color-mix(in srgb,var(--label) 12%,transparent);border-radius:999px;padding:5px 9px;white-space:nowrap}
+.ca-kpi span{display:block}
+.ca-per{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:12px}
+.ca-pc{border:1px solid var(--line);border-radius:16px;padding:16px 18px;background:color-mix(in srgb,var(--label) 6%,var(--card));display:grid;gap:4px}
+.ca-pc-top{background:color-mix(in srgb,var(--cta,#0B8794) 10%,var(--card));border-color:color-mix(in srgb,var(--label) 35%,var(--line))}
+.ca-pc .ca-pl{font:700 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--label)}
+.ca-pc b{font:400 2rem/1.1 var(--serif);color:var(--ink)}
+.ca-pc span{color:var(--ink);font-size:14px}
+.ca-pc small{color:var(--muted);font-size:12px}
+.ca-typ{margin:14px 0 0;font-size:15px;color:var(--ink)}
+/* ---------- home class activity: four tiles in one row ---------- */
+.snap.snap4{display:block;padding:24px 26px}
+.snap4-l{display:block;margin-bottom:16px}
+.t4s{display:grid;grid-template-columns:1.45fr 1.15fr 1fr 1fr;gap:16px;align-items:stretch}
+.t4{border:1px solid var(--line);border-radius:16px;padding:16px 16px 14px;background:var(--paper);display:flex;flex-direction:column;gap:8px;min-width:0}
+.t4 .snap-h{margin:0}
+.t4-big{margin:0;font-family:var(--serif);line-height:1;color:var(--ink)}
+.t4-big b{font-weight:400;font-size:clamp(30px,3vw,40px)}.t4-big span{font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.t4-bars{display:block;width:100%;height:96px;margin-top:4px}
+.t4-apps{gap:6px;margin-top:4px}.t4-apps li{grid-template-columns:1fr auto}.t4-apps b{font-size:12.5px}
+.t4-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:2px}
+.t4-cal i{font:600 10px var(--sans);font-style:normal;color:var(--muted);text-align:center}
+.t4-cal span{aspect-ratio:1;border-radius:6px;display:grid;place-items:center;font:600 10.5px var(--sans);color:var(--ink);
+  background:color-mix(in srgb,var(--cta) calc(var(--a)*100%),var(--ghost))}
+.t4-cal span.dk{color:#fff}
+.t4-ps{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:baseline}
+.t4-ps span{font-size:12.5px;color:var(--ink)}.t4-ps b{font:400 22px/1 var(--serif);color:var(--ink)}
+.t4-ps i{grid-column:1/-1;display:block;height:10px;border-radius:99px;margin-top:4px}
+.t4-ps small{grid-column:1/-1;font-size:11.5px;color:var(--muted)}
+.t4-note{margin:auto 0 0;font-size:11.5px;color:var(--muted)}
+.t4-waf{display:grid;grid-template-columns:repeat(13,1fr);gap:3px;margin-top:4px}
+.t4-waf i{aspect-ratio:1;border-radius:50%}
+.t4-waf i.off,.t4 .snap-leg i.off{background:var(--ghost2,#DDD5C6)}
+.t4 .snap-leg{margin-top:2px}.t4 .snap-peak{margin:auto 0 0}
+.snap4 .snap-cta{display:block;margin-top:18px}
+@media (max-width:1100px){.t4s{grid-template-columns:1fr 1fr}}
+@media (max-width:700px){.snap.snap4{padding:20px 16px}.t4s{grid-template-columns:1fr}.t4-waf{grid-template-columns:repeat(17,1fr)}}
+.snap .t4 .t4-note{font-size:12px;line-height:1.45}
+/* three tiles: practice time + per student share one tile */
+.t4s{grid-template-columns:1.5fr 1.15fr 1fr}
+.t4-a .t4-b{display:grid;gap:8px;margin-top:10px;padding-top:12px;border-top:1px solid var(--line)}
+.t4-a .t4-b .t4-note{margin:0}
+@media (max-width:1100px){.t4s{grid-template-columns:1fr 1fr}.t4-a{grid-row:span 2}}
+@media (max-width:700px){.t4s{grid-template-columns:1fr}.t4-a{grid-row:auto}}
+.t4-a .t4-b{grid-template-columns:1fr 1fr;column-gap:18px}
+.t4-a .t4-b>.snap-h,.t4-a .t4-b>.t4-note{grid-column:1/-1}
+.t4-a .t4-bars{height:80px}
+.t4-c .snap-peak,.t4-d .snap-peak{margin-top:auto;padding-top:8px}
+@media (max-width:420px){.t4-a .t4-b{grid-template-columns:1fr}}
+/* practice tile: arenas | per student, split down the middle */
+.t4-split{display:grid;grid-template-columns:1fr 1fr;margin-top:10px;padding-top:12px;border-top:1px solid var(--line)}
+.t4-split>.t4-ar{padding-right:16px;display:grid;align-content:start;gap:8px}
+.t4-split>.t4-ar .t4-apps{margin-top:0;gap:10px}
+.t4-a .t4-split>.t4-b{display:grid;grid-template-columns:1fr;align-content:start;gap:8px;margin:0;padding:0 0 0 16px;border-top:0;border-left:1px solid var(--line)}
+.t4-split .t4-ps b{font-size:20px}
+@media (max-width:420px){.t4-split{grid-template-columns:1fr}.t4-split>.t4-ar{padding:0 0 12px}.t4-a .t4-split>.t4-b{padding:12px 0 0;border-left:0;border-top:1px solid var(--line)}}
 
 @media (prefers-reduced-motion:reduce){#s1{height:auto !important}#s1 .sticky{position:relative;height:auto;min-height:100svh;overflow:visible}#s1 .hero{position:relative;top:auto;bottom:auto;padding-top:calc(var(--head) + 24px);display:grid;grid-template-columns:minmax(0,1fr);align-items:start}#s1 .stage{height:auto;justify-content:flex-start}#s1 .portrait{height:auto;width:min(340px,70vw);margin:0}#s1 .copy{transform:none !important}.ghost-hi{display:none}@media (min-width:861px){#s1 .hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}#s1 .portrait{width:100%;max-width:440px}}.about-text{position:static;opacity:1 !important;margin-top:28px}.ghost-about,.fdot{display:none}   #about{height:auto !important}   #about .sticky{position:relative;height:auto;overflow:visible;padding:56px 0 40px}   #about .path-head{position:static;margin-bottom:32px}   #about .path-prog{display:none}   #about .track{position:relative;height:auto;transform:none !important;padding:0 var(--gutter) 0 calc(var(--gutter) + 36px)}   #about .line{left:calc(var(--gutter) + 8px);top:8px;bottom:40px;width:2px;height:auto;margin:0}   #about .fill{transform-origin:50% 0;transform:scaleY(0)}   #about .stop{position:relative;left:auto;top:auto;width:auto;height:auto;padding-bottom:34px}   #about .node{left:-36px;top:4px}   #about .stop.now .node{left:-39px;top:1px}   #about .arm{display:none}   #about .stop .card{position:static;width:auto;bottom:auto;top:auto}   #about .lg{margin-bottom:8px}#kick,#rule,#introP,.copy .fade{opacity:1 !important;visibility:visible !important}#portrait,.ghost-hi{transform:none !important}.ghost-hi{display:none}}
 </style>
@@ -2159,12 +2215,13 @@ dialog.pk-sheet::before{content:"";display:block;width:40px;height:4px;border-ra
     </div>
   </section>
 <section class="block ca tools-ca" id="class-activity"><div class="wrap">
-<div class="head wide reveal"><span class="label">Class activity · 28 October to 11 November 2026</span><h2>Two weeks in the tools<span>.</span></h2><p>I built the Practice Arenas so students rehearse before it counts, and the Student Audit so they audit a real local business and turn it into a marketing plan. These are anonymised class totals from the live tools, 28 October to 11 November 2026: no names, no individual records.</p></div>
+<div class="head wide reveal"><span class="label">Class activity · 28 October to 19 November 2026</span><h2>Three weeks in the tools<span>.</span></h2><p>I built the Practice Arenas so students rehearse before it counts, and the Student Audit so they audit a real local business and turn it into a marketing plan. These are anonymised class totals from the live tools, 28 October to 19 November 2026 (Student Audit figures to 11 November): no names, no individual records.</p></div>
 
   <nav class="ca-jump" aria-label="Jump to a tool"><a href="#all">All three</a><a href="#mkt101">MKT101 Arena</a><a href="#mkt301">MKT301 Arena</a><a href="#mkt303">MKT303 Student Audit</a></nav>
   <div class="ca-sec" id="all">
-    <div class="ca-head"><span class="ca-code">All three tools</span><h2>The whole picture<span class="dot">.</span></h2><p>Three courses, three web apps, one fortnight.</p></div>
+    <div class="ca-head"><span class="ca-code">All three tools</span><h2>The whole picture<span class="dot">.</span></h2><p>Three courses, three web apps, three weeks.</p></div>
     <div class="ca-kpis" id="allkpis"></div>
+    <p class="ca-typ" id="alltyp"></p>
     <div class="ca-grid">
       <div class="ca-card ca-wide"><h2>Students active each day, across all three tools<span class="dot">.</span></h2><p class="ca-sub">Arena students who practised that day, plus MKT303 audit milestones (an audit started, a screenshot uploaded or an audit submitted).</p><div id="alldaily"></div><div class="ca-leg"><span><i style="background:var(--cta)"></i>MKT101 students</span><span><i style="background:var(--sea)"></i>MKT301 students</span><span><i style="background:var(--deep)"></i>MKT303 audit milestones</span></div></div>
       <div class="ca-card ca-wide"><h2>Reach by tool<span class="dot">.</span></h2><p class="ca-sub">Students who used each tool in the period, out of those enrolled.</p><div id="allreach"></div></div>
@@ -2173,10 +2230,11 @@ dialog.pk-sheet::before{content:"";display:block;width:40px;height:4px;border-ra
   <div class="ca-sec" id="mkt101">
     <div class="ca-head"><span class="ca-code">MKT101</span><h2>MKT101 Introduction to Marketing<span class="dot">.</span></h2><p>Practice Arena: MCQs, answer plans, case studies, flashcards and typed answers for Topics 8 to 14.</p></div>
     <div class="ca-kpis" id="mkt101kpis"></div>
+    <div class="ca-per" id="mkt101per"></div>
     <div class="ca-grid">
       <div class="ca-card ca-wide"><h2>Day by day<span class="dot">.</span></h2><p class="ca-sub">Students active (bars) and practice actions (line) each day, Maldives time.</p><div id="mkt101daily"></div><div class="ca-leg"><span><i style="background:var(--lagoon)"></i>Students active</span><span><i style="background:var(--deep)"></i>Practice actions</span></div></div>
       <div class="ca-card"><h2>What they practised<span class="dot">.</span></h2><p class="ca-sub">Share of all practice actions.</p><div id="mkt101mix"></div></div>
-      <div class="ca-card"><h2>When they studied<span class="dot">.</span></h2><p class="ca-sub">Practice actions by hour of day (from 4 Nov).</p><div id="mkt101hours"></div></div>
+      <div class="ca-card"><h2>When they studied<span class="dot">.</span></h2><p class="ca-sub">Practice actions by hour of day, 4 to 11 Nov.</p><div id="mkt101hours"></div></div>
       <div class="ca-card"><h2>Study time per student<span class="dot">.</span></h2><p class="ca-sub">Active students grouped by study hours in the period.</p><div id="mkt101buckets"></div></div>
       <div class="ca-card"><h2>The ten most committed<span class="dot">.</span></h2><p class="ca-sub">Study hours of the top ten students (anonymised), with days active and MCQ accuracy.</p><div id="mkt101top"></div></div>
     </div>
@@ -2184,16 +2242,17 @@ dialog.pk-sheet::before{content:"";display:block;width:40px;height:4px;border-ra
   <div class="ca-sec" id="mkt301">
     <div class="ca-head"><span class="ca-code">MKT301</span><h2>MKT301 International Marketing<span class="dot">.</span></h2><p>Practice Arena: written answers, answer plans, cases and paragraph builders.</p></div>
     <div class="ca-kpis" id="mkt301kpis"></div>
+    <div class="ca-per" id="mkt301per"></div>
     <div class="ca-grid">
       <div class="ca-card ca-wide"><h2>Day by day<span class="dot">.</span></h2><p class="ca-sub">Students active (bars) and practice actions (line) each day, Maldives time.</p><div id="mkt301daily"></div><div class="ca-leg"><span><i style="background:var(--lagoon)"></i>Students active</span><span><i style="background:var(--deep)"></i>Practice actions</span></div></div>
       <div class="ca-card"><h2>What they practised<span class="dot">.</span></h2><p class="ca-sub">Share of all practice actions.</p><div id="mkt301mix"></div></div>
-      <div class="ca-card"><h2>When they studied<span class="dot">.</span></h2><p class="ca-sub">Practice actions by hour of day (from 4 Nov).</p><div id="mkt301hours"></div></div>
+      <div class="ca-card"><h2>When they studied<span class="dot">.</span></h2><p class="ca-sub">Practice actions by hour of day, 4 to 11 Nov.</p><div id="mkt301hours"></div></div>
       <div class="ca-card"><h2>Study time per student<span class="dot">.</span></h2><p class="ca-sub">Active students grouped by study hours in the period.</p><div id="mkt301buckets"></div></div>
       <div class="ca-card"><h2>The ten most committed<span class="dot">.</span></h2><p class="ca-sub">Study hours of the top ten students (anonymised), with days active.</p><div id="mkt301top"></div></div>
     </div>
   </div>
   <div class="ca-sec" id="mkt303">
-    <div class="ca-head"><span class="ca-code">MKT303</span><h2>MKT303 Student Audit<span class="dot">.</span></h2><p>Students audit a real local business’s digital presence, then build a marketing plan and download a report.</p></div>
+    <div class="ca-head"><span class="ca-code">MKT303</span><h2>MKT303 Student Audit<span class="dot">.</span></h2><p>Students audit a real local business’s digital presence, then build a marketing plan and download a report. Figures for 28 October to 11 November.</p></div>
     <div class="ca-kpis" id="mkt303kpis"></div>
     <div class="ca-grid">
       <div class="ca-card"><h2>How far they got<span class="dot">.</span></h2><p class="ca-sub">Students who reached each of the 11 steps.</p><div id="funnel"></div></div>
@@ -2207,19 +2266,21 @@ dialog.pk-sheet::before{content:"";display:block;width:40px;height:4px;border-ra
 <script>
 (function(){
 
-const DATA={"mkt101":{"course":"MKT101","from":"2026-10-28","to":"2026-11-11","roster":56,"signed":48,"active":48,"hrs":65.7,"ans":7639,"acc":71,"mcq":5589,"xp":31444,"daily":[{"d":"2026-10-28","act":41,"ans":1415,"hrs":3.78},{"d":"2026-10-29","act":6,"ans":219,"hrs":3.16},{"d":"2026-10-30","act":3,"ans":150,"hrs":2.63},{"d":"2026-10-31","act":2,"ans":298,"hrs":3.17},{"d":"2026-11-01","act":5,"ans":176,"hrs":1.75},{"d":"2026-11-02","act":3,"ans":142,"hrs":2.14},{"d":"2026-11-03","act":2,"ans":38,"hrs":0.32},{"d":"2026-11-04","act":43,"ans":3367,"hrs":31},{"d":"2026-11-05","act":7,"ans":318,"hrs":3.47},{"d":"2026-11-06","act":10,"ans":336,"hrs":3.4},{"d":"2026-11-07","act":3,"ans":135,"hrs":1.32},{"d":"2026-11-08","act":7,"ans":159,"hrs":1.66},{"d":"2026-11-09","act":6,"ans":310,"hrs":1.94},{"d":"2026-11-10","act":6,"ans":502,"hrs":4.82},{"d":"2026-11-11","act":1,"ans":74,"hrs":1.14}],"mix":{"plan":908,"written":109,"mcq":5687,"review":735,"notes":27,"case":100,"chal":2,"chip":16,"expert":55},"hr":[208,232,239,144,184,0,0,0,43,85,0,2,71,66,0,83,339,226,1190,781,30,58,123,139],"top":[{"h":15.7,"d":13,"a":1554,"acc":89},{"h":7.4,"d":13,"a":605,"acc":66},{"h":6.3,"d":8,"a":493,"acc":70},{"h":4.9,"d":10,"a":630,"acc":77},{"h":4.5,"d":11,"a":642,"acc":79},{"h":1.7,"d":2,"a":82,"acc":69},{"h":1.2,"d":3,"a":164,"acc":54},{"h":1.2,"d":2,"a":106,"acc":62},{"h":1.1,"d":2,"a":137,"acc":68},{"h":1.1,"d":5,"a":99,"acc":77}],"buckets":{"<1 h":38,"1\u20133 h":5,"3\u20136 h":2,"6 h+":3},"activeDays":15,"avgActiveDays":3,"name":"MKT101 Introduction to Marketing"},"mkt301":{"course":"MKT301","from":"2026-10-28","to":"2026-11-11","roster":32,"signed":24,"active":23,"hrs":14.7,"ans":280,"acc":null,"mcq":0,"xp":4622,"daily":[{"d":"2026-10-28","act":0,"ans":0,"hrs":0},{"d":"2026-10-29","act":0,"ans":0,"hrs":0},{"d":"2026-10-30","act":0,"ans":0,"hrs":0},{"d":"2026-10-31","act":0,"ans":0,"hrs":0},{"d":"2026-11-01","act":9,"ans":0,"hrs":1.07},{"d":"2026-11-02","act":1,"ans":0,"hrs":0.13},{"d":"2026-11-03","act":3,"ans":12,"hrs":0.86},{"d":"2026-11-04","act":3,"ans":25,"hrs":0.9},{"d":"2026-11-05","act":0,"ans":0,"hrs":0.04},{"d":"2026-11-06","act":1,"ans":0,"hrs":0.15},{"d":"2026-11-07","act":1,"ans":1,"hrs":0.03},{"d":"2026-11-08","act":4,"ans":17,"hrs":0.93},{"d":"2026-11-09","act":4,"ans":81,"hrs":1.2},{"d":"2026-11-10","act":21,"ans":144,"hrs":9.39},{"d":"2026-11-11","act":0,"ans":0,"hrs":0}],"mix":{"plan":75,"case":64,"written":88,"review":42,"notes":8,"chip":3},"hr":[27,0,0,0,0,0,0,0,8,9,161,0,1,1,3,2,72,27,23,0,0,1,22,18],"top":[{"h":1.3,"d":1,"a":9,"acc":null},{"h":1.3,"d":6,"a":49,"acc":null},{"h":1.1,"d":3,"a":2,"acc":null},{"h":1,"d":3,"a":6,"acc":null},{"h":0.9,"d":4,"a":7,"acc":null},{"h":0.8,"d":2,"a":18,"acc":null},{"h":0.8,"d":3,"a":13,"acc":null},{"h":0.8,"d":2,"a":14,"acc":null},{"h":0.7,"d":3,"a":5,"acc":null},{"h":0.6,"d":2,"a":5,"acc":null}],"buckets":{"<1 h":19,"1\u20133 h":4,"3\u20136 h":0,"6 h+":0},"activeDays":9,"avgActiveDays":2,"name":"MKT301 International Marketing"}};
+const DATA={"mkt101":{"course":"MKT101","from":"2026-10-28","to":"2026-11-19","roster":56,"signed":49,"active":49,"hrs":132.7,"ans":9611,"acc":70,"mcq":5838,"xp":80435,"daily":[{"d":"2026-10-28","act":39,"ans":1371,"hrs":3.8},{"d":"2026-10-29","act":6,"ans":219,"hrs":3.16},{"d":"2026-10-30","act":3,"ans":150,"hrs":2.63},{"d":"2026-10-31","act":2,"ans":298,"hrs":3.17},{"d":"2026-11-01","act":5,"ans":176,"hrs":1.75},{"d":"2026-11-02","act":3,"ans":142,"hrs":2.14},{"d":"2026-11-03","act":2,"ans":38,"hrs":0.32},{"d":"2026-11-04","act":42,"ans":3277,"hrs":30.03},{"d":"2026-11-05","act":7,"ans":318,"hrs":3.47},{"d":"2026-11-06","act":10,"ans":336,"hrs":3.42},{"d":"2026-11-07","act":3,"ans":135,"hrs":1.32},{"d":"2026-11-08","act":7,"ans":159,"hrs":1.66},{"d":"2026-11-09","act":6,"ans":310,"hrs":1.94},{"d":"2026-11-10","act":6,"ans":502,"hrs":4.85},{"d":"2026-11-11","act":3,"ans":105,"hrs":1.55},{"d":"2026-11-12","act":4,"ans":132,"hrs":0.62},{"d":"2026-11-13","act":3,"ans":78,"hrs":0.43},{"d":"2026-11-14","act":4,"ans":57,"hrs":0.28},{"d":"2026-11-15","act":4,"ans":253,"hrs":2.51},{"d":"2026-11-16","act":4,"ans":57,"hrs":1.05},{"d":"2026-11-17","act":38,"ans":228,"hrs":26.58},{"d":"2026-11-18","act":47,"ans":1268,"hrs":36.0},{"d":"2026-11-19","act":1,"ans":2,"hrs":0.03}],"mix":{"mcq":5940,"plan":1250,"written":104,"chip":16,"case":1311,"notes":29,"review":904,"expert":55,"chal":2},"hr":[208,232,239,144,184,0,0,0,43,85,0,2,71,66,0,83,339,226,1190,781,30,58,123,139],"top":[{"h":20.1,"d":19,"a":1957,"acc":89},{"h":9.6,"d":21,"a":639,"acc":66},{"h":7.9,"d":15,"a":522,"acc":71},{"h":7.0,"d":17,"a":759,"acc":80},{"h":5.7,"d":12,"a":647,"acc":77},{"h":4.1,"d":4,"a":107,"acc":69},{"h":3.9,"d":3,"a":96,"acc":73},{"h":3.8,"d":5,"a":298,"acc":51},{"h":3.3,"d":3,"a":143,"acc":79},{"h":3.2,"d":4,"a":105,"acc":57}],"buckets":{"<1 h":7,"1–3 h":30,"3–6 h":8,"6 h+":4},"activeDays":23,"avgActiveDays":5,"name":"MKT101 Introduction to Marketing","hrfrom":"4 to 11 Nov","prev":{"to":"2026-11-11","active":48,"hrs":65.7,"ans":7639,"xp":31444},"typ":{"h":1.8,"a":108,"d":4},"most":{"h":20.2,"d":19,"a":1957,"acc":89}},"mkt301":{"course":"MKT301","from":"2026-10-28","to":"2026-11-19","roster":32,"signed":25,"active":25,"hrs":40.5,"ans":924,"acc":null,"mcq":0,"xp":25685,"daily":[{"d":"2026-10-28","act":0,"ans":0,"hrs":0},{"d":"2026-10-29","act":0,"ans":0,"hrs":0},{"d":"2026-10-30","act":0,"ans":0,"hrs":0},{"d":"2026-10-31","act":0,"ans":0,"hrs":0},{"d":"2026-11-01","act":9,"ans":0,"hrs":1.07},{"d":"2026-11-02","act":1,"ans":0,"hrs":0.13},{"d":"2026-11-03","act":3,"ans":12,"hrs":0.86},{"d":"2026-11-04","act":3,"ans":25,"hrs":0.9},{"d":"2026-11-05","act":0,"ans":0,"hrs":0.04},{"d":"2026-11-06","act":1,"ans":0,"hrs":0.15},{"d":"2026-11-07","act":1,"ans":1,"hrs":0.03},{"d":"2026-11-08","act":4,"ans":17,"hrs":0.93},{"d":"2026-11-09","act":4,"ans":81,"hrs":1.2},{"d":"2026-11-10","act":21,"ans":144,"hrs":9.45},{"d":"2026-11-11","act":1,"ans":12,"hrs":0.08},{"d":"2026-11-12","act":1,"ans":1,"hrs":0.61},{"d":"2026-11-13","act":1,"ans":7,"hrs":0.53},{"d":"2026-11-14","act":1,"ans":0,"hrs":0.3},{"d":"2026-11-15","act":2,"ans":8,"hrs":0.14},{"d":"2026-11-16","act":4,"ans":2,"hrs":2.97},{"d":"2026-11-17","act":21,"ans":573,"hrs":20.17},{"d":"2026-11-18","act":2,"ans":0,"hrs":0.14},{"d":"2026-11-19","act":3,"ans":41,"hrs":0.83}],"mix":{"plan":186,"written":128,"chip":3,"case":532,"notes":9,"review":66},"hr":[27,0,0,0,0,0,0,0,8,9,161,0,1,1,3,2,72,27,23,0,0,1,22,18],"top":[{"h":3.0,"d":8,"a":22,"acc":null},{"h":2.7,"d":7,"a":92,"acc":null},{"h":2.6,"d":4,"a":67,"acc":null},{"h":2.5,"d":4,"a":15,"acc":null},{"h":2.5,"d":2,"a":47,"acc":null},{"h":2.3,"d":6,"a":43,"acc":null},{"h":2.2,"d":3,"a":42,"acc":null},{"h":2.0,"d":3,"a":46,"acc":null},{"h":2.0,"d":6,"a":134,"acc":null},{"h":2.0,"d":2,"a":9,"acc":null}],"buckets":{"<1 h":6,"1–3 h":19,"3–6 h":0,"6 h+":0},"activeDays":18,"avgActiveDays":3,"name":"MKT301 International Marketing","hrfrom":"4 to 11 Nov","prev":{"to":"2026-11-11","active":23,"hrs":14.7,"ans":280,"xp":4622},"typ":{"h":1.5,"a":35,"d":3},"most":{"h":3.0,"d":8,"a":22,"acc":null}},"typAll":{"h":1.7,"d":4}};
 const A303={"name":"MKT303 Student Audit","roster":13,"started":4,"submitted":3,"avg":50,"min":30,"max":79,"pages":22.3,"inputs":857,"imgs":4,"funnel":[["About the business",4],["Social media",4],["Google Business Profile",3],["Website",3],["Reviews",3],["Your audit results",3],["Target market",3],["Objectives",3],["Strategies and budget",3],["Control and evaluation",3],["Download",3]],"daily":[["2026-11-06",1,0,0],["2026-11-07",0,2,1],["2026-11-08",1,2,1],["2026-11-09",1,0,1],["2026-11-10",0,0,0],["2026-11-11",1,0,0]],"depth":[["About the business",9],["Social media",35],["Google Business Profile",10],["Website",13],["Reviews",37],["Audit results",54],["Target market",122],["Objectives",91],["Strategies, budget & control",481]],"bands":[["Under 40",1],["40–59",1],["60–79",1],["80+",0]],"types":"Businesses audited: 3 guesthouses or hotels, 1 food and drink."};
 const CAT={mcq:['MCQs','var(--cta)'],plan:['Answer plans','var(--sea)'],written:['Typed & timed answers','var(--deep)'],review:['Review & flashcards','var(--lagoon)'],case:['Case studies','var(--deep)'],expert:['Expert sets','var(--navy)'],notes:['Notes checks','var(--reef)'],chip:['Paragraph builders','#7FA6D9'],chal:['Challenges','#8A94A8'],boss:['Boss rounds','var(--label)'],paper:['Practice paper','#8A94A8']};
 let PFX='';const $=id=>document.getElementById(PFX+id);
 const fmt=n=>n>=1000?n.toLocaleString('en-US'):String(n);
 const md=d=>{const x=new Date(d+'T00:00:00Z');return x.getUTCDate()+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][x.getUTCMonth()]};
-function draw_kpis(c){const k=[[c.active+' / '+c.roster,'students active'],[c.hrs+' h','total study time'],[fmt(c.ans),'practice actions'],[c.acc!=null?c.acc+'%':'–',c.acc!=null?'MCQ accuracy (first tries)':'written-answer course'],[c.avgActiveDays,'days active per student (avg)']];
- $('kpis').innerHTML=k.map(([b,s])=>`<div class="ca-kpi"><b>${b}</b><span>${s}</span></div>`).join('')}
+const up=(v,u)=>v>0?`<em class="ca-up">+${u==='h'?v.toFixed(1)+' h':fmt(Math.round(v))} since 11 Nov</em>`:'';
+function draw_kpis(c){const P=c.prev||{},k=[[c.active+' / '+c.roster,'students active',up(c.active-P.active)],[c.hrs+' h','total study time',up(c.hrs-P.hrs,'h')],[fmt(c.ans),'practice actions',up(c.ans-P.ans)],[c.acc!=null?c.acc+'%':'–',c.acc!=null?'MCQ accuracy (first tries)':'written-answer course'],[c.activeDays+' / '+c.daily.length,'days with someone practising']];
+ $('kpis').innerHTML=k.map(([b,s,u])=>`<div class="ca-kpi"><b>${b}</b><span>${s}</span>${u||''}</div>`).join('')}
 function draw_daily(c){const D=c.daily,W=720,H=220,P=34,bw=(W-P-10)/D.length,ma=Math.max(1,...D.map(x=>x.act)),mn=Math.max(1,...D.map(x=>x.ans));
  const bars=D.map((x,i)=>{const h=x.act/ma*(H-60),X=P+i*bw+bw*.18;return `<rect x="${X.toFixed(1)}" y="${(H-28-h).toFixed(1)}" width="${(bw*.64).toFixed(1)}" height="${h.toFixed(1)}" rx="3" fill="var(--lagoon)" opacity=".85"><title>${md(x.d)}: ${x.act} students, ${x.ans} actions, ${x.hrs.toFixed(1)} h</title></rect>`}).join('');
  const line=D.map((x,i)=>`${(P+i*bw+bw/2).toFixed(1)},${(H-28-x.ans/mn*(H-60)).toFixed(1)}`).join(' ');
  const lab=D.map((x,i)=>i%2?'':`<text x="${(P+i*bw+bw/2).toFixed(1)}" y="${H-10}" font-size="10" text-anchor="middle">${md(x.d)}</text>`).join('');
- $('daily').innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Daily activity"><line x1="${P}" y1="${H-28}" x2="${W-10}" y2="${H-28}" stroke="var(--line)"/>${bars}<polyline points="${line}" fill="none" stroke="var(--deep)" stroke-width="2.5" stroke-linejoin="round"/>${lab}<text x="${P-6}" y="${H-28-(H-60)}" font-size="10" text-anchor="end">${ma}</text><text x="${P-6}" y="${H-28}" font-size="10" text-anchor="end">0</text></svg>`}
+ const mi=D.findIndex(x=>x.d>'2026-11-11'),mx_=P+mi*bw,mark=mi>0?`<line x1="${mx_.toFixed(1)}" y1="14" x2="${mx_.toFixed(1)}" y2="${H-28}" stroke="var(--muted)" stroke-dasharray="3 4" opacity=".7"/><text x="${(mx_+6).toFixed(1)}" y="22" font-size="10" fill="var(--muted)">since 11 Nov →</text>`:'';
+ $('daily').innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Daily activity"><line x1="${P}" y1="${H-28}" x2="${W-10}" y2="${H-28}" stroke="var(--line)"/>${mark}${bars}<polyline points="${line}" fill="none" stroke="var(--deep)" stroke-width="2.5" stroke-linejoin="round"/>${lab}<text x="${P-6}" y="${H-28-(H-60)}" font-size="10" text-anchor="end">${ma}</text><text x="${P-6}" y="${H-28}" font-size="10" text-anchor="end">0</text></svg>`}
 function draw_mix(c){const e=Object.entries(c.mix).filter(([,v])=>v).sort((a,b)=>b[1]-a[1]),tot=e.reduce((t,[,v])=>t+v,0);let y=0;
  const rows=e.map(([k,v])=>{const p=v/tot*100,[l,col]=CAT[k]||[k,'#999'];const r=`<text x="0" y="${y+13}" font-size="12" fill="var(--ink)">${l}</text><rect x="170" y="${y+3}" width="${Math.max(2,p/100*230).toFixed(1)}" height="12" rx="3" fill="${col}"/><text x="${(176+p/100*230).toFixed(1)}" y="${y+13}" font-size="11">${p<1?'<1':Math.round(p)}% · ${fmt(v)}</text>`;y+=22;return r}).join('');
  $('mix').innerHTML=`<svg viewBox="0 0 470 ${y+4}" role="img" aria-label="Practice mix">${rows}</svg>`}
@@ -2251,16 +2312,22 @@ function show303(){PFX='mkt303';const a=A303,k=[[a.started+' / '+a.roster,'stude
  const lab=D.map((x,i)=>`<text x="${(P+i*bw+bw/2).toFixed(1)}" y="${H-8}" font-size="10" text-anchor="middle">${md(x[0])}</text>`).join('');
  document.getElementById('d303').innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Audit activity by day"><line x1="${P}" y1="${H-24}" x2="${W-6}" y2="${H-24}" stroke="var(--line)"/>${bars}${lab}<text x="${P-6}" y="${H-24-(H-50)+4}" font-size="10" text-anchor="end">${mx}</text></svg>`}
 function showAll(){const a=DATA.mkt101,b=DATA.mkt301,c=A303;
- const k=[[(a.active+b.active+c.started)+' / '+(a.roster+b.roster+c.roster),'students used a tool'],[(a.hrs+b.hrs).toFixed(1)+' h','study time in the arenas'],[fmt(a.ans+b.ans),'practice actions'],[fmt(a.xp+b.xp),'XP earned'],[c.submitted,'business audits submitted'],['3','courses, one fortnight']];
- document.getElementById('allkpis').innerHTML=k.map(([x,s])=>`<div class="ca-kpi"><b>${x}</b><span>${s}</span></div>`).join('');
+ const pa=a.prev||{},pb=b.prev||{};
+ const k=[[(a.active+b.active+c.started)+' / '+(a.roster+b.roster+c.roster),'students used a tool',up(a.active+b.active-pa.active-pb.active)],[(a.hrs+b.hrs).toFixed(1)+' h','study time in the arenas',up(a.hrs+b.hrs-pa.hrs-pb.hrs,'h')],[fmt(a.ans+b.ans),'practice actions',up(a.ans+b.ans-pa.ans-pb.ans)],[fmt(a.xp+b.xp),'XP earned',up(a.xp+b.xp-pa.xp-pb.xp)],[c.submitted,'business audits submitted'],['3','courses, three weeks']];
+ if(DATA.typAll)document.getElementById('alltyp').innerHTML=`A typical arena student practised for <b>${DATA.typAll.h} hours</b> across <b>${DATA.typAll.d} days</b>; the most active, <b>${a.most.h} hours</b> across ${a.most.d} days.`;
+ document.getElementById('allkpis').innerHTML=k.map(([x,s,u])=>`<div class="ca-kpi"><b>${x}</b><span>${s}</span>${u||''}</div>`).join('');
  const m3={};c.daily.forEach(x=>m3[x[0]]=x[1]+x[2]+x[3]);
  const D=a.daily.map((x,i)=>[x.d,x.act,b.daily[i].act,m3[x.d]||0]),W=720,H=230,P=34,bw=(W-P-10)/D.length,mx=Math.max(1,...D.map(x=>x[1]+x[2]+x[3])),cols=['var(--cta)','var(--sea)','var(--deep)'],nm=['MKT101 students','MKT301 students','MKT303 milestones'];
  const bars=D.map((x,i)=>{let y=H-28;return x.slice(1).map((v,j)=>{const h=v/mx*(H-60);y-=h;return v?`<rect x="${(P+i*bw+bw*.18).toFixed(1)}" y="${y.toFixed(1)}" width="${(bw*.64).toFixed(1)}" height="${h.toFixed(1)}" fill="${cols[j]}"><title>${md(x[0])}: ${nm[j]} ${v}</title></rect>`:''}).join('')}).join('');
  const lab=D.map((x,i)=>i%2?'':`<text x="${(P+i*bw+bw/2).toFixed(1)}" y="${H-10}" font-size="10" text-anchor="middle">${md(x[0])}</text>`).join('');
- document.getElementById('alldaily').innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Daily activity across all tools"><line x1="${P}" y1="${H-28}" x2="${W-10}" y2="${H-28}" stroke="var(--line)"/>${bars}${lab}<text x="${P-6}" y="${H-28-(H-60)+4}" font-size="10" text-anchor="end">${mx}</text><text x="${P-6}" y="${H-28}" font-size="10" text-anchor="end">0</text></svg>`;
+ const mi=D.findIndex(x=>x[0]>'2026-11-11'),mx_=P+mi*bw,mark=mi>0?`<line x1="${mx_.toFixed(1)}" y1="14" x2="${mx_.toFixed(1)}" y2="${H-28}" stroke="var(--muted)" stroke-dasharray="3 4" opacity=".7"/><text x="${(mx_+6).toFixed(1)}" y="22" font-size="10" fill="var(--muted)">since 11 Nov →</text>`:'';
+ document.getElementById('alldaily').innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Daily activity across all tools"><line x1="${P}" y1="${H-28}" x2="${W-10}" y2="${H-28}" stroke="var(--line)"/>${mark}${bars}${lab}<text x="${P-6}" y="${H-28-(H-60)+4}" font-size="10" text-anchor="end">${mx}</text><text x="${P-6}" y="${H-28}" font-size="10" text-anchor="end">0</text></svg>`;
  const R=[['MKT101 Arena',a.active,a.roster,'var(--cta)'],['MKT301 Arena',b.active,b.roster,'var(--sea)'],['MKT303 Student Audit',c.started,c.roster,'var(--deep)']];let y=0;
  document.getElementById('allreach').innerHTML=`<svg viewBox="0 0 720 ${R.length*30}" role="img" aria-label="Reach by tool">${R.map(([n,v,t,col])=>{const r=`<text x="0" y="${y+15}" font-size="12" fill="var(--ink)">${n}</text><rect x="170" y="${y+4}" width="420" height="15" rx="4" fill="var(--ghost)"/><rect x="170" y="${y+4}" width="${(v/t*420).toFixed(1)}" height="15" rx="4" fill="${col}"/><text x="600" y="${y+16}" font-size="11">${v} of ${t} · ${Math.round(v/t*100)}%</text>`;y+=30;return r}).join('')}</svg>`}
-function showArena(k){PFX=k;const c=DATA[k];draw_kpis(c);draw_daily(c);draw_mix(c);draw_hours(c);draw_buckets(c);draw_top(c);PFX=''}
+function draw_per(c){const t=c.typ,m=c.most;if(!t)return;const w=c.acc==null;
+ $('per').innerHTML=`<div class="ca-pc"><span class="ca-pl">Typical student</span><b>${t.h} h</b><span>${t.a} practice actions · active on ${t.d} days</span><small>The middle student: half the class did more, half did less.</small></div>`+
+ `<div class="ca-pc ca-pc-top"><span class="ca-pl">Most active student</span><b>${m.h} h</b><span>${fmt(m.a)} practice actions · active on ${m.d} of ${c.daily.length} days${m.acc!=null?' · '+m.acc+'% MCQ accuracy':''}</span><small>${w?'Written answers, so fewer but longer actions. ':''}Anonymised.</small></div>`}
+function showArena(k){PFX=k;const c=DATA[k];draw_kpis(c);draw_per(c);draw_daily(c);draw_mix(c);draw_hours(c);draw_buckets(c);draw_top(c);PFX=''}
 showAll();showArena('mkt101');showArena('mkt301');show303();
 
 })();
@@ -2307,7 +2374,7 @@ showAll();showArena('mkt101');showArena('mkt301');show303();
         </a>
       </div>
 
-      <p class="tool-note reveal"><i data-ic="chart"></i><span>Both arenas have a live class dashboard, so I can run a tutorial from them and see which questions the class finds hard. In two weeks (28 Oct to 11 Nov 2026), 75 of 101 enrolled students used the tools: 80 hours of practice, 7,919 practice actions and 3 full business audits. <a class="more-link" href="#class-activity">See the anonymised class activity <i data-ic="down"></i></a></span></p>
+      <p class="tool-note reveal"><i data-ic="chart"></i><span>Both arenas have a live class dashboard, so I can run a tutorial from them and see which questions the class finds hard. In three weeks (28 Oct to 19 Nov 2026), 78 of 101 enrolled students used the tools: 173 hours of practice, 10,535 practice actions and 3 full business audits. <a class="more-link" href="#class-activity">See the anonymised class activity <i data-ic="down"></i></a></span></p>
       <div class="bridge reveal">
         <div class="bridge-ic" aria-hidden="true"><i data-ic="store"></i><svg class="ic arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><i data-ic="cap"></i></div>
         <div><h3>From industry to classroom.</h3><p>The MKT303 audit is adapted from the Digital Visibility Health Check I built for Maldivian hotels and small businesses, so students practise with the same kind of diagnostic used in real consulting.</p></div>

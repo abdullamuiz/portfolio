@@ -63,3 +63,4 @@
 :root[data-theme="dark"] .ca{--deep:#6EA8F0;--cta:#13A6B5;--sea:#4FA3F0}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ca{--deep:#6EA8F0;--cta:#13A6B5;--sea:#4FA3F0}}
 .guest-row .btn{font-size:13.5px}
+.ca-kpi em.ca-up{display:inline-block;margin-top:8px;font:600 11.5px/1 var(--sans);font-style:normal;color:var(--label);background:color-mix(in srgb,var(--label) 12%,transparent);border-radius:999px;padding:4px 8px}

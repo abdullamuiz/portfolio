@@ -247,7 +247,7 @@ def snapshot(tools_html):
                    % (nm, round(x / r * 100), c, x, r) for nm, x, r, _, c in reach)
     card = ('<a class="snap panel lift reveal" href="academic/tools.html#class-activity">'
             '<div class="snap-l"><span class="label">Class activity · %s to %s 2026</span>'
-            '<p class="snap-big"><b>%d</b><span> of %d students</span></p><p class="snap-cap">used a tool in two weeks</p>'
+            '<p class="snap-big"><b>%d</b><span> of %d students</span></p><p class="snap-cap">used a tool in three weeks</p>'
             '<ul class="snap-kpis"><li><b>%.0f h</b><span>of practice</span></li><li><b>%s</b><span>practice actions</span></li><li><b>%d</b><span>business audits submitted</span></li></ul></div>'
             '<div class="snap-m"><span class="snap-h">Activity each day</span>%s<div class="snap-leg"><span><i style="background:var(--cta)"></i>MKT101 students</span><span><i style="background:var(--sea)"></i>MKT301 students</span><span><i style="background:var(--deep)"></i>MKT303 audit steps</span></div><p class="snap-peak">Busiest day: %s, %d students practising</p></div>'
             '<div class="snap-r"><span class="snap-h">Reach by tool</span><ul class="snap-reach">%s</ul></div>'
@@ -256,6 +256,46 @@ def snapshot(tools_html):
             % (md(days[0][0]), md(days[-1][0]), used, roster, a['hrs'] + b['hrs'], '{:,}'.format(a['ans'] + b['ans']), C['submitted'],
                spark, md(peak[0]), sum(peak[1:]), rows,
                used, roster, md(days[0][0]), md(days[-1][0]), a['active'], a['roster'], b['active'], b['roster'], C['started'], C['roster'], md(peak[0])))
+    # ---- four-tile layout: practice time, calendar, per student, reach ----
+    import datetime as _dt
+    ah = [(x['d'], x['hrs'], b['daily'][i]['hrs']) for i, x in enumerate(a['daily'])]
+    mh = max(h1 + h2 for _, h1, h2 in ah); n = len(ah); W2, H2 = 300, 104; bw2 = W2 / n
+    tbars = ''.join('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="1.5" fill="var(--cta)"/><rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="1.5" fill="var(--sea)"/>'
+                    % (i * bw2 + bw2 * .15, H2 - h1 / mh * (H2 - 6), bw2 * .7, h1 / mh * (H2 - 6), i * bw2 + bw2 * .15, H2 - (h1 + h2) / mh * (H2 - 6), bw2 * .7, h2 / mh * (H2 - 6))
+                    for i, (_, h1, h2) in enumerate(ah))
+    apps = ''.join('<li><span class="snap-n">%s</span><span class="snap-track"><i style="width:%d%%;background:%s"></i></span><b>%.1f h</b></li>' % (nm, round(h / a['hrs'] * 100), c, h)
+                   for nm, h, c in (('MKT101 Arena', a['hrs'], 'var(--cta)'), ('MKT301 Arena', b['hrs'], 'var(--sea)')))
+    tA = ('<div class="t4 t4-a"><span class="snap-h">Practice time</span><p class="t4-big"><b>%.0f h</b><span> by %d arena students</span></p>'
+          '<svg class="t4-bars" viewBox="0 0 %d %d" preserveAspectRatio="none" aria-hidden="true">%s<line x1="0" y1="%d" x2="%d" y2="%d" stroke="var(--line)"/></svg>'
+          '<div class="snap-axis"><span>%s</span><span>%s</span></div><ul class="snap-reach t4-apps">%s</ul></div>'
+          % (a['hrs'] + b['hrs'], a['active'] + b['active'], W2, H2, tbars, H2, W2, H2, md(ah[0][0]), md(ah[-1][0]), apps))
+    st0 = _dt.date(2026, 10, 26); mx = max(sum(d[1:3]) for d in days) or 1; cells = ''
+    for d in days:
+        k = (_dt.date.fromisoformat(d[0]) - st0).days; v = d[1] + d[2]; al = (.14 + .86 * v / mx) if v else 0
+        cells += '<span class="t4-c%s" style="grid-row:%d;grid-column:%d;--a:%.2f" title="%s: %d students">%d</span>' % (' dk' if al > .55 else '', k // 7 + 2, k % 7 + 1, al, md(d[0]), v, v)
+    hdr = ''.join('<i style="grid-row:1;grid-column:%d">%s</i>' % (i + 1, w) for i, w in enumerate('MTWTFSS'))
+    pk = max(days, key=lambda d: d[1] + d[2])
+    tC = ('<div class="t4 t4-c"><span class="snap-h">Every day</span><p class="t4-big"><b>%d / %d</b><span> days with someone practising</span></p>'
+          '<div class="t4-cal">%s%s</div><p class="snap-peak">Busiest: %s, %d students</p></div>'
+          % (sum(1 for d in days if d[1] + d[2]), len(days), hdr, cells, md(pk[0]), pk[1] + pk[2]))
+    ta, mo = D.get('typAll', {}), a.get('most', {})
+    tB = ''
+    if ta and mo:
+        tB = ('<div class="t4-b"><span class="snap-h">Per student</span>'
+              '<div class="t4-ps"><span>Most active</span><b>%.1f h</b><i style="width:100%%;background:var(--cta)"></i><small>across %d of %d days</small></div>'
+              '<div class="t4-ps"><span>Typical student</span><b>%.1f h</b><i style="width:%.1f%%;background:var(--sea)"></i><small>across %d days</small></div>'
+              '<p class="t4-note">“Typical” is the middle student: half did more.</p></div>' % (mo['h'], mo['d'], len(days), ta['h'], max(3, ta['h'] / mo['h'] * 100), ta['d']))
+    dots = (['var(--cta)'] * a['active'] + ['off'] * (a['roster'] - a['active']) + ['var(--sea)'] * b['active'] + ['off'] * (b['roster'] - b['active'])
+            + ['var(--deep)'] * C['started'] + ['off'] * (C['roster'] - C['started']))
+    waf = ''.join('<i class="off"></i>' if c == 'off' else '<i style="background:%s"></i>' % c for c in dots)
+    tD = ('<div class="t4 t4-d"><span class="snap-h">Reach</span><p class="t4-big"><b>%d</b><span> of %d students used a tool</span></p><div class="t4-waf" aria-hidden="true">%s</div>'
+          '<div class="snap-leg"><span><i style="background:var(--cta)"></i>MKT101</span><span><i style="background:var(--sea)"></i>MKT301</span><span><i style="background:var(--deep)"></i>MKT303</span><span><i class="off"></i>not yet</span></div>'
+          '<p class="snap-peak">%d business audits submitted</p></div>' % (used, roster, waf, C['submitted']))
+    card = ('<a class="snap snap4 panel lift reveal" href="academic/tools.html#class-activity">'
+            '<span class="label snap4-l">Class activity · %s to %s 2026</span><div class="t4s">%s%s%s%s</div>'
+            '<span class="snap-cta more-link">See the full class activity <i data-ic="right"></i></span>'
+            '<span class="sr-only">%d of %d enrolled students used a tool between %s and %s 2026, practising %.0f hours in the arenas. Someone practised on every day. Busiest day %s. A typical arena student practised %.1f hours; the most active %.1f hours.</span></a>'
+            % (md(days[0][0]), md(days[-1][0]), tA.replace('<ul class="snap-reach t4-apps">', '<div class="t4-split"><div class="t4-ar"><span class="snap-h">By arena</span><ul class="snap-reach t4-apps">', 1).replace('</ul></div>', '</ul></div>' + tB + '</div></div>', 1), tC, '', tD, used, roster, md(days[0][0]), md(days[-1][0]), a['hrs'] + b['hrs'], md(pk[0]), ta.get('h', 0), mo.get('h', 0)))
     old = re.search(r'      <p class="tool-note reveal">.*?</p>\n', tools_html, re.S)
     assert old, 'tool-note not found'
     return tools_html.replace(old.group(0), '      ' + card + '\n', 1)
