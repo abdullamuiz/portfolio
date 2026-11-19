@@ -219,7 +219,7 @@ def lightdef(h):
     h=h.replace("themeBtn.innerHTML = '<i>' + IC(d ? 'sun' : 'moon') + '</i>';","TSW(themeBtn, d);")
     h=h.replace("btn.innerHTML='<i>'+IC(d?'sun':'moon')+'</i>';","TSW(btn,d);")
     h=h.replace("'Switch to light mode' : 'Switch to dark mode'","'Dark mode on, switch to light' : 'Dark mode off, switch to dark'").replace("'Switch to light mode':'Switch to dark mode'","'Dark mode on, switch to light':'Dark mode off, switch to dark'")
-    h=h.replace('content="#ffffff" media="(prefers-color-scheme: light)"','content="#F6EFE4" media="(prefers-color-scheme: light)"')
+    h=h.replace('content="#ffffff" media="(prefers-color-scheme: light)"','content="#FAF7F2" media="(prefers-color-scheme: light)"')
     return h
 for k in outs: outs[k]=lightdef(outs[k])
 for k,v in outs.items():
