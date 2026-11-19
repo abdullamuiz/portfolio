@@ -526,3 +526,10 @@ dialog.pk-sheet::before{content:"";display:block;width:40px;height:4px;border-ra
 .t4-a .t4-bars{height:80px}
 .t4-c .snap-peak,.t4-d .snap-peak{margin-top:auto;padding-top:8px}
 @media (max-width:420px){.t4-a .t4-b{grid-template-columns:1fr}}
+/* practice tile: arenas | per student, split down the middle */
+.t4-split{display:grid;grid-template-columns:1fr 1fr;margin-top:10px;padding-top:12px;border-top:1px solid var(--line)}
+.t4-split>.t4-ar{padding-right:16px;display:grid;align-content:start;gap:8px}
+.t4-split>.t4-ar .t4-apps{margin-top:0;gap:10px}
+.t4-a .t4-split>.t4-b{display:grid;grid-template-columns:1fr;align-content:start;gap:8px;margin:0;padding:0 0 0 16px;border-top:0;border-left:1px solid var(--line)}
+.t4-split .t4-ps b{font-size:20px}
+@media (max-width:420px){.t4-split{grid-template-columns:1fr}.t4-split>.t4-ar{padding:0 0 12px}.t4-a .t4-split>.t4-b{padding:12px 0 0;border-left:0;border-top:1px solid var(--line)}}
