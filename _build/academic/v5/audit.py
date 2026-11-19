@@ -247,7 +247,7 @@ def snapshot(tools_html):
                    % (nm, round(x / r * 100), c, x, r) for nm, x, r, _, c in reach)
     card = ('<a class="snap panel lift reveal" href="academic/tools.html#class-activity">'
             '<div class="snap-l"><span class="label">Class activity · %s to %s 2026</span>'
-            '<p class="snap-big"><b>%d</b><span> of %d students</span></p><p class="snap-cap">used a tool in two weeks</p>'
+            '<p class="snap-big"><b>%d</b><span> of %d students</span></p><p class="snap-cap">used a tool in three weeks</p>'
             '<ul class="snap-kpis"><li><b>%.0f h</b><span>of practice</span></li><li><b>%s</b><span>practice actions</span></li><li><b>%d</b><span>business audits submitted</span></li></ul></div>'
             '<div class="snap-m"><span class="snap-h">Activity each day</span>%s<div class="snap-leg"><span><i style="background:var(--cta)"></i>MKT101 students</span><span><i style="background:var(--sea)"></i>MKT301 students</span><span><i style="background:var(--deep)"></i>MKT303 audit steps</span></div><p class="snap-peak">Busiest day: %s, %d students practising</p></div>'
             '<div class="snap-r"><span class="snap-h">Reach by tool</span><ul class="snap-reach">%s</ul></div>'

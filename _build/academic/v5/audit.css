@@ -477,3 +477,5 @@ dialog.pk-sheet::before{content:"";display:block;width:40px;height:4px;border-ra
 .vs-track.hinted .vs-hint{opacity:0}
 @keyframes vsNudge{0%,100%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
 @media (prefers-reduced-motion:reduce){.vs-hint svg{animation:none}}
+.ca-kpi em.ca-up{display:table;margin-top:8px;font:600 11.5px/1 var(--sans);font-style:normal;color:var(--label);background:color-mix(in srgb,var(--label) 12%,transparent);border-radius:999px;padding:5px 9px;white-space:nowrap}
+.ca-kpi span{display:block}
