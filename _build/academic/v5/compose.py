@@ -170,7 +170,7 @@ _ncoord = sum(1 for c in ORDER if MODS[c].get('coord'))
 _napps = sum(1 for c in ORDER if MODS[c].get('app'))
 MSTATS = ('<ul class="mstats reveal"><li><b>%d</b><span>modules</span></li><li><b>%d</b><span>coordinated</span></li>'
           '<li><b>100–300</b><span>levels taught</span></li><li><b>%d</b><span>student tools built</span></li></ul>' % (len(ORDER), _ncoord, _napps))
-home_mods = rd('home_modules.html').replace('<div class="mgroups" id="mgroups"></div>', MSTATS + '\n      <div class="mgroups">\n        ' + _mg + '\n      </div>\n      <div class="pk-tpls" hidden>' + _tpl + '</div>\n      <div class="pk-pop" id="pkPop" role="tooltip" hidden></div>\n      <dialog class="pk-sheet" id="pkSheet" aria-label="Module preview"><button type="button" class="pk-x" aria-label="Close">×</button><div class="pk-body"></div></dialog>')
+home_mods = rd('home_modules.html').replace('<div class="mgroups" id="mgroups"></div>', '<div class="mgroups">\n        ' + _mg + '\n      </div>\n      <div class="pk-tpls" hidden>' + _tpl + '</div>\n      <div class="pk-pop" id="pkPop" role="tooltip" hidden></div>\n      <dialog class="pk-sheet" id="pkSheet" aria-label="Module preview"><button type="button" class="pk-x" aria-label="Close">×</button><div class="pk-body"></div></dialog>')
 
 res = sec('research')
 res_home = cut(res, '      <div class="next">', '</div>\n      </div>\n')
