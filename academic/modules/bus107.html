@@ -2105,6 +2105,34 @@ dialog.pk-sheet::before{content:"";display:block;width:40px;height:4px;border-ra
 .ca-pc span{color:var(--ink);font-size:14px}
 .ca-pc small{color:var(--muted);font-size:12px}
 .ca-typ{margin:14px 0 0;font-size:15px;color:var(--ink)}
+/* ---------- home class activity: four tiles in one row ---------- */
+.snap.snap4{display:block;padding:24px 26px}
+.snap4-l{display:block;margin-bottom:16px}
+.t4s{display:grid;grid-template-columns:1.45fr 1.15fr 1fr 1fr;gap:16px;align-items:stretch}
+.t4{border:1px solid var(--line);border-radius:16px;padding:16px 16px 14px;background:var(--paper);display:flex;flex-direction:column;gap:8px;min-width:0}
+.t4 .snap-h{margin:0}
+.t4-big{margin:0;font-family:var(--serif);line-height:1;color:var(--ink)}
+.t4-big b{font-weight:400;font-size:clamp(30px,3vw,40px)}.t4-big span{font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+.t4-bars{display:block;width:100%;height:96px;margin-top:4px}
+.t4-apps{gap:6px;margin-top:4px}.t4-apps li{grid-template-columns:1fr auto}.t4-apps b{font-size:12.5px}
+.t4-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:2px}
+.t4-cal i{font:600 10px var(--sans);font-style:normal;color:var(--muted);text-align:center}
+.t4-cal span{aspect-ratio:1;border-radius:6px;display:grid;place-items:center;font:600 10.5px var(--sans);color:var(--ink);
+  background:color-mix(in srgb,var(--cta) calc(var(--a)*100%),var(--ghost))}
+.t4-cal span.dk{color:#fff}
+.t4-ps{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:baseline}
+.t4-ps span{font-size:12.5px;color:var(--ink)}.t4-ps b{font:400 22px/1 var(--serif);color:var(--ink)}
+.t4-ps i{grid-column:1/-1;display:block;height:10px;border-radius:99px;margin-top:4px}
+.t4-ps small{grid-column:1/-1;font-size:11.5px;color:var(--muted)}
+.t4-note{margin:auto 0 0;font-size:11.5px;color:var(--muted)}
+.t4-waf{display:grid;grid-template-columns:repeat(13,1fr);gap:3px;margin-top:4px}
+.t4-waf i{aspect-ratio:1;border-radius:50%}
+.t4-waf i.off,.t4 .snap-leg i.off{background:var(--ghost2,#DDD5C6)}
+.t4 .snap-leg{margin-top:2px}.t4 .snap-peak{margin:auto 0 0}
+.snap4 .snap-cta{display:block;margin-top:18px}
+@media (max-width:1100px){.t4s{grid-template-columns:1fr 1fr}}
+@media (max-width:700px){.snap.snap4{padding:20px 16px}.t4s{grid-template-columns:1fr}.t4-waf{grid-template-columns:repeat(17,1fr)}}
+.snap .t4 .t4-note{font-size:12px;line-height:1.45}
 
 @media (prefers-reduced-motion:reduce){#s1{height:auto !important}#s1 .sticky{position:relative;height:auto;min-height:100svh;overflow:visible}#s1 .hero{position:relative;top:auto;bottom:auto;padding-top:calc(var(--head) + 24px);display:grid;grid-template-columns:minmax(0,1fr);align-items:start}#s1 .stage{height:auto;justify-content:flex-start}#s1 .portrait{height:auto;width:min(340px,70vw);margin:0}#s1 .copy{transform:none !important}.ghost-hi{display:none}@media (min-width:861px){#s1 .hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}#s1 .portrait{width:100%;max-width:440px}}.about-text{position:static;opacity:1 !important;margin-top:28px}.ghost-about,.fdot{display:none}   #about{height:auto !important}   #about .sticky{position:relative;height:auto;overflow:visible;padding:56px 0 40px}   #about .path-head{position:static;margin-bottom:32px}   #about .path-prog{display:none}   #about .track{position:relative;height:auto;transform:none !important;padding:0 var(--gutter) 0 calc(var(--gutter) + 36px)}   #about .line{left:calc(var(--gutter) + 8px);top:8px;bottom:40px;width:2px;height:auto;margin:0}   #about .fill{transform-origin:50% 0;transform:scaleY(0)}   #about .stop{position:relative;left:auto;top:auto;width:auto;height:auto;padding-bottom:34px}   #about .node{left:-36px;top:4px}   #about .stop.now .node{left:-39px;top:1px}   #about .arm{display:none}   #about .stop .card{position:static;width:auto;bottom:auto;top:auto}   #about .lg{margin-bottom:8px}#kick,#rule,#introP,.copy .fade{opacity:1 !important;visibility:visible !important}#portrait,.ghost-hi{transform:none !important}.ghost-hi{display:none}}
 </style>
