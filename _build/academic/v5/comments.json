@@ -1,7 +1,9 @@
 [
  {
   "who": "Bachelor of Business graduate, Business Entrepreneurship",
-  "modules": ["BUS301"],
+  "modules": [
+   "BUS301"
+  ],
   "year": 2026,
   "theme": "AI, used well",
   "featured": true,
@@ -14,11 +16,21 @@
   "ask": "More on the practical steps of starting a business: registration, financing and getting an idea off the ground.",
   "module_quote": {
    "BUS301": "One thing I remember most from your classes was how you introduced us to the practical side of entrepreneurship, especially protecting our business ideas and understanding intellectual property rights."
-  }
+  },
+  "tags": [
+   "AI, used well",
+   "Real-world examples",
+   "Skills used beyond class"
+  ],
+  "rank": 2
  },
  {
   "who": "Bachelor of Marketing graduate",
-  "modules": ["MKT213", "MKT215", "MKT303"],
+  "modules": [
+   "MKT213",
+   "MKT215",
+   "MKT303"
+  ],
   "year": 2026,
   "theme": "Real ads, real tools",
   "featured": true,
@@ -31,6 +43,76 @@
    "MKT213": "Real advertisements were used in the classes to explain what Integrated Marketing Communication and Direct Marketing were. It helped us clarify the concepts and make the connections to relevant marketing applications.",
    "MKT215": "Real advertisements were used in the classes to explain what Integrated Marketing Communication and Direct Marketing were. It helped us clarify the concepts and make the connections to relevant marketing applications.",
    "MKT303": "… a really great introduction to how digital platforms and tools can be used by businesses in order to market their products and get their customers."
+  },
+  "tags": [
+   "Real-world examples",
+   "Practical digital tools"
+  ],
+  "rank": 5
+ },
+ {
+  "who": "Bachelor of Marketing graduate",
+  "modules": [
+   "MKT303"
+  ],
+  "year": 2026,
+  "theme": "A welcoming room",
+  "rank": 3,
+  "tags": [
+   "Real-world examples",
+   "Supportive and approachable",
+   "Engaging classes"
+  ],
+  "pull": "He creates a comfortable and welcoming environment where students feel at ease asking questions, and he’s always willing to help and gives attention to students who need extra support.",
+  "full": [
+   "Muiz was one of the lecturers whose classes I genuinely enjoyed. He creates a comfortable and welcoming environment where students feel at ease asking questions, and he’s always willing to help and gives attention to students who need extra support. I especially liked how he used real-life examples, such as actual advertisements in Electronic Marketing, to make concepts easier to understand and relate to, without making classes feel overwhelming with too much content. I think his relaxed approach is one of his strengths, although sometimes I feel students can take advantage of it, so maintaining a little more structure could make his classes even better."
+  ],
+  "ask": "A little more structure, so a relaxed class stays focused.",
+  "module_quote": {
+   "MKT303": "I especially liked how he used real-life examples, such as actual advertisements in Electronic Marketing, to make concepts easier to understand and relate to, without making classes feel overwhelming with too much content."
   }
+ },
+ {
+  "who": "Bachelor of Marketing graduate",
+  "modules": [],
+  "year": 2026,
+  "theme": "It speaks through his students",
+  "rank": 1,
+  "featured": true,
+  "tags": [
+   "Real-world examples",
+   "Supportive and approachable",
+   "Engaging classes",
+   "Up to date with industry",
+   "Skills used beyond class"
+  ],
+  "pull": "He genuinely acknowledges and appreciates students’ hard work … It’s safe to say that his best work speaks through his students and the skills they carry.",
+  "full": [
+   "Muiz’s classes were always interactive and engaging, making learning both enjoyable and productive. What stood out most was how knowledgeable and up to date he was with current events, industry trends and developments in marketing. He often incorporated interesting facts, relevant videos and real-world examples into his lessons, while using creative teaching methods and educational games to make learning and exam preparation more enjoyable.",
+   "One thing I particularly appreciate is how supportive and encouraging he is towards his students. He genuinely acknowledges and appreciates students’ hard work, celebrates their efforts and encourages us to explore different approaches to achieve better outcomes, which helped us achieve good marks in our subjects and apply unique skills to subjects taught by other lecturers as well. It’s safe to say that his best work speaks through his students and the skills they carry."
+  ]
+ },
+ {
+  "who": "Bachelor of Marketing graduate",
+  "modules": [
+   "BUS301"
+  ],
+  "year": 2026,
+  "theme": "Today’s marketing, not yesterday’s",
+  "rank": 4,
+  "tags": [
+   "Real-world examples",
+   "Up to date with industry",
+   "AI, used well",
+   "Skills used beyond class",
+   "Engaging classes"
+  ],
+  "pull": "I noticed that you take effort to make sure to teach us contemporary marketing tips and tricks … like using AI and github and designing.",
+  "full": [
+   "The practical examples and scenarios that you gave on how marketing concepts can be applied.",
+   "It encouraged me on actually using what i learned from your class in the workplace and in my personal projects. Plus the fun facts and examples that you give throughout the lecture helps recall important concepts.",
+   "… I noticed that you take effort to make sure to teach us contemporary marketing tips and tricks 👍. Like using AI and github and designing and stuffs etc. I think you should do that more.. because its very interesting 🫢"
+  ],
+  "ask": "More contemporary marketing in class: AI, GitHub and design."
  }
 ]

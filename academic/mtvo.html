@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
 <style>
 :root{
   --paper:#FFFFFF; --card:#FFFFFF; --ink:#1E2742; --muted:#5D6478; --line:#E3E6EE; --navy:#232C4A;
@@ -159,6 +159,7 @@ h1 .r{color:var(--coral)} h1 .o{color:var(--teal)} h1 .d{color:var(--lagoon)}
   .wrap{padding:0;max-width:none}
   body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+:root[data-theme="light"]{--paper:#FAF7F2;--tint:#F3EEE5;--line:#E7E0D4;--ghost:#EFE9DE;--label:#06707C}
 </style>
 </head>
 <body>
@@ -276,7 +277,7 @@ h1 .r{color:var(--coral)} h1 .o{color:var(--teal)} h1 .d{color:var(--lagoon)}
   var MOON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
   var cur=function(){return root.dataset.theme||(sys.matches?'dark':'light')};
   var paint=function(){var d=cur()==='dark';btn.innerHTML=d?SUN:MOON;btn.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode')};
-  try{var t=localStorage.getItem('theme');if(t)root.dataset.theme=t}catch(e){}
+  try{root.dataset.theme=localStorage.getItem('theme')||'light'}catch(e){root.dataset.theme='light'}
   paint();btn.addEventListener('click',function(){root.dataset.theme=cur()==='dark'?'light':'dark';try{localStorage.setItem('theme',root.dataset.theme)}catch(e){}paint()});
   sys.addEventListener('change',paint);
   var mark=function(){try{sessionStorage.setItem('acT',Date.now())}catch(e){}};mark();addEventListener('pagehide',mark);

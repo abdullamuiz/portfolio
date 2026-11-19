@@ -74,7 +74,9 @@ def evidence(full=True):
 #   pull         the strongest 20-45 words, verbatim (ellipsis allowed); shown on the card
 #   full         the whole comment, verbatim, as a list of paragraphs
 #   ask          optional: what they'd like more of, in a short paraphrase
-#   featured     optional true: shown on the home page (keep it to 3)
+#   featured     optional true: listed first
+#   rank         optional order on the home strip (1 first)
+#   tags         themes the comment mentions; counted for the themes strip (reuse existing tag names)
 #   module_quote optional {code: verbatim excerpt} for that module's page (up to 3 per module are shown)
 HOME_MAX, MOD_MAX = 3, 3
 
@@ -83,11 +85,11 @@ def _cmts():
     for c in C:
         n = len(c['pull'].split())
         if n > 50: print('comments.json: pull quote over 50 words (%d):' % n, c['theme'])
-    C.sort(key=lambda c: (not c.get('featured'), -int(c.get('year', 0))))
+    C.sort(key=lambda c: (c.get('rank', 99), not c.get('featured'), -int(c.get('year', 0))))
     return C
 
 def _who(c):
-    return '%s · %s · %s' % (esc(c['who']), ', '.join(c['modules']), c['year'])
+    return ' · '.join(x for x in (esc(c['who']), ', '.join(c['modules']), str(c['year'])) if x)
 
 def _card(c):
     more = ''.join('<p>%s</p>' % esc(x) for x in c['full'])
@@ -99,7 +101,7 @@ def _card(c):
 def comments(full=False):
     C = _cmts()
     if not C: return ''
-    note = ('<p class="src">Unedited comments from former students, given when I asked for feedback for this portfolio and shared with their permission. Names withheld.</p>')
+    note = ('<p class="src">Comments from former students, given when I asked for feedback for this portfolio and shared with their permission. Wording unchanged; names withheld.</p>')
     if not full:
         show = [c for c in C if c.get('featured')][:HOME_MAX] or C[:HOME_MAX]
         more = ('<a class="more-link" href="academic/teaching.html#comments">Read all %d comments <i data-ic="right"></i></a>' % len(C)) if len(C) > len(show) else ''
@@ -124,6 +126,42 @@ def module_comment(code):
     if not Q: return ''
     return ('<article class="panel reveal mt-cmt"><h2>%s<span>.</span></h2>' % ('A student remembers' if len(Q) == 1 else 'Students remember') +
             ''.join('<figure><blockquote>“%s”</blockquote><figcaption class="src">%s</figcaption></figure>' % (esc(q), _who(c)) for c, q in Q) + '</article>')
+
+GROUP_OF = {'MKT101': 1, 'BUS107': 1, 'BUS301': 1, 'MKT213': 2, 'MKT215': 2, 'MKT217': 2, 'MKT301': 3, 'MKT303': 3, 'MKT309': 3}
+def themes(C):
+    n = {}
+    for c in C:
+        for t in c.get('tags', []): n[t] = n.get(t, 0) + 1
+    T = sorted(n.items(), key=lambda x: (-x[1], x[0]))
+    if not T: return ''
+    mx = T[0][1]
+    return ('<div class="vs-themes reveal"><span class="label">What they mention most</span><ul>' +
+            ''.join('<li style="--w:%.2f"><b>%s</b><span>%d</span></li>' % ((v - 1) / max(mx - 1, 1), esc(k), v) for k, v in T) +
+            '</ul><p class="src">How many of the %d comments mention each theme.</p></div>' % len(C))
+
+def strip():
+    C = _cmts()
+    if not C: return ''
+    cards = ''
+    for i, c in enumerate(C):
+        g = GROUP_OF.get((c['modules'] or [''])[0], (i % 3) + 1)
+        full = ''.join('<p>%s</p>' % esc(x) for x in c['full'])
+        cards += ('<article class="vs-card a%d%s" tabindex="0" aria-label="Comment %d of %d: %s"><div class="vs-in">'
+                  '<div class="vs-top"><span class="vs-q" aria-hidden="true">“</span><b>%s</b></div>'
+                  '<blockquote class="vs-short">“%s”</blockquote><div class="vs-full">%s</div>'
+                  '<p class="vs-who">%s</p></div></article>'
+                  % (g, ' is-open' if i == 0 else '', i + 1, len(C), esc(c['theme']), esc(c['theme']), esc(c['pull']), full, _who(c)))
+    return ('  <section class="block vs" id="voices">\n    <div class="wrap">\n'
+            '      <div class="head wide reveal"><span class="label">Student voices</span><h2>In their own words<span>.</span></h2>'
+            '<p>What former students remember, in comments they gave for this portfolio. Names withheld; wording unchanged.</p></div>\n'
+            '      ' + themes(C) + '\n'
+            '      <div class="vs-track reveal" id="vsTrack"><div class="vs-rail">' + cards + '</div>'
+            '<div class="vs-hint" aria-hidden="true"><svg viewBox="0 0 58 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
+            '<path d="M6 20h10M6 20l4-4M6 20l4 4M52 20H42M52 20l-4-4M52 20l-4 4"/><path d="M25 9l0 20 5-5 4 9 3-1.4-4-9 7 0z" fill="var(--card)"/></svg>'
+            '<span class="t-fine">Move across to read more</span><span class="t-touch">Swipe to read more</span></div></div>\n'
+            '      <div class="vs-foot reveal"><div class="vs-nav"><button type="button" class="vs-prev" aria-label="Previous comment">←</button><span class="vs-count" aria-live="polite">1 / ' + str(len(C)) + '</span><button type="button" class="vs-next" aria-label="Next comment">→</button></div>'
+            '<a class="more-link" href="academic/teaching.html#comments">All comments, and what students asked for more of <i data-ic="right"></i></a></div>\n'
+            '    </div>\n  </section>\n')
 
 # ---------- F. tool impact rows (only numbers Muiz has signed off) ----------
 def toolstats(tool):

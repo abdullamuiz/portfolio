@@ -146,3 +146,66 @@
   }
 })();
 </script>
+<script>
+(function () {
+  var track = document.getElementById('vsTrack'); if (!track) return;
+  var rail = track.querySelector('.vs-rail'), cards = [].slice.call(rail.children), n = cards.length;
+  var prev = document.querySelector('.vs-prev'), next = document.querySelector('.vs-next'), count = document.querySelector('.vs-count');
+  var desk = matchMedia('(hover:hover) and (pointer:fine) and (min-width:761px)');
+  var a = 0, CW = 300, OW = 560, G = 16, lastX = null, moved = 0, dwell = 0, lockUntil = 0;
+  function hinted() { track.classList.add('hinted'); }
+  function centre() {
+    if (!desk.matches) return;
+    var W = track.clientWidth - 16;
+    rail.style.transform = 'translateX(' + (W / 2 - (a * (CW + G) + OW / 2)) + 'px)';
+  }
+  function setActive(k, scroll) {
+    k = Math.max(0, Math.min(n - 1, k));
+    if (k !== a) { var f = cards[a].querySelector('.vs-full'); if (f) f.scrollTop = 0; }
+    a = k;
+    cards.forEach(function (c, i) { c.classList.toggle('is-open', i === a); });
+    if (count) count.textContent = (a + 1) + ' / ' + n;
+    if (prev) { prev.disabled = a === 0; next.disabled = a === n - 1; }
+    if (desk.matches) { centre(); lockUntil = Date.now() + 550; }
+    else if (scroll) { var c = cards[a]; track.scrollTo({ left: c.offsetLeft - (track.clientWidth - c.offsetWidth) / 2, behavior: 'smooth' }); }
+  }
+  // desktop: the row follows the mouse; resting on a card behind brings it to the centre
+  track.addEventListener('mousemove', function (e) {
+    if (!desk.matches) return;
+    if (lastX !== null) moved += Math.abs(e.clientX - lastX);
+    lastX = e.clientX;
+    if (moved > 6) hinted();
+    var c = e.target.closest && e.target.closest('.vs-card');
+    clearTimeout(dwell);
+    if (!c || c.classList.contains('is-open') || moved < 24) return;
+    var k = cards.indexOf(c);
+    dwell = setTimeout(function () { if (Date.now() < lockUntil) return; moved = 0; setActive(k); }, 160);
+  });
+  track.addEventListener('mouseleave', function () { clearTimeout(dwell); lastX = null; moved = 0; });
+  cards.forEach(function (c, i) {
+    c.addEventListener('click', function () { hinted(); if (i !== a) setActive(i, true); });
+    c.addEventListener('focus', function () { if (c.matches(':focus-visible') && i !== a) setActive(i, true); });
+  });
+  track.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); setActive(a + 1, true); cards[a].focus(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); setActive(a - 1, true); cards[a].focus(); }
+  });
+  track.addEventListener('wheel', function (e) {
+    if (!desk.matches || Math.abs(e.deltaX) <= Math.abs(e.deltaY) || Math.abs(e.deltaX) < 12) return;
+    e.preventDefault(); if (Date.now() < lockUntil) return; hinted(); setActive(a + (e.deltaX > 0 ? 1 : -1));
+  }, { passive: false });
+  if (prev) { prev.addEventListener('click', function () { hinted(); setActive(a - 1, true); }); next.addEventListener('click', function () { hinted(); setActive(a + 1, true); }); }
+  // phones: swipe; the card nearest the centre is the open one
+  var st = 0;
+  track.addEventListener('scroll', function () {
+    if (desk.matches) return; hinted();
+    clearTimeout(st); st = setTimeout(function () {
+      var mid = track.scrollLeft + track.clientWidth / 2, best = 0, bd = 1e9;
+      cards.forEach(function (c, i) { var d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < bd) { bd = d; best = i; } });
+      if (best !== a) setActive(best, false);
+    }, 90);
+  }, { passive: true });
+  addEventListener('resize', function () { if (desk.matches) centre(); else rail.style.transform = ''; });
+  setActive(0, false);
+})();
+</script>

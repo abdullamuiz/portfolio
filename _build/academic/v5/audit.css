@@ -384,3 +384,96 @@ dialog.pk-sheet::before{content:"";display:block;width:40px;height:4px;border-ra
 .pk-pop .pk-teach p{display:none}
 .pk-pop .pk-about{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .pk-pop .pk-in{gap:8px}
+/* ---------- labelled Light / Dark switch ---------- */
+.theme.theme-sw{width:auto;height:40px;border-radius:999px;padding:0 10px;display:inline-flex;align-items:center;gap:8px;font:600 12.5px var(--sans);letter-spacing:.01em}
+.theme-sw .ts-w{color:var(--muted);transition:color .2s}
+.theme-sw:not(.is-dark) .ts-l,.theme-sw.is-dark .ts-d{color:var(--ink)}
+.theme-sw .ts-k{position:relative;width:42px;height:24px;border-radius:999px;background:#E3E6EE;box-shadow:inset 0 0 0 1px rgba(30,39,66,.12);transition:background .25s}
+.theme-sw .ts-k i{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);display:grid;place-items:center;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.theme-sw .ts-k svg{width:12px;height:12px;fill:#E8A33A}
+.theme-sw.is-dark .ts-k{background:#0B1020;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.theme-sw.is-dark .ts-k i{transform:translateX(18px);background:#F1F2F6}
+.theme-sw.is-dark .ts-k svg{fill:#232C4A}
+@media (max-width:520px){.theme.theme-sw{padding:0 8px;gap:6px;font-size:11.5px}.theme-sw .ts-k{width:36px;height:22px}.theme-sw .ts-k i{width:16px;height:16px}.theme-sw.is-dark .ts-k i{transform:translateX(14px)}}
+@media (prefers-reduced-motion:reduce){.theme-sw .ts-k,.theme-sw .ts-k i{transition:none}}
+
+/* ---------- student voices strip (home, under the opening section): centre card always open ---------- */
+.vs .head{margin-bottom:18px}
+.vs-themes{margin:0 0 22px}
+.vs-themes ul{list-style:none;margin:8px 0 6px;padding:0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.vs-themes li{display:inline-flex;align-items:center;gap:8px;padding:calc(6px + 4px*var(--w)) calc(12px + 6px*var(--w));border-radius:999px;
+  border:1px solid color-mix(in srgb,var(--label) calc(25% + 55%*var(--w)),transparent);background:color-mix(in srgb,var(--label) calc(4% + 14%*var(--w)),transparent)}
+.vs-themes b{font-weight:600;font-size:calc(13px + 5px*var(--w));color:var(--ink)}
+.vs-themes li span{font:700 11px/1 var(--sans);min-width:20px;height:20px;padding:0 6px;border-radius:999px;display:inline-grid;place-items:center;background:var(--label);color:var(--card)}
+.vs-track{position:relative;overflow:hidden;margin:0 -8px;padding:14px 8px 18px}
+.vs-track::before,.vs-track::after{content:"";position:absolute;top:0;bottom:0;width:72px;z-index:3;pointer-events:none}
+.vs-track::before{left:0;background:linear-gradient(90deg,var(--paper),transparent)}
+.vs-track::after{right:0;background:linear-gradient(-90deg,var(--paper),transparent)}
+.vs-rail{display:flex;gap:16px;align-items:center;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.vs-card{--acc:#0B8794;flex:0 0 300px;height:330px;position:relative;outline:none;cursor:pointer;opacity:.55;filter:saturate(.7);
+  transition:flex-basis .55s cubic-bezier(.2,.8,.2,1),height .55s cubic-bezier(.2,.8,.2,1),opacity .4s,filter .4s}
+.vs-card:hover{opacity:.85}
+.vs-card.a2{--acc:#6247C9}.vs-card.a3{--acc:#9A5B00}
+:root[data-theme="dark"] .vs-card.a1{--acc:#5FD3E0}:root[data-theme="dark"] .vs-card.a2{--acc:#B3A5F5}:root[data-theme="dark"] .vs-card.a3{--acc:#F2B661}
+.vs-in{height:100%;box-sizing:border-box;padding:0 0 16px;border:1px solid var(--line);border-radius:18px;background:var(--card);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .4s}
+.vs-top{position:relative;padding:18px 20px 16px;background:color-mix(in srgb,var(--acc) 12%,var(--card));border-bottom:3px solid var(--acc);flex:none}
+.vs-top b{display:block;font:400 22px/1.15 var(--serif);color:var(--ink);padding-right:34px}
+.vs-q{position:absolute;right:14px;top:4px;font:700 54px/1 Georgia,serif;color:var(--acc);opacity:.5}
+.vs-short{margin:14px 20px 0;font-size:15px;line-height:1.5;color:var(--ink);overflow:hidden;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical}
+.vs-full{display:none;margin:14px 20px 0;font-size:14.5px;line-height:1.6;color:var(--ink);overflow:auto;flex:1;min-height:0;padding-right:6px}
+.vs-full p{margin:0 0 10px}
+.vs-who{margin:auto 20px 0;padding-top:10px;font-size:12px;color:var(--muted)}
+.vs-card.is-open{flex-basis:560px;height:430px;opacity:1;filter:none;cursor:default;z-index:2}
+.vs-card.is-open .vs-in{box-shadow:0 26px 60px rgba(10,20,40,.18)}
+.vs-card.is-open .vs-short{display:none}
+.vs-card.is-open .vs-full{display:block}
+.vs-card:focus-visible .vs-in{outline:2px solid var(--acc);outline-offset:2px}
+/* hint: a faint cursor drifting left and right over the cards behind */
+.vs-hint{position:absolute;z-index:4;right:9%;top:50%;transform:translateY(-50%);display:grid;justify-items:center;gap:6px;pointer-events:none;color:var(--ink);opacity:.75;transition:opacity .5s}
+.vs-hint svg{width:58px;height:40px;animation:vsDrift 2.4s ease-in-out infinite}
+.vs-hint span{font:600 12px var(--sans);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 10px;box-shadow:0 4px 14px rgba(10,20,40,.08)}
+.vs-hint .t-touch{display:none}
+.vs-track.hinted .vs-hint{opacity:0}
+@keyframes vsDrift{0%,100%{transform:translateX(-14px)}50%{transform:translateX(14px)}}
+.vs-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap}
+.vs-nav{display:flex;gap:8px;align-items:center}
+.vs-nav button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:16px;cursor:pointer}
+.vs-nav button:disabled{opacity:.35;cursor:default}
+.vs-count{font-size:12.5px;color:var(--muted);min-width:44px;text-align:center}
+@media (hover:none),(max-width:760px){
+  .vs-track{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:10px 16px 14px}
+  .vs-track::-webkit-scrollbar{display:none}
+  .vs-track::before,.vs-track::after{display:none}
+  .vs-rail{transform:none !important;transition:none;align-items:stretch;padding:0 7vw}
+  .vs-card,.vs-card.is-open{flex:0 0 min(84vw,360px);height:440px;scroll-snap-align:center}
+  .vs-card .vs-short{-webkit-line-clamp:8}
+  .vs-hint{right:auto;left:50%;top:auto;bottom:34px;transform:translateX(-50%)}
+  .vs-hint .t-fine{display:none}.vs-hint .t-touch{display:inline}
+}
+@media (prefers-reduced-motion:reduce){.vs-rail,.vs-card{transition:none}.vs-hint svg{animation:none}}
+@media (max-width:760px){
+  .vs-themes ul{gap:6px}
+  .vs-themes li{padding:5px 10px;gap:6px}
+  .vs-themes b{font-size:calc(12.5px + 1.5px*var(--w))}
+  .vs-themes li span{min-width:18px;height:18px;font-size:10.5px}
+}
+.vs-hint svg{background:color-mix(in srgb,var(--card) 88%,transparent);border-radius:999px;padding:6px 8px;box-sizing:content-box;box-shadow:0 6px 18px rgba(10,20,40,.10)}
+.vs-hint{top:auto;bottom:34px;transform:none;right:6%}
+.vs-full{-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent);padding-bottom:28px}
+@media (hover:none),(max-width:760px){
+  .vs-track{padding-bottom:64px}
+  .vs-hint{bottom:10px;left:50%;right:auto;transform:translateX(-50%);grid-auto-flow:column;align-items:center;gap:8px}
+  .vs-hint svg{width:44px;height:30px;padding:3px 6px}
+}
+.vs-hint span{white-space:nowrap}
+/* ---------- alabaster light theme (cards stay white) ---------- */
+:root[data-theme="light"]{--paper:#FAF7F2;--tint:#F3EEE5;--line:#E7E0D4;--ghost:#EFE9DE;--ghost2:#DDD5C6;--label:#06707C}
+/* "move across" hint: one solid pill below the cards */
+.vs-track{padding-bottom:66px}
+.vs-hint,.vs-track .vs-hint{top:auto;right:auto;bottom:12px;left:50%;transform:translateX(-50%);grid-auto-flow:column;align-items:center;gap:6px;
+  background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 14px 5px 6px;box-shadow:0 6px 18px rgba(10,20,40,.08);opacity:1}
+.vs-hint svg{width:44px;height:30px;padding:0;background:none;box-shadow:none;animation:vsNudge 2.4s ease-in-out infinite}
+.vs-hint span{background:none;border:0;box-shadow:none;padding:0;font-size:12.5px}
+.vs-track.hinted .vs-hint{opacity:0}
+@keyframes vsNudge{0%,100%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){.vs-hint svg{animation:none}}

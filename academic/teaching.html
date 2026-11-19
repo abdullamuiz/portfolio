@@ -1,6 +1,7 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
+<script>(function(){var r=document.documentElement;try{r.dataset.theme=localStorage.getItem('theme')||'light'}catch(e){r.dataset.theme='light'}window.TSW=function(b,d){b.classList.add('theme-sw');b.classList.toggle('is-dark',d);b.setAttribute('aria-pressed',d?'true':'false');b.innerHTML='<span class="ts-w ts-l">Light</span><span class="ts-k" aria-hidden="true"><i>'+(d?'<svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5z"/></svg>':'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg>')+'</i></span><span class="ts-w ts-d">Dark</span>'}})()</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Teaching | Abdulla Muiz Fuad</title>
@@ -14,7 +15,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://abdullamuiz.github.io/portfolio/academic/teaching.html">
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#FAF7F2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121829" media="(prefers-color-scheme: dark)">
 <link rel="icon" type="image/svg+xml" href="../images/brand/favicon.svg?v=2">
 <link rel="apple-touch-icon" href="../images/brand/apple-touch-icon.png?v=2">
@@ -2001,6 +2002,99 @@ dialog.pk-sheet::before{content:"";display:block;width:40px;height:4px;border-ra
 .pk-pop .pk-teach p{display:none}
 .pk-pop .pk-about{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .pk-pop .pk-in{gap:8px}
+/* ---------- labelled Light / Dark switch ---------- */
+.theme.theme-sw{width:auto;height:40px;border-radius:999px;padding:0 10px;display:inline-flex;align-items:center;gap:8px;font:600 12.5px var(--sans);letter-spacing:.01em}
+.theme-sw .ts-w{color:var(--muted);transition:color .2s}
+.theme-sw:not(.is-dark) .ts-l,.theme-sw.is-dark .ts-d{color:var(--ink)}
+.theme-sw .ts-k{position:relative;width:42px;height:24px;border-radius:999px;background:#E3E6EE;box-shadow:inset 0 0 0 1px rgba(30,39,66,.12);transition:background .25s}
+.theme-sw .ts-k i{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);display:grid;place-items:center;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.theme-sw .ts-k svg{width:12px;height:12px;fill:#E8A33A}
+.theme-sw.is-dark .ts-k{background:#0B1020;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.theme-sw.is-dark .ts-k i{transform:translateX(18px);background:#F1F2F6}
+.theme-sw.is-dark .ts-k svg{fill:#232C4A}
+@media (max-width:520px){.theme.theme-sw{padding:0 8px;gap:6px;font-size:11.5px}.theme-sw .ts-k{width:36px;height:22px}.theme-sw .ts-k i{width:16px;height:16px}.theme-sw.is-dark .ts-k i{transform:translateX(14px)}}
+@media (prefers-reduced-motion:reduce){.theme-sw .ts-k,.theme-sw .ts-k i{transition:none}}
+
+/* ---------- student voices strip (home, under the opening section): centre card always open ---------- */
+.vs .head{margin-bottom:18px}
+.vs-themes{margin:0 0 22px}
+.vs-themes ul{list-style:none;margin:8px 0 6px;padding:0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.vs-themes li{display:inline-flex;align-items:center;gap:8px;padding:calc(6px + 4px*var(--w)) calc(12px + 6px*var(--w));border-radius:999px;
+  border:1px solid color-mix(in srgb,var(--label) calc(25% + 55%*var(--w)),transparent);background:color-mix(in srgb,var(--label) calc(4% + 14%*var(--w)),transparent)}
+.vs-themes b{font-weight:600;font-size:calc(13px + 5px*var(--w));color:var(--ink)}
+.vs-themes li span{font:700 11px/1 var(--sans);min-width:20px;height:20px;padding:0 6px;border-radius:999px;display:inline-grid;place-items:center;background:var(--label);color:var(--card)}
+.vs-track{position:relative;overflow:hidden;margin:0 -8px;padding:14px 8px 18px}
+.vs-track::before,.vs-track::after{content:"";position:absolute;top:0;bottom:0;width:72px;z-index:3;pointer-events:none}
+.vs-track::before{left:0;background:linear-gradient(90deg,var(--paper),transparent)}
+.vs-track::after{right:0;background:linear-gradient(-90deg,var(--paper),transparent)}
+.vs-rail{display:flex;gap:16px;align-items:center;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.vs-card{--acc:#0B8794;flex:0 0 300px;height:330px;position:relative;outline:none;cursor:pointer;opacity:.55;filter:saturate(.7);
+  transition:flex-basis .55s cubic-bezier(.2,.8,.2,1),height .55s cubic-bezier(.2,.8,.2,1),opacity .4s,filter .4s}
+.vs-card:hover{opacity:.85}
+.vs-card.a2{--acc:#6247C9}.vs-card.a3{--acc:#9A5B00}
+:root[data-theme="dark"] .vs-card.a1{--acc:#5FD3E0}:root[data-theme="dark"] .vs-card.a2{--acc:#B3A5F5}:root[data-theme="dark"] .vs-card.a3{--acc:#F2B661}
+.vs-in{height:100%;box-sizing:border-box;padding:0 0 16px;border:1px solid var(--line);border-radius:18px;background:var(--card);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .4s}
+.vs-top{position:relative;padding:18px 20px 16px;background:color-mix(in srgb,var(--acc) 12%,var(--card));border-bottom:3px solid var(--acc);flex:none}
+.vs-top b{display:block;font:400 22px/1.15 var(--serif);color:var(--ink);padding-right:34px}
+.vs-q{position:absolute;right:14px;top:4px;font:700 54px/1 Georgia,serif;color:var(--acc);opacity:.5}
+.vs-short{margin:14px 20px 0;font-size:15px;line-height:1.5;color:var(--ink);overflow:hidden;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical}
+.vs-full{display:none;margin:14px 20px 0;font-size:14.5px;line-height:1.6;color:var(--ink);overflow:auto;flex:1;min-height:0;padding-right:6px}
+.vs-full p{margin:0 0 10px}
+.vs-who{margin:auto 20px 0;padding-top:10px;font-size:12px;color:var(--muted)}
+.vs-card.is-open{flex-basis:560px;height:430px;opacity:1;filter:none;cursor:default;z-index:2}
+.vs-card.is-open .vs-in{box-shadow:0 26px 60px rgba(10,20,40,.18)}
+.vs-card.is-open .vs-short{display:none}
+.vs-card.is-open .vs-full{display:block}
+.vs-card:focus-visible .vs-in{outline:2px solid var(--acc);outline-offset:2px}
+/* hint: a faint cursor drifting left and right over the cards behind */
+.vs-hint{position:absolute;z-index:4;right:9%;top:50%;transform:translateY(-50%);display:grid;justify-items:center;gap:6px;pointer-events:none;color:var(--ink);opacity:.75;transition:opacity .5s}
+.vs-hint svg{width:58px;height:40px;animation:vsDrift 2.4s ease-in-out infinite}
+.vs-hint span{font:600 12px var(--sans);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 10px;box-shadow:0 4px 14px rgba(10,20,40,.08)}
+.vs-hint .t-touch{display:none}
+.vs-track.hinted .vs-hint{opacity:0}
+@keyframes vsDrift{0%,100%{transform:translateX(-14px)}50%{transform:translateX(14px)}}
+.vs-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap}
+.vs-nav{display:flex;gap:8px;align-items:center}
+.vs-nav button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:16px;cursor:pointer}
+.vs-nav button:disabled{opacity:.35;cursor:default}
+.vs-count{font-size:12.5px;color:var(--muted);min-width:44px;text-align:center}
+@media (hover:none),(max-width:760px){
+  .vs-track{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:10px 16px 14px}
+  .vs-track::-webkit-scrollbar{display:none}
+  .vs-track::before,.vs-track::after{display:none}
+  .vs-rail{transform:none !important;transition:none;align-items:stretch;padding:0 7vw}
+  .vs-card,.vs-card.is-open{flex:0 0 min(84vw,360px);height:440px;scroll-snap-align:center}
+  .vs-card .vs-short{-webkit-line-clamp:8}
+  .vs-hint{right:auto;left:50%;top:auto;bottom:34px;transform:translateX(-50%)}
+  .vs-hint .t-fine{display:none}.vs-hint .t-touch{display:inline}
+}
+@media (prefers-reduced-motion:reduce){.vs-rail,.vs-card{transition:none}.vs-hint svg{animation:none}}
+@media (max-width:760px){
+  .vs-themes ul{gap:6px}
+  .vs-themes li{padding:5px 10px;gap:6px}
+  .vs-themes b{font-size:calc(12.5px + 1.5px*var(--w))}
+  .vs-themes li span{min-width:18px;height:18px;font-size:10.5px}
+}
+.vs-hint svg{background:color-mix(in srgb,var(--card) 88%,transparent);border-radius:999px;padding:6px 8px;box-sizing:content-box;box-shadow:0 6px 18px rgba(10,20,40,.10)}
+.vs-hint{top:auto;bottom:34px;transform:none;right:6%}
+.vs-full{-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent);padding-bottom:28px}
+@media (hover:none),(max-width:760px){
+  .vs-track{padding-bottom:64px}
+  .vs-hint{bottom:10px;left:50%;right:auto;transform:translateX(-50%);grid-auto-flow:column;align-items:center;gap:8px}
+  .vs-hint svg{width:44px;height:30px;padding:3px 6px}
+}
+.vs-hint span{white-space:nowrap}
+/* ---------- alabaster light theme (cards stay white) ---------- */
+:root[data-theme="light"]{--paper:#FAF7F2;--tint:#F3EEE5;--line:#E7E0D4;--ghost:#EFE9DE;--ghost2:#DDD5C6;--label:#06707C}
+/* "move across" hint: one solid pill below the cards */
+.vs-track{padding-bottom:66px}
+.vs-hint,.vs-track .vs-hint{top:auto;right:auto;bottom:12px;left:50%;transform:translateX(-50%);grid-auto-flow:column;align-items:center;gap:6px;
+  background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 14px 5px 6px;box-shadow:0 6px 18px rgba(10,20,40,.08);opacity:1}
+.vs-hint svg{width:44px;height:30px;padding:0;background:none;box-shadow:none;animation:vsNudge 2.4s ease-in-out infinite}
+.vs-hint span{background:none;border:0;box-shadow:none;padding:0;font-size:12.5px}
+.vs-track.hinted .vs-hint{opacity:0}
+@keyframes vsNudge{0%,100%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){.vs-hint svg{animation:none}}
 
 @media (prefers-reduced-motion:reduce){#s1{height:auto !important}#s1 .sticky{position:relative;height:auto;min-height:100svh;overflow:visible}#s1 .hero{position:relative;top:auto;bottom:auto;padding-top:calc(var(--head) + 24px);display:grid;grid-template-columns:minmax(0,1fr);align-items:start}#s1 .stage{height:auto;justify-content:flex-start}#s1 .portrait{height:auto;width:min(340px,70vw);margin:0}#s1 .copy{transform:none !important}.ghost-hi{display:none}@media (min-width:861px){#s1 .hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}#s1 .portrait{width:100%;max-width:440px}}.about-text{position:static;opacity:1 !important;margin-top:28px}.ghost-about,.fdot{display:none}   #about{height:auto !important}   #about .sticky{position:relative;height:auto;overflow:visible;padding:56px 0 40px}   #about .path-head{position:static;margin-bottom:32px}   #about .path-prog{display:none}   #about .track{position:relative;height:auto;transform:none !important;padding:0 var(--gutter) 0 calc(var(--gutter) + 36px)}   #about .line{left:calc(var(--gutter) + 8px);top:8px;bottom:40px;width:2px;height:auto;margin:0}   #about .fill{transform-origin:50% 0;transform:scaleY(0)}   #about .stop{position:relative;left:auto;top:auto;width:auto;height:auto;padding-bottom:34px}   #about .node{left:-36px;top:4px}   #about .stop.now .node{left:-39px;top:1px}   #about .arm{display:none}   #about .stop .card{position:static;width:auto;bottom:auto;top:auto}   #about .lg{margin-bottom:8px}#kick,#rule,#introP,.copy .fade{opacity:1 !important;visibility:visible !important}#portrait,.ghost-hi{transform:none !important}.ghost-hi{display:none}}
 </style>
@@ -2112,7 +2206,7 @@ dialog.pk-sheet::before{content:"";display:block;width:40px;height:4px;border-ra
     <div class="wrap">
       <div class="head wide reveal"><span class="label">Teaching evidence</span><h2>What students say<span>.</span></h2><p>How students rated my teaching in every term I’ve taught at MNU, against the Business School average. The good terms and the hard one.</p></div>
       <div class="eq panel reveal" id="evq"><div class="eq-hero"><p class="eq-big"><b>4.4</b> <span>out of 5</span><i class="eq-dot" aria-hidden="true"></i></p><p class="eq-cap">Students’ rating of my teaching, Term 1 2026. Business School average: 4.2.</p></div><div class="eq-key" aria-hidden="true"><span><i class="k-me"></i>Me</span><span><i class="k-sc"></i>Business School average</span><span class="eq-axis">Scale 0 to 5</span></div><ol class="eq-terms" aria-hidden="true"><li class="eq-term"><div class="eq-tl"><b>Term 2 2024</b><small>Modules not named in the report</small></div><div class="eq-bars"><div class="eq-bar me"><span class="eq-who">Me</span><span class="eq-track"><i style="width:94.00%"></i></span><b>4.7</b></div><div class="eq-bar sc"><span class="eq-who">School</span><span class="eq-track"><i style="width:84.00%"></i></span><b>4.2</b></div></div><span class="eq-tag up"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2 11 9H1z"/></svg>Above school average</span></li><li class="eq-term"><div class="eq-tl"><b>Term 1 2025</b><small>BUS301 · MKT213 · MKT215 · MKT217</small></div><div class="eq-bars"><div class="eq-bar me"><span class="eq-who">Me</span><span class="eq-track"><i style="width:84.00%"></i></span><b>4.2</b></div><div class="eq-bar sc"><span class="eq-who">School</span><span class="eq-track"><i style="width:84.00%"></i></span><b>4.2</b></div></div><span class="eq-tag eq"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 4h10v1.6H1zM1 7h10v1.6H1z"/></svg>Level with school average</span></li><li class="eq-term"><div class="eq-tl"><b>Term 2 2025</b><small>BUS107 · BUS301 · MKT217 · MKT301</small></div><div class="eq-bars"><div class="eq-bar me"><span class="eq-who">Me</span><span class="eq-track"><i style="width:82.00%"></i></span><b>4.1</b></div><div class="eq-bar sc"><span class="eq-who">School</span><span class="eq-track"><i style="width:84.00%"></i></span><b>4.2</b></div></div><span class="eq-tag down"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10 1 3h10z"/></svg>Below school average</span><p class="eq-note">My heaviest term: four modules, two of them new to me, and 18 contact hours a week.</p></li><li class="eq-term"><div class="eq-tl"><b>Term 1 2026</b><small>MKT101 · MKT301 · MKT303 · MKT309</small></div><div class="eq-bars"><div class="eq-bar me"><span class="eq-who">Me</span><span class="eq-track"><i style="width:88.00%"></i></span><b>4.4</b></div><div class="eq-bar sc"><span class="eq-who">School</span><span class="eq-track"><i style="width:84.00%"></i></span><b>4.2</b></div></div><span class="eq-tag up"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2 11 9H1z"/></svg>Above school average</span></li><li class="eq-ax"><span></span><span class="eq-ticks"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i></span><span></span></li></ol><div aria-hidden="true"><div class="eq-areas"><h3>Above the school average in all six areas, Term 1 2026<span>.</span></h3><ul><li><span class="eq-an">Planning and preparation</span><div class="eq-bars sm"><div class="eq-bar me"><span class="eq-who">Me</span><span class="eq-track"><i style="width:86.00%"></i></span><b>4.3</b></div><div class="eq-bar sc"><span class="eq-who">School</span><span class="eq-track"><i style="width:84.00%"></i></span><b>4.2</b></div></div></li><li><span class="eq-an">Teaching and learning</span><div class="eq-bars sm"><div class="eq-bar me"><span class="eq-who">Me</span><span class="eq-track"><i style="width:88.00%"></i></span><b>4.4</b></div><div class="eq-bar sc"><span class="eq-who">School</span><span class="eq-track"><i style="width:84.00%"></i></span><b>4.2</b></div></div></li><li><span class="eq-an">Interaction and responsiveness</span><div class="eq-bars sm"><div class="eq-bar me"><span class="eq-who">Me</span><span class="eq-track"><i style="width:88.00%"></i></span><b>4.4</b></div><div class="eq-bar sc"><span class="eq-who">School</span><span class="eq-track"><i style="width:84.00%"></i></span><b>4.2</b></div></div></li><li><span class="eq-an">Content</span><div class="eq-bars sm"><div class="eq-bar me"><span class="eq-who">Me</span><span class="eq-track"><i style="width:88.00%"></i></span><b>4.4</b></div><div class="eq-bar sc"><span class="eq-who">School</span><span class="eq-track"><i style="width:84.00%"></i></span><b>4.2</b></div></div></li><li><span class="eq-an">Assessment</span><div class="eq-bars sm"><div class="eq-bar me"><span class="eq-who">Me</span><span class="eq-track"><i style="width:90.00%"></i></span><b>4.5</b></div><div class="eq-bar sc"><span class="eq-who">School</span><span class="eq-track"><i style="width:84.00%"></i></span><b>4.2</b></div></div></li><li><span class="eq-an">Resources</span><div class="eq-bars sm"><div class="eq-bar me"><span class="eq-who">Me</span><span class="eq-track"><i style="width:88.00%"></i></span><b>4.4</b></div><div class="eq-bar sc"><span class="eq-who">School</span><span class="eq-track"><i style="width:84.00%"></i></span><b>4.2</b></div></div></li></ul></div></div><div class="sr-only"><table><caption>Students’ rating of my teaching out of 5, against the Business School average</caption><thead><tr><th scope="col">Term</th><th scope="col">Me</th><th scope="col">Business School</th><th scope="col">Comparison</th></tr></thead><tbody><tr><th scope="row">Term 2 2024</th><td>4.7</td><td>4.2</td><td>Above school average</td></tr><tr><th scope="row">Term 1 2025</th><td>4.2</td><td>4.2</td><td>Level with school average</td></tr><tr><th scope="row">Term 2 2025</th><td>4.1</td><td>4.2</td><td>Below school average</td></tr><tr><th scope="row">Term 1 2026</th><td>4.4</td><td>4.2</td><td>Above school average</td></tr></tbody></table><table><caption>Term 1 2026 by area, out of 5</caption><thead><tr><th scope="col">Area</th><th scope="col">Me</th><th scope="col">Business School</th></tr></thead><tbody><tr><th scope="row">Planning and preparation</th><td>4.3</td><td>4.2</td></tr><tr><th scope="row">Teaching and learning</th><td>4.4</td><td>4.2</td></tr><tr><th scope="row">Interaction and responsiveness</th><td>4.4</td><td>4.2</td></tr><tr><th scope="row">Content</th><td>4.4</td><td>4.2</td></tr><tr><th scope="row">Assessment</th><td>4.5</td><td>4.2</td></tr><tr><th scope="row">Resources</th><td>4.4</td><td>4.2</td></tr></tbody></table></div><p class="src">Source: MNU Subject and Teaching Evaluation lecturer reports, Term 2 2024 to Term 1 2026. Section B, “Teaching and learning”.</p><p class="src eq-fn">Scores out of 5 are converted from MNU’s percentage scores (score ÷ 20).</p></div>
-      <div class="cmt-wrap" id="comments"><span class="label">In their own words · 2 former students</span><div class="cmts cmts-all"><figure class="cmt reveal" data-mods="BUS301"><span class="cmt-theme">AI, used well</span><blockquote>“While most encouraged us to avoid using it, you actually showed us how to use AI effectively and make it work to our advantage … it’s something I still apply in both my professional and everyday life.”</blockquote><figcaption><span>Bachelor of Business graduate, Business Entrepreneurship · BUS301 · 2026</span></figcaption><details class="cmt-more"><summary>Read the full comment</summary><div><p>One thing I remember most from your classes was how you introduced us to the practical side of entrepreneurship, especially protecting our business ideas and understanding intellectual property rights. I also really appreciated how differently you approached AI compared to many other lecturers. While most encouraged us to avoid using it, you actually showed us how to use AI effectively and make it work to our advantage. That was something I found particularly unique about your teaching, and it’s something I still apply in both my professional and everyday life. I’ve learned to use technology to explore ideas, find information and make things easier, while also using my own judgement and doing further research rather than relying on AI entirely.</p><p>Your classes also taught me a lot about business beyond what was written on the slides. I especially appreciated the real-world examples you incorporated into your lessons. They made even the more complicated concepts easier to understand and remember. I still remember how those examples would suddenly make a topic click, even when I wasn’t fully focused! They were particularly helpful when preparing for exams and even when explaining concepts to my friends.</p><p>If there’s one thing I would have loved to learn more about, it would be the practical steps involved in starting a business, such as business registration, financing and getting an idea off the ground. I think exploring these areas in a little more depth would be valuable for students who genuinely aspire to become entrepreneurs.</p></div></details></figure><figure class="cmt reveal" data-mods="MKT213 MKT215 MKT303"><span class="cmt-theme">Real ads, real tools</span><blockquote>“What I remember the most is when real advertisements were used in the classes to explain what Integrated Marketing Communication and Direct Marketing were. It helped us clarify the concepts and make the connections to relevant marketing applications.”</blockquote><figcaption><span>Bachelor of Marketing graduate · MKT213, MKT215, MKT303 · 2026</span></figcaption><details class="cmt-more"><summary>Read the full comment</summary><div><p>What I remember the most is when real advertisements were used in the classes to explain what Integrated Marketing Communication and Direct Marketing were. It helped us clarify the concepts and make the connections to relevant marketing applications. There were tools he showed to us in e-marketing that I got a really great introduction to how digital platforms and tools can be used by businesses in order to market their products and get their customers. Perhaps more scenario based questions during tutorial classes, but overall no complaints. The classes were a continuous process of learning under his guidance.</p></div></details></figure></div><p class="src">Unedited comments from former students, given when I asked for feedback for this portfolio and shared with their permission. Names withheld.</p><div class="panel reveal cmt-asks"><h3>What they’d like more of<span>.</span></h3><ul><li><span>More on the practical steps of starting a business: registration, financing and getting an idea off the ground.</span><small>BUS301</small></li><li><span>More scenario-based questions in tutorials.</span><small>MKT213, MKT215, MKT303</small></li></ul></div></div>
+      <div class="cmt-wrap" id="comments"><span class="label">In their own words · 5 former students</span><div class="cmt-filter" role="group" aria-label="Filter comments by module"><button type="button" aria-pressed="true" data-m="">All <small>5</small></button><button type="button" aria-pressed="false" data-m="BUS301">BUS301 <small>2</small></button><button type="button" aria-pressed="false" data-m="MKT213">MKT213 <small>1</small></button><button type="button" aria-pressed="false" data-m="MKT215">MKT215 <small>1</small></button><button type="button" aria-pressed="false" data-m="MKT303">MKT303 <small>2</small></button></div><div class="cmts cmts-all"><figure class="cmt reveal" data-mods=""><span class="cmt-theme">It speaks through his students</span><blockquote>“He genuinely acknowledges and appreciates students’ hard work … It’s safe to say that his best work speaks through his students and the skills they carry.”</blockquote><figcaption><span>Bachelor of Marketing graduate · 2026</span></figcaption><details class="cmt-more"><summary>Read the full comment</summary><div><p>Muiz’s classes were always interactive and engaging, making learning both enjoyable and productive. What stood out most was how knowledgeable and up to date he was with current events, industry trends and developments in marketing. He often incorporated interesting facts, relevant videos and real-world examples into his lessons, while using creative teaching methods and educational games to make learning and exam preparation more enjoyable.</p><p>One thing I particularly appreciate is how supportive and encouraging he is towards his students. He genuinely acknowledges and appreciates students’ hard work, celebrates their efforts and encourages us to explore different approaches to achieve better outcomes, which helped us achieve good marks in our subjects and apply unique skills to subjects taught by other lecturers as well. It’s safe to say that his best work speaks through his students and the skills they carry.</p></div></details></figure><figure class="cmt reveal" data-mods="BUS301"><span class="cmt-theme">AI, used well</span><blockquote>“While most encouraged us to avoid using it, you actually showed us how to use AI effectively and make it work to our advantage … it’s something I still apply in both my professional and everyday life.”</blockquote><figcaption><span>Bachelor of Business graduate, Business Entrepreneurship · BUS301 · 2026</span></figcaption><details class="cmt-more"><summary>Read the full comment</summary><div><p>One thing I remember most from your classes was how you introduced us to the practical side of entrepreneurship, especially protecting our business ideas and understanding intellectual property rights. I also really appreciated how differently you approached AI compared to many other lecturers. While most encouraged us to avoid using it, you actually showed us how to use AI effectively and make it work to our advantage. That was something I found particularly unique about your teaching, and it’s something I still apply in both my professional and everyday life. I’ve learned to use technology to explore ideas, find information and make things easier, while also using my own judgement and doing further research rather than relying on AI entirely.</p><p>Your classes also taught me a lot about business beyond what was written on the slides. I especially appreciated the real-world examples you incorporated into your lessons. They made even the more complicated concepts easier to understand and remember. I still remember how those examples would suddenly make a topic click, even when I wasn’t fully focused! They were particularly helpful when preparing for exams and even when explaining concepts to my friends.</p><p>If there’s one thing I would have loved to learn more about, it would be the practical steps involved in starting a business, such as business registration, financing and getting an idea off the ground. I think exploring these areas in a little more depth would be valuable for students who genuinely aspire to become entrepreneurs.</p></div></details></figure><figure class="cmt reveal" data-mods="MKT303"><span class="cmt-theme">A welcoming room</span><blockquote>“He creates a comfortable and welcoming environment where students feel at ease asking questions, and he’s always willing to help and gives attention to students who need extra support.”</blockquote><figcaption><span>Bachelor of Marketing graduate · MKT303 · 2026</span></figcaption><details class="cmt-more"><summary>Read the full comment</summary><div><p>Muiz was one of the lecturers whose classes I genuinely enjoyed. He creates a comfortable and welcoming environment where students feel at ease asking questions, and he’s always willing to help and gives attention to students who need extra support. I especially liked how he used real-life examples, such as actual advertisements in Electronic Marketing, to make concepts easier to understand and relate to, without making classes feel overwhelming with too much content. I think his relaxed approach is one of his strengths, although sometimes I feel students can take advantage of it, so maintaining a little more structure could make his classes even better.</p></div></details></figure><figure class="cmt reveal" data-mods="BUS301"><span class="cmt-theme">Today’s marketing, not yesterday’s</span><blockquote>“I noticed that you take effort to make sure to teach us contemporary marketing tips and tricks … like using AI and github and designing.”</blockquote><figcaption><span>Bachelor of Marketing graduate · BUS301 · 2026</span></figcaption><details class="cmt-more"><summary>Read the full comment</summary><div><p>The practical examples and scenarios that you gave on how marketing concepts can be applied.</p><p>It encouraged me on actually using what i learned from your class in the workplace and in my personal projects. Plus the fun facts and examples that you give throughout the lecture helps recall important concepts.</p><p>… I noticed that you take effort to make sure to teach us contemporary marketing tips and tricks 👍. Like using AI and github and designing and stuffs etc. I think you should do that more.. because its very interesting 🫢</p></div></details></figure><figure class="cmt reveal" data-mods="MKT213 MKT215 MKT303"><span class="cmt-theme">Real ads, real tools</span><blockquote>“What I remember the most is when real advertisements were used in the classes to explain what Integrated Marketing Communication and Direct Marketing were. It helped us clarify the concepts and make the connections to relevant marketing applications.”</blockquote><figcaption><span>Bachelor of Marketing graduate · MKT213, MKT215, MKT303 · 2026</span></figcaption><details class="cmt-more"><summary>Read the full comment</summary><div><p>What I remember the most is when real advertisements were used in the classes to explain what Integrated Marketing Communication and Direct Marketing were. It helped us clarify the concepts and make the connections to relevant marketing applications. There were tools he showed to us in e-marketing that I got a really great introduction to how digital platforms and tools can be used by businesses in order to market their products and get their customers. Perhaps more scenario based questions during tutorial classes, but overall no complaints. The classes were a continuous process of learning under his guidance.</p></div></details></figure></div><p class="src">Comments from former students, given when I asked for feedback for this portfolio and shared with their permission. Wording unchanged; names withheld.</p><div class="panel reveal cmt-asks"><h3>What they’d like more of<span>.</span></h3><ul><li><span>More on the practical steps of starting a business: registration, financing and getting an idea off the ground.</span><small>BUS301</small></li><li><span>A little more structure, so a relaxed class stays focused.</span><small>MKT303</small></li><li><span>More contemporary marketing in class: AI, GitHub and design.</span><small>BUS301</small></li><li><span>More scenario-based questions in tutorials.</span><small>MKT213, MKT215, MKT303</small></li></ul></div></div>
     </div>
   </section>
   <section class="block" id="outcomes">
@@ -2286,7 +2380,7 @@ hydrateIcons();
 (function(){
   var root=document.documentElement, btn=document.getElementById('theme'), sys=matchMedia('(prefers-color-scheme: dark)');
   var cur=function(){return root.dataset.theme||(sys.matches?'dark':'light')};
-  var paint=function(){var d=cur()==='dark';btn.innerHTML='<i>'+IC(d?'sun':'moon')+'</i>';btn.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode')};
+  var paint=function(){var d=cur()==='dark';TSW(btn,d);btn.setAttribute('aria-label',d?'Dark mode on, switch to light':'Dark mode off, switch to dark')};
   try{var s=localStorage.getItem('theme');if(s)root.dataset.theme=s}catch(e){}
   paint(); btn.addEventListener('click',function(){root.dataset.theme=cur()==='dark'?'light':'dark';try{localStorage.setItem('theme',root.dataset.theme)}catch(e){}paint()});
   sys.addEventListener('change',paint);
@@ -2443,6 +2537,69 @@ hydrateIcons();
     sheet.addEventListener('touchstart', function (e) { y0 = sheet.scrollTop <= 0 ? e.touches[0].clientY : null; }, { passive: true });
     sheet.addEventListener('touchend', function (e) { if (y0 !== null && e.changedTouches[0].clientY - y0 > 90) sheet.close(); y0 = null; }, { passive: true });
   }
+})();
+</script>
+<script>
+(function () {
+  var track = document.getElementById('vsTrack'); if (!track) return;
+  var rail = track.querySelector('.vs-rail'), cards = [].slice.call(rail.children), n = cards.length;
+  var prev = document.querySelector('.vs-prev'), next = document.querySelector('.vs-next'), count = document.querySelector('.vs-count');
+  var desk = matchMedia('(hover:hover) and (pointer:fine) and (min-width:761px)');
+  var a = 0, CW = 300, OW = 560, G = 16, lastX = null, moved = 0, dwell = 0, lockUntil = 0;
+  function hinted() { track.classList.add('hinted'); }
+  function centre() {
+    if (!desk.matches) return;
+    var W = track.clientWidth - 16;
+    rail.style.transform = 'translateX(' + (W / 2 - (a * (CW + G) + OW / 2)) + 'px)';
+  }
+  function setActive(k, scroll) {
+    k = Math.max(0, Math.min(n - 1, k));
+    if (k !== a) { var f = cards[a].querySelector('.vs-full'); if (f) f.scrollTop = 0; }
+    a = k;
+    cards.forEach(function (c, i) { c.classList.toggle('is-open', i === a); });
+    if (count) count.textContent = (a + 1) + ' / ' + n;
+    if (prev) { prev.disabled = a === 0; next.disabled = a === n - 1; }
+    if (desk.matches) { centre(); lockUntil = Date.now() + 550; }
+    else if (scroll) { var c = cards[a]; track.scrollTo({ left: c.offsetLeft - (track.clientWidth - c.offsetWidth) / 2, behavior: 'smooth' }); }
+  }
+  // desktop: the row follows the mouse; resting on a card behind brings it to the centre
+  track.addEventListener('mousemove', function (e) {
+    if (!desk.matches) return;
+    if (lastX !== null) moved += Math.abs(e.clientX - lastX);
+    lastX = e.clientX;
+    if (moved > 6) hinted();
+    var c = e.target.closest && e.target.closest('.vs-card');
+    clearTimeout(dwell);
+    if (!c || c.classList.contains('is-open') || moved < 24) return;
+    var k = cards.indexOf(c);
+    dwell = setTimeout(function () { if (Date.now() < lockUntil) return; moved = 0; setActive(k); }, 160);
+  });
+  track.addEventListener('mouseleave', function () { clearTimeout(dwell); lastX = null; moved = 0; });
+  cards.forEach(function (c, i) {
+    c.addEventListener('click', function () { hinted(); if (i !== a) setActive(i, true); });
+    c.addEventListener('focus', function () { if (c.matches(':focus-visible') && i !== a) setActive(i, true); });
+  });
+  track.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); setActive(a + 1, true); cards[a].focus(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); setActive(a - 1, true); cards[a].focus(); }
+  });
+  track.addEventListener('wheel', function (e) {
+    if (!desk.matches || Math.abs(e.deltaX) <= Math.abs(e.deltaY) || Math.abs(e.deltaX) < 12) return;
+    e.preventDefault(); if (Date.now() < lockUntil) return; hinted(); setActive(a + (e.deltaX > 0 ? 1 : -1));
+  }, { passive: false });
+  if (prev) { prev.addEventListener('click', function () { hinted(); setActive(a - 1, true); }); next.addEventListener('click', function () { hinted(); setActive(a + 1, true); }); }
+  // phones: swipe; the card nearest the centre is the open one
+  var st = 0;
+  track.addEventListener('scroll', function () {
+    if (desk.matches) return; hinted();
+    clearTimeout(st); st = setTimeout(function () {
+      var mid = track.scrollLeft + track.clientWidth / 2, best = 0, bd = 1e9;
+      cards.forEach(function (c, i) { var d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < bd) { bd = d; best = i; } });
+      if (best !== a) setActive(best, false);
+    }, 90);
+  }, { passive: true });
+  addEventListener('resize', function () { if (desk.matches) centre(); else rail.style.transform = ''; });
+  setActive(0, false);
 })();
 </script>
 <script>
